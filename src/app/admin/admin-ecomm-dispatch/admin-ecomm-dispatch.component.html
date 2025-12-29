@@ -1,0 +1,28 @@
+<div class="ecomm">
+  <div class="dashboard-header">
+    {{ "ECOM_DISPATCH.ECOM_DISPATCH" | translate }}
+  </div>
+  <div class="button-panel">
+    <button
+      (click)="goToLink(permissions.add_url)"
+      class="btn btn-success m-2"
+      *ngIf="permissions.add && permissions.add_url"
+    >
+      Add Dispatch
+    </button>
+  </div>
+
+  <div style="padding: 20px">
+    <app-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+      [permissions]="permissions"
+      [filterOptions]="filterOptions"
+      [isReadUnRead]="false"
+      [isApiAvailable]="false"
+    >
+    </app-table-data>
+  </div>
+</div>

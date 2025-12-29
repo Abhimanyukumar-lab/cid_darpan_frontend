@@ -1,0 +1,62 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "NEWSEVENTS.NEWSEVENTS_TITLE" | translate
+    }}</span>
+</div>
+
+<div class="container">
+  <div class="row px-2 py-2 my-2 border-bottom" *ngFor="let news of news_event">
+    <div class="col-sm-12 col-md-4">
+      <app-image-viewer [imageURL]="news.link" [imgWidth]="'100%'" [imgHeight]="'300px'"></app-image-viewer>
+    </div>
+    <div class="col-sm-12 col-md-8">
+      <div class="col-12 title">
+        {{ news.title }}
+      </div>
+      <div class="col-12 posted">
+        Posted On: {{ news.date | date: "dd/MM/yyyy" }}
+      </div>
+      <div class="col-12 description" [ngClass]="{ showLess: !news.readMore }">
+        {{ news.description }}
+      </div>
+    </div>
+    <div class="col-12 text-end py-3">
+      <!-- <button
+        *ngIf="news.readMore"
+        (click)="readLess(news)"
+        class="submit-btn btn-custome"
+      >
+        <!-- class="btn btn-light " --
+
+        Read Less
+      </button>
+      <button
+        *ngIf="!news.readMore"
+        (click)="readMore(news)"
+        class="submit-btn btn-custome"
+      >
+        <!-- class="btn btn-light" --
+        Read More
+      </button> -->
+
+      <button (click)="goToDetails(news)" class="submit-btn btn-custome">
+        Read More
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="news_event && news_event.length == 0">
+  <div style="
+      width: 100%;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      background-color: white;
+      color: red;
+    ">
+    {{ "COMMON.NO_DATA" | translate }}
+  </div>
+</div>

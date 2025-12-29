@@ -1,0 +1,52 @@
+<div class="rti">
+  <div class="dashboard-header">{{ "PROCECUTION.PROC_TITLE" | translate }}</div>
+</div>
+
+<div class="button-panel">
+  <a
+    routerLink="{{ permissions.add_url }}"
+    class="btn btn-success m-2"
+    *ngIf="permissions.add && permissions.add_url"
+    >Add Procecution</a
+  >
+
+  <a
+    class="btn btn-outline-primary m-2"
+    routerLink="/official/procecution/warrent"
+    >Warrant</a
+  >
+
+  <a
+    class="btn btn-outline-primary m-2"
+    routerLink="/official/procecution/proclaim"
+    >Itihar</a
+  >
+
+  <a
+    class="btn btn-outline-primary m-2"
+    routerLink="/official/procecution/attachment"
+    >Kurki</a
+  >
+</div>
+<hr class="interactive">
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6 text-center">
+      <button type="button" class="btn btn-primary" style="background-color: #007bff; border-color: #007bff;">Summon</button>
+    </div>
+  </div>
+</div>
+
+<div style="padding: 20px">
+  <app-table-data
+    [rows]="rows"
+    [page]="page"
+    [columns]="columns"
+    [path]="path"
+    [permissions]="permissions"
+    [filterOptions]="filterOptions"
+    [isApiAvailable]="false"
+  >
+  </app-table-data>
+</div>

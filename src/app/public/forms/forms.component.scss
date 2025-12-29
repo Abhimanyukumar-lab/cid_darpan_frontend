@@ -1,0 +1,23 @@
+.table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-left: 120px;
+}
+
+@media screen and (min-width: 1440px) {
+}
+
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 425px) {
+  .table {
+    margin: auto !important;
+  }
+}

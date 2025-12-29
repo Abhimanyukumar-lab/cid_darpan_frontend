@@ -1,0 +1,170 @@
+<div class="template-edit">
+  <div class="dashboard-header">SMS Module</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="template-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="smsModuleForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="smsModuleForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="moduleName" class="col-3 col-form-label"
+            >Module Name</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="moduleName"
+              name="moduleName"
+              placeholder="Enter Module Name"
+              formControlName="moduleName"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('moduleName')
+              }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('moduleName', 'required')"
+            class="invalid"
+          >
+            <strong>Module Name is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="smsServiceProviderName" class="col-3 col-form-label"
+            >SMS Service Provider</label
+          >
+          <div class="col-8">
+            <select
+              name="smsServiceProviderName"
+              id="smsServiceProviderName"
+              formControlName="smsServiceProviderId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('smsServiceProviderId')
+              }"
+              required
+            >
+              <option [ngValue]="null" disabled>
+                Select SMS Service Provider
+              </option>
+              <option
+                *ngFor="let provider of smsProvidersList"
+                [ngValue]="provider.id"
+              >
+                {{ provider.serviceProviderName }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('smsServiceProviderId', 'required')"
+          class="invalid"
+        >
+          <strong>SMS Service Provider is required</strong>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="smsTemplateName" class="col-3 col-form-label"
+            >SMS Template</label
+          >
+          <div class="col-8">
+            <select
+              name="smsTemplateName"
+              id="smsTemplateName"
+              formControlName="smsTemplateId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('smsTemplateId') }"
+              required
+            >
+              <option [ngValue]="null" disabled>Select SMS Template</option>
+              <option
+                *ngFor="let template of smsTemplateList"
+                [ngValue]="template.id"
+              >
+                {{ template.templateName }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('smsTemplateId', 'required')"
+          class="invalid"
+        >
+          <strong>SMS Template is required</strong>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="module_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SMS_MOD && ADD_URL && !SMS_MOD_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="module_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SMS_MOD && EDIT_URL && SMS_MOD_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

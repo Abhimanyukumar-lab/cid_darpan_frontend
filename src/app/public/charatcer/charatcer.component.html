@@ -1,0 +1,1752 @@
+<div class="col-sn-12 header-title">
+  <span class="header-txt glob-span">{{
+    "CHARACTER.CHARACTER_TITLE" | translate
+  }}</span>
+</div>
+<div class="character">
+  <div class="char-form">
+    <div class="col-sm-12 status-btn float-left" *ngIf="isDistCharacterDownCheck">
+      <button
+        class="submit-btn btn-custome"
+        (click)="openModal('characterCheckStatusModal')"
+      >
+        {{ "CHARACTER.CHAR_STATUS" | translate }}
+      </button>
+      <a
+        routerLink="/characterDownload"
+        class="submit-btn btn-custome"
+        style="text-decoration: none; text-align: center"
+      >
+        {{ "CHARACTER.CHAR_DOWN_CERTI" | translate }}
+      </a>
+    </div>
+
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+      *ngIf="isCompleted"
+    >
+      <h6 *ngIf="currrentLang == 'en'">{{ CHARACTER_MSG_EN }}</h6>
+      <h6 *ngIf="currrentLang == 'hi'">{{ CHARACTER_MSG_HI }}</h6>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        (click)="isCompleted = false"
+      ></button>
+    </div>
+
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+      *ngIf="isError"
+    >
+      <h6 *ngIf="currrentLang == 'en'">{{ CHARACTER_ERROR_MSG_EN }}</h6>
+      <h6 *ngIf="currrentLang == 'hi'">{{ CHARACTER_ERROR_MSG_HI }}</h6>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        (click)="isError = false"
+      ></button>
+    </div>
+
+    <div
+      *ngIf="isDistCharacterDownCheck"
+      class="divide-line"
+      style="margin-bottom: 20px; margin-top: 10px"
+    ></div>
+
+    <div
+      *ngIf="!isDistCharacterDown"
+      style="
+        margin-bottom: 20px;
+        margin-top: 10p;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      "
+    >
+      {{ "CHARACTER.TO_LINK" | translate }}<br />
+      <a href="https://serviceonline.bihar.gov.in/" target="_blank">
+        https://serviceonline.bihar.gov.in/</a
+      >
+    </div>
+
+    <form
+      *ngIf="isDistCharacterDown"
+      class="form needs-validation text-center"
+      novalidate
+      [formGroup]="charForm"
+      autocomplete="off"
+      novalidate="novalidate"
+      (submit)="validateForm()"
+    >
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12 sub-header-title" style="margin: 0">
+            <span class="glob-span header-txt">{{
+              "CHARACTER.CHAR_APP_SUB_TITLE" | translate
+            }}</span>
+          </div>
+          <div
+            style="
+              margin-left: auto;
+              color: red;
+              font-size: 16px;
+              font-weight: bold;
+            "
+          >
+            Note: All Fields are compulsory.
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span"
+              >{{ "APPOINTMENT.POLICE_STATION" | translate }}
+            </span>
+            <select
+              name="stationName"
+              id="stationName"
+              placeholder="Select Police Station"
+              formControlName="stationId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('stationId') }"
+              (change)="onStationSelected()"
+              required
+            >
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_POLICE_STATION" | translate }}
+              </option>
+              <option
+                *ngFor="let station of stationList"
+                value="{{ station.id }}"
+              >
+                <span *ngIf="currrentLang == 'en'">{{
+                  station.stationName
+                }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  station.stationNameHi
+                }}</span>
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('stationId', 'required')"
+              class="invalid"
+            >
+              <strong>Select Police Station</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CHARACTER.GENDER" | translate }}</span
+            ><select
+              class="form-select"
+              formControlName="gender"
+              (change)="doCkeckGender($event.target)"
+              [ngClass]="{ invalidInput: isControlHasErrors('gender') }"
+              required
+            >
+              <option value="null">
+                {{ "CHARACTER.SELECT_GENDER" | translate }}
+              </option>
+              <option value="Male">{{ "CHARACTER.MALE" | translate }}</option>
+              <option value="Female">
+                {{ "CHARACTER.FEMALE" | translate }}
+              </option>
+              <option value="Transgender">
+                {{ "CHARACTER.TRANSGENDER" | translate }}
+              </option>
+              <!-- <option *ngFor="let option of genderList" value="{{ option.optionNameEn }}">{{
+                                option.optionNameEn }}</option> -->
+            </select>
+            <div
+              *ngIf="isControlHasError('gender', 'required')"
+              class="invalid"
+            >
+              <strong>Select Gender</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.SELECT_TITLE_TYPE" | translate
+            }}</span
+            ><select
+              class="form-select"
+              (change)="doCkeckTitle($event.target)"
+              formControlName="initialsName"
+              [ngClass]="{ invalidInput: isControlHasErrors('initialsName') }"
+              required
+            >
+              <option value="null">
+                {{ "CHARACTER.SELECT_TITLE" | translate }}
+              </option>
+              <option *ngIf="isMale && currrentLang == 'hi'" value="श्री">
+                {{ "CHARACTER.MR" | translate }}
+              </option>
+              <option *ngIf="isMale && currrentLang == 'en'" value="Mr">
+                {{ "CHARACTER.MR" | translate }}
+              </option>
+              <option *ngIf="isFemale && currrentLang == 'hi'" value="सुश्री">
+                {{ "CHARACTER.MISS" | translate }}
+              </option>
+              <option *ngIf="isFemale && currrentLang == 'en'" value="Miss">
+                {{ "CHARACTER.MISS" | translate }}
+              </option>
+              <option *ngIf="isFemale && currrentLang == 'hi'" value="श्रीमती">
+                {{ "CHARACTER.MRS" | translate }}
+              </option>
+              <option *ngIf="isFemale && currrentLang == 'en'" value="Mrs">
+                {{ "CHARACTER.MRS" | translate }}
+              </option>
+              <option *ngIf="isTransgender" value="Mx">
+                {{ "CHARACTER.MX" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('initialsName', 'required')"
+              class="invalid"
+            >
+              <strong>Select Title</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "APPOINTMENT.NAME" | translate }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{
+                'APPOINTMENT.SELECT_APPLICANT_NAME' | translate
+              }}"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              formControlName="name"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }"
+              (change)="focusOut($event, 'name')"
+              (focusout)="focusOut($event, 'name')"
+              required
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{
+                'APPOINTMENT.SELECT_APPLICANT_NAME' | translate
+              }}"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              formControlName="name"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }"
+              (change)="focusOut($event, 'name')"
+              (focusout)="focusOut($event, 'name')"
+              required
+            />
+            <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+              <strong>Enter Your Name</strong>
+            </div>
+            <div *ngIf="isControlHasError('name', 'minlength')" class="invalid">
+              <strong>Minimum 3 Character Required</strong>
+            </div>
+            <div *ngIf="isControlHasError('name', 'maxlength')" class="invalid">
+              <strong>Maxumum 100 Character Required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.SELECT_RELATION_TYPE" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="relationName"
+              (change)="doCkeckRelation($event.target)"
+              [ngClass]="{ invalidInput: isControlHasErrors('relationName') }"
+              required
+            >
+              <option value="null">
+                {{ "CHARACTER.SELECT_RELATION" | translate }}
+              </option>
+              <option
+                *ngIf="isMale || isTransgender"
+                value="{{ 'CHARACTER.SO' | translate }}"
+              >
+                {{ "CHARACTER.SO" | translate }}
+              </option>
+              <option
+                *ngIf="isFemale || isTransgender || isMiss"
+                value="{{ 'CHARACTER.DO' | translate }}"
+              >
+                {{ "CHARACTER.DO" | translate }}
+              </option>
+              <option
+                *ngIf="(isFemale || isTransgender) && !isMiss"
+                value="{{ 'CHARACTER.WO' | translate }}"
+              >
+                {{ "CHARACTER.WO" | translate }}
+              </option>
+              <option
+                *ngIf="isMale || isFemale || isTransgender || isMiss"
+                value="{{ 'CHARACTER.MOTHER' | translate }}"
+              >
+                {{ "CHARACTER.MOTHER" | translate }}
+              </option>
+              <option value="{{ 'CHARACTER.GUARDIAN' | translate }}">
+                {{ "CHARACTER.GUARDIAN" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('relationName', 'required')"
+              class="invalid"
+            >
+              <strong>Select Your Relation</strong>
+            </div>
+          </div>
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isDefault ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              placeholder="{{
+                'CHARACTER.SELECT_FATHER_MOTHER_GUARDIAN_NAME' | translate
+              }}"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              placeholder="{{
+                'CHARACTER.SELECT_FATHER_MOTHER_GUARDIAN_NAME' | translate
+              }}"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+          </div>
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isFather ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CHARACTER.FATHER_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_FATHER_NAME' | translate }}"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_FATHER_NAME' | translate }}"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+          </div>
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isHusband ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CHARACTER.HUSBAND_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_HUSBAND_NAME' | translate }}"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_HUSBAND_NAME' | translate }}"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+          </div>
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isMother ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CHARACTER.MOTHER_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_MOTHER_NAME' | translate }}"
+              class="form-control hindi hindiFont thisone"
+              (keypress)="validAplpha($event)"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_MOTHER_NAME' | translate }}"
+              class="form-control thisone"
+              (keypress)="validAplpha($event)"
+              formControlName="fatherHusbandName"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+          </div>
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isGuardian ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CHARACTER.RELATITION_WITH_GUARDIAN" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              placeholder="{{
+                'CHARACTER.SEL_RELATITION_WITH_GUARDIAN' | translate
+              }}"
+              formControlName="guardianRelation"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('guardianRelation')
+              }"
+              (change)="focusOut($event, 'guardianRelation')"
+              (focusout)="focusOut($event, 'guardianRelation')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              placeholder="{{
+                'CHARACTER.SEL_RELATITION_WITH_GUARDIAN' | translate
+              }}"
+              formControlName="guardianRelation"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('guardianRelation')
+              }"
+              (change)="focusOut($event, 'guardianRelation')"
+              (focusout)="focusOut($event, 'guardianRelation')"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isGuardian ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CHARACTER.GUARDIAN_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_GUARDIAN_NAME' | translate }}"
+              class="form-control hindi hindiFont"
+              formControlName="fatherHusbandName"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_GUARDIAN_NAME' | translate }}"
+              class="form-control"
+              formControlName="fatherHusbandName"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherHusbandName')
+              }"
+              (change)="focusOut($event, 'fatherHusbandName')"
+              (focusout)="focusOut($event, 'fatherHusbandName')"
+            />
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CONTACT.MOBILE_NO" | translate }}</span
+            ><input
+              type="text"
+              placeholder="{{ 'CONTACT.SEL_MOBILE_NO' | translate }}"
+              class="form-control"
+              (keypress)="numberOnly($event)"
+              formControlName="mobileno"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileno') }"
+              maxlength="10"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('mobileno', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Mobile Number</strong>
+            </div>
+            <div
+              *ngIf="isControlHasError('mobileno', 'minlength')"
+              class="invalid"
+            >
+              <strong>Minimum 10 Character Required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "APPOINTMENT.DISTRICT" | translate
+            }}</span>
+            <select
+              name="districtName"
+              id="districtName"
+              formControlName="districtId"
+              autocomplete="off"
+              class="form-select"
+              (change)="onDistrictSelected()"
+              [ngClass]="{ invalidInput: isControlHasErrors('districtId') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_DISTRICT" | translate }}
+              </option>
+              <option
+                *ngFor="let district of districtList"
+                value="{{ district.id }}"
+              >
+                <span *ngIf="currrentLang == 'en'">{{
+                  district.districtName
+                }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  district.districtNameHi
+                }}</span>
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('districtId', 'required')"
+              class="invalid"
+            >
+              <strong>Select District</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CHARACTER.VILLAGE" | translate }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_VILLAGE' | translate }}"
+              class="form-control hindi hindiFont"
+              formControlName="villageLocality"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('villageLocality')
+              }"
+              (change)="focusOut($event, 'villageLocality')"
+              (focusout)="focusOut($event, 'villageLocality')"
+              required
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_VILLAGE' | translate }}"
+              class="form-control"
+              formControlName="villageLocality"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('villageLocality')
+              }"
+              (change)="focusOut($event, 'villageLocality')"
+              (focusout)="focusOut($event, 'villageLocality')"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('villageLocality', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Village Name</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.POST_OFFICE" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_POST_OFFICE' | translate }}"
+              class="form-control hindi hindiFont"
+              formControlName="postOffice"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('postOffice')
+              }"
+              (change)="focusOut($event, 'postOffice')"
+              (focusout)="focusOut($event, 'postOffice')"
+              required
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_POST_OFFICE' | translate }}"
+              class="form-control"
+              formControlName="postOffice"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('postOffice')
+              }"
+              (change)="focusOut($event, 'postOffice')"
+              (focusout)="focusOut($event, 'postOffice')"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('postOffice', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Post Office</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.PANCHAYAT" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_PANCHAYAT' | translate }}"
+              class="form-control hindi hindiFont"
+              formControlName="panchayat"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('panchayat')
+              }"
+              (change)="focusOut($event, 'panchayat')"
+              (focusout)="focusOut($event, 'panchayat')"
+              required
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_PANCHAYAT' | translate }}"
+              class="form-control"
+              formControlName="panchayat"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('panchayat')
+              }"
+              (change)="focusOut($event, 'panchayat')"
+              (focusout)="focusOut($event, 'panchayat')"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('panchayat', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Panchayat Name</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.WARD_NUMBER" | translate
+            }}</span
+            ><input
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_WARD_NUMBER' | translate }}"
+              class="form-control"
+              formControlName="wardNumber"
+              [ngClass]="{ invalidInput: isControlHasErrors('wardNumber') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('wardNumber', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Ward Number</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "PASSPORT.DATE_OF_BIRTH" | translate
+            }}</span
+            ><input
+              type="date"
+              class="form-control"
+              formControlName="dob"
+              (keypress)="validAplpha($event)"
+              max="{{ dob | date: 'yyyy-MM-dd' }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('dob') }"
+              required
+            />
+            <div *ngIf="isControlHasError('dob', 'required')" class="invalid">
+              <strong>Enter Date of Birth</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.DURATION_STAY" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="durationStay"
+              (change)="doCkeckDurationType($event.target)"
+              [ngClass]="{ invalidInput: isControlHasErrors('durationStay') }"
+              required
+            >
+              <option value="null">
+                {{ "CHARACTER.SELECT_DURATION_STAY" | translate }}
+              </option>
+              <option value="{{ 'CHARACTER.MONTHS' | translate }}">
+                {{ "CHARACTER.MONTHS" | translate }}
+              </option>
+              <option value="{{ 'CHARACTER.YEARS' | translate }}">
+                {{ "CHARACTER.YEARS" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('durationStay', 'required')"
+              class="invalid"
+            >
+              <strong>Select Duration of Stay</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isMonth">
+            <span class="glob-span">{{ "CHARACTER.DURATION" | translate }}</span
+            ><input
+              class="form-control"
+              type="number"
+              placeholder="{{ 'CHARACTER.DURATION_PLACEHOLDER' | translate }}"
+              formControlName="durationIn"
+              maxlength="11"
+              max="11"
+              min="1"
+              (change)="checkMonthDurationType()"
+              [ngClass]="{ invalidInput: isControlHasErrors('durationIn') }"
+            />
+            <div
+              *ngIf="isMonth && isControlHasError('durationIn', 'required')"
+              class="invalid"
+            >
+              <strong>Please enter month</strong>
+            </div>
+            <div
+              *ngIf="isMonth && isControlHasError('durationIn', 'max')"
+              class="invalid"
+            >
+              <strong>Month should be less than 12</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isYear">
+            <span class="glob-span">{{ "CHARACTER.DURATION" | translate }}</span
+            ><input
+              class="form-control"
+              type="number"
+              placeholder="{{ 'CHARACTER.DURATION_PLACEHOLDER' | translate }}"
+              formControlName="durationIn"
+              (change)="checkYearDurationType()"
+              maxlength="100"
+              max="100"
+              min="1"
+              [ngClass]="{ invalidInput: isControlHasErrors('durationIn') }"
+            />
+            <div
+              *ngIf="isYear && isControlHasError('durationIn', 'required')"
+              class="invalid"
+            >
+              <strong>Please enter year</strong>
+            </div>
+            <div
+              *ngIf="isYear && isControlHasError('durationIn', 'max')"
+              class="invalid"
+            >
+              <strong>Year should be less than 101</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.MARITAL_STATUS" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="maritalStatus"
+              [ngClass]="{ invalidInput: isControlHasErrors('maritalStatus') }"
+              required
+            >
+              <option value="null">
+                {{ "CHARACTER.SELECT_MARITAL_STATUS" | translate }}
+              </option>
+              <option value="{{ 'CHARACTER.MARRIED' | translate }}">
+                {{ "CHARACTER.MARRIED" | translate }}
+              </option>
+              <option value="{{ 'CHARACTER.UNMARRIED' | translate }}">
+                {{ "CHARACTER.UNMARRIED" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('maritalStatus', 'required')"
+              class="invalid"
+            >
+              <strong>Select Marital Status</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CHARACTER.PIN_CODE" | translate }}</span
+            ><input
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_PIN_CODE' | translate }}"
+              class="form-control"
+              (keypress)="numberOnly($event)"
+              maxlength="6"
+              formControlName="pinCode"
+              [ngClass]="{ invalidInput: isControlHasErrors('pinCode') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('pinCode', 'required')"
+              class="invalid"
+            >
+              <strong>Enter pin Code</strong>
+            </div>
+            <div *ngIf="isControlHasError('pinCode', 'min')" class="invalid">
+              <strong>Enter 6 digit pin code</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.ADDHAR_NUMBER" | translate
+            }}</span
+            ><input
+              type="text"
+              placeholder="{{ 'CHARACTER.SEL_ADDHAR_NUMBER' | translate }}"
+              class="form-control"
+              formControlName="aadharNumber"
+              (keypress)="numberOnly($event)"
+              maxlength="12"
+              [ngClass]="{ invalidInput: isControlHasErrors('aadharNumber') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('aadharNumber', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Addhar Number</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span"
+              >{{ "CHARACTER.ADDHAR_IMAGE" | translate }}
+              <div style="color: red; font-size: 14px">
+                PDF(Max: Size 200KB)
+              </div> </span
+            ><input
+              type="file"
+              class="form-control"
+              formControlName="adharCardFile"
+              accept="application/pdf"
+              (change)="handleAdharCardImg($event.target.files)"
+              [ngClass]="{ invalidInput: isControlHasErrors('adharCardFile') }"
+              required
+            />
+            <!-- <div style="color: red; font-size: 14px">PDF file Only</div> -->
+            <div
+              *ngIf="isControlHasError('adharCardFile', 'required')"
+              class="invalid"
+            >
+              <strong>Select Addhar Image</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span"
+              >{{ "CHARACTER.SIGN_IMAGE" | translate }}
+              <div style="color: red; font-size: 14px">
+                JPG/ JPEG(Max: Size40KB)
+              </div></span
+            ><input
+              type="file"
+              class="form-control"
+              formControlName="signImage"
+              (change)="handleSignImg($event.target.files)"
+              accept="image/jpg,image/jpeg"
+              [ngClass]="{ invalidInput: isControlHasErrors('signImage') }"
+              required
+            />
+            <!-- <div style="color: red; font-size: 14px">JPG/ JPEG file Only</div> -->
+            <div
+              *ngIf="isControlHasError('signImage', 'required')"
+              class="invalid"
+            >
+              <strong>Select Signature Image</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span"
+              >{{ "CHARACTER.SELECT_USER_IMAGE" | translate }}
+              <div style="color: red; font-size: 14px">
+                JPG/ JPEG(Max: Size 200KB)
+              </div></span
+            ><input
+              type="file"
+              class="form-control"
+              formControlName="userImage"
+              (change)="handleUserImage($event.target.files)"
+              accept="image/jpg,image/jpeg"
+              [ngClass]="{ invalidInput: isControlHasErrors('userImage') }"
+              *ngIf="!getPicture"
+            />
+            <br *ngIf="!getPicture && !userImage" />
+            <label *ngIf="!getPicture && !userImage">OR</label>
+            <br *ngIf="!getPicture && !userImage" />
+
+            <div *ngIf="isCameraExist && !userImage">
+              <div style="text-align: center; width: 100% !important">
+                <webcam
+                  [trigger]="triggerObservable"
+                  (imageCapture)="handleImage($event)"
+                  *ngIf="showWebcam"
+                  [switchCamera]="nextWebcamObservable"
+                  [height]="350"
+                  [width]="350"
+                ></webcam>
+                <br />
+                <div class="btn-group">
+                  <button
+                    *ngIf="showWebcam"
+                    type="button"
+                    class="btn btn-primary mr-1"
+                    style="margin: 3px"
+                    (click)="takeSnapshot()"
+                  >
+                    Take Picture
+                  </button>
+                  <button
+                    *ngIf="getPicture"
+                    type="button"
+                    class="btn btn-primary mr-1"
+                    style="margin: 3px"
+                    (click)="onOffWebCame()"
+                  >
+                    Recapture
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="errors.length > 0">
+                <h4>Error Messages:</h4>
+                <ul *ngFor="let error of errors">
+                  <li>{{ error | json }}</li>
+                </ul>
+              </div>
+            </div>
+            <ng-template #noCameraExist>
+              Camera device not available
+            </ng-template>
+
+            <div style="width: 100%" *ngIf="getPicture">
+              <img [src]="getPicture.imageAsDataUrl" />
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CHARACTER.APPLICANT_TYPE" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="type"
+              (change)="doCkeckApplicantType($event.target)"
+              [ngClass]="{ invalidInput: isControlHasErrors('type') }"
+              required
+            >
+              <option value="null">
+                {{ "CHARACTER.SELECT_APPLICANT_TYPE" | translate }}
+              </option>
+              <option value="Job">{{ "CHARACTER.JOB" | translate }}</option>
+              <option value="Placement">
+                {{ "CHARACTER.PLACEMENT" | translate }}
+              </option>
+              <option value="Contractors">
+                {{ "CHARACTER.CONTRACTORS" | translate }}
+              </option>
+              <option value="Business Proposal">
+                {{ "CHARACTER.BUSINESS_PURPOSE" | translate }}
+              </option>
+              <option value="Bank CSP">
+                {{ "CHARACTER.BANK_CSP" | translate }}
+              </option>
+              <option value="Other Commercial Purpose Any Other">
+                {{ "CHARACTER.OTHER_COMMERTIAL_PURPOSE" | translate }}
+              </option>
+            </select>
+            <div *ngIf="isControlHasError('type', 'required')" class="invalid">
+              <strong>Select Applicant type</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isOtherPurpose">
+            <span class="glob-span">{{
+              "CHARACTER.COMMERCIAL" | translate
+            }}</span
+            ><textarea
+              *ngIf="currrentLang == 'hi'"
+              class="form-control hindi hindiFont"
+              placeholder="{{ 'CHARACTER.SEL_COMMERCIAL' | translate }}"
+              formControlName="comments"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('comments')
+              }"
+              (change)="focusOut($event, 'comments')"
+              (focusout)="focusOut($event, 'comments')"
+            ></textarea>
+            <textarea
+              *ngIf="currrentLang == 'en'"
+              class="form-control"
+              placeholder="{{ 'CHARACTER.SEL_COMMERCIAL' | translate }}"
+              formControlName="comments"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('comments')
+              }"
+              (change)="focusOut($event, 'comments')"
+              (focusout)="focusOut($event, 'comments')"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6" *ngIf="isForDocAddress">
+            <span class="glob-span">{{
+              "CHARACTER.SELECT_DOC_FOR_ADDRESS" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="addressProof"
+              [ngClass]="{ invalidInput: isControlHasErrors('addressProof') }"
+            >
+              <option value="null">
+                {{ "CHARACTER.DOC_FOR_ADDRESS" | translate }}
+              </option>
+              <option value="Electricity Bills">Electricity Bills</option>
+              <option value="Bank Statement (Passbook)">
+                Bank Statement (Passbook)
+              </option>
+              <option value="Adharcard">Adharcard</option>
+              <option value="Ration Card">Ration Card</option>
+              <option value="Letter form Local Mukhiya">
+                Letter form Local Mukhiya
+              </option>
+              <option value="Residential Certificate issued by Circle Officer">
+                Residential Certificate issued by Circle Officer
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-6" *ngIf="isDocAddress">
+            <span class="glob-span"
+              >{{ "CHARACTER.UPLOAD_ADDRESS" | translate }}
+              <div style="color: red; font-size: 14px">PDF (Max size200KB)</div>
+            </span>
+
+            <input
+              type="file"
+              (change)="handleDocAddressImg($event.target.files)"
+              class="form-control"
+              formControlName="addressProofImage"
+              accept="application/pdf"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('addressProofImage')
+              }"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6" *ngIf="isForDocIdentity">
+            <span class="glob-span">{{
+              "CHARACTER.SELECT_DOC_FOR_IDENTITY" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="identityProof"
+              [ngClass]="{ invalidInput: isControlHasErrors('identityProof') }"
+            >
+              <option value="null">
+                {{ "CHARACTER.DOC_FOR_IDENTITY" | translate }}
+              </option>
+              <option value="Student ID Card">Student ID Card</option>
+              <option value="Letter form Local Mukhiya">
+                Letter form Local Mukhiya
+              </option>
+              <option value="Letter form Ward Councillor">
+                Letter form Ward Councillor
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-6" *ngIf="isDocIdentity">
+            <span class="glob-span"
+              >{{ "CHARACTER.UPLOAD_IDENTITY" | translate }}
+              <div style="color: red; font-size: 14px">
+                PDF (Max size200KB)
+              </div> </span
+            ><input
+              type="file"
+              class="form-control"
+              formControlName="identityProofImage"
+              accept="application/pdf"
+              (change)="handleDocIdentityImg($event.target.files)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('identityProofImage')
+              }"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6" *ngIf="isForAadharDoc">
+            <span class="glob-span">{{
+              "CHARACTER.SELECT_DOC_FOR_ADDHAR" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="addressProofOther"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('addressProofOther')
+              }"
+            >
+              <option value="null">
+                {{ "CHARACTER.DOC_FOR_ADDHAR" | translate }}
+              </option>
+              <option value="Adharcard">Adharcard</option>
+            </select>
+          </div>
+          <div class="col-sm-6" *ngIf="isAadharDoc">
+            <span class="glob-span"
+              >{{ "CHARACTER.UPLOAD_ADDHAR" | translate }}
+              <div style="color: red; font-size: 14px">
+                PDF (Max size200KB)
+              </div></span
+            ><input
+              type="file"
+              (change)="handleAadharDocImg($event.target.files)"
+              class="form-control"
+              formControlName="addressProofOtherImage"
+              accept="application/pdf"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('addressProofOtherImage')
+              }"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6" *ngIf="isForDocIdentityOther">
+            <span class="glob-span">{{
+              "CHARACTER.SELECT_DOC_FOR_IDENTITY" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="identityProofOther"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('identityProofOther')
+              }"
+            >
+              <option value="null">
+                {{ "CHARACTER.DOC_FOR_IDENTITY" | translate }}
+              </option>
+              <option value="Pancard">Pancard</option>
+              <option value="Bank Statement">Bank Statement</option>
+              <option value="Passbook 1st Page">Passbook 1st Page</option>
+              <option value="Driving Licence">Driving Licence</option>
+            </select>
+          </div>
+          <div class="col-sm-6" *ngIf="isDocIdentityOther">
+            <span class="glob-span"
+              >{{ "CHARACTER.UPLOAD_IDENTITY" | translate }}
+              <div style="color: red; font-size: 14px">
+                PDF (Max size200KB)
+              </div></span
+            ><input
+              type="file"
+              (change)="handleDocIdentityOtherImg($event.target.files)"
+              class="form-control"
+              formControlName="identityProofOtherImage"
+              accept="application/pdf"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('identityProofOtherImage')
+              }"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6" *ngIf="isForDocAddressOther">
+            <span class="glob-span">{{
+              "CHARACTER.SELECT_DOC_FOR_ADDRESS" | translate
+            }}</span
+            ><select
+              class="form-select"
+              formControlName="otherProofOther"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('otherProofOther')
+              }"
+            >
+              <option value="null">
+                {{ "CHARACTER.DOC_FOR_ADDRESS" | translate }}
+              </option>
+              <option value="Voter ID">Voter ID</option>
+            </select>
+          </div>
+          <div class="col-sm-6" *ngIf="isDocAddressOther">
+            <span class="glob-span"
+              >{{ "CHARACTER.UPLOAD_ADDRESS" | translate }}
+              <div style="color: red; font-size: 14px">
+                PDF (Max size200KB)
+              </div></span
+            ><input
+              type="file"
+              (change)="handleDocAddressOtherImg($event.target.files)"
+              formControlName="otherProofOtherImage"
+              accept="application/pdf"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('otherProofOtherImage')
+              }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="divide-line"></div>
+      <div class="row">
+        <div class="col-sm-12 submit-bar">
+          <button type="submit" class="submit-btn btn-custome">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-modal
+  id="submitCharacterForm"
+  [className]="'md-modal high-box'"
+  [closeOnClick]="false"
+>
+  <div class="modal-header w-95">
+    <h4 class="modal-title">Preview</h4>
+  </div>
+  <div class="modal-body">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span col-4"
+            >{{ "APPOINTMENT.POLICE_STATION" | translate }}
+          </span>
+          <span class="glob-span col-8">{{ stationName }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "APPOINTMENT.NAME" | translate }}</span>
+          <span class="glob-span col-8"
+            >{{ this.charForm.value["initialsName"] }}
+            {{ this.charForm.value["name"] }}</span
+          >
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "CONTACT.MOBILE_NO" | translate }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["mobileno"]
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "APPOINTMENT.DISTRICT" | translate
+          }}</span>
+          <span class="glob-span col-8">{{ districtName }}</span>
+        </div>
+        <div class="col-sm-4" *ngIf="isDefault">
+          <span class="glob-span">{{
+            "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["fatherHusbandName"]
+          }}</span>
+        </div>
+        <div class="col-sm-4" *ngIf="isFather">
+          <span class="glob-span">{{
+            "CHARACTER.FATHER_NAME" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["fatherHusbandName"]
+          }}</span>
+        </div>
+        <div class="col-sm-4" *ngIf="isHusband">
+          <span class="glob-span">{{
+            "CHARACTER.HUSBAND_NAME" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["fatherHusbandName"]
+          }}</span>
+        </div>
+        <div class="col-sm-4" *ngIf="isMother">
+          <span class="glob-span">{{
+            "CHARACTER.MOTHER_NAME" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["fatherHusbandName"]
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "CHARACTER.VILLAGE" | translate }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["villageLocality"]
+          }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "CHARACTER.POST_OFFICE" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["postOffice"]
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "CHARACTER.PANCHAYAT" | translate }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["panchayat"]
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "CHARACTER.WARD_NUMBER" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["wardNumber"]
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "PASSPORT.DATE_OF_BIRTH" | translate
+          }}</span>
+          <span class="glob-span col-8">{{ this.charForm.value["dob"] }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "CHARACTER.DURATION" | translate }}</span>
+          <span class="glob-span col-8"
+            >{{ this.charForm.value["durationIn"] }}
+            {{ this.charForm.value["durationStay"] }}</span
+          >
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "CHARACTER.MARITAL_STATUS" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["maritalStatus"]
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "CHARACTER.PIN_CODE" | translate }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["pinCode"]
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "CHARACTER.ADDHAR_NUMBER" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["aadharNumber"]
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "CHARACTER.SIGN_IMAGE" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="signImagePreview"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "CHARACTER.SELECT_USER_IMAGE" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="userImagePreview || getPicture?.imageAsDataUrl"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "CHARACTER.ADDHAR_IMAGE" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="this.charForm.value['adharCardFile']"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6" *ngIf="isForDocAddress">
+          <span class="glob-span">{{
+            "CHARACTER.SELECT_DOC_FOR_ADDRESS" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["addressProof"]
+          }}</span>
+        </div>
+        <div class="col-sm-6" *ngIf="isDocAddress">
+          <span class="glob-span">{{
+            "CHARACTER.UPLOAD_ADDRESS" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="this.charForm.value['addressProofImage']"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" *ngIf="isForDocIdentity">
+          <span class="glob-span">{{
+            "CHARACTER.SELECT_DOC_FOR_IDENTITY" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["identityProof"]
+          }}</span>
+        </div>
+        <div class="col-sm-6" *ngIf="isDocIdentity">
+          <span class="glob-span">{{
+            "CHARACTER.UPLOAD_IDENTITY" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="this.charForm.value['identityProofImage']"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" *ngIf="isForAadharDoc">
+          <span class="glob-span">{{
+            "CHARACTER.SELECT_DOC_FOR_ADDHAR" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["addressProofOther"]
+          }}</span>
+        </div>
+        <div class="col-sm-6" *ngIf="isAadharDoc">
+          <span class="glob-span">{{
+            "CHARACTER.UPLOAD_ADDHAR" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="this.charForm.value['addressProofOtherImage']"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" *ngIf="isForDocIdentityOther">
+          <span class="glob-span">{{
+            "CHARACTER.SELECT_DOC_FOR_IDENTITY" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["identityProofOther"]
+          }}</span>
+        </div>
+        <div class="col-sm-6" *ngIf="isDocIdentityOther">
+          <span class="glob-span">{{
+            "CHARACTER.UPLOAD_IDENTITY" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="this.charForm.value['identityProofOtherImage']"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6" *ngIf="isForDocAddressOther">
+          <span class="glob-span">{{
+            "CHARACTER.SELECT_DOC_FOR_ADDRESS" | translate
+          }}</span>
+          <span class="glob-span col-8">{{
+            this.charForm.value["otherProofOther"]
+          }}</span>
+        </div>
+        <div class="col-sm-6" *ngIf="isDocAddressOther">
+          <span class="glob-span">{{
+            "CHARACTER.UPLOAD_ADDRESS" | translate
+          }}</span>
+          <app-image-viewer
+            [imageURL]="this.charForm.value['otherProofOtherImage']"
+            [imgWidth]="'150px'"
+            [imgHeight]="'150px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+      </div>
+      <div class="row" style="padding: 10px">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-1">
+              <input id="checkbox" type="checkbox" [(ngModel)]="isChecked" />
+            </div>
+            <div class="col-11">
+              <h6 *ngIf="currrentLang == 'en'">{{ CHECKBOX_MSG_EN }}</h6>
+              <h6 *ngIf="currrentLang == 'hi'">{{ CHECKBOX_MSG_HI }}</h6>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isCheckboxNotSelected" class="invalid">
+          <strong>Please Select Check Box</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="submit-btn btn-custome" (click)="submit()">
+      Submit
+    </button>
+    <button
+      type="button"
+      class="submit-btn btn-custome"
+      (click)="closeModal('submitCharacterForm')"
+    >
+      Close
+    </button>
+  </div>
+</app-modal>
+
+<app-modal id="characterUploadModel" class="sm-modal">
+  <div class="characterUploadModel">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <span>{{ currentMessage }}</span>
+  </div>
+</app-modal>
+
+<!-- Check Status Form -->
+
+<app-modal
+  id="characterCheckStatusModal"
+  [className]="'lg-modal'"
+  [closeOnClick]="false"
+>
+  <div class="checkStatusModal">
+    <div *ngIf="errorMsg">
+      <ngb-alert [type]="alertType" [dismissible]="false">
+        <span style="width: 100%">
+          {{ errorMsg }}
+        </span>
+      </ngb-alert>
+    </div>
+
+    <form [formGroup]="characterCheckStatusGroup">
+      <div class="container-fluid">
+        <div
+          class="row"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div class="col-sm-12 col-md-3 py-2">
+            <div class="form-group row">
+              <label
+                for="id"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >Enter Character ID :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="id"
+                  name="id"
+                  type="text"
+                  class="form-control"
+                  formControlName="id"
+                  placeholder="eg.0001/2021"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2">
+            <div class="form-group row">
+              <label
+                for="mobile"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >Enter Mobile No :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="mobile"
+                  name="mobile"
+                  type="text"
+                  class="form-control"
+                  formControlName="mobile"
+                  placeholder="eg.95xxxxxxxx"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2" *ngIf="isOtp">
+            <div class="form-group row">
+              <label
+                for="otp"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >Enter OTP :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="otp"
+                  name="otp"
+                  type="text"
+                  class="form-control"
+                  formControlName="otp"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-sm-12 col-md-3 py-2"
+            style="
+              display: flex;
+              justify-content: space-evenly;
+              align-items: center;
+            "
+          >
+            <button
+              class="submit-btn btn-custome"
+              (click)="isOtp ? submitOTPData() : submitData()"
+            >
+              Submit
+            </button>
+            <button
+              class="submit-btn btn-custome"
+              (click)="closeModal('characterCheckStatusModal')"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="showData">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td style="font-weight: bold">Character Id</td>
+            <td>{{ srNo }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Name</td>
+            <td>{{ name }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Applied Date</td>
+            <td>{{ appliedDate | date: "dd/MM/yyyy" }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Status</td>
+            <td>{{ dataStatus }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-modal>

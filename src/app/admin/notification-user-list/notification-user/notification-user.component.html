@@ -1,0 +1,26 @@
+<div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>Notification Users</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container-fluid">
+        <div class="row">
+          <app-table-data
+            [rows]="notificationUserRows"
+            [page]="notificationUserPage"
+            [columns]="notificationUserColumns"
+            [path]="notificationUserPath"
+            [permissions]="notificationUserPermissions"
+            [filterOptions]="filterOptions"
+            [isApiAvailable]="false"
+          >
+          </app-table-data>
+        </div>
+      </div>
+    </div>
+  </div>
+  

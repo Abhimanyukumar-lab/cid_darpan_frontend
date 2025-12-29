@@ -1,0 +1,44 @@
+.auth-sidebar-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 5%;
+  flex-direction: column;
+
+  background: hsla(217, 100%, 50%, 1);
+
+  background: linear-gradient(
+    90deg,
+    hsla(217, 100%, 50%, 1) 0%,
+    hsla(186, 100%, 69%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(217, 100%, 50%, 1) 0%,
+    hsla(186, 100%, 69%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(217, 100%, 50%, 1) 0%,
+    hsla(186, 100%, 69%, 1) 100%
+  );
+
+  .top-panel {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+  .bottom-panel {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    color: #ffffff;
+  }
+}

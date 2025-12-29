@@ -1,0 +1,517 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>Leave Application Details</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="leaveApplication.agreeReject == 0">
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel">
+          <h5 style="color: #d23939">
+            This Application Has been rejected ::
+            {{ leaveApplication.rejectReacson }} on Date:
+            {{ leaveApplication.acceptRejectDate | date: "dd/MM/yyyy" }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container-fluid"
+    *ngIf="permissions.view && leaveApplication.agreeReject == 2"
+  >
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel">
+          <span style="width: auto">What Do you want to do? </span>
+          <button class="btn btn-primary" (click)="openModal('appAcceptModal')">
+            Accept
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="openModal('appAcceptWithChangesModal')"
+          >
+            Accept With Changes
+          </button>
+          <button class="btn btn-danger" (click)="openModal('appRejectModal')">
+            Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>Leave Application Details</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Id: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.id }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.ACC_REJ_DATE" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.acceptRejectDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Resource Name: </span>
+              </div>
+              <div class="col-8">{{ leaveApplication.resourceName }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Designation: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.resourceDesg }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Mobile Number: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.resourceMobileNo }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Police Station: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.stationName }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Leave Type: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.leaveType }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Leave Description: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.leaveDescription }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Leave Start Date: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.leaveStartDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Leave End Date: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.leaveEndDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Number of Leave Days: </span>
+              </div>
+              <div class="col-8">
+                {{ leaveApplication.leaveNoOffDays }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-change-status-form
+    *ngIf="
+      permissions.changeStatusForm &&
+      isComplete &&
+      leaveApplication.agreeReject == 1
+    "
+    [url]="changeStatusSubmitURL"
+    [id]="changeStatusId"
+    [moduleStatus]="moduleStatus"
+  ></app-change-status-form>
+
+  <app-assign-to-officer-form
+    *ngIf="
+      permissions.asssignToOfficer &&
+      isComplete &&
+      leaveApplication.agreeReject == 1 &&
+      (!isPending || !isAccepted)
+    "
+    [url]="assignToOfficerSubmitURL"
+    [id]="changeStatusId"
+    [assignForModule]="changeStatusModule"
+  ></app-assign-to-officer-form>
+
+  <app-change-status
+    *ngIf="permissions.changeStatusList"
+    [changeStatusPath]="changeStatusPath"
+    [deleteButtonCode]="changeStatusDeleteCode"
+    [deleteButtonUrl]="changeStatusDeleteUrl"
+    [changeStatusModule]="changeStatusModule"
+    [changeStatusId]="changeStatusId"
+  ></app-change-status>
+
+  <app-forward-to-destination-form
+    *ngIf="
+      permissions.forwardToDestination &&
+      isComplete &&
+      leaveApplication.agreeReject == 1 &&
+      (!isPending || !isAccepted)
+    "
+    [url]="forwatdToDestinationSubmitURL"
+    [id]="changeStatusId"
+    [forwardOfficerList]="forwardOfficerList"
+  >
+  </app-forward-to-destination-form>
+
+  <app-forward-to-destination
+    *ngIf="permissions.forwardToDestinationList"
+    [forwardDestinationPath]="forwardDestinationPath"
+    [deleteButtonCode]="forwardDestinationDeleteCode"
+    [deleteButtonUrl]="forwardDestinationDeleteUrl"
+    [forwardDestinationModule]="forwardDestinationModule"
+    [forwardDestinationId]="forwardDestinationId"
+  >
+  </app-forward-to-destination>
+
+  <app-sms-sending-form
+    *ngIf="
+      permissions.sendSMSToUser &&
+      isComplete &&
+      leaveApplication.agreeReject == 1 &&
+      !isPending &&
+      !isAccepted
+    "
+    [url]="smsSendingSubmitURL"
+    [id]="smsSendingId"
+    [departmentName]="leaveApplicationSMS"
+  >
+  </app-sms-sending-form>
+
+  <app-sms-sending
+    *ngIf="permissions.sendSMSToUserList"
+    [smsSendingPath]="smsSendingPath"
+    [smsSendingModule]="smsSendingModule"
+    [smsSendingId]="smsSendingId"
+    [deparment]="leaveApplicationSMS"
+  >
+  </app-sms-sending>
+</div>
+
+<app-modal
+  id="appAcceptWithChangesModal"
+  [closeOnClick]="false"
+  [className]="'lg-modal high-box'"
+>
+  <div class="acceptModal">
+    <form
+      class="form needs-validation text-center container"
+      [formGroup]="leaveRes"
+    >
+      <div class="row mb-2">
+        <div class="form-group">
+          <div class="row mb-2">
+            <label for="title" class="col-3 col-form-label">{{
+              "LEAVE.LEAVE_START_DATE" | translate
+            }}</label>
+            <div class="col-8">
+              <div class="input-group">
+                <input
+                  #dpFromDate
+                  class="form-control"
+                  placeholder="dd/mm/yyyy"
+                  formControlName="newStartDate"
+                  id="newStartDate"
+                  name="newStartDate"
+                  [value]="formatter.format(fromDate)"
+                  (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                  [ngClass]="{
+                    invalidInput: isControlHasErrors('newStartDate')
+                  }"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary calendar"
+                    (click)="datepicker.toggle()"
+                    type="button"
+                    [disabled]="allowedToSelectedDate"
+                  ></button>
+                </div>
+              </div>
+
+              <div
+                *ngIf="isControlHasError('newStartDate', 'required')"
+                class="invalid"
+              >
+                <strong>Start date is required</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group ml-2">
+          <div class="row mb-2">
+            <label for="title" class="col-3 col-form-label">{{
+              "LEAVE.LEAVE_END_DATE" | translate
+            }}</label>
+            <div class="col-8">
+              <div class="input-group">
+                <input
+                  #dpToDate
+                  class="form-control"
+                  placeholder="dd/mm/yyyy"
+                  formControlName="newEndDate"
+                  id="newEndDate"
+                  name="newEndDate"
+                  [value]="formatter.format(toDate)"
+                  (input)="toDate = validateInput(toDate, dpToDate.value)"
+                  [ngClass]="{
+                    invalidInput: isControlHasErrors('newEndDate')
+                  }"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary calendar"
+                    (click)="datepicker.toggle()"
+                    type="button"
+                    [disabled]="allowedToSelectedDate"
+                  ></button>
+                </div>
+              </div>
+
+              <div
+                *ngIf="isControlHasError('newEndDate', 'required')"
+                class="invalid"
+              >
+                <strong>End date is required</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="height: 0; margin: 0; border: none; padding: 0">
+        <div
+          class="col-3"
+          style="height: 0; margin: 0; border: none; padding: 0"
+        ></div>
+        <div class="col-8" style="height: 0">
+          <div
+            class="form-group"
+            style="width: 0; height: 0; margin: 0; border: none; padding: 0"
+          >
+            <div class="input-group" style="height: 0">
+              <input
+                name="datepicker"
+                class="form-control"
+                ngbDatepicker
+                #datepicker="ngbDatepicker"
+                [autoClose]="'outside'"
+                (dateSelect)="onDateSelection($event)"
+                [displayMonths]="2"
+                [dayTemplate]="t"
+                outsideDays="hidden"
+                [startDate]="fromDate!"
+                tabindex="-1"
+                style="width: 0; height: 0; margin: 0; border: none; padding: 0"
+                [minDate]="minStartDate"
+                [maxDate]="maxEndDate"
+              />
+              <ng-template #t let-date let-focused="focused">
+                <span
+                  class="custom-day"
+                  [class.focused]="focused"
+                  [class.range]="isRange(date)"
+                  [class.faded]="isHovered(date) || isInside(date)"
+                  (mouseenter)="hoveredDate = date"
+                  (mouseleave)="hoveredDate = null"
+                >
+                  {{ date.day }}
+                </span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <label for="leaveNoOffDays" class="col-3 col-form-label">{{
+          "LEAVE.NO_OFF_DAYS" | translate
+        }}</label>
+        <div class="col-8">
+          <input
+            type="text"
+            id="leaveNoOffDays"
+            name="leaveNoOffDays"
+            placeholder="{{ 'LEAVE.ENTR_NO_OFF_DAYS' | translate }}"
+            formControlName="leaveNoOffDays"
+            autocomplete="off"
+            class="form-control"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('leaveNoOffDays')
+            }"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="isControlHasError('leaveNoOffDays', 'required')"
+          class="invalid"
+        >
+          <strong>Title is required</strong>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <label for="leaveDescription" class="col-3 col-form-label">{{
+          "LEAVE.LEAVE_DESCRI" | translate
+        }}</label>
+        <div class="col-8">
+          <textarea
+            id="leaveDescription"
+            name="leaveDescription"
+            placeholder="{{ 'LEAVE.ENTR_LEAVE_DESCRI' | translate }}"
+            formControlName="leaveDescription"
+            autocomplete="off"
+            class="form-control"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('leaveDescription')
+            }"
+            required
+          ></textarea>
+        </div>
+
+        <div
+          *ngIf="isControlHasError('leaveDescription', 'required')"
+          class="invalid"
+        >
+          <strong>Leave Description is required</strong>
+        </div>
+      </div>
+
+      <span style="width: auto">Accept leave application With changes?</span>
+      <button
+        class="btn btn-primary"
+        (click)="acceptAppWithChanges(1, 'appAcceptWithChangesModal')"
+      >
+        Accept
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="closeModal('appAcceptWithChangesModal')"
+      >
+        Close
+      </button>
+    </form>
+  </div>
+</app-modal>
+
+<app-modal id="appAcceptModal">
+  <div class="acceptModal">
+    <span style="width: auto">Are you sure to accept leave application?</span>
+    <button class="btn btn-primary" (click)="acceptApp(1, 'appAcceptModal')">
+      Accept
+    </button>
+    <button class="btn btn-secondary" (click)="closeModal('appAcceptModal')">
+      Close
+    </button>
+  </div>
+</app-modal>
+
+<app-modal id="appRejectModal" class="lg-modal">
+  <form>
+    <div class="acceptModal">
+      <label for="rejectReacson"> Message : </label>
+      <textarea
+        name="rejectReacson"
+        id="rejectReacson"
+        class="form-control"
+        [formControl]="rejectReacson"
+        required
+      ></textarea>
+    </div>
+
+    <div class="acceptModal">
+      <span style="width: auto">Are you sure to reject leave application?</span>
+      <button
+        type="submit"
+        class="btn btn-danger"
+        (click)="acceptApp(0, 'appRejectModal')"
+      >
+        Reject
+      </button>
+      <button class="btn btn-secondary" (click)="closeModal('appRejectModal')">
+        Close
+      </button>
+    </div>
+  </form>
+</app-modal>

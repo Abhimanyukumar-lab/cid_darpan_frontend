@@ -1,0 +1,107 @@
+<div class="default" *ngIf="style == 'default'">
+  <div class="h-logos">
+    <div class="logo-img">
+      <a routerLinkActive="active" routerLink="/home">
+        <app-image-viewer [imageURL]="districtDetails.logo" [imgWidth]="'100%'"
+          [imgHeight]="'100px'"></app-image-viewer>
+      </a>
+    </div>
+    <div class="dgp-img">
+      <div style="
+        width: 120px;
+        height: 90px;
+        border: 1px solid #d8d8d8;
+        border-radius: 5px;
+        padding: 5px;
+      ">
+        <app-image-viewer [imageURL]="districtDetails.dgpImage" [imgWidth]="'100px'" [imgHeight]="'80px'">
+        </app-image-viewer>
+      </div>
+      <span for="name">{{ districtDetails.dgpName }}</span>
+      <span for="desg"> {{ "HOME.DGP_POST" | translate }} </span>
+    </div>
+    <div class="sp-img" *ngIf="districtDetails.extraPersonName">
+      <div style="
+        width: 120px;
+        height: 90px;
+        border: 1px solid #d8d8d8;
+        border-radius: 5px;
+        padding: 5px;
+      ">
+        <app-image-viewer [imageURL]="districtDetails.extraPersonImage" [imgWidth]="'100px'" [imgHeight]="'80px'">
+        </app-image-viewer>
+      </div>
+      <span for="name">{{ districtDetails.extraPersonName }}</span>
+      <span for="desg"> {{ districtDetails.extraPersonPosition }} </span>
+    </div>
+    <div class="sp-img">
+      <div style="
+        width: 120px;
+        height: 90px;
+        border: 1px solid #d8d8d8;
+        border-radius: 5px;
+        padding: 5px;
+      ">
+        <app-image-viewer [imageURL]="districtDetails.spImage" [imgWidth]="'100px'" [imgHeight]="'80px'">
+        </app-image-viewer>
+      </div>
+      <span>{{ districtDetails.spName }}</span>
+      <span *ngIf="IS_MAIN_DESIG == 'SP'"> {{ "HOME.SP_POST" | translate }} </span>
+      <span *ngIf="IS_MAIN_DESIG == 'SSP'"> {{ "HOME.SSP_POST" | translate }} </span>
+    </div>
+  </div>
+</div>
+<div class="style3" *ngIf="style == 'style3'">
+  <div class="container">
+    <div class="h-logos">
+      <div class="logo-img">
+        <a routerLinkActive="active" routerLink="/home">
+          <app-image-viewer [imageURL]="districtDetails.logo" [imgWidth]="'100%'"
+            [imgHeight]="'120px'"></app-image-viewer>
+        </a>
+      </div>
+      <div class="dgp-img">
+        <div style="
+        width: 120px;
+        height: 90px;
+        border: 2px solid #000000;
+        border-radius: 5px;
+      ">
+          <app-image-viewer [imageURL]="districtDetails.dgpImage" [imgWidth]="'115px'" [imgHeight]="'85px'">
+          </app-image-viewer>
+        </div>
+        <span for="name" style="font-weight: 500;font-size: 14px;">{{ districtDetails.dgpName }}</span>
+        <span for="desg" style="font-weight: 400;font-size: 12px;"> {{ "HOME.DGP_POST" | translate }} </span>
+      </div>
+      <div class="sp-img" *ngIf="districtDetails.extraPersonName">
+        <div style="
+        width: 120px;
+        height: 90px;
+        border: 2px solid #000000;
+        border-radius: 5px;
+      ">
+          <app-image-viewer [imageURL]="districtDetails.extraPersonImage" [imgWidth]="'115px'" [imgHeight]="'85px'">
+          </app-image-viewer>
+        </div>
+        <span for="name" style="font-weight: 500;font-size: 14px;">{{ districtDetails.extraPersonName }}</span>
+        <span for="desg" style="font-weight: 400;font-size: 12px;"> {{ districtDetails.extraPersonPosition }} </span>
+      </div>
+      <div class="sp-img">
+        <div style="
+        width: 120px;
+        height: 90px;
+        border: 2px solid #000000;
+        border-radius: 5px;
+      ">
+          <app-image-viewer [imageURL]="districtDetails.spImage" [imgWidth]="'115px'" [imgHeight]="'85px'">
+          </app-image-viewer>
+        </div>
+        <span style="font-weight: 500;font-size: 14px;">{{ districtDetails.spName }}</span>
+        <span *ngIf="IS_MAIN_DESIG == 'SP'" style="font-weight: 400;font-size: 12px;"> {{ "HOME.SP_POST" | translate }}
+        </span>
+        <span *ngIf="IS_MAIN_DESIG == 'SSP'" style="font-weight: 400;font-size: 12px;"> {{ "HOME.SSP_POST" | translate
+          }} </span>
+      </div>
+    </div>
+  </div>
+</div>

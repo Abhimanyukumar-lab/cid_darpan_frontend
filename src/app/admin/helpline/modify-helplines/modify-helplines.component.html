@@ -1,0 +1,233 @@
+<div class="helplines-edit">
+  <div class="dashboard-header">
+    {{ "HELPLINE.HELPLINE_DETAILS" | translate }}
+  </div>
+  <button class="btn btn-sm back-btn" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    " (click)="goBack()">
+    &#215;
+  </button>
+</div>
+<div class="helplines-form">
+  <form class="form needs-validation text-center container" novalidate [formGroup]="helplinesForm" autocomplete="off"
+    novalidate="novalidate" id="helplines_form">
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="name" class="col-3 col-form-label">{{ "HELPLINE.HELPLINE_NAME" | translate }} (English)</label>
+          <div class="col-8">
+            <input type="text" id="name" name="name" placeholder="{{ 'HELPLINE.HELPLINE_NAME' | translate }}"
+              formControlName="name" autocomplete="off" class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }" required />
+          </div>
+          <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+            <strong>Name is required</strong>
+          </div>
+          <div *ngIf="isControlHasError('name', 'minlength')" class="invalid">
+            <strong>Minimum 3 character required</strong>
+          </div>
+          <div *ngIf="isControlHasError('name', 'maxlength')" class="invalid">
+            <strong>Max length allowed 120</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="nameHi" class="col-3 col-form-label">{{ "HELPLINE.HELPLINE_NAME" | translate }} (Hindi)</label>
+          <div class="col-8">
+            <input type="text" id="nameHi" name="nameHi" placeholder="{{ 'HELPLINE.HELPLINE_NAME' | translate }}"
+              formControlName="nameHi" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('nameHi')
+              }" (change)="focusOut($event, 'nameHi')" (focusout)="focusOut($event, 'nameHi')" required />
+          </div>
+          <div *ngIf="isControlHasError('nameHi', 'required')" class="invalid">
+            <strong>Name is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="designation" class="col-3 col-form-label">{{
+            "HELPLINE.DESIGNATION" | translate
+            }}</label>
+          <div class="col-8">
+            <select name="designationName" id="designationName" formControlName="designationId" autocomplete="off"
+              class="form-select" [ngClass]="{ invalidInput: isControlHasErrors('designationId') }" required>
+              <option value="null" disabled>Select Designation</option>
+              <option *ngFor="let designation of designationList" value="{{ designation.id }}">
+                <span *ngIf="currentLang == 'en'">{{
+                  designation.designationName
+                  }}</span>
+                <span *ngIf="currentLang == 'hi'">{{
+                  designation.designationNameHi
+                  }}</span>
+              </option>
+            </select>
+          </div>
+          <div *ngIf="isControlHasError('designation', 'required')" class="invalid">
+            <strong>Designation is required</strong>
+          </div>
+          <div *ngIf="isControlHasError('designation', 'minlength')" class="invalid">
+            <strong>Designation Minimum length is 6</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="descriptionEn" class="col-3 col-form-label">{{
+            "CITIZEN_REPORT.DESCRIPTION" | translate
+            }} (EN)</label>
+          <div class="col-8">
+            <textarea type="text" id="descriptionEn" name="descriptionEn"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_DESCRIPTION' | translate }}" formControlName="descriptionEn"
+              autocomplete="off" class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('descriptionEn')
+              }"></textarea>
+          </div>
+          <div *ngIf="isControlHasError('descriptionEn', 'required')" class="invalid">
+            <strong>Description is required</strong>
+          </div>
+          <div *ngIf="isControlHasError('descriptionEn', 'minlength')" class="invalid">
+            <strong>Description Minimum length is 6</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="descriptionHi" class="col-3 col-form-label">{{
+            "CITIZEN_REPORT.DESCRIPTION" | translate
+            }} (Hindi)</label>
+          <div class="col-8">
+            <textarea id="descriptionHi" name="descriptionHi"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_DESCRIPTION' | translate }}" formControlName="descriptionHi"
+              autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                      invalidInput: isControlHasErrors('descriptionHi')
+                    }" (change)="focusOut($event, 'descriptionHi')"
+              (focusout)="focusOut($event, 'descriptionHi')"></textarea>
+          </div>
+          <div *ngIf="isControlHasError('descriptionHi', 'required')" class="invalid">
+            <strong>Description is required</strong>
+          </div>
+          <div *ngIf="isControlHasError('descriptionHi', 'minlength')" class="invalid">
+            <strong>Description Minimum length is 6</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="no" class="col-3 col-form-label">{{
+            "HELPLINE.HELPLINE_TITLE" | translate
+            }}</label>
+          <div class="col-8">
+            <input type="text" id="no" name="no" placeholder="{{ 'HELPLINE.ENTER_HELPLINE' | translate }}"
+              formControlName="no" (keypress)="numberOnly($event)" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('no') }" required />
+
+            <div *ngIf="isControlHasError('no', 'required')" class="invalid">
+              <strong>Helpline No is Required</strong>
+            </div>
+            <div *ngIf="isControlHasError('no', 'minlength')" class="invalid">
+              <strong>Minimum length is 10</strong>
+            </div>
+            <div *ngIf="isControlHasError('no', 'maxlength')" class="invalid">
+              <strong>Minimum length is 13</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="no" class="col-3 col-form-label">{{
+            "HELPLINE.HELPLINE_TITLE" | translate
+            }}</label>
+          <div class="col-8">
+            <input type="text" style="margin-top: 6px" id="no1" name="no1"
+              placeholder="{{ 'HELPLINE.ENTER_HELPLINE' | translate }}" formControlName="no1"
+              (keypress)="numberOnly($event)" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('no1') }" />
+
+            <div *ngIf="isControlHasError('no', 'minlength')" class="invalid">
+              <strong>Minimum length is 10</strong>
+            </div>
+            <div *ngIf="isControlHasError('no', 'maxlength')" class="invalid">
+              <strong>Minimum length is 13</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="type" class="col-3 col-form-label">{{
+            "HELPLINE.TYPE" | translate
+            }}</label>
+          <div class="col-8">
+            <select name="type" id="type" formControlName="type" autocomplete="off" class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('type') }" required>
+              <option value="null" disabled>
+                {{ "HELPLINE.TYPE" | translate }}
+              </option>
+              <option value="OFFICER">
+                {{ "HELPLINE.POLICE" | translate }}
+              </option>
+              <option value="OTHER">
+                {{ "HELPLINE.OTHER_SEC" | translate }}
+              </option>
+              <option value="POLICE WOMEN HELP COMMITTEE">
+                {{ "HELPLINE.POLICE_WOMEN" | translate }}
+              </option>
+            </select>
+          </div>
+          <div *ngIf="isControlHasError('type', 'required')" class="invalid">
+            <strong>Type is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="priority" class="col-3 col-form-label">Priority</label>
+          <div class="col-8">
+            <input type="number" min="1" (keypress)="numberOnly($event)" id="priority" name="priority"
+              placeholder="Enter Priority" formControlName="priority" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('priority') }" required />
+          </div>
+          <div *ngIf="isControlHasError('priority', 'required')" class="invalid">
+            <strong>Priority is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      ">
+      <button id="helpline_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+        *ngIf="ADD_HELPLINE && ADD_URL && !HELPLINE_PARAMS.ID">
+        Save
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button id="helpline_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+        *ngIf="EDIT_HELPLINE && EDIT_URL && HELPLINE_PARAMS.ID">
+        Save
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

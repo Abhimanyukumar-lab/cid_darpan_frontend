@@ -1,0 +1,41 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "FORMS.FORMS_TITLE" | translate
+  }}</span>
+</div>
+<table class="table">
+  <thead style="background-color: black">
+    <th style="width: 10%; color: white; padding: 15px">
+      {{ "FORMS.SL_NO" | translate }}
+    </th>
+    <th style="width: 20%; color: white; padding: 15px">
+      {{ "FORMS.NAME" | translate }}
+    </th>
+    <th style="width: 55%; color: white; padding: 15px">
+      {{ "FORMS.DESCRIPTION" | translate }}
+    </th>
+    <th style="width: 15%; color: white; padding: 15px">
+      {{ "FORMS.VIEW" | translate }}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let form of forms">
+      <td>{{ form.id }}</td>
+      <td>{{ form.title }}</td>
+      <td>{{ form.description }}</td>
+      <td>
+        <a
+          href="{{ baseUrl + form.link }}"
+          target="blank"
+          class="btn btn-primary"
+          >view</a
+        >
+      </td>
+    </tr>
+    <tr *ngIf="forms && forms.length == 0">
+      <td colspan="4" style="text-align: center">
+        {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,179 @@
+@import "../../../style/disctrict/common.district.scss";
+
+.default {
+  .super-header {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    color: white;
+
+    position: relative;
+    background-color: $primary-color;
+
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      i {
+        padding: 5px;
+      }
+    }
+    .flag {
+      width: 60px;
+      display: flex;
+      justify-content: center;
+    }
+    .social-icon {
+      display: flex;
+      justify-content: center;
+      .f-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+      }
+    }
+    .language {
+      justify-content: center;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .super-header {
+      flex-direction: column;
+    }
+  }
+}
+
+.style3 {
+  .header1 {
+    background-color: $super-header-color;
+    font-size: var(--font14);
+    color: $white !important;
+  }
+  .header1 .nav-link {
+    color: $white !important;
+  }
+  .header1 .flag img {
+    height: 23px;
+  }
+  .header1 .call img,
+  .mail .mail-img {
+    height: 15px;
+  }
+}
+
+.bar-color {
+  background-color: $top-bar;
+}
+
+// @media screen and (min-width: 1440px) {
+//   .super-header {
+//     width: 100%;
+//     .contact-details {
+//       width: 10%;
+//     }
+//     .flag {
+//       width: 4%;
+//     }
+//     .social-icon {
+//       width: 10%;
+//     }
+//     .language {
+//       width: 10%;
+//     }
+//   }
+// }
+
+// @media screen and (min-width: 1440px) and (max-width: 2000px) {
+//   .super-header {
+//     width: 100%;
+//     .contact-details {
+//       width: 20%;
+//     }
+//     .flag {
+//       width: 4%;
+//     }
+//     .social-icon {
+//       width: 15%;
+//     }
+//     .language {
+//       width: 15%;
+//     }
+//   }
+// }
+
+// @media screen and (min-width: 1024px) and (max-width: 1440px) {
+//   .super-header {
+//     width: 100%;
+//     .contact-details {
+//       width: 25%;
+//     }
+//     .flag {
+//       width: 4%;
+//     }
+//     .social-icon {
+//       width: 20%;
+//     }
+//     .language {
+//       width: 20%;
+//     }
+//   }
+// }
+
+// @media screen and (min-width: 768px) and (max-width: 1024px) {
+//   .super-header {
+//     width: 100%;
+//     font-size: 14px;
+//     .contact-details {
+//       width: 28%;
+//       padding: 0px;
+//     }
+//     .flag {
+//       width: 4%;
+//     }
+//     .social-icon {
+//       width: 20%;
+//     }
+//     .language {
+//       width: 20%;
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 768px) {
+//   .super-header {
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     align-content: center;
+//     .contact-details {
+//       width: auto;
+//       padding: 0;
+//     }
+//     .flag {
+//       width: 25%;
+//       padding: 10px;
+//     }
+//     .social-icon {
+//       width: 100%;
+//       padding: 10px;
+//     }
+//     .language {
+//       width: auto;
+//     }
+//   }
+// }
+
+a {
+  display: flex;
+  color: #ffffff;
+  text-decoration: none;
+}

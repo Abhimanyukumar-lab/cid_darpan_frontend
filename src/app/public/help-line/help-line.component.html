@@ -1,0 +1,117 @@
+<div style="padding-bottom: 10px">
+  <div class="header-title">
+    <span class="glob-span header-txt">{{ "HOME.HELPLINE" | translate }}</span>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 status-btn float-left justify-content-left d-flex" style="padding-bottom: 25px">
+        <button class="submit-btn btn-custome" (click)="doOfficerOnly()">
+          {{ "HELPLINE.POLICE" | translate }}
+        </button>
+        <button class="submit-btn btn-custome" (click)="doOtherOnly()">
+          {{ "HELPLINE.OTHER_SEC" | translate }}
+        </button>
+        <button class="submit-btn btn-custome" (click)="doAll()">
+          {{ "HELPLINE.ALL" | translate }}
+        </button>
+      </div>
+      <div class="col-sm-3 status-btn float-left" style="
+          padding-bottom: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        ">
+        <i class="material-icons" style="font-size: 46px">pageview</i>
+        <input type="text" class="form-control hindi" placeholder="Search" aria-label="Search"
+          style="border-top-right-radius: 0; border-bottom-right-radius: 0" id="searchText" name="searchText"
+          [(ngModel)]="searchText" (keyup)="doSearch()" [ngClass]="{
+            hindiFont: currrentLang == 'hi'
+          }" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div *ngIf="isAll || isOfficer">
+      <h5 style="padding: 10px 0; font-weight: bold">
+        {{ "HELPLINE.TABLE_1_TITLE" | translate }}
+      </h5>
+
+      <table class="table" style="width: 100%; margin: 0">
+        <thead style="background-color: black">
+          <th style="width: 15%; color: white; padding: 15px">
+            {{ "FORMS.SL_NO" | translate }}
+          </th>
+          <th style="width: 20%; color: white; padding: 15px">
+            {{ "HELPLINE.HELPLINE_NAME" | translate }}
+          </th>
+          <th style="width: 25%; color: white; padding: 15px">
+            {{ "HELPLINE.DESIGNATION" | translate }}
+          </th>
+          <th style="width: 40%; color: white; padding: 15px">
+            {{ "CONTACT.CONTACT_NO" | translate }}
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let helpline of helplineList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td *ngIf="currrentLang == 'en'">{{ helpline.name }}</td>
+            <td *ngIf="currrentLang == 'hi'">{{ helpline.nameHi }}</td>
+            <td *ngIf="currrentLang == 'hi'">
+              {{ helpline.designationNameHi }}, {{ helpline.descriptionHi }}
+            </td>
+            <td *ngIf="currrentLang == 'en'">
+              {{ helpline.designationName }}, {{ helpline.descriptionEn }}
+            </td>
+            <td>{{ helpline.no }}</td>
+          </tr>
+          <tr *ngIf="helplineList && helplineList.length == 0">
+            <td colspan="4" style="text-align: center">
+              {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="isAll || isOther">
+      <h5 style="padding: 10px 0; font-weight: bold">
+        {{ "HELPLINE.TABLE_2_TITLE" | translate }}
+      </h5>
+
+      <table class="table" style="width: 100%; margin: 0">
+        <thead style="background-color: black">
+          <th style="width: 15%; color: white; padding: 15px">
+            {{ "FORMS.SL_NO" | translate }}
+          </th>
+          <th style="width: 20%; color: white; padding: 15px">
+            {{ "HELPLINE.HELPLINE_NAME" | translate }}
+          </th>
+          <th style="width: 25%; color: white; padding: 15px">
+            {{ "HELPLINE.DESIGNATION" | translate }}
+          </th>
+          <th style="width: 40%; color: white; padding: 15px">
+            {{ "CONTACT.CONTACT_NO" | translate }}
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let helpline of otherHelplineList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td *ngIf="currrentLang == 'en'">{{ helpline.name }}</td>
+            <td *ngIf="currrentLang == 'hi'">{{ helpline.nameHi }}</td>
+            <td *ngIf="currrentLang == 'hi'">
+              {{ helpline.designationNameHi }}
+            </td>
+            <td *ngIf="currrentLang == 'en'">{{ helpline.designationName }}</td>
+            <td>{{ helpline.no }}</td>
+          </tr>
+          <tr *ngIf="otherHelplineList && otherHelplineList.length == 0">
+            <td colspan="4" style="text-align: center">
+              {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

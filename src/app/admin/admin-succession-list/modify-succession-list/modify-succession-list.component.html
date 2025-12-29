@@ -1,0 +1,248 @@
+<div class="succession-edit">
+  <div class="dashboard-header">
+    {{ "SUCCESSION.SUCCESSION_TITLE" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="successionList-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="successionListForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="successionList_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="title" class="col-3 col-form-label">{{
+        "HELPLINE.HELPLINE_NAME" | translate
+      }} (English)</label>
+      <div class="col-8">
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+          formControlName="title"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('title')
+          }"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('title', 'required')" class="invalid">
+        <strong>Title is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('title', 'minlength')" class="invalid">
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div *ngIf="isControlHasError('title', 'maxlength')" class="invalid">
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="titleHi" class="col-3 col-form-label">{{
+        "HELPLINE.HELPLINE_NAME" | translate
+      }} (Hindi)</label>
+      <div class="col-8">
+        <input
+          type="text"
+          id="titleHi"
+          name="titleHi"
+          placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+          formControlName="titleHi"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('titleHi')
+          }"
+          (change)="focusOut($event, 'titleHi')"
+          (focusout)="focusOut($event, 'titleHi')"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('titleHi', 'required')" class="invalid">
+        <strong>Title is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="linkSource" class="col-3 col-form-label">{{
+        "FORMS.ATTACH_FILE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="file"
+          id="linkSource"
+          name="linkSource"
+          (change)="handleFileChange($event.target.files)"
+          formControlName="linkSource"
+          autocomplete="off"
+          class="form-control"
+          accept="image/jpg,image/gif,image/jpeg"
+          [ngClass]="{ invalidInput: isControlHasErrors('linkSource') }"
+        />
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="date" class="col-3 col-form-label">{{
+        "SUCCESSION.START_DATE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="date"
+          id="date"
+          name="date"
+          (keypress)="validAplpha($event)"
+          formControlName="date"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('date') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('date', 'required')" class="invalid">
+        <strong>Date is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="newDate" class="col-3 col-form-label">{{
+        "SUCCESSION.END_DATE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="date"
+          id="newDate"
+          name="newDate"
+          (keypress)="validAplpha($event)"
+          formControlName="newDate"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('newDate') }"
+        />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="designationName" class="col-3 col-form-label">{{
+        "HELPLINE.DESIGNATION" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+            name="designationName"
+            id="designationName"
+            formControlName="designationId"
+            autocomplete="off"
+            class="form-select"
+            [ngClass]="{ invalidInput: isControlHasErrors('designationId') }"
+            required
+          >
+            <option value="null" disabled>Select Designation</option>
+            <option
+              *ngFor="let designation of designationList"
+              value="{{ designation.id }}"
+            >
+              <span *ngIf="language == 'en'">{{
+                designation.designationName
+              }}</span>
+              <span *ngIf="language == 'hi'">{{
+                designation.designationNameHi
+              }}</span>
+            </option>
+          </select>
+      </div>
+
+      <div *ngIf="isControlHasError('description', 'required')" class="invalid">
+        <strong>Description is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="priority" class="col-3 col-form-label">{{
+        "FORMS.PRIORITY" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="number"
+          id="priority"
+          min="1"
+          (keypress)="numberOnly($event)"
+          name="priority"
+          placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+          formControlName="priority"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('priority') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('priority', 'required')" class="invalid">
+        <strong>Priority is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('priority', 'minlength')" class="invalid">
+        <strong>Priority Minimum length is 1</strong>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="successionList_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SUCCESSION_LIST && ADD_URL && !SUCCESSION_LIST_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="successionList_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SUCCESSION_LIST && EDIT_URL && SUCCESSION_LIST_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

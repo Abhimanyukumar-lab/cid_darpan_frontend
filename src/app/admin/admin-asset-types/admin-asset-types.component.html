@@ -1,0 +1,31 @@
+<div class="assetDetails">
+  <div class="dashboard-header">
+    {{ "ASSET_TYPES.ASSET_TYPES_TITLE" | translate }}
+  </div>
+</div>
+
+  <div class="container-fluid mt-1">
+  <div class="sms-schedular">
+    <div class="button-panel">
+      <a
+        routerLink="{{ typepermissions.add_url }}"
+        class="btn btn-success m-2"
+        *ngIf="typepermissions.add && typepermissions.add_url"
+        >Add Goods Types</a
+      >
+    </div>
+
+    <div style="padding: 20px">
+      <app-table-data
+        [rows]="typerows"
+        [page]="typepage"
+        [columns]="typecolumns"
+        [path]="typepath"
+        [permissions]="typepermissions"
+        [filterOptions]="filterOptions"
+        [isApiAvailable]="false"
+      >
+      </app-table-data>
+    </div>
+  </div>
+</div>

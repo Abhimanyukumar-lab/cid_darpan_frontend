@@ -1,0 +1,503 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "PASSPORT.PASSPORT" | translate
+  }}</span>
+</div>
+<div class="passport">
+  <div class="pass-form">
+    <div class="col-sm-12 status-btn float-left">
+      <button
+        class="submit-btn btn-custome"
+        (click)="openModal('passportCheckStatusModal')"
+      >
+        {{ "APPOINTMENT.APPOINTMENT_STATUS" | translate }}
+      </button>
+    </div>
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+      *ngIf="isCompleted"
+    >
+      <h6 *ngIf="currrentLang == 'en'">{{ PASSPORT_MSG_EN }}</h6>
+      <h6 *ngIf="currrentLang == 'hi'">{{ PASSPORT_MSG_HI }}</h6>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+      *ngIf="isError"
+    >
+      <h6 *ngIf="currrentLang == 'en'">{{ PASSPORT_ERROR_MSG_EN }}</h6>
+      <h6 *ngIf="currrentLang == 'hi'">{{ PASSPORT_ERROR_MSG_HI }}</h6>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        (click)="isError = false"
+      ></button>
+    </div>
+
+    <div
+      class="col-12"
+      style="text-align: right; align-items: center; align-content: center"
+    >
+      <a
+        style="text-decoration: none"
+        target="blank"
+        href="https://passportindia.gov.in/"
+        >पासपोर्ट की स्थिति की जाँच करें</a
+      >
+    </div>
+    <div
+      class="divide-line"
+      style="margin-bottom: 20px; margin-top: 10px"
+    ></div>
+    <form
+      class="form needs-validation text-center"
+      novalidate
+      [formGroup]="appForm"
+      autocomplete="off"
+      novalidate="novalidate"
+      id="public_passport"
+    >
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12 sub-header-title" style="margin: 0">
+            <span class="glob-span header-txt">{{
+              "PASSPORT.PASS_SUB_TITLE" | translate
+            }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "PASSPORT.PASS_TYPE" | translate
+            }}</span>
+            <select
+              name="passportType"
+              id="passportType"
+              name="passportType"
+              formControlName="passportType"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('passportType') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "PASSPORT.SEL_PASS_TYPE" | translate }}
+              </option>
+              <option value="{{ 'PASSPORT.PASS' | translate }}">
+                {{ "PASSPORT.PASS" | translate }}
+              </option>
+              <option value="{{ 'PASSPORT.POLICE_CERIFICATE' | translate }}">
+                {{ "PASSPORT.POLICE_CERIFICATE" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('passportType', 'required')"
+              class="invalid"
+            >
+              <strong> Passport Type is required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "PASSPORT.DATE_OF_BIRTH" | translate
+            }}</span
+            ><input
+              type="date"
+              id="dob"
+              (keypress)="validAplpha($event)"
+              max="{{ max | date: 'yyyy-MM-dd' }}"
+              name="dob"
+              formControlName="dob"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('dob') }"
+              required
+            />
+            <div *ngIf="isControlHasError('dob', 'required')" class="invalid">
+              <strong>Select Date of Birth</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "PASSPORT.FILE_NUMBER" | translate
+            }}</span>
+            <input
+              type="text"
+              id="applicationId"
+              maxlength="15"
+              placeholder="{{ 'PASSPORT.SEL_FILE_NUMBER' | translate }}"
+              name="applicationId"
+              formControlName="applicationId"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('applicationId') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('applicationId', 'required')"
+              class="invalid"
+            >
+              <strong>Application Id is Required</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "APPOINTMENT.NAME" | translate }}</span>
+            <input
+            *ngIf="currrentLang == 'hi'"
+              type="text"
+              (keypress)="validAplpha($event)"
+              id="name"
+              placeholder="{{
+                'APPOINTMENT.SELECT_APPLICANT_NAME' | translate
+              }}"
+              name="name"
+              formControlName="name"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }"
+              (change)="focusOut($event, 'name')"
+              (focusout)="focusOut($event, 'name')"
+              required
+            />
+            <input
+            *ngIf="currrentLang == 'en'"
+              type="text"
+              (keypress)="validAplpha($event)"
+              id="name"
+              placeholder="{{
+                'APPOINTMENT.SELECT_APPLICANT_NAME' | translate
+              }}"
+              name="name"
+              formControlName="name"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }"
+              (change)="focusOut($event, 'name')"
+              (focusout)="focusOut($event, 'name')"
+              required
+            />
+            <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+              <strong>Name is Required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "DISTRICT_DETAILS.DIST_EMAIL" | translate
+            }}</span>
+            <input
+              type="email"
+              id="email"
+              placeholder="eg. abc@gmail.com"
+              name="email"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('email') }"
+            />
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CONTACT.MOBILE_NO" | translate }}</span>
+            <input
+              type="text"
+              (keypress)="numberOnly($event)"
+              id="mobileNo"
+              maxlength="10"
+              placeholder="{{ 'CONTACT.SEL_MOBILE_NO' | translate }}"
+              name="mobileNo"
+              formControlName="mobileNo"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('mobileNo', 'required')"
+              class="invalid"
+            >
+              <strong>Mobile Number is Required</strong>
+            </div>
+            <div
+              *ngIf="isControlHasError('mobileNo', 'pattern')"
+              class="invalid"
+            >
+              <strong>Enter Valid Data</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "APPOINTMENT.POLICE_STATION" | translate
+            }}</span>
+            <select
+              name="stationName"
+              id="stationName"
+              formControlName="stationId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('stationId') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_POLICE_STATION" | translate }}
+              </option>
+              <option
+                *ngFor="let station of stationList"
+                value="{{ station.id }}"
+              >
+                <span *ngIf="currrentLang == 'en'">{{
+                  station.stationName
+                }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  station.stationNameHi
+                }}</span>
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('stationId', 'required')"
+              class="invalid"
+            >
+              <strong> Police Station is required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "APPOINTMENT.DISTRICT" | translate
+            }}</span>
+            <select
+              name="districtName"
+              id="districtName"
+              placeholder="Enter District"
+              formControlName="districtId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('districtId') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_DISTRICT" | translate }}
+              </option>
+              <option
+                *ngFor="let district of districtList"
+                value="{{ district.id }}"
+              >
+                <span *ngIf="currrentLang == 'en'">{{
+                  district.districtName
+                }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  district.districtNameHi
+                }}</span>
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('districtId', 'required')"
+              class="invalid"
+            >
+              <strong> District is required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "PASSPORT.COMMENTS" | translate }}</span>
+            <textarea
+            *ngIf="currrentLang == 'hi'"
+              name="comments"
+              id="comments"
+              formControlName="comments"
+              placeholder="{{ 'CHARACTER.SEL_COMMERCIAL' | translate }}"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('comments')
+              }"
+              (change)="focusOut($event, 'comments')"
+              (focusout)="focusOut($event, 'comments')"
+              required
+            ></textarea>
+            <textarea
+            *ngIf="currrentLang == 'en'"
+              name="comments"
+              id="comments"
+              formControlName="comments"
+              placeholder="{{ 'CHARACTER.SEL_COMMERCIAL' | translate }}"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('comments')
+              }"
+              (change)="focusOut($event, 'comments')"
+              (focusout)="focusOut($event, 'comments')"
+              required
+            ></textarea>
+            <div
+              *ngIf="isControlHasError('comments', 'required')"
+              class="invalid"
+            >
+              <strong>Comment is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divide-line"></div>
+      <div class="row">
+        <div class="col-sm-12 status-bar">
+          <button class="submit-btn btn-custome" (click)="submit()">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Check Status Form -->
+
+<app-modal
+  id="passportCheckStatusModal"
+  [className]="'lg-modal'"
+  [closeOnClick]="false"
+>
+  <div class="checkStatusModal">
+    <div *ngIf="errorMsg">
+      <ngb-alert [type]="alertType" [dismissible]="false">
+        <span style="width: 100%">
+          {{ errorMsg }}
+        </span>
+      </ngb-alert>
+    </div>
+
+    <form [formGroup]="passportCheckStatusGroup">
+      <div class="container-fluid">
+        <div
+          class="row"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div class="col-sm-12 col-md-3 py-2">
+            <div class="form-group row">
+              <label
+                for="id"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >Enter Passport ID :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="id"
+                  name="id"
+                  type="text"
+                  class="form-control"
+                  formControlName="id"
+                  placeholder="eg.0001/2021"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2">
+            <div class="form-group row">
+              <label
+                for="mobile"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >Enter Mobile No :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="mobile"
+                  name="mobile"
+                  type="text"
+                  class="form-control"
+                  formControlName="mobile"
+                  placeholder="eg.95xxxxxxxx"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2" *ngIf="isOtp">
+            <div class="form-group row">
+              <label
+                for="otp"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >Enter OTP :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="otp"
+                  name="otp"
+                  type="text"
+                  class="form-control"
+                  formControlName="otp"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-sm-12 col-md-3 py-2"
+            style="
+              display: flex;
+              justify-content: space-evenly;
+              align-items: center;
+            "
+          >
+            <button
+              class="submit-btn btn-custome"
+              (click)="isOtp ? submitOTPData() : submitData()"
+            >
+              Submit
+            </button>
+            <button
+              class="submit-btn btn-custome"
+              (click)="closeModal('passportCheckStatusModal')"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="showData">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td style="font-weight: bold">Passport Id</td>
+            <td>{{ srNo }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Name</td>
+            <td>{{ name }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Applied Date</td>
+            <td>{{ appliedDate | date: "dd/MM/yyyy" }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Status</td>
+            <td>{{ dataStatus }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-modal>

@@ -1,0 +1,16 @@
+.notifys-edit {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notifys-edit .notifys-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=notification-user-list.component.css.map */

@@ -1,0 +1,133 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>{{ "ASSET_DETAILS.ASSET_DETAILS_TITLE" | translate }}</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "ASSET_PRODUCT.PRODUCT_DETAILS" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"> CR NO: </span>
+              </div>
+              <div class="col-6">{{ assetAllocation.crno }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"> Date of Issue: </span>
+              </div>
+              <div class="col-6">{{ assetAllocation.allocatedDate }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_DETAILS.ALLOCATE_TO" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetAllocation.allocatedToName }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_NAME" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetAllocation.productName }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"> Quantity Allocated: </span>
+              </div>
+              <div class="col-6">{{ assetAllocation.quantityAllocated }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  Remaining Quantity In Store:
+                </span>
+              </div>
+              <div class="col-6">{{ assetAllocation.remainingQuantity }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"> Total Quantity In Store: </span>
+              </div>
+              <div class="col-6">{{ assetAllocation.totalQuantity }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <span>{{ "ASSET_PRODUCT.PRODUCT_DETAILS" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container-fluid">
+        <div class="row">
+            <app-table-data
+            [rows]="rows"
+            [page]="page"
+            [columns]="columns"
+            [path]="path"
+            [permissions]="permissions"
+            [filterOptions]="filterOptions"
+            [isApiAvailable]="false"
+          >
+          </app-table-data>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

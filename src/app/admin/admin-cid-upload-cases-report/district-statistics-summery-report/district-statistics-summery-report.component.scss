@@ -1,0 +1,689 @@
+.progress-summary-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    width: calc(100% - 10px);
+    margin: 0 5px;
+    padding: 20px 0;
+}
+
+// Header Section
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .page-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0;
+        font-weight: 300;
+    }
+}
+
+// Error Message
+.error-message {
+    display: flex;
+    align-items: center;
+    background-color: #ffeaea;
+    border-left: 4px solid #e74c3c;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.1);
+
+    .error-icon {
+        margin-right: 12px;
+        font-size: 20px;
+    }
+
+    .error-text {
+        color: #c0392b;
+        font-weight: 600;
+        font-size: 14px;
+    }
+}
+
+// State Overview Section - UPDATED
+.state-overview {
+    margin-bottom: 40px;
+    width: 100%;
+
+    .state-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Force 2 columns */
+        gap: 20px;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+            /* Single column on mobile */
+        }
+    }
+
+    .state-box {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .state-header {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f3f4;
+
+            h3 {
+                margin: 0;
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: #2c3e50;
+                text-align: center;
+            }
+        }
+
+        .state-content {
+            .stat-line {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 0;
+                border-bottom: 1px solid #f8f9fa;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .label {
+                    color: #6c757d;
+                    font-weight: 500;
+                    font-size: 0.95rem;
+                }
+
+                .value {
+                    font-weight: 700;
+                    font-size: 1rem;
+                    color: #2c3e50;
+                }
+            }
+        }
+    }
+}
+
+// District Section
+.district-section {
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 600;
+        }
+    }
+
+    .filters-container {
+        display: flex;
+        gap: 16px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            label {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: #5a6c7d;
+                margin-bottom: 4px;
+            }
+
+            .filter-input,
+            .filter-select {
+                padding: 10px 12px;
+                border: 2px solid #e9ecef;
+                border-radius: 6px;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                background: white;
+
+                &:focus {
+                    outline: none;
+                    border-color: #3498db;
+                    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+                }
+            }
+
+            .filter-input {
+                min-width: 200px;
+            }
+
+            .filter-select {
+                min-width: 150px;
+                cursor: pointer;
+            }
+
+            .sort-container {
+                display: flex;
+                gap: 8px;
+
+                .sort-order-btn {
+                    padding: 10px 12px;
+                    border: 2px solid #e9ecef;
+                    border-radius: 6px;
+                    background: white;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        border-color: #3498db;
+                        background: #f8f9fa;
+                    }
+                }
+            }
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: #95a5a6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: #7f8c8d;
+                transform: translateY(-1px);
+            }
+        }
+    }
+}
+
+// Results Info
+.results-info {
+    background: #f8f9fa;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    color: #6c757d;
+    border-left: 4px solid #3498db;
+}
+
+// Table Container with Sticky Header
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    background: white;
+    margin-bottom: 30px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+
+    position: relative;
+}
+
+// District Table with Sticky Header
+.district-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+
+    thead {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        th {
+            color: white;
+            font-weight: 600;
+            padding: 16px 12px;
+            text-align: left;
+            font-size: 15px;
+            position: relative;
+            white-space: nowrap;
+
+            &:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 20%;
+                height: 60%;
+                width: 1px;
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #eaeaea;
+
+            &:hover {
+                background-color: #f8f9fa;
+                transform: scale(1);
+            }
+
+            &.row-even {
+                background-color: #fafafa;
+
+                &:hover {
+                    background-color: #f1f3f4;
+                }
+            }
+
+            &.row-odd {
+                background-color: white;
+            }
+
+            td {
+                padding: 16px 12px;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+// Table Cell Styling
+.name-cell {
+    font-weight: 600;
+    color: #2c3e50;
+    min-width: 150px;
+
+    .merged-badge {
+        display: inline-block;
+        background: #3498db;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        margin-left: 8px;
+        font-weight: 600;
+    }
+}
+
+.types-cell {
+    min-width: 120px;
+
+    .types-container {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 60px;
+
+    &.type-SR {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        border: 1px solid #c8e6c9;
+    }
+
+    &.type-NSR {
+        background-color: #e3f2fd;
+        color: #1565c0;
+        border: 1px solid #bbdefb;
+    }
+}
+
+.total-cell {
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 15px;
+    min-width: 100px;
+}
+
+// Progress Column
+.progress-column {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 120px;
+
+    .count-value {
+        font-weight: 600;
+        font-size: 13px;
+        color: #5a6c7d;
+    }
+
+    .progress-bar {
+        height: 6px;
+        background-color: #ecf0f1;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .percentage-value {
+        font-size: 12px;
+        font-weight: 600;
+        color: #6c757d;
+    }
+}
+
+// Type breakdown for merged districts
+.type-breakdown {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #e0e0e0;
+
+    .type-total,
+    .type-progress {
+        font-size: 0.75rem;
+        color: #666;
+        margin-bottom: 2px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// Progress Fill Colors
+.progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+
+    &.complete-fill {
+        background: linear-gradient(to right, #2ecc71, #27ae60);
+    }
+
+    &.above-fill {
+        background: linear-gradient(to right, #f1c40f, #f39c12);
+    }
+
+    &.below-fill {
+        background: linear-gradient(to right, #e74c3c, #c0392b);
+    }
+}
+
+// Completion Rate
+.completion-rate {
+    text-align: center;
+    min-width: 100px;
+
+    .rate-value {
+        font-weight: 700;
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 20px;
+
+        &.high {
+            background: #e8f5e9;
+            color: #27ae60;
+        }
+
+        &.medium {
+            background: #fff3e0;
+            color: #f39c12;
+        }
+
+        &.low {
+            background: #ffebee;
+            color: #e74c3c;
+        }
+    }
+}
+
+// Merged district styles
+.multiple-types {
+    background-color: #f0f8ff !important;
+
+    &:hover {
+        background-color: #e6f3ff !important;
+    }
+}
+
+// No Results
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #6c757d;
+
+    p {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+// Empty State
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+    .empty-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.7;
+    }
+
+    h3 {
+        color: #5a6c7d;
+        margin-bottom: 12px;
+        font-size: 1.5rem;
+    }
+
+    p {
+        color: #6c757d;
+        margin: 0;
+        font-size: 1rem;
+    }
+}
+
+// Filter info
+.filter-info {
+    font-style: italic;
+    opacity: 0.8;
+    margin-left: 8px;
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch !important;
+
+        .filter-group {
+            width: 100%;
+
+            .filter-input,
+            .filter-select {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        .page-title {
+            font-size: 2rem;
+        }
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: stretch !important;
+
+        .section-title {
+            text-align: center;
+        }
+    }
+
+    .district-table {
+        font-size: 13px;
+
+        thead th {
+            padding: 12px 8px;
+            font-size: 14px;
+        }
+
+        tbody td {
+            padding: 12px 8px;
+        }
+    }
+
+    .progress-column {
+        min-width: 100px;
+    }
+
+    .type-badge {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-summary-container {
+        width: calc(100% - 20px);
+        margin: 0 10px;
+    }
+
+    .header-section {
+        padding: 15px;
+
+        .page-title {
+            font-size: 1.6rem;
+        }
+    }
+
+    .filters-container {
+        gap: 12px !important;
+    }
+}
+
+// Animation for progress bars
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.state-box,
+.district-table tbody tr {
+    animation: slideIn 0.5s ease-out;
+}
+
+.district-table tbody tr {
+    animation-duration: 0.3s;
+}
+
+
+// Export Buttons Styling
+.export-buttons {
+    display: flex;
+
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    ;
+
+    .export-btn {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        &.excel-btn {
+            background: linear-gradient(135deg, #21a366, #138d4e);
+            color: white;
+
+            &:hover {
+                background: linear-gradient(135deg, #138d4e, #0d723d);
+            }
+        }
+
+        &.filtered-excel-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+
+            &:hover {
+                background: linear-gradient(135deg, #2980b9, #1f6397);
+            }
+        }
+
+        &:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+
+            &:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+// Responsive design for export buttons
+@media (max-width: 768px) {
+    .export-buttons {
+        flex-direction: column;
+
+        .export-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}

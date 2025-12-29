@@ -1,0 +1,288 @@
+<div class="dsp-edit">
+  <div class="dashboard-header">{{ "DSP.DSP_DETAILS" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="dsp-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="dspForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="dsp_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="dspName" class="col-3 col-form-label"
+            >{{ "FORMS.NAME" | translate }} (English)</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="dspName"
+              name="dspName"
+              placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+              formControlName="dspName"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('dspName')
+              }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('dspName', 'required')" class="invalid">
+            <strong>Name is required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('dspName', 'minlength')"
+            class="invalid"
+          >
+            <strong>Minimum 3 character required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('dspName', 'maxlength')"
+            class="invalid"
+          >
+            <strong>Max length allowed 320</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="dspNameHi" class="col-3 col-form-label"
+            >{{ "FORMS.NAME" | translate }} (Hindi)</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="dspNameHi"
+              name="dspNameHi"
+              placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+              formControlName="dspNameHi"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('dspNameHi')
+              }"
+              (change)="focusOut($event, 'dspNameHi')"
+              (focusout)="focusOut($event, 'dspNameHi')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('dspNameHi', 'required')"
+            class="invalid"
+          >
+            <strong>Name is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="dspJoiningDate" class="col-3 col-form-label">{{
+            "DSP.JOIN_DATE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="date"
+              id="dspJoiningDate"
+              name="dspJoiningDate"
+              (keypress)="validAplpha($event)"
+              max="{{ max | date: 'yyyy-MM-dd' }}"
+              formControlName="dspJoiningDate"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('dspJoiningDate') }"
+              required
+            />
+          </div>
+          <div
+            *ngIf="isControlHasError('dspJoiningDate', 'required')"
+            class="invalid"
+          >
+            <strong>Joining Date is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="dspMobile" class="col-3 col-form-label">{{
+            "SECTIONS.SEC_OFFICER_MOBILE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="dspMobile"
+              name="dspMobile"
+              maxlength="10"
+              (keypress)="numberOnly($event)"
+              placeholder="{{
+                'SECTIONS.ENTER_SEC_OFFICER_MOBILE' | translate
+              }}"
+              formControlName="dspMobile"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('dspMobile') }"
+              required
+            />
+          </div>
+          <div
+            *ngIf="isControlHasError('dspMobile', 'required')"
+            class="invalid"
+          >
+            <strong>Mobile Number is required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('dspMobile', 'minlength')"
+            class="invalid"
+          >
+            <strong>Mobile Number Maximum length is 10</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="dspContact" class="col-3 col-form-label">{{
+            "SECTIONS.SEC_OFFICER_MOBILE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="dspContact"
+              name="dspContact"
+              maxlength="12"
+              (keypress)="numberOnly($event)"
+              placeholder="{{
+                'SECTIONS.ENTER_SEC_OFFICER_MOBILE' | translate
+              }}"
+              formControlName="dspContact"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('dspContact') }"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="dspImage" class="col-3 col-form-label">{{
+            "FORMS.ATTACH_FILE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="file"
+              id="dspImage"
+              name="dspImage"
+              placeholder="Attach File"
+              (change)="handleFileChange($event.target.files)"
+              formControlName="dspImage"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('dspImage') }"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="designationName" class="col-3 col-form-label">{{
+            "HELPLINE.DESIGNATION" | translate
+          }}</label>
+          <div class="col-8">
+            <select
+              name="designationName"
+              id="designationName"
+              formControlName="designationId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('designationId') }"
+              required
+            >
+              <option value="null" disabled>Select Designation</option>
+              <option
+                *ngFor="let designation of designationList"
+                value="{{ designation.id }}"
+              >
+                <span *ngIf="language == 'en'">{{
+                  designation.designationName
+                }}</span>
+                <span *ngIf="language == 'hi'">{{
+                  designation.designationNameHi
+                }}</span>
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="isControlHasError('designationId', 'required')"
+            class="invalid"
+          >
+            <strong>Designation Required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="dsp_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_DSP && ADD_URL && !DSP_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="dsp_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_DSP && EDIT_URL && DSP_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,94 @@
+<div class="viewContainer">
+    <div class="card m-3 mt-0">
+      <div
+        class="
+          card-body
+          d-flex
+          justify-content-between
+          aling-item-center
+          dashboard-header
+        "
+      >
+        <h5>DSP Details</h5>
+        <i
+          class="material-icons"
+          style="font-weight: bold; cursor: pointer"
+          (click)="goBack()"
+          placement="bottom"
+          ngbTooltip="Close"
+          >close</i
+        >
+      </div>
+    </div>
+  
+    <div class="card m-3">
+      <div class="card-header h5 text-white bg-secondary">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <span>DSP Details</span>
+              <i
+                class="material-icons m-1"
+                style="cursor: pointer; color: #ffffff"
+                placement="top"
+                ngbTooltip="Edit Detail"
+                (click)="editInfo()"
+                *ngIf="permissions.edit"
+              >
+                mode
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body d-flex justify-content-between aling-item-center">
+        <div class="container">
+          <div class="row p-3" style="font-size: 16px">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-4">
+                  <span style="font-weight: 500"
+                    >{{ "FORMS.NAME" | translate }}</span
+                  >
+                </div>
+                <div class="col-8" *ngIf="language == 'en'">
+                  {{ dsp?.dspName }}
+                </div>
+                <div class="col-8" *ngIf="language == 'hi'">
+                  {{ dsp?.dspNameHi }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <app-dsp-user-form
+      *ngIf="permissions.dspUserList"
+      [url]="dspUserSubmitURL"
+      [editUrl]="dspUserEditURL"
+      [id]="dspUserId"
+      [form]="dspUserForm"
+    >
+    </app-dsp-user-form>
+    
+    <app-dsp-user
+      [dspUserPath]="dspUserPath"
+      [dspUserDeleteCode]="dspUserDeleteCode"
+      [dspUserEditCurrentFormCode]="dspUserEditCurrentFormCode"
+      [dspUserDeleteUrl]="dspUserDeleteUrl"
+      [dspUserId]="dspUserId"
+      [form]="dspUserForm"
+      (formOut)="getUpdatedForm($event)"
+    >
+    </app-dsp-user>
+  </div>
+  

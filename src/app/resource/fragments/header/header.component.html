@@ -1,0 +1,82 @@
+<div class="main-header">
+  <div class="left-menu">
+    <div class="logo">{{ "HOME.DISTRICT_POLICE" | translate }}</div>
+    <div class="switcher" (click)="showHideSidebar()">
+      <i class="material-icons">menu</i>
+    </div>
+  </div>
+
+  <div class="center-menu"></div>
+
+  <div class="right-menu">
+    <label for="lang">Change Language: </label>
+    <select
+      name="lang"
+      id="lang"
+      class="form-select"
+      style="width: 35%"
+      aria-label="Select Language"
+      (change)="changeLanguage()"
+      [(ngModel)]="selectedLang"
+    >
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+    </select>
+
+    <div class="dropdown">
+      <a
+        class="dropdown-toggle"
+        style="
+          color: black;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+        "
+        href="#"
+        role="button"
+        id="dropdownMenuLink"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <span>
+          <div
+            style="width: 40px; height: 40px; margin: 5px 15px"
+            class="img-fluid"
+          >
+            <app-image-viewer [imageURL]="userImage"></app-image-viewer>
+          </div>
+        </span>
+        <span style="margin: 5px 15px; font-size: 14px">
+          {{ userName }} <br />
+          {{ roleName }}
+        </span>
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li>
+          <a
+            class="dropdown-item disabled"
+            href="#"
+            tabindex="-1"
+            aria-disabled="true"
+            >{{ email }}</a
+          >
+        </li>
+        <li>
+          <hr class="dropdown-divider" />
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            (click)="goToupdateProfile()"
+            style="cursor: pointer"
+            >Profile</a
+          >
+        </li>
+        <li class="dropdown-item" (click)="doLogOut()" style="cursor: pointer">
+          Log Out
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

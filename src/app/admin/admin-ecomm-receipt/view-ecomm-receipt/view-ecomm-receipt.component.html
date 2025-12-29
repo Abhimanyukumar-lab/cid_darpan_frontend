@@ -1,0 +1,334 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>{{ "ECOM_RECEIPT.ECOM_RECEIPT_DETAILS" | translate }}</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+  <div class="container-fluid" *ngIf="isReceiptBlock">
+    <div class="row">
+      <div class="col-12">
+        <div
+          class="card d-flex justify-content-between aling-item-center"
+          style="padding: 10px; display: flex"
+        >
+          <div class="row">
+            <div class="col-12 d-flex">
+              <span
+                style="
+                  justify-content: center;
+                  align-items: center;
+                  display: flex;
+                  font-weight: 600;
+                "
+                >Please Enter Receipt Number to continue.
+              </span>
+            </div>
+          </div>
+
+          <div class="row" style="margin: 15px">
+            <div class="col-3">
+              <span style="font-weight: 500"
+                >{{ "CHARACTER.SEL_RECEIPT_NO" | translate }}:</span
+              >
+            </div>
+            <div class="col-6">
+              <input
+                type="text"
+                id="receiptNo"
+                class="form-control"
+                [formControl]="receiptNo"
+              />
+            </div>
+            <div class="col-3">
+              <button class="btn btn-primary" (click)="submitRecieptNo()">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "ECOM_RECEIPT.ECOM_RECEIPT" | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CHARACTER.RECEIPT_NO" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">{{ ecomReceipt.reciptNo }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CHARACTER.DISPATCH_NO" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">{{ ecomReceipt.dispatchNo }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.SER_NO_DATE" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">{{ ecomReceipt.ecommNoDate }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.FROM_WHO" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">{{ ecomReceipt.stationFrom }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.DOC_NO" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">{{ ecomReceipt.ecommSrNo }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.DATE" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">
+                {{ ecomReceipt.ecommDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.SUBJECT" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">{{ ecomReceipt.ecommSubject }}</div>
+            </div>
+          </div>
+          <!-- <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">Department :</span>
+              </div>
+              <div class="col-8">{{ ecomReceipt.assigndFor }}</div>
+            </div>
+          </div> -->
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div style="border-top: 1px dotted; padding-bottom: 10px">
+            <span class="glob-span">{{
+              "ECOM_RECEIPT.REC_MEMORIAL" | translate
+            }}</span>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.NUMBER" | translate }}:</span
+                >
+              </div>
+              <div class="col-6">
+                {{
+                  ecomReceipt.ecommreceviedNo == "null"
+                    ? ""
+                    : ecomReceipt.ecommreceviedNo
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.DATE" | translate }}:</span
+                >
+              </div>
+              <div class="col-6">
+                {{
+                  ecomReceipt.ecommQueriesReceivedDate == "null"
+                    ? ""
+                    : (ecomReceipt.ecommQueriesReceivedDate
+                      | date: "dd/MM/yyyy")
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div style="border-top: 1px dotted; padding-bottom: 10px">
+            <span class="glob-span">{{
+              "ECOM_RECEIPT.TYPE_OF_EXC" | translate
+            }}</span>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.NUMBER" | translate }}:</span
+                >
+              </div>
+              <div class="col-6">
+                {{
+                  ecomReceipt.ecommresolveNo == "null"
+                    ? ""
+                    : ecomReceipt.ecommresolveNo
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.DATE" | translate }}:</span
+                >
+              </div>
+              <div class="col-6">
+                {{
+                  ecomReceipt.ecommResolvedDate == "null"
+                    ? ""
+                    : (ecomReceipt.ecommResolvedDate | date: "dd/MM/yyyy")
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div style="border-top: 1px dotted; padding-bottom: 10px"></div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"
+                  >{{ "ECOM_RECEIPT.REMARK" | translate }}:</span
+                >
+              </div>
+              <div class="col-6">{{ ecomReceipt.ecommSummary }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "ECOM_RECEIPT.STATUS" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ ecomReceipt.ecommStatus }}</div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="ecomReceipt.ecommFill2">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"
+                  >{{ "COMPLAINT.DOCUMENT" | translate }} :</span
+                >
+              </div>
+              <div class="col-6">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer [imageURL]="ecomReceipt.ecommFill2">
+                  </app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-change-status-form
+    *ngIf="permissions.changeStatusForm && !isReceiptBlock"
+    [url]="changeStatusSubmitURL"
+    [id]="changeStatusId"
+    [changeStatusForModule]="changeStatusForModule"
+    [moduleStatus]="moduleStatus"
+  >
+  </app-change-status-form>
+
+  <app-assign-to-officer-form
+    *ngIf="permissions.asssignToOfficer && !isReceiptBlock"
+    [url]="assignToOfficerSubmitURL"
+    [assignForModule]="assignForModule"
+    [id]="changeStatusId"
+  ></app-assign-to-officer-form>
+
+  <app-change-status
+    *ngIf="permissions.changeStatusList"
+    [changeStatusPath]="changeStatusPath"
+    [deleteButtonCode]="changeStatusDeleteCode"
+    [deleteButtonUrl]="changeStatusDeleteUrl"
+    [changeStatusModule]="changeStatusModule"
+    [changeStatusId]="changeStatusId"
+  ></app-change-status>
+
+  <app-forward-to-destination-form
+    *ngIf="permissions.forwardToDestination && !isReceiptBlock"
+    [url]="forwatdToDestinationSubmitURL"
+    [id]="changeStatusId"
+    [extraInputLabel]="forwardExtraInputLabel"
+    [extraInputPlaceholder]="forwardExtraInputPlaceholder"
+    [extraInputName]="forwardExtraInputName"
+    [extraInputFormControl]="forwardExtraInputFormControl"
+  >
+  </app-forward-to-destination-form>
+
+  <app-forward-to-destination
+    *ngIf="permissions.forwardToDestinationList"
+    [forwardDestinationPath]="forwardDestinationPath"
+    [deleteButtonCode]="forwardDestinationDeleteCode"
+    [deleteButtonUrl]="forwardDestinationDeleteUrl"
+    [forwardDestinationModule]="forwardDestinationModule"
+    [forwardDestinationId]="forwardDestinationId"
+    [recieptNO]="true"
+    [dispatchNO]="true"
+    [dispatchDate]="true"
+  >
+  </app-forward-to-destination>
+</div>

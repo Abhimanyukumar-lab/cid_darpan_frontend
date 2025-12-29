@@ -1,0 +1,10 @@
+.court-edit {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=modify-court-lower.component.css.map */

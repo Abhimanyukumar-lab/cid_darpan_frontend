@@ -1,0 +1,142 @@
+<div class="assettype-edit">
+  <div class="dashboard-header">
+    {{ "ASSET_DETAILS.ASSET_DETAILS_TITLE" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="assettype-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="assetTypeForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="assetTypeForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="assetsName" class="col-3 col-form-label">{{
+        "ASSET_TYPES.ASSET_TYPE_NAME" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="assetsName"
+          name="assetsName"
+          *ngIf="language == 'hi'"
+          placeholder="{{ 'ASSET_TYPES.ENTR_ASSET_TYPE_NAME' | translate }}"
+          formControlName="assetsName"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('assetsName')
+          }"
+          (change)="focusOut($event, 'assetsName')"
+          (focusout)="focusOut($event, 'assetsName')"
+          required
+        />
+        <input
+          type="text"
+          id="assetsName"
+          name="assetsName"
+          *ngIf="language == 'en'"
+          placeholder="{{ 'ASSET_TYPES.ENTR_ASSET_TYPE_NAME' | translate }}"
+          formControlName="assetsName"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('assetsName') }"
+          required
+        />
+      </div>
+
+      <div
+        *ngIf="isControlHasError('assetsName', 'required')"
+        class="invalid"
+      >
+        <strong> Goods Name is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="priority" class="col-3 col-form-label">{{
+        "FORMS.PRIORITY" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="number"
+          id="priority"
+          name="priority"
+          min="1"
+          (keypress)="numberOnly($event)"
+          placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+          formControlName="priority"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('priority')
+          }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('priority', 'required')" class="invalid">
+        <strong>Priority is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('priority', 'minlength')" class="invalid">
+        <strong>Priority Minimum length is 1</strong>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="assetType_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_ASSETTYPE && ADD_URL && !ASSETTYPE_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="question_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_ASSETTYPE && EDIT_URL && ASSETTYPE_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

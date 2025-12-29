@@ -1,0 +1,186 @@
+<div class="verify-user-container">
+  <div class="container">
+    <div
+      class="row d-flex justify-content-center align-content-center align-items-center"
+    >
+      <div class="col-sm-12 col-md-7 col-lg-5 col-lx-4">
+        <div class="verify-user" *ngIf="isVerify">
+          <div class="title">
+            <h3>Change Password</h3>
+          </div>
+          <div class="sub-title text-muted">
+            <h6>Enter new passowrd and Confirm password to change password.</h6>
+          </div>
+          <div class="verify-user-form">
+            <form
+              class="form needs-validation text-center"
+              novalidate
+              [formGroup]="verifyUserForm"
+              autocomplete="off"
+              novalidate="novalidate"
+              id="login_form"
+            >
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text svg-icon svg-icon-primary svg-icon-2x"
+                      [inlineSVG]="'assets/media/svg/icons/Home/Key.svg'"
+                    >
+                    </span>
+                  </div>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    formControlName="password"
+                    autocomplete="NONE"
+                    class="form-control"
+                    [ngClass]="{ invalidInput: isControlHasErrors('password') }"
+                    required
+                  />
+                  <div class="input-group-append">
+                    <span
+                      class="input-group-text svg-icon svg-icon-primary svg-icon-2x"
+                      [inlineSVG]="passwordIcon"
+                      (click)="showPass()"
+                    >
+                    </span>
+                  </div>
+                </div>
+                <div
+                  *ngIf="isControlHasError('password', 'required')"
+                  class="invalid"
+                >
+                  <strong>Password is required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('password', 'minlength')"
+                  class="invalid"
+                >
+                  <strong>Password Minimum length is 8</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('password', 'maxlength')"
+                  class="invalid"
+                >
+                  <strong>max length 100</strong>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text svg-icon svg-icon-primary svg-icon-2x"
+                      [inlineSVG]="'assets/media/svg/icons/Home/Key.svg'"
+                    >
+                    </span>
+                  </div>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Enter Confirm Password"
+                    formControlName="confirmPassword"
+                    autocomplete="NONE"
+                    class="form-control"
+                    [ngClass]="{
+                      invalidInput: isControlHasErrors('confirmPassword')
+                    }"
+                    required
+                  />
+                  <div class="input-group-append">
+                    <span
+                      class="input-group-text svg-icon svg-icon-primary svg-icon-2x"
+                      [inlineSVG]="confirmPasswordIcon"
+                      (click)="showConfirmPass()"
+                    >
+                    </span>
+                  </div>
+                </div>
+                <div
+                  *ngIf="isControlHasError('confirmPassword', 'required')"
+                  class="invalid"
+                >
+                  <strong>Confirm Password is required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('confirmPassword', 'minlength')"
+                  class="invalid"
+                >
+                  <strong>Confirm Password Minimum length is 8</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('confirmPassword', 'maxlength')"
+                  class="invalid"
+                >
+                  <strong>Max length 100</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('confirmPassword', 'mustMatch')"
+                  class="invalid"
+                >
+                  <strong>Confirm Passwords must match</strong>
+                </div>
+              </div>
+              <button
+                id="forgot_password_submit"
+                (click)="submit()"
+                class="btn btn-primary px-9 py-9"
+              >
+                Submit
+                <div
+                  class="spinner-border spinner-border-sm text-light align-middle"
+                  *ngIf="loading"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="verify-user" *ngIf="!isVerify">
+          <div class="title">
+            <h3>Something is wrong</h3>
+          </div>
+          <div class="sub-title text-muted">
+            <h6>
+              Forgot Password Link is Expired. or Already Password has been
+              changed.
+            </h6>
+            <h6>
+              If you have not able to do password change please re-apply for
+              Forgot Password to do changes.
+            </h6>
+          </div>
+          <hr />
+          <div class="text-center">
+            <h6 class="text-muted">
+              Go back To Login?
+              <a
+                href="javascript:;"
+                routerLink="/official/login"
+                class="text-dark-50 text-hover-primary my-3 mr-2"
+                id="signup_forgot"
+                >Click here</a
+              >
+            </h6>
+            <h6 class="text-muted">OR</h6>
+            <h6 class="text-muted">
+              Re-apply For Change Password?
+              <a
+                href="javascript:;"
+                routerLink="/forgot-password"
+                class="text-dark-50 text-hover-primary my-3 mr-2"
+                id="signup_forgot"
+                >Click here</a
+              >
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

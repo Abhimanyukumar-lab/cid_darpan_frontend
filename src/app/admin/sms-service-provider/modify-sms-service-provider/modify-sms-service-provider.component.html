@@ -1,0 +1,293 @@
+<div class="template-edit">
+  <div class="dashboard-header">SMS Service Provider</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="template-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="smsServiceProviderForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="smsServiceProviderForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="serviceProviderName" class="col-3 col-form-label"
+            >Service Provider Name</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="serviceProviderName"
+              name="serviceProviderName"
+              placeholder="Enter Service Provider Name"
+              formControlName="serviceProviderName"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('serviceProviderName')
+              }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('serviceProviderName', 'required')"
+            class="invalid"
+          >
+            <strong>Service Provider Name is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="apiKey" class="col-3 col-form-label">Api Key</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="apiKey"
+              name="apiKey"
+              placeholder="Enter Api Key"
+              formControlName="apiKey"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('apiKey')
+              }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('apiKey', 'required')" class="invalid">
+            <strong>Api Key is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="apiUrl" class="col-3 col-form-label">Api Url</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="apiUrl"
+              name="apiUrl"
+              placeholder="Enter Api Url"
+              formControlName="apiUrl"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('apiUrl') }"
+              required
+            />
+          </div>
+          <div *ngIf="isControlHasError('apiUrl', 'required')" class="invalid">
+            <strong>Api Url is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="noOfSms" class="col-3 col-form-label"
+            >Number Of Sms</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="noOfSms"
+              name="noOfSms"
+              placeholder="Enter Number of SMS"
+              (keypress)="numberOnly($event)"
+              formControlName="noOfSms"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('noOfSms') }"
+              required
+            />
+          </div>
+          <div *ngIf="isControlHasError('noOfSms', 'required')" class="invalid">
+            <strong>Number of SMS is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="checkStatusApi" class="col-3 col-form-label"
+            >Check Status API</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="checkStatusApi"
+              name="checkStatusApi"
+              placeholder="Enter Check Status API"
+              formControlName="checkStatusApi"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('checkStatusApi') }"
+              required
+            />
+          </div>
+          <div
+            *ngIf="isControlHasError('checkStatusApi', 'required')"
+            class="invalid"
+          >
+            <strong>Check Status API is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="baseUrl" class="col-3 col-form-label">Base URL</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="baseUrl"
+              name="baseUrl"
+              placeholder="Enter Base Url"
+              formControlName="baseUrl"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('baseUrl') }"
+              required
+            />
+          </div>
+          <div *ngIf="isControlHasError('baseUrl', 'required')" class="invalid">
+            <strong>Base URL is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="senderId" class="col-3 col-form-label">Sender Id</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="senderId"
+              name="senderId"
+              placeholder="Enter Sender Id"
+              formControlName="senderId"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('senderId') }"
+              required
+            />
+          </div>
+          <div
+            *ngIf="isControlHasError('senderId', 'required')"
+            class="invalid"
+          >
+            <strong>Sender Id is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="requestBody" class="col-3 col-form-label"
+            >Request Body</label
+          >
+          <div class="col-8">
+            <select
+              name="requestBody"
+              id="requestBody"
+              formControlName="requestBody"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('requestBody') }"
+            >
+              <option [ngValue]="null" disabled>Select Request Body</option>
+              <option
+                *ngFor="let gender of requestList"
+                [ngValue]="gender.optionNameEn"
+              >
+                {{ gender.optionNameEn }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="responseBody" class="col-3 col-form-label"
+            >Response Body</label
+          >
+          <div class="col-8">
+            <select
+              name="responseBody"
+              id="responseBody"
+              formControlName="responseBody"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('responseBody') }"
+            >
+              <option [ngValue]="null" disabled>Select Response Body</option>
+              <option
+                *ngFor="let gender of responseList"
+                [ngValue]="gender.optionNameEn"
+              >
+                {{ gender.optionNameEn }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="provider_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SMS_PROV && ADD_URL && !SMS_PROV_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="provider_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SMS_PROV && EDIT_URL && SMS_PROV_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

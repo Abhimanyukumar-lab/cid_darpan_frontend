@@ -1,0 +1,164 @@
+<div class="permission-edit">
+  <div class="dashboard-header">Permission Details</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="permission-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="permissionForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="permission_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="name" class="col-3 col-form-label">Name</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter Name"
+          formControlName="permissionName"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('permissionName') }"
+          required
+        />
+      </div>
+
+      <div
+        *ngIf="isControlHasError('permissionName', 'required')"
+        class="invalid"
+      >
+        <strong>Name is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('permissionName', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('permissionName', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="code" class="col-3 col-form-label">Code</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="code"
+          name="code"
+          maxlength="6"
+          minlength="6"
+          placeholder="Enter Code"
+          formControlName="permissionCode"
+          (keypress)="validAplphaCap($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('permissionCode') }"
+          required
+        />
+      </div>
+      <div
+        *ngIf="isControlHasError('permissionCode', 'required')"
+        class="invalid"
+      >
+        <strong>Code is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('permissionCode', 'minlength')"
+        class="invalid"
+      >
+        <strong>Code Minimum length is 6</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('permissionCode', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Code needs max length 6</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="url" class="col-3 col-form-label">URL</label>
+      <div class="col-9">
+        <input
+          type="url"
+          id="url"
+          name="url"
+          placeholder="Enter URL"
+          formControlName="permissionUrl"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('permissionUrl') }"
+          required
+        />
+      </div>
+      <div
+        *ngIf="isControlHasError('permissionUrl', 'required')"
+        class="invalid"
+      >
+        <strong>URL is required</strong>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="permission_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_PERMISSION && ADD_URL && !PERMISSION_PARAMS.ID"
+      >
+        Add Permision
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="permission_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_PERMISSION && EDIT_URL && PERMISSION_PARAMS.ID"
+      >
+        Edit Permision
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

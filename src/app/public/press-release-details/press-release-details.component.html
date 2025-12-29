@@ -1,0 +1,33 @@
+<div class="header-title">
+    <span class="glob-span header-txt">{{
+        "NEWSEVENTS.NEWSEVENTS_TITLE" | translate
+        }}</span>
+</div>
+
+<div class="container">
+    <div class="row px-2 py-2 my-2">
+        <div class="col-sm-12 text-end">
+            <button (click)="goBack()">Back</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row px-2 py-2 my-2">
+        <div class="col-sm-12 col-md-4">
+            <app-image-viewer [imageURL]="pressRelease.link" [imgWidth]="'100%'"
+                [imgHeight]="'300px'"></app-image-viewer>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            <div class="col-12 title">
+                {{ pressRelease.title }}
+            </div>
+            <div class="col-12 posted">
+                Posted On: {{ pressRelease.date | date: "dd/MM/yyyy" }}
+            </div>
+            <div class="col-12 description">
+                {{ pressRelease.description }}
+            </div>
+        </div>
+    </div>
+</div>

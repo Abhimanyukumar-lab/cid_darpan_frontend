@@ -1,0 +1,23 @@
+<div class="view-role">
+  <div class="dashboard-header">Notification List</div>
+</div>
+
+<div class="button-panel">
+  <a
+    routerLink="{{ permissions.add_url }}"
+    class="btn btn-success m-2"
+    *ngIf="permissions.add && permissions.add_url"
+    >Create List</a
+  >
+</div>
+
+<div style="padding: 20px">
+  <app-table-data
+    [rows]="listrows"
+    [page]="listpage"
+    [columns]="listcolumns"
+    [path]="listpath"
+    [permissions]="permissions"
+    [isApiAvailable]="false"
+  ></app-table-data>
+</div>

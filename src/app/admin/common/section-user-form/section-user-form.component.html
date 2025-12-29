@@ -1,0 +1,317 @@
+<div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{
+            "POLICE_OFFICER.POLICE_OFF_DETAILS_DETAILS" | translate
+          }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row">
+          <form
+            class="form needs-validation text-center container"
+            novalidate
+            [formGroup]="sectionsUserForm"
+            autocomplete="off"
+            novalidate="novalidate"
+            id="sectionsUserForm"
+          >
+            <input name="id" formControlName="id" style="display: none" />
+            <input
+              name="sectionsId"
+              formControlName="sectionsId"
+              style="display: none"
+            />
+            <div class="row mb-2">
+              <!-- <div class="col-sm-12 col-md-6 mb-1">
+                <span class="glob-span"
+                  >{{ "POLICE_OFFICER.SEL_OFFICER_TYPE" | translate }} :</span
+                >
+                <select
+                  name="type"
+                  id="type"
+                  formControlName="type"
+                  (change)="checkSelType($event.target)"
+                  autocomplete="off"
+                  class="form-select"
+                  required
+                >
+                  <option value="null" disabled>
+                    {{ "POLICE_OFFICER.SEL_OFFICER_TYPE" | translate }}
+                  </option>
+                  <option value="SHO Details">
+                    {{ "POLICE_OFFICER.SHO_DETAISL" | translate }}
+                  </option>
+                  <option
+                    value="Investigation additional police sections head Name"
+                  >
+                    {{ "POLICE_OFFICER.INVESTIGATION_OFFICER" | translate }}
+                  </option>
+                  <option value="Law & order additional police sections head">
+                    {{ "POLICE_OFFICER.LAW_ORDER" | translate }}
+                  </option>
+                  <option value="IO and Law and order">
+                    {{ "POLICE_OFFICER.POLICE_OFFICER" | translate }}
+                  </option>
+                  <option value="police Staff Details">
+                    {{ "POLICE_STAFF.STAFF_DETAILS" | translate }}
+                  </option>
+                  <option value="Chaukidar Dafadar Details">
+                    {{ "CHOKIDAR_DAFADAR.CHOKIDAR_TITLE" | translate }}
+                  </option>
+                  <option value="Other Details">
+                    {{ "OTHER_OFFICER.OTHER_OFFICER_TITLE" | translate }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="isControlHasError('type', 'required')"
+                  class="invalid"
+                >
+                  <strong>Station User is required</strong>
+                </div>
+              </div> -->
+  
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "POLICE_OFFICER.OFFICER_NAME" | translate }} :</span
+                >
+                <input
+                  *ngIf="language == 'hi'"
+                  type="text"
+                  id="name"
+                  name="name"
+                  (keypress)="validAplpha($event)"
+                  placeholder="{{
+                    'POLICE_OFFICER.ENT_OFFICER_NAME' | translate
+                  }}"
+                  formControlName="name"
+                  autocomplete="off"
+                  class="form-control hindi hindiFont"
+                  [ngClass]="{
+                    invalidInput: isControlHasErrors('name')
+                  }"
+                  (change)="focusOut($event, 'name')"
+                  (focusout)="focusOut($event, 'name')"
+                  required
+                />
+                <input
+                  *ngIf="language == 'en'"
+                  type="text"
+                  id="name"
+                  name="name"
+                  (keypress)="validAplpha($event)"
+                  placeholder="{{
+                    'POLICE_OFFICER.ENT_OFFICER_NAME' | translate
+                  }}"
+                  formControlName="name"
+                  autocomplete="off"
+                  class="form-control"
+                  [ngClass]="{
+                    invalidInput: isControlHasErrors('name')
+                  }"
+                  (change)="focusOut($event, 'name')"
+                  (focusout)="focusOut($event, 'name')"
+                  required
+                />
+                <div
+                  *ngIf="isControlHasError('name', 'required')"
+                  class="invalid"
+                >
+                  <strong>Officer Name is required</strong>
+                </div>
+              </div>
+  
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "POLICE_OFFICER.OFFICER_EMAIL" | translate }} :</span
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="{{
+                    'POLICE_OFFICER.ENTR_OFFICER_EMAIL' | translate
+                  }}"
+                  formControlName="email"
+                  autocomplete="off"
+                  class="form-control"
+                  [ngClass]="{ invalidInput: isControlHasErrors('email') }"
+                />
+              </div>
+  
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "POLICE_OFFICER.OFFICER_DESIGN" | translate }} :</span
+                >
+                <select
+                  name="designationName"
+                  id="designationName"
+                  formControlName="designationId"
+                  autocomplete="off"
+                  class="form-select"
+                  [ngClass]="{
+                    invalidInput: isControlHasErrors('designationId')
+                  }"
+                  required
+                >
+                  <option value="null" disabled>Select Designation</option>
+                  <option
+                    *ngFor="let designation of designationList"
+                    value="{{ designation.id }}"
+                  >
+                    <span *ngIf="language == 'en'">{{
+                      designation.designationName
+                    }}</span>
+                    <span *ngIf="language == 'hi'">{{
+                      designation.designationNameHi
+                    }}</span>
+                  </option>
+                </select>
+              </div>
+  
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "POLICE_OFFICER.AREA" | translate }} :</span
+                >
+                <input
+                  *ngIf="language == 'hi'"
+                  type="text"
+                  id="villageName"
+                  name="villageName"
+                  placeholder="{{ 'POLICE_OFFICER.ENTR_AREA' | translate }}"
+                  formControlName="villageName"
+                  autocomplete="off"
+                  class="form-control hindi hindiFont"
+                  [ngClass]="{
+                    invalidInput: isControlHasErrors('villageName')
+                  }"
+                  (change)="focusOut($event, 'villageName')"
+                  (focusout)="focusOut($event, 'villageName')"
+                /><input
+                  *ngIf="language == 'en'"
+                  type="text"
+                  id="villageName"
+                  name="villageName"
+                  (keypress)="validAplpha($event)"
+                  placeholder="{{ 'CHARACTER.ENTR_LOCATIONS' | translate }}"
+                  formControlName="villageName"
+                  autocomplete="off"
+                  class="form-control"
+                  [ngClass]="{
+                    invalidInput: isControlHasErrors('villageName')
+                  }"
+                />
+              </div>
+  
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "SECTIONS.SEC_OFFICER_MOBILE" | translate }} 1 :</span
+                >
+                <input
+                  type="text"
+                  id="mobileNo"
+                  name="mobileNo"
+                  maxlength="13"
+                  (keypress)="numberOnly($event)"
+                  placeholder="{{
+                    'SECTIONS.ENTER_SEC_OFFICER_MOBILE' | translate
+                  }}"
+                  formControlName="mobileNo"
+                  autocomplete="off"
+                  class="form-control"
+                  [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }"
+                  required
+                />
+                <div
+                  *ngIf="isControlHasError('mobileNo', 'required')"
+                  class="invalid"
+                >
+                  <strong>Officer Mobile Number is required</strong>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "SECTIONS.SEC_OFFICER_MOBILE" | translate }} 2 :</span
+                >
+                <input
+                  type="text"
+                  id="contactNo"
+                  name="contactNo"
+                  maxlength="13"
+                  (keypress)="numberOnly($event)"
+                  placeholder="{{
+                    'SECTIONS.ENTER_SEC_OFFICER_MOBILE' | translate
+                  }}"
+                  formControlName="contactNo"
+                  autocomplete="off"
+                  class="form-control"
+                  [ngClass]="{ invalidInput: isControlHasErrors('contactNo') }"
+                />
+              </div>
+  
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "POLICE_OFFICER.OFFICER_IMAGE" | translate }} :</span
+                >
+                <input
+                  type="file"
+                  name="image"
+                  class="form-control"
+                  (change)="handleFileChange($event.target.files)"
+                  formControlName="image"
+                />
+              </div>
+  
+              <div class="col-sm-12 col-md-6">
+                <span class="glob-span"
+                  >{{ "FORMS.PRIORITY" | translate }} :</span
+                >
+                <input
+                  type="text"
+                  id="priority"
+                  name="priority"
+                  min="1"
+                  minlength="1"
+                  (keypress)="numberOnly($event)"
+                  placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+                  formControlName="priority"
+                  autocomplete="off"
+                  class="form-control"
+                  [ngClass]="{ invalidInput: isControlHasErrors('priority') }"
+                  required
+                />
+                <div
+                  *ngIf="isControlHasError('priority', 'required')"
+                  class="invalid"
+                >
+                  <strong>Priority is required</strong>
+                </div>
+              </div>
+  
+              <div
+                class="
+                  form-group
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                "
+                style="margin-top: 5px"
+              >
+                <button
+                  (click)="submitForwardData()"
+                  class="btn btn-primary w-25"
+                  [disabled]="loading"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

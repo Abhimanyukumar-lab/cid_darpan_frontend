@@ -1,0 +1,655 @@
+<div class="gr-edit">
+  <div class="dashboard-header">
+    {{ "PROCECUTION.PROC_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="gr-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="procecutionForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="procecutionForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="detailType" class="col-form-label"
+              >{{ "PROCECUTION.PROC_TYPES" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <select
+              name="detailType"
+              id="detailType"
+              formControlName="detailType"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('detailType') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "PROCECUTION.SEL_PROC_TYPE" | translate }}
+              </option>
+              <option value="Summons">
+                {{ "PROCECUTION.SUMMON" | translate }}
+              </option>
+              <option value="Warrant">
+                {{ "PROCECUTION.WARRENT" | translate }}
+              </option>
+              <option value="Itihar">
+                {{ "PROCECUTION.PROCLAIM" | translate }}
+              </option>
+              <option value="Kurki">
+                {{ "PROCECUTION.ATTACHMENT" | translate }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('detailType', 'required')"
+          class="invalid"
+        >
+          <strong>Gr Type is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="serialNoDate" class="col-form-label"
+              >{{ "PROCECUTION.SER_NO_DATE" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              id="serialNoDate"
+              name="serialNoDate"
+              placeholder="Ex.9999999999999999,12/01/2021"
+              (keyup)="setDataRecipt($event.target.value)"
+              formControlName="serialNoDate"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('serialNoDate') }"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('serialNoDate', 'required')"
+          class="invalid"
+        >
+          <strong>Serial Number and Date is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="courtName" class="col-form-label"
+              >{{ "PROCECUTION.COURT_NAME" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="courtName"
+              name="courtName"
+              placeholder="{{ 'PROCECUTION.ENTR_COURT_NAME' | translate }}"
+              formControlName="courtName"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('courtName')
+              }"
+              (change)="focusOut($event, 'courtName')"
+              (focusout)="focusOut($event, 'courtName')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="courtName"
+              name="courtName"
+              placeholder="{{ 'PROCECUTION.ENTR_COURT_NAME' | translate }}"
+              formControlName="courtName"
+              autocomplete="off"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('courtName')
+              }"
+              (change)="focusOut($event, 'courtName')"
+              (focusout)="focusOut($event, 'courtName')"
+              required
+            />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('courtName', 'required')" class="invalid">
+          <strong>Enter Court Name is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="caseRelated" class="col-form-label"
+              >{{ "PROCECUTION.CASE_REL_TO" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <select
+              name="caseRelated"
+              id="caseRelated"
+              formControlName="caseRelated"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('caseRelated') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "PROCECUTION.ENTR_CASE_REL_TO" | translate }}
+              </option>
+              <option value="TR">TR</option>
+              <option value="GR">GR</option>
+              <option value="STR">STR</option>
+              <option value="PS Case No">PS Case No</option>
+              <option value="Excise">Excise</option>
+            </select>
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('caseRelated', 'required')"
+          class="invalid"
+        >
+          <strong>Case Related is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="caseNo" class="col-form-label"
+              >{{ "PROCECUTION.CASE_NO" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              id="caseNo"
+              name="caseNo"
+              placeholder="{{ 'PROCECUTION.ENTR_CASE_NO' | translate }}"
+              formControlName="caseNo"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('caseNo') }"
+              required
+            />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('caseNo', 'required')" class="invalid">
+          <strong>Case Number is required</strong>
+        </div>
+      </div>
+      <!-- yeha change -->
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="procType" class="col-form-label"
+              >{{ "PROCECUTION.PROC_TYPE" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <select
+              name="procType"
+              id="procType"
+              formControlName="procType"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('procType') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "PROCECUTION.SEL_PROC_TYPE" | translate }}
+              </option>
+              <option value="Accused">
+                {{ "PROCECUTION.ACCUSED" | translate }}
+              </option>
+              <option value="Witness">
+                {{ "PROCECUTION.WITNESS" | translate }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('procType', 'required')" class="invalid">
+          <strong>Prosecution Type is required</strong>
+        </div>
+      </div>
+
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="procAddress" class="col-form-label"
+              >{{ "PROCECUTION.PROC_ADDRESS" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <textarea
+              *ngIf="language == 'hi'"
+              id="procAddress"
+              name="procAddress"
+              placeholder="{{ 'PROCECUTION.ENTR_PROC_ADDRESS' | translate }}"
+              formControlName="procAddress"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('procAddress')
+              }"
+              (change)="focusOut($event, 'procAddress')"
+              (focusout)="focusOut($event, 'procAddress')"
+            ></textarea>
+            <textarea
+              *ngIf="language == 'en'"
+              id="procAddress"
+              name="procAddress"
+              placeholder="{{ 'PROCECUTION.ENTR_PROC_ADDRESS' | translate }}"
+              formControlName="procAddress"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('procAddress')
+              }"
+              (change)="focusOut($event, 'procAddress')"
+              (focusout)="focusOut($event, 'procAddress')"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- yeha change -->
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="proName" class="col-form-label"
+              >{{ "PROCECUTION.NAME_OF_PROC" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="proName"
+              name="proName"
+              placeholder="{{ 'PROCECUTION.ENTR_NAME_OF_PROC' | translate }}"
+              formControlName="proName"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('proName')
+              }"
+              (change)="focusOut($event, 'proName')"
+              (focusout)="focusOut($event, 'proName')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="proName"
+              name="proName"
+              placeholder="{{ 'PROCECUTION.ENTR_NAME_OF_PROC' | translate }}"
+              formControlName="proName"
+              autocomplete="off"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('proName')
+              }"
+              (change)="focusOut($event, 'proName')"
+              (focusout)="focusOut($event, 'proName')"
+              required
+            />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('proName', 'required')" class="invalid">
+          <strong>Procecution Name is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="mobileNo" class="col-form-label"
+              >{{ "PROCECUTION.PROC_MO_NO" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="mobileNo"
+              placeholder="{{ 'PROCECUTION.ENTR_PROC_MO_NO' | translate }}"
+              maxlength="10"
+              (keypress)="numberOnly($event)"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="presentDate" class="col-form-label"
+              >{{ "PROCECUTION.PRESENT_DATE" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              type="date"
+              id="presentDate"
+              name="presentDate"
+              formControlName="presentDate"
+              autocomplete="off"
+              class="form-control"
+              max="{{ max | date: 'yyyy-MM-dd' }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('presentDate') }"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('presentDate', 'required')"
+          class="invalid"
+        >
+          <strong>Present Date is required</strong>
+        </div>
+      </div>
+
+
+      <!-- <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="nextDate" class="col-form-label"
+              >{{ "PROCECUTION.NEXT_DATE" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              id="nextDate"
+              name="nextDate"
+              formControlName="nextDate"
+              autocomplete="off"
+              class="form-control"
+              min="{{ max | date: 'yyyy-MM-dd' }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('nextDate') }"
+            />
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="remark" class="col-form-label"
+              >{{ "PROCECUTION.REMARK" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="remark"
+              name="remark"
+              placeholder="{{ 'PROCECUTION.ENTR_REMARK' | translate }}"
+              formControlName="remark"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('remark')
+              }"
+              (change)="focusOut($event, 'remark')"
+              (focusout)="focusOut($event, 'remark')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="remark"
+              name="remark"
+              placeholder="{{ 'PROCECUTION.ENTR_REMARK' | translate }}"
+              formControlName="remark"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('remark')
+              }"
+              (change)="focusOut($event, 'remark')"
+              (focusout)="focusOut($event, 'remark')"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="dateOfRecipt" class="col-form-label"
+              >{{ "PROCECUTION.RECEIPT_MEMO_NO" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              id="dateOfRecipt"
+              name="dateOfRecipt"
+              placeholder="Ex.9999999999999999,12/02/2021"
+              formControlName="dateOfRecipt"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('dateOfRecipt') }"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('dateOfRecipt', 'required')"
+          class="invalid"
+        >
+          <strong>Date of Receipt is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="stateVictime" class="col-form-label"
+              >{{ "PROCECUTION.STATUS" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <select
+              name="stateVictime"
+              id="stateVictime"
+              formControlName="stateVictime"
+              autocomplete="off"
+              class="form-select"
+              (change)="getSelectedType($event.target)"
+              [ngClass]="{ invalidInput: isControlHasErrors('stateVictime') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "PROCECUTION.SEL_STATUS" | translate }}
+              </option>
+              <option value="Waiting at Department">
+                {{ "PROCECUTION.WAITING_AT_DEPT" | translate }}
+              </option>
+              <option value="Processed">
+                {{ "PROCECUTION.PROCESSED" | translate }}
+              </option>
+              <option value="Sent to court">
+                {{ "PROCECUTION.SENT_TO_COURT" | translate }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('stateVictime', 'required')"
+          class="invalid"
+        >
+          <strong>State of Victim is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6" *ngIf="isDispatchPresent">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="dispatchNum" class="col-form-label"
+              >{{ "ECOM_DISPATCH.DISP_NO" | translate }}:</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              id="dispatchNum"
+              name="dispatchNum"
+              placeholder="{{ 'ECOM_DISPATCH.ENTR_DISP_NO' | translate }}"
+              formControlName="dispatchNum"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('dispatchNum')
+              }"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="officerName" class="col-form-label"
+              >{{ "PROCECUTION.FROM_OFFICER" | translate }} :</label
+            >
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="officerName"
+              name="officerName"
+              placeholder="{{ 'PROCECUTION.ENTR_FROM_OFFICER' | translate }}"
+              formControlName="officerName"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('officerName')
+              }"
+              (change)="focusOut($event, 'officerName')"
+              (focusout)="focusOut($event, 'officerName')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="officerName"
+              name="officerName"
+              placeholder="{{ 'PROCECUTION.ENTR_FROM_OFFICER' | translate }}"
+              formControlName="officerName"
+              autocomplete="off"
+              class="form-control"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('officerName')
+              }"
+              (change)="focusOut($event, 'officerName')"
+              (focusout)="focusOut($event, 'officerName')"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- yeha se churaya remark ko fater kar diya -->
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="remark" class="col-form-label">{{
+              "COMPLAINT.DOCUMENT" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="file"
+              class="form-control"
+              formControlName="document"
+              (change)="handleFileChange($event.target.files)"
+              id="document"
+              name="document"
+              accept="application/pdf"
+              [ngClass]="{ invalidInput: isControlHasErrors('document') }"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="procecution_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_PROCECUTION && ADD_URL && !PROCECUTION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="procecution_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_PROCECUTION && EDIT_URL && PROCECUTION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

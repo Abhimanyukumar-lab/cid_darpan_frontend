@@ -1,0 +1,52 @@
+.places-area {
+  width: 100%;
+  height: auto;
+  padding: 20px 50px;
+}
+.places-area .container {
+  margin: auto;
+  position: relative;
+}
+.places-area .container .card {
+  width: 48%;
+  height: auto;
+  margin: 5px;
+  float: left;
+  padding: 0px 5px;
+}
+.places-area .container .card .box {
+  padding: 2px;
+  height: 100%;
+  margin: 0 0 5px;
+  text-align: center;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 400;
+  font-style: normal;
+  padding: 10px 0;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 500;
+  font-style: oblique;
+  line-height: 2;
+}
+
+.showLess {
+  height: 13rem;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin: auto;
+    position: relative;
+  }
+  .container .card {
+    width: 100% !important;
+    margin: 5px 0px !important;
+  }
+}/*# sourceMappingURL=important-places.component.css.map */

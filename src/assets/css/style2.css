@@ -1,0 +1,471 @@
+@import url("https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Mukta:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: "Mukta", sans-serif !important;
+}
+
+:root {
+  --dark-navy: #06283d;
+  --blue: #256d85;
+  --skyblue: #47b5ff;
+  --light-blue: #dff6ff;
+  --black1: #1c1c1c;
+  --orange: #e14d2a;
+  --line-color: #cfcece;
+  --circle-color: #f6faff;
+  --black3: #4d4d4d;
+  --white: #ffffff;
+  --font28: 28px;
+  --font16: 16px;
+  --font14: 14px;
+  --font18: 18px;
+  --font20: 20px;
+  --font12: 12px;
+}
+#html1 {
+  display: none;
+}
+#html3 {
+  display: none;
+}
+.englishText {
+  display: none;
+}
+.english {
+  display: none;
+}
+.header1 {
+  background-color: var(--dark-navy);
+  font-size: var(--font14);
+  color: var(--white) !important;
+}
+.header1 .nav-link {
+  color: var(--white) !important;
+  font-size: var(--font14) !important;
+}
+.header1 .flag img {
+  height: 21px;
+}
+.header1 .call img,
+.mail .mail-img {
+  height: 12px;
+}
+.header .social-media-icon img {
+  height: 12px;
+}
+
+.logo-section .main-logo img {
+  height: 100px;
+}
+.logo-section .officers-sec:first-child .officer-img:first-child {
+  height: 100px;
+  width: 100px;
+  /* background-image: url(../img/img2/R.S.Bhatti.jpg); */
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
+}
+.logo-section .officers-sec:nth-child(2) .officer-img2 {
+  height: 100px;
+  width: 100px;
+  /* background-image: url(../img/img2/Navin\ Chandra\ Jha.jpeg); */
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
+}
+.logo-section .officers-sec .officer-img3 {
+  height: 100px;
+  width: 100px;
+  /* background-image: url(../img/img2/Vinit\ Kumar.jpeg); */
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
+}
+.logo-section .officers-sec .officer-name {
+  font-size: var(--font16);
+  font-weight: 600;
+}
+.logo-section .officers-sec .officer-designation {
+  font-size: var(--font12);
+  font-weight: 500;
+}
+
+.header2 {
+  background-color: var(--dark-navy);
+  color: var(--white);
+  font-size: var(--font18);
+}
+
+.navbar-toggler-icon {
+  /* background-image: url(../img/img2/menu.png); */
+}
+
+.header2 .nav-link {
+  color: var(--white) !important;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  font-size: var(--font16);
+}
+
+.header2 .nav-link img {
+  margin-left: 0.5rem;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropdown-menu li a:hover {
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+}
+
+.header2 .nav-link:hover {
+  background-color: var(--skyblue);
+}
+
+.active-nav {
+  background-color: var(--skyblue);
+}
+.navbar {
+  padding: 0 !important;
+}
+
+.hero-img {
+  /* background-image: url(../img/img2/Hero\ Image.jpg); */
+  height: 366px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+section {
+  background-color: var(--light-blue);
+}
+
+.headLine {
+  color: var(--black1);
+  font-size: var(--font28);
+  font-weight: 600;
+}
+
+.sideLine {
+  background-color: var(--blue);
+  width: 26px;
+  height: 2px;
+  margin: 0 0.75rem;
+  border-radius: 10px;
+}
+
+.headlink:hover {
+  color: var(--skyblue) !important;
+}
+.headLineLink {
+  overflow: hidden;
+  width: 100%;
+  background-color: var(--blue);
+}
+.headLineLink #marquee {
+  background-color: var(--blue);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.headlink {
+  color: var(--white);
+  font-size: var(--font16);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.headArrow {
+  height: 15px;
+  margin-left: 0.25rem;
+}
+
+.impLinkBox {
+  background-color: var(--blue);
+  border-radius: 10px;
+}
+
+.impLinkTitle {
+  font-size: var(--font28);
+  color: var(--white);
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem 1rem;
+}
+
+.impLinkListParent {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-top: 1px solid var(--light-blue);
+}
+
+.impLinkListParent a {
+  display: flex;
+  align-items: center;
+  font-size: var(--font16);
+  color: var(--white);
+  text-align: center;
+  justify-content: center;
+}
+
+.impLinksIcons {
+  margin-right: 0.5rem;
+}
+
+.serviceTitle {
+  font-size: var(--font28);
+  color: var(--dark-navy);
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+}
+
+.service-box a {
+  cursor: pointer;
+}
+
+.service-box a .mainServiceBox:hover {
+  box-shadow: 0 0 4px var(--blue);
+}
+
+.mainServiceBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 4px var(--light-blue);
+  margin-bottom: 1.25rem;
+}
+
+.serviceImg {
+  margin-bottom: 0.75rem;
+  height: 90px;
+}
+
+.serviceName {
+  font-size: var(--font16);
+  color: var(--blue);
+  font-weight: 500;
+  text-align: center;
+}
+
+.ourTeam-sec {
+  background-color: var(--light-blue);
+}
+
+.ourTeamTitle {
+  font-size: var(--font28);
+  color: var(--black1);
+  text-align: center;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.team-img {
+  clip-path: circle(45%);
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.team-img img {
+  width: 130px;
+}
+.team-img img:nth-child(4) {
+  height: 130px;
+}
+
+.team-name .name {
+  font-size: var(--font20);
+  font-weight: 600;
+  color: var(--black1);
+}
+
+.team-name .team-des {
+  font-size: var(--font16);
+  font-weight: 500;
+  color: var(--black1);
+}
+
+.team-col {
+  margin-bottom: 0.75rem;
+}
+
+.ourTeamrow .team-col:nth-child(5) .team-img img {
+  height: 130px;
+  width: auto;
+}
+
+.aboutUsBox,
+.newsbox {
+  border: 1px solid var(--blue);
+  border-radius: 12px;
+}
+
+.aboutUsTitle,
+.newsTitle {
+  background-color: var(--blue);
+  padding: 1rem;
+  font-size: var(--font28);
+  color: var(--white);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 2px solid var(--blue);
+  text-align: center;
+}
+
+.aboutUsContent {
+  font-size: var(--font16);
+  font-weight: 500;
+  color: var(--black1);
+  padding: 1rem;
+}
+
+.pressInfo {
+  height: 768px;
+  overflow-y: auto;
+}
+
+.pressNews {
+  display: flex;
+  align-items: flex-start;
+}
+
+.pressIcon {
+  margin-right: 0.5rem;
+}
+
+.pressDivider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--light-blue);
+  margin: 0.75rem 0;
+}
+
+.pressNewsLink {
+  font-size: var(--font16);
+  color: var(--skyblue);
+  font-weight: 600;
+}
+.pressNewsLink:hover {
+  color: var(--blue) !important;
+}
+.galleryTitle {
+  font-size: var(--font28);
+  padding: 1rem;
+  color: var(--black1);
+  font-weight: 600;
+}
+
+.imgMask {
+  clip-path: inset(0% 0% 0% 0%);
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgMask img {
+  height: 200px;
+}
+
+.imgBox {
+  margin-bottom: 1rem;
+}
+
+.gallery-sec {
+  background-color: var(--light-blue);
+}
+
+.footer1 {
+  background-color: var(--dark-navy);
+}
+
+.footerHeading {
+  font-size: var(--font18);
+  color: var(--white);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.footerContact {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+.footerLocation {
+  font-size: var(--font14);
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.footerContactIcons {
+  margin-right: 0.5rem;
+}
+
+.footerLinks {
+  color: var(--white);
+  font-size: var(--font16);
+  margin-bottom: 0.25rem;
+}
+
+.footerStore {
+  font-size: var(--font18);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.footer2 {
+  background-color: var(--blue);
+}
+
+.footerAppInstalled {
+  font-size: var(--font16);
+  color: var(--white);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.footerCopyright {
+  font-size: var(--font14);
+  font-weight: 500;
+  color: var(--black1);
+}
+.totalApp {
+  display: flex;
+  margin-left: 0.5rem;
+}
+.data {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  font-size: var(--font18);
+  background-color: var(--light-blue);
+  box-shadow: 0 0 6px rgba(6, 40, 61, 0.5);
+  margin-right: 0.25rem;
+  border-radius: 3px;
+  color: var(--dark-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

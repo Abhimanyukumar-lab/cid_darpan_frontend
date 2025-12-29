@@ -1,0 +1,238 @@
+<div class="allocation-edit">
+  <div class="dashboard-header">
+    {{ "ASSET_DETAILS.ASSET_DETAILS_TITLE" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="circle-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="assetallocationForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="assetallocationForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="crno" class="col-3 col-form-label">CR NO :</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="crno"
+              name="crno"
+              placeholder="Enter CR No"
+              formControlName="crno"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('crno')
+              }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('crno', 'required')" class="invalid">
+            <strong>CR NO is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="allocatedToName" class="col-3 col-form-label"
+            >Allocate To :</label
+          >
+          <div class="col-8">
+            <ng-multiselect-dropdown
+              class="ngDropDown"
+              [placeholder]="'Select Department'"
+              [data]="officersList"
+              name="destinations"
+              [(ngModel)]="selectedOfficerId"
+              [ngModelOptions]="{ standalone: true }"
+              [settings]="dropdownOfficerSettings"
+              (onSelect)="onItemSelect($event)"
+              aria-required="true"
+              required
+            >
+              <!-- formControlName="destinations"  
+             -->
+            </ng-multiselect-dropdown>
+          </div>
+          <div
+            *ngIf="isControlHasError('allocatedToId', 'required')"
+            class="invalid"
+          >
+            <strong>Allocate to is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="assetTypeName" class="col-3 col-form-label"
+            >{{ "ASSET_PRODUCT.SEL_ASSET_TYPE" | translate }}:</label
+          >
+          <div class="col-8">
+            <!-- <select
+              name="productName"
+              id="productName"
+              formControlName="productId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('productId') }"
+              required
+            >
+              <option value="null" disabled>Select Product</option>
+              <option
+                *ngFor="let products of productsList"
+                value="{{ products.id }}"
+              >
+                {{ products.productName }}
+              </option>
+            </select> -->
+
+            <select
+              name="assetTypeName"
+              id="assetTypeName"
+              formControlName="productId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('productId') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "ASSET_PRODUCT.SEL_ASSET_TYPE" | translate }}
+              </option>
+              <option
+                *ngFor="let assetType of assetTypeList"
+                value="{{ assetType.id }}"
+              >
+                <span>{{ assetType.assetsName }}</span>
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="isControlHasError('productId', 'required')"
+            class="invalid"
+          >
+            <strong>Goods Type Required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="quantityAllocated" class="col-3 col-form-label"
+            >Quantity :</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="quantityAllocated"
+              name="quantityAllocated"
+              placeholder="Enter Quantity"
+              formControlName="quantityAllocated"
+              autocomplete="off"
+              class="form-control"
+              (keypress)="numberOnly($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('quantityAllocated')
+              }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('quantityAllocated', 'required')"
+            class="invalid"
+          >
+            <strong>Quantity is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="quantityAllocated" class="col-3 col-form-label"
+            >{{ "ASSET_DETAILS.ALLOCATE_DATE" | translate }}:
+          </label>
+          <div class="col-8">
+            <input
+              type="date"
+              id="allocatedDate"
+              name="allocatedDate"
+              formControlName="allocatedDate"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('allocatedDate') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('allocatedDate', 'required')"
+              class="invalid"
+            >
+              <strong>Allocated Date is required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="allocation_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_ALLOCATION && ADD_URL && !ALLOCATION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="allocation_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_ALLOCATION && EDIT_URL && ALLOCATION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

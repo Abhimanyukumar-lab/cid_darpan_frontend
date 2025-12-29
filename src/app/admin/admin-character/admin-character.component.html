@@ -1,0 +1,17 @@
+<div class="character">
+  <div class="dashboard-header">{{ "CHARACTER.CHAR_TITLE" | translate }}</div>
+
+  <div style="padding: 20px">
+    <app-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+      [permissions]="permissions"
+      [condition]="'status-Complaint_Closed'"
+      [filterOptions]="filterOptions"
+      [isApiAvailable]="false"
+    >
+    </app-table-data>
+  </div>
+</div>

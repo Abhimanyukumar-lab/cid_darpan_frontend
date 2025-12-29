@@ -1,0 +1,91 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>Subdivision Details</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <span>Subdivision Details</span>
+            <i
+              class="material-icons m-1"
+              style="cursor: pointer; color: #ffffff"
+              placement="top"
+              ngbTooltip="Edit Detail"
+              (click)="editInfo()"
+              *ngIf="permissions.edit"
+            >
+              mode
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">Subdivision Name :</span>
+              </div>
+              <div class="col-8" *ngIf="language == 'en'">
+                {{ subdivision?.name }}
+              </div>
+              <div class="col-8" *ngIf="language == 'hi'">
+                {{ subdivision?.nameHi }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-subdivision-user-form
+      *ngIf="permissions.subdivisionUserList"
+      [url]="subdivisionUserSubmitURL"
+      [editUrl]="subdivisionUserEditURL"
+      [id]="subdivisionUserId"
+      [form]="subdivisionUserForm"
+    >
+    </app-subdivision-user-form>
+
+    <app-subdivision-user
+      [subdivisionUserPath]="subdivisionUserPath"
+      [subdivisionUserDeleteCode]="subdivisionUserDeleteCode"
+      [subdivisionUserEditCurrentFormCode]="subdivisionUserEditCurrentFormCode"
+      [subdivisionUserDeleteUrl]="subdivisionUserDeleteUrl"
+      [subdivisionUserId]="subdivisionUserId"
+      [form]="subdivisionUserForm"
+      (formOut)="getUpdatedForm($event)"
+    >
+    </app-subdivision-user>
+  </div>
+</div>

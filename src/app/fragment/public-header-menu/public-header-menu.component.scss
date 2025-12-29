@@ -1,0 +1,99 @@
+@import "../../../style/disctrict/common.district.scss";
+
+.default {
+  .active-menu,
+  .active {
+    background-color: $active-menu;
+    color: white !important;
+  }
+
+  .dropdown-item {
+    padding: 5px 10px;
+  }
+
+  a {
+    font-size: 17px;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .nav-item {
+    margin: 0 5px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 3px;
+  }
+
+  .nav-item:hover,
+  .nav-link:hover,
+  .nav-item:has(.show:hover) .nav-link {
+    background-color: $active-menu;
+    color: white !important;
+  }
+
+  .dropdown-item:hover {
+    background-color: $active-menu-hover;
+    color: white !important;
+  }
+
+  .nav-item > a {
+    padding: 10px !important;
+    color: $header-text-color;
+  }
+
+  .menu {
+    background-color: $header-color;
+    margin: 15px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+}
+
+.style3 {
+  .active-menu,
+  .active {
+    background-color: $active-menu;
+    color: white !important;
+  }
+
+  .dropdown-item {
+    padding: 5px 10px;
+  }
+
+  a {
+    font-size: 15px;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .nav-item {
+    background-color: #ffffff;
+    color: $header-text-color;
+    margin: 0 5px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 3px;
+  }
+
+  .nav-item:hover,
+  .nav-link:hover,
+  .nav-item:has(.show:hover) .nav-link {
+    background-color: $active-menu;
+    color: white !important;
+  }
+
+  .dropdown-item:hover {
+    background-color: $active-menu-hover;
+    color: white !important;
+  }
+
+  .nav-item > a {
+    padding: 10px !important;
+  }
+
+  .menu {
+    background-color: $header-color;
+    margin: 15px 0 0;
+    padding: 10px;
+  }
+}

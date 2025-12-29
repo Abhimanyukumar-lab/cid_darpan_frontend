@@ -1,0 +1,11 @@
+.table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-left: 120px;
+}
+
+@media screen and (max-width: 425px) {
+  .table {
+    margin: auto !important;
+  }
+}/*# sourceMappingURL=press-release.component.css.map */

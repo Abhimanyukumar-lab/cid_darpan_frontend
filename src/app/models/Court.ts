@@ -1,0 +1,32 @@
+export class Court {
+  constructor(
+    public active: boolean,
+    public id: number,
+    public stationId: number,
+    public stationName: string,
+    public slnoDate: string,
+    public courtType: string,
+    public cwjcNO: string,
+    public fromWhom: string,
+    public noofLetter: string,
+    public letterDate: string,
+    public order: string,
+    public subject: string,
+    public applicantName: string,
+    public appliedDate: string,
+    public govtAdvocate: string,
+    public govtAdvocateMobile: string,
+    public counterFillingLastdate: string,
+    public officerName: string,
+    public sendingDate: string,
+    public counterDate: string,
+    public orderDate: string,
+    public complianceStatus: string,
+    public document: string,
+    public dispatchNum: string,
+    public reciptNo: string,
+    public updateStatus: string,
+    public status: string,
+    public department: string
+  ) {}
+}

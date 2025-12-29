@@ -1,0 +1,22 @@
+export class Complaint {
+  constructor(
+    public active: boolean,
+    public id: number,
+    public stationId: number,
+    public stationName: string,
+    public complaintSubject: string,
+    public complaintDate: string,
+    public complaintImage: string,
+    public complaintType: string,
+    public compalintArea: string,
+    public complaintComment: string,
+    public citizenName: string,
+    public citizenEmail: string,
+    public citizenMobile: number,
+    public citizenAddress: string,
+    public citizenNewAddress: string,
+    public districtId: number,
+    public districtName: string,
+    public otherDistrictName: string
+  ) {}
+}

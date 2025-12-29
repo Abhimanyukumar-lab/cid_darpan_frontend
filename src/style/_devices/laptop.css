@@ -1,0 +1,8 @@
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  .login-container .login {
+    width: 40%;
+  }
+  .forgot-password-container .forgot-password {
+    width: 40%;
+  }
+}/*# sourceMappingURL=laptop.css.map */

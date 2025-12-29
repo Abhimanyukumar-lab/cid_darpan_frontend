@@ -1,0 +1,90 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>SDPO Details</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <span>SDPO Details</span>
+            <i
+              class="material-icons m-1"
+              style="cursor: pointer; color: #ffffff"
+              placement="top"
+              ngbTooltip="Edit Detail"
+              (click)="editInfo()"
+              *ngIf="permissions.edit"
+            >
+              mode
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">SDPO Name :</span>
+              </div>
+              <div class="col-8" *ngIf="language == 'en'">
+                {{ sdpo?.headName }}
+              </div>
+              <div class="col-8" *ngIf="language == 'hi'">
+                {{ sdpo?.headNameHi }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        
+    <app-sdpo-user-form *ngIf="permissions.sdpoUserList"
+      [url]="sdpoUserSubmitURL"
+      [editUrl]="sdpoUserEditURL"
+      [id]="sdpoUserId"
+      [form]="sdpoUserForm"
+    >
+    </app-sdpo-user-form>
+ 
+    <app-sdpo-user
+      [sdpoUserPath]="sdpoUserPath"
+      [sdpoUserDeleteCode]="sdpoUserDeleteCode"
+      [sdpoUserEditCurrentFormCode]="sdpoUserEditCurrentFormCode"
+      [sdpoUserDeleteUrl]="sdpoUserDeleteUrl"
+      [sdpoUserId]="sdpoUserId"
+      [form]="sdpoUserForm"
+      (formOut)="getUpdatedForm($event)"
+    >
+    </app-sdpo-user> 
+  </div>
+</div>

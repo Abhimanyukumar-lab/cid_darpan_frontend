@@ -1,0 +1,345 @@
+<div class="links-edit">
+  <div class="dashboard-header">{{ "LINKS.LINK_DETAILS" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="links-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="linksForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="links_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="linksNameEn" class="col-3 col-form-label">{{
+        "LINKS.LINK_NAME" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="linksNameEn"
+          name="linksNameEn"
+          placeholder="{{ 'FORMS.ENTER_LINK' | translate }}"
+          formControlName="linksNameEn"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('linksNameEn') }"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('linksNameEn', 'required')" class="invalid">
+        <strong>Name is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksNameEn', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksNameEn', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="linksDescEn" class="col-3 col-form-label">{{
+        "LINKS.LINK_DESC" | translate
+      }}</label>
+      <div class="col-9">
+        <textarea
+          id="linksDescEn"
+          name="linksDescEn"
+          placeholder="{{ 'LINKS.ENTER_LINK_DESC' | translate }} (EN)"
+          formControlName="linksDescEn"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('linksDescEn') }"
+          required
+        ></textarea>
+      </div>
+
+      <div *ngIf="isControlHasError('linksDescEn', 'required')" class="invalid">
+        <strong>Name is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksDescEn', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksDescEn', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="linksNameHi" class="col-3 col-form-label">{{
+        "LINKS.LINK_NAME" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="linksNameHi"
+          name="linksNameHi"
+          placeholder="{{ 'FORMS.ENTER_LINK_HI' | translate }}"
+          formControlName="linksNameHi"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('linksNameHi')
+          }"
+          (change)="focusOut($event, 'linksNameHi')"
+          (focusout)="focusOut($event, 'linksNameHi')"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('linksNameHi', 'required')" class="invalid">
+        <strong>Name is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksNameHi', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksNameHi', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="linksDescHi" class="col-3 col-form-label">{{
+        "LINKS.LINK_DESC" | translate
+      }}</label>
+      <div class="col-9">
+        <textarea
+          id="linksDescHi"
+          name="linksDescHi"
+          placeholder="{{ 'LINKS.ENTER_LINK_DESC' | translate }} (HI)"
+          formControlName="linksDescHi"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('linksDescHi')
+          }"
+          (change)="focusOut($event, 'linksDescHi')"
+          (focusout)="focusOut($event, 'linksDescHi')"
+          required
+        ></textarea>
+      </div>
+
+      <div *ngIf="isControlHasError('linksDescHi', 'required')" class="invalid">
+        <strong>Name is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksDescHi', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksDescHi', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="linkUrl" class="col-3 col-form-label">{{
+        "LINKS.LINK_URL" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="url"
+          id="linkUrl"
+          name="linkUrl"
+          placeholder="{{ 'LINKS.ENTER_LINK_URL' | translate }}"
+          formControlName="linkUrl"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('linkUrl') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('linkUrl', 'required')" class="invalid">
+        <strong>RUL is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('linkUrl', 'minlength')" class="invalid">
+        <strong>URL Minimum length is 6</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="linkType" class="col-3 col-form-label">{{
+        "LINKS.LINK_TYPE" | translate
+      }}</label>
+      <div class="col-9">
+        <select
+          name="linkType"
+          id="linkType"
+          formControlName="linkType"
+          autocomplete="off"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('linkType') }"
+          required
+        >
+          <option value="null" disabled>
+            {{ "LINKS.SELECT_LINK_TYPE" | translate }}
+          </option>
+          <option value="Main Page">{{ "LINKS.MAIN_PAGE" | translate }}</option>
+          <option value="SIDEBAR">{{ "LINKS.SIDEBAR" | translate }}</option>
+          <option value="Other">{{ "LINKS.OTHER" | translate }}</option>
+        </select>
+      </div>
+      <div *ngIf="isControlHasError('linkType', 'required')" class="invalid">
+        <strong>Link Type is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="linkUrl" class="col-3 col-form-label">{{
+        "DISTRICT_DETAILS.LINK_COLOUR" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="linksColour"
+          name="linksColour"
+          placeholder="{{ 'CITIZEN_REPORT.SEL_COLOR' | translate }}"
+          formControlName="linksColour"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('linkUrl') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('linksColour', 'required')" class="invalid">
+        <strong>Colour is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('linksColour', 'minlength')"
+        class="invalid"
+      >
+        <strong>Colour Minimum length is 3</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="linkIcon" class="col-3 col-form-label">{{
+        "LINKS.LINK_ICON" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="linkIcon"
+          name="linkIcon"
+          placeholder="{{ 'LINKS.ENTER_LINK_ICON' | translate }}"
+          formControlName="linkIcon"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('linkIcon') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('linkIcon', 'required')" class="invalid">
+        <strong>Icon is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('linkIcon', 'minlength')" class="invalid">
+        <strong>ICON Minimum length is 2</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="linkPriority" class="col-3 col-form-label">{{
+        "FORMS.PRIORITY" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="number"
+          id="linkPriority"
+          min="1"
+          (keypress)="numberOnly($event)"
+          name="linkPriority"
+          placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+          formControlName="linkPriority"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('linkPriority') }"
+          required
+        />
+      </div>
+      <div
+        *ngIf="isControlHasError('linkPriority', 'required')"
+        class="invalid"
+      >
+        <strong>Priority is required</strong>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="links_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_LINK && ADD_URL && !LINK_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="links_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_LINK && EDIT_URL && LINK_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

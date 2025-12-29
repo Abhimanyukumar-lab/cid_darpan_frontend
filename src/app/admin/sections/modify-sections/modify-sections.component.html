@@ -1,0 +1,185 @@
+<div class="sections-edit">
+  <div class="dashboard-header">
+    {{ "SECTIONS.SECTION_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="sections-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="sectionForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="section_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headName" class="col-3 col-form-label">{{
+            "SECTIONS.SEC_OFFICER_NAME" | translate
+          }} (English)</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="headName"
+              name="headName"
+              maxlength="320"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'SECTIONS.ENTER_SEC_OFFICER_NAME' | translate }}"
+              formControlName="headName"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('headName')
+              }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('headName', 'required')"
+            class="invalid"
+          >
+            <strong>Officer Name is required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('headName', 'minlength')"
+            class="invalid"
+          >
+            <strong>Minimum 3 character required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('headName', 'maxlength')"
+            class="invalid"
+          >
+            <strong>Max length allowed 320</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headTitle" class="col-3 col-form-label">{{
+            "SECTIONS.SEC_OFFICER_NAME" | translate
+          }} (Hindi)</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="headTitle"
+              name="headTitle"
+              maxlength="320"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'SECTIONS.ENTER_SEC_OFFICER_NAME' | translate }}"
+              formControlName="headTitle"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('headTitle')
+              }"
+              (change)="focusOut($event, 'headTitle')"
+              (focusout)="focusOut($event, 'headTitle')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('headTitle', 'required')"
+            class="invalid"
+          >
+            <strong>Officer Name is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="priority" class="col-3 col-form-label">{{
+            "FORMS.PRIORITY" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="number"
+              id="priority"
+              name="priority"
+              min="1"
+              (keypress)="numberOnly($event)"
+              placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+              formControlName="priority"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('priority') }"
+              required
+            />
+          </div>
+          <div
+            *ngIf="isControlHasError('priority', 'required')"
+            class="invalid"
+          >
+            <strong>Priority is required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('priority', 'minlength')"
+            class="invalid"
+          >
+            <strong>Priority Minimum length is 1</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="section_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SECTION && ADD_URL && !SECTION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="section_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SECTION && EDIT_URL && SECTION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

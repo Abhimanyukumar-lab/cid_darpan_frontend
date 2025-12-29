@@ -1,0 +1,39 @@
+<div *ngIf="!isIframe">
+  <div class="app-contaier">
+    <div class="loader" *ngIf="isLoading">
+      <div class="loader-container">
+        <div class="loadingio-spinner">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+    <!-- <app-public-model></app-public-model>
+    <app-public-model></app-public-model>
+    <app-public-model></app-public-model> -->
+    <router-outlet>
+      <div class="alert alert-warning alert-dismissible fade show"
+        style="margin: 0 !important;position: absolute;top: 0;left: 0;right: 0;z-index: 999;" role="alert"
+        *ngIf="!isConnected">
+        Internet Disconnected
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </router-outlet>
+  </div>
+</div>
+<div *ngIf="isIframe" style="
+    width: 100%;
+    height: 100%;
+    background-color: chocolate;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  ">
+  <h1>NICE TRY</h1>
+  <h3>
+    Now you can try ::
+    <a [href]="domain" target="_parent">Currect Site For Access!</a> &#8592;
+    Click Here!
+  </h3>
+</div>

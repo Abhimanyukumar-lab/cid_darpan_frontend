@@ -1,0 +1,407 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "COMPLAINT.COMPLAINT_TITLE" | translate
+    }}</span>
+</div>
+<div class="complaint">
+  <div class="complaint-form">
+    <div class="col-sm-12 status-btn float-left">
+      <button class="submit-btn btn-custome" (click)="openModal('complaintCheckStatusModal')">
+        {{ "APPOINTMENT.APPOINTMENT_STATUS" | translate }}
+      </button>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="isCompleted">
+      <h6 *ngIf="currrentLang == 'en'">{{ CHARACTER_MSG_EN }}</h6>
+      <h6 *ngIf="currrentLang == 'hi'">{{ CHARACTER_MSG_HI }}</h6>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="isCompleted = false"></button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isError">
+      <h6 *ngIf="currrentLang == 'en'">{{ CHARACTER_ERROR_MSG_EN }}</h6>
+      <h6 *ngIf="currrentLang == 'hi'">{{ CHARACTER_ERROR_MSG_HI }}</h6>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="isError = false"></button>
+    </div>
+
+    <div class="divide-line" style="margin-bottom: 20px; margin-top: 10px"></div>
+    <form class="form needs-validation text-center container-fluid" novalidate [formGroup]="appForm" autocomplete="off"
+      novalidate="novalidate" id="public_complaint">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12 sub-header-title">
+            <span class="glob-span header-txt">{{
+              "COMPLAINT.DETAILS" | translate
+              }}</span>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "APPOINTMENT.POLICE_STATION" | translate
+              }}</span>
+            <select name="stationName" id="stationName" formControlName="stationId" autocomplete="off"
+              class="form-select" [ngClass]="{ invalidInput: isControlHasErrors('stationId') }" required>
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_POLICE_STATION" | translate }}
+              </option>
+              <option *ngFor="let station of stationList" value="{{ station.id }}">
+                <span *ngIf="currrentLang == 'en'">{{
+                  station.stationName
+                  }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  station.stationNameHi
+                  }}</span>
+              </option>
+            </select>
+            <div *ngIf="isControlHasError('stationId', 'required')" class="invalid">
+              <strong> Police Station is required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "GFPO.EMPLOYEE_ID" | translate
+              }}</span>
+            <input *ngIf="currrentLang == 'hi'" type="text" id="employeeId"
+              placeholder="{{ 'GFPO.EMPLOYEE_ID' | translate }}" name="employeeId" formControlName="employeeId"
+              class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('employeeId')
+              }" (change)="focusOut($event, 'employeeId')" (focusout)="focusOut($event, 'employeeId')" required
+              [disabled]="isDataSubmitted" />
+            <input *ngIf="currrentLang == 'en'" type="text" id="employeeId"
+              placeholder="{{ 'GFPO.EMPLOYEE_ID' | translate }}" name="employeeId" formControlName="employeeId"
+              class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('employeeId')
+              }" (change)="focusOut($event, 'employeeId')" (focusout)="focusOut($event, 'employeeId')" required
+              [disabled]="isDataSubmitted" />
+            <div *ngIf="isControlHasError('employeeId', 'required')" class="invalid">
+              <strong>Employee Id is Required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.INCIDENT_DATE" | translate
+              }}</span><input type="date" id="complaintDate" (keypress)="validAplpha($event)"
+              max="{{ max | date: 'yyyy-MM-dd' }}" name="complaintDate" formControlName="complaintDate"
+              class="form-control" [ngClass]="{ invalidInput: isControlHasErrors('complaintDate') }" required
+              [disabled]="isDataSubmitted" />
+            <div *ngIf="isControlHasError('complaintDate', 'required')" class="invalid">
+              <strong>Select Date </strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "COMPLAINT.DOCUMENT" | translate
+              }}<span style="color: red; font-size: 13px">(*max size: 2MB)</span></span>
+            <input type="file" id="complaintImage" name="complaintImage" placeholder="Attach File"
+              accept="application/pdf,image/jpeg,image/jpg,image/png,image/jfif,image/jpeg,image/pjpeg"
+              (change)="handleInvoiceChange($event.target.files)" formControlName="complaintImage" autocomplete="off"
+              class="form-control" [ngClass]="{ invalidInput: isControlHasErrors('complaintImage') }"
+              [disabled]="isDataSubmitted" />
+          </div>
+
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "GFPO.CURRENT_POSTING" | translate
+              }}</span>
+            <input *ngIf="currrentLang == 'hi'" type="text" id="currentPosting"
+              placeholder="{{ 'GFPO.CURRENT_POSTING' | translate }}" name="currentPosting"
+              formControlName="currentPosting" class="form-control hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('currentPosting')
+                        }" (change)="focusOut($event, 'currentPosting')"
+              (focusout)="focusOut($event, 'currentPosting')" required [disabled]="isDataSubmitted" />
+            <input *ngIf="currrentLang == 'en'" type="text" id="currentPosting"
+              placeholder="{{ 'GFPO.CURRENT_POSTING' | translate }}" name="currentPosting"
+              formControlName="currentPosting" class="form-control" [ngClass]="{
+                          invalidInput: isControlHasErrors('currentPosting')
+                        }" (change)="focusOut($event, 'currentPosting')"
+              (focusout)="focusOut($event, 'currentPosting')" required [disabled]="isDataSubmitted" />
+            <div *ngIf="isControlHasError('currentPosting', 'required')" class="invalid">
+              <strong>Current Posting is Required</strong>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "GFPO.CURRENT_EMPLOYEE_STATUS" | translate
+              }}</span>
+            <select type="text" id="currentEmployeeStatus" name="currentEmployeeStatus"
+              formControlName="currentEmployeeStatus" class="form-control hindi hindiFont" [ngClass]="{
+                                    invalidInput: isControlHasErrors('currentEmployeeStatus')
+                                  }" (change)="focusOut($event, 'currentEmployeeStatus')"
+              (focusout)="focusOut($event, 'currentEmployeeStatus')" required [disabled]="isDataSubmitted">
+              <option value="null" disabled>Select Current Employee Status</option>
+              <option value="Retired">Retired</option>
+              <option value="Working Official">Working Official</option>
+            </select>
+
+            <div *ngIf="isControlHasError('currentEmployeeStatus', 'required')" class="invalid">
+              <strong>Current Posting is Required</strong>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-4" *ngIf="isCaseNumber">
+            <span class="glob-span">{{ "COMPLAINT.CASE_NO" | translate }}</span><input type="text" name="complaintArea"
+              id="complaintArea" class="form-control" formControlName="complaintArea" (keypress)="numberOnly($event)"
+              placeholder="eg. 001/2021" [ngClass]="{ invalidInput: isControlHasErrors('complaintArea') }" />
+          </div> -->
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "GFPO.DESCRIPTION" | translate
+              }}</span><textarea *ngIf="currrentLang == 'hi'" name="description" id="description"
+              class="form-control hindi hindiFont" formControlName="description"
+              placeholder="{{ 'GFPO.DESCRIPTION' | translate }}" [ngClass]="{
+                invalidInput: isControlHasErrors('description')
+              }" (change)="focusOut($event, 'description')" (focusout)="focusOut($event, 'description')" required
+              [disabled]="isDataSubmitted"></textarea>
+            <textarea *ngIf="currrentLang == 'en'" name="description" id="description" class="form-control"
+              formControlName="description" placeholder="{{ 'GFPO.DESCRIPTION' | translate }}" [ngClass]="{
+                invalidInput: isControlHasErrors('description')
+              }" (change)="focusOut($event, 'description')" (focusout)="focusOut($event, 'description')" required
+              [disabled]="isDataSubmitted"></textarea>
+            <div *ngIf="isControlHasError('description', 'required')" class="invalid">
+              <strong>Enter Description</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 sub-header-title">
+            <span class="glob-span header-txt">{{
+              "CITIZEN_REPORT.PAERSONAL_INFO" | translate
+              }}</span>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.NAME" | translate
+              }}</span><input *ngIf="currrentLang == 'hi'" type="text" name="name" id="name"
+              class="form-control hindi hindiFont" formControlName="name" (keypress)="validAplpha($event)"
+              placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}" [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }" (change)="focusOut($event, 'name')" (focusout)="focusOut($event, 'name')" required
+              [disabled]="isDataSubmitted" />
+            <input *ngIf="currrentLang == 'en'" type="text" name="name" id="name" class="form-control"
+              formControlName="name" (keypress)="validAplpha($event)"
+              placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}" [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }" (change)="focusOut($event, 'name')" (focusout)="focusOut($event, 'name')" required
+              [disabled]="isDataSubmitted" />
+            <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+              <strong>Enter Your Name</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CONTACT.MOBILE_NO" | translate }}</span><input type="text" name="mobileNo"
+              id="mobileNo" class="form-control" formControlName="mobileNo" (keypress)="numberOnly($event)"
+              placeholder="{{ 'CONTACT.SEL_MOBILE_NO' | translate }}" maxlength="10"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }" required [disabled]="isDataSubmitted" />
+            <div *ngIf="isControlHasError('mobileNo', 'required')" class="invalid">
+              <strong>Enter Mobile Number</strong>
+            </div>
+            <div *ngIf="isControlHasError('mobileNo', 'minimum')" class="invalid">
+              <strong>Minimum 10 Number</strong>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CONTACT.EMAIL" | translate }}</span>
+            <input type="email" id="email" placeholder="eg. abc@gmail.com" name="email" formControlName="email"
+              class="form-control" [ngClass]="{ invalidInput: isControlHasErrors('email') }"
+              [disabled]="isDataSubmitted" />
+
+            <div *ngIf="isControlHasError('email', 'required')" class="invalid">
+              <strong>Enter Email Id</strong>
+            </div>
+            <div *ngIf="isControlHasError('email', 'patter')" class="invalid">
+              <strong>Enter valid email Id</strong>
+            </div>
+          </div>
+          <!-- <div class="col-sm-4">
+            <span class="glob-span">{{
+              "COMPLAINT.PER_ADDRESS" | translate
+              }}</span><textarea *ngIf="currrentLang == 'hi'" class="form-control hindi hindiFont"
+              formControlName="citizenAddress" name="citizenAddress" id="citizenAddress"
+              placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}" [ngClass]="{
+                invalidInput: isControlHasErrors('citizenAddress')
+              }" (change)="focusOut($event, 'citizenAddress')" (focusout)="focusOut($event, 'citizenAddress')"
+              required></textarea>
+            <textarea *ngIf="currrentLang == 'en'" class="form-control" formControlName="citizenAddress"
+              name="citizenAddress" id="citizenAddress" placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}" [ngClass]="{
+                invalidInput: isControlHasErrors('citizenAddress')
+              }" (change)="focusOut($event, 'citizenAddress')" (focusout)="focusOut($event, 'citizenAddress')"
+              required></textarea>
+            <div *ngIf="isControlHasError('citizenAddress', 'required')" class="invalid">
+              <strong>Enter Permanant Your Address</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "COMPLAINT.OTHER_ADDRESS" | translate
+              }}</span><textarea *ngIf="currrentLang == 'hi'" class="form-control hindi hindiFont"
+              formControlName="citizenAddress1" name="citizenAddress1" id="citizenAddress1"
+              placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}" [ngClass]="{
+                invalidInput: isControlHasErrors('citizenAddress1')
+              }" (change)="focusOut($event, 'citizenAddress1')" (focusout)="focusOut($event, 'citizenAddress1')"
+              required></textarea>
+            <textarea *ngIf="currrentLang == 'en'" class="form-control" formControlName="citizenAddress1"
+              name="citizenAddress1" id="citizenAddress1" placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('citizenAddress1')
+              }" (change)="focusOut($event, 'citizenAddress1')" (focusout)="focusOut($event, 'citizenAddress1')"
+              required></textarea>
+            <div *ngIf="isControlHasError('citizenAddress1', 'required')" class="invalid">
+              <strong>Enter Other Your Address</strong>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-sm-4">
+            <span class="glob-span">{{ "HOME.YOUR_DIST" | translate }}:</span>
+            <select name="districtName" id="districtName" placeholder="Enter District" formControlName="districtId"
+              (change)="doCheckDistrict($event.target)" autocomplete="off" class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('districtId') }" required>
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_DISTRICT" | translate }}
+              </option>
+              <option *ngFor="let district of districtList" value="{{ district.id }}">
+                <span *ngIf="currrentLang == 'en'">{{
+                  district.districtName
+                  }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  district.districtNameHi
+                  }}</span>
+              </option>
+            </select>
+            <div *ngIf="isControlHasError('districtId', 'required')" class="invalid">
+              <strong>Select District</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" [ngStyle]="{ display: isOtherDistrict ? 'block' : 'none' }">
+            <span class="glob-span">{{
+              "APPOINTMENT.OTHER_DIST" | translate
+              }}</span><input *ngIf="currrentLang == 'hi'" type="text" id="otherDistrictName" name="otherDistrictName"
+              placeholder="{{ 'APPOINTMENT.ENTER_DISTRICT' | translate }}" formControlName="otherDistrictName"
+              class="form-control hindi hindiFont" (keypress)="validAplpha($event)" [ngClass]="{
+                invalidInput: isControlHasErrors('otherDistrictName')
+              }" (change)="focusOut($event, 'otherDistrictName')" (focusout)="focusOut($event, 'otherDistrictName')" />
+            <input *ngIf="currrentLang == 'en'" type="text" id="otherDistrictName" name="otherDistrictName"
+              placeholder="{{ 'APPOINTMENT.ENTER_DISTRICT' | translate }}" formControlName="otherDistrictName"
+              class="form-control " (keypress)="validAplpha($event)" [ngClass]="{
+                invalidInput: isControlHasErrors('otherDistrictName')
+              }" (change)="focusOut($event, 'otherDistrictName')" (focusout)="focusOut($event, 'otherDistrictName')" />
+          </div> -->
+
+          <div class="col-sm-4" *ngIf="isDataSubmitted">
+            <span class="glob-span">OTP</span>
+            <input type="text" id="otp" placeholder="otp" name="otp" formControlName="otp" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('otp') }" [disabled]="isDataSubmitted"
+              [required]="isDataSubmitted" />
+
+            <div *ngIf="isControlHasError('otp', 'required')" class="invalid">
+              <strong>Enter OTP</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divide-line"></div>
+      <div class="row">
+        <div class="col-sm-12 submit-bar">
+          <button class="submit-btn btn-custome" (click)="submit()">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Check Status Form -->
+
+<app-modal id="complaintCheckStatusModal" [className]="'lg-modal'" [closeOnClick]="false">
+  <div class="checkStatusModal">
+    <div *ngIf="errorMsg">
+      <ngb-alert [type]="alertType" [dismissible]="false">
+        <span style="width: 100%">
+          {{ errorMsg }}
+        </span>
+      </ngb-alert>
+    </div>
+
+    <form [formGroup]="complaintCheckStatusGroup">
+      <div class="container-fluid">
+        <div class="row" style="display: flex; justify-content: center; align-items: center">
+          <div class="col-sm-12 col-md-3 py-2">
+            <div class="form-group row">
+              <label for="id" class="col-sm-12 col-md-6" style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                ">Enter Complaint ID :</label>
+              <div class="col-sm-12 col-md-6">
+                <input id="id" name="id" type="text" class="form-control" formControlName="id"
+                  placeholder="eg.0001/2021" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2">
+            <div class="form-group row">
+              <label for="mobile" class="col-sm-12 col-md-6" style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                ">Enter Mobile No :</label>
+              <div class="col-sm-12 col-md-6">
+                <input id="mobile" name="mobile" type="text" class="form-control" formControlName="mobile"
+                  placeholder="eg.95xxxxxxxx" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2" *ngIf="isOtp">
+            <div class="form-group row">
+              <label for="otp" class="col-sm-12 col-md-6" style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                ">Enter OTP :</label>
+              <div class="col-sm-12 col-md-6">
+                <input id="otp" name="otp" type="text" class="form-control" formControlName="otp" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2" style="
+              display: flex;
+              justify-content: space-evenly;
+              align-items: center;
+            ">
+            <button class="submit-btn btn-custome" (click)="isOtp ? submitOTPData() : submitData()">
+              Submit
+            </button>
+            <button class="submit-btn btn-custome" (click)="closeModal('complaintCheckStatusModal')">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="showData">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td style="font-weight: bold">Complaint Id</td>
+            <td>{{ srNo }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Name</td>
+            <td>{{ name }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Applied Date</td>
+            <td>{{ appliedDate | date: "dd/MM/yyyy" }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Status</td>
+            <td>{{ dataStatus }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-modal>

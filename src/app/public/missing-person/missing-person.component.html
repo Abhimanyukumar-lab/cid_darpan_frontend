@@ -1,0 +1,99 @@
+<div class="col-sm-12 header-title">
+  <span class="glob-span header-txt">{{
+    "HOME.MISSING_PERSON" | translate
+    }}</span>
+</div>
+<div class="missing-person">
+  <div class="col-sm-12 status-btn float-left" style="padding-bottom: 25px">
+    <button routerLink="/missingPerson" class="submit-btn btn-custome" style="padding: 10px 20px">
+      {{ "MISSING_PERSON.MISSING_TITLE" | translate }}
+    </button>
+    <button routerLink="/foundPerson" class="submit-btn btn-custome" style="padding: 10px 20px">
+      {{ "FOUND_PERSON.FOUND_TITLE" | translate }}
+    </button>
+    <button routerLink="/deadPerson" class="submit-btn btn-custome" style="padding: 10px 20px">
+      {{ "DEAD_PERSON.DEAD_TITLE" | translate }}
+    </button>
+  </div>
+</div>
+
+<section class="missing-area">
+  <div class="container">
+    <div class="card" *ngFor="let missing of missingPerson">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer [imageURL]="missing.missingImage" [imgWidth]="'100%'"
+            [imgHeight]="'230px'"></app-image-viewer>
+        </div>
+        <p class="officer-name">{{ missing.missingName }}</p>
+        <p class="officer-about">{{ missing.dateOfMissing }}</p>
+        <p class="officer-about">{{ missing.missingArea }}</p>
+
+        <button class="submit-btn btn-custome" style="width:100%; margin: 0 auto"
+          (click)="openModal('missingPersonModal', missing)">
+          Mode Details
+        </button>
+      </div>
+    </div>
+  </div>
+</section><!-- Check Status Form -->
+
+<app-modal id="missingPersonModal" [className]="'md-modal'">
+  <div style="width: 100%;padding: 10px;position: relative;">
+    <button (click)="closeModal('missingPersonModal')"
+      style="background: transparent;color: black !important;position: absolute;top: 0;right: 0;">
+      X
+    </button>
+    <h5>Missing Person Detail</h5>
+    <div class="container-fluid" *ngIf="missing">
+      <div class="row">
+        <div class="col-sm-12 col-md-3">
+          <app-image-viewer [imageURL]="missing.missingImage" [imgWidth]="'300px'"
+            [imgHeight]="'300px'"></app-image-viewer>
+        </div>
+        <div class="col-sm-12 col-md-9">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td style="font-weight: bold">Name</td>
+                <td>{{ missing.missingName }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Missing Date</td>
+                <td>{{ missing.dateOfMissing }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Missing Area</td>
+                <td>{{ missing.missingArea }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Gender</td>
+                <td>{{ missing.missingGender }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Age</td>
+                <td>{{ missing.missingAge }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Height</td>
+                <td>{{ missing.missingHieght }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Color</td>
+                <td>{{ missing.missingColor }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Identity</td>
+                <td>{{ missing.missingSign }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Wearing Clothes</td>
+                <td>{{ missing.wearnigClooth }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-modal>

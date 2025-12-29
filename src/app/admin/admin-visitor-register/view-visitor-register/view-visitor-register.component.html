@@ -1,0 +1,288 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>{{ "VISITORS.VISITORS_DETAILS" | translate }}</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "VISITORS.VISITORS_DETAILS" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CITIZEN_REPORT.NAME" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ visitors.name }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "FORMS.FORM_ADDRESS" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ visitors.address }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "VISITORS.PERSON_TO_MEET" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ visitors.personToMeet }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "VISITORS.MEET_REASON" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ visitors.reasonToMeet }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CONTACT.MOBILE_NUMBER" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ visitors.mobileno }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CHARACTER.APPLIED_DATE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">
+                {{ visitors.createdDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "PASSPORT.COMMENTS" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ visitors.conviction }}</div>
+            </div>
+          </div>
+
+          <div class="col-6" *ngIf="visitors.applicationcategory == 'Yes'">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "VISITORS.APP_SUBJECT" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ visitors.subjectof_application }}</div>
+            </div>
+          </div>
+
+          <div class="col-6" *ngIf="visitors.photoName">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "FORMS.IMAGE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content; margin: 10px">
+                  <app-image-viewer
+                    [imageURL]="visitors.photoName"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-6" *ngIf="visitors.photoName">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "FORMS.IMAGE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="visitors.photoName"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="col-12" *ngIf="visitors.visitorDocuments">
+            <div class="row">
+              <div class="col-2">
+                <span style="font-weight: 500; font-size: 15px"
+                  >{{ "VISITORS.DOC_BEFORE_MEET" | translate }} :</span
+                >
+              </div>
+              <div
+                class="col-10"
+                style="display: flex; flex-wrap: wrap"
+                *ngIf="
+                  visitors.visitorDocuments &&
+                  visitors.visitorDocuments.length > 0
+                "
+              >
+                <div
+                  style="width: 200px; height: fit-content; margin: 10px"
+                  *ngFor="let visitorsDocument of visitors.visitorDocuments"
+                >
+                  <app-image-viewer
+                    [imageURL]="visitorsDocument"
+                  ></app-image-viewer>
+                </div>
+              </div>
+              <div
+                class="col-10"
+                *ngIf="
+                  !visitors.visitorDocuments ||
+                  visitors.visitorDocuments.length == 0
+                "
+              >
+                <span>NO DOCUMENT UPLOADED YET</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12" *ngIf="visitors.visitorAfterMeetingDocuments">
+            <div class="row">
+              <div class="col-2">
+                <span style="font-weight: 500"
+                  >{{ "VISITORS.DOC_AFTER_MEET" | translate }} :</span
+                >
+              </div>
+              <div
+                class="col-10"
+                style="display: flex; flex-wrap: wrap"
+                *ngIf="
+                  visitors.visitorAfterMeetingDocuments &&
+                  visitors.visitorAfterMeetingDocuments.length > 0
+                "
+              >
+                <div
+                  style="width: 200px; height: fit-content; margin: 10px"
+                  *ngFor="
+                    let visitorsDocumentAfter of visitors.visitorAfterMeetingDocuments
+                  "
+                >
+                  <app-image-viewer
+                    [imageURL]="visitorsDocumentAfter"
+                  ></app-image-viewer>
+                </div>
+              </div>
+              <div
+                class="col-10"
+                *ngIf="
+                  !visitors.visitorAfterMeetingDocuments ||
+                  visitors.visitorAfterMeetingDocuments.length == 0
+                "
+              >
+                <span>NO DOCUMENT UPLOADED YET</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-change-status-form
+    *ngIf="permissions.changeStatusForm && isComplete"
+    [url]="changeStatusSubmitURL"
+    [id]="changeStatusId"
+    [changeStatusForModule]="changeStatusForModule"
+    [moduleStatus]="moduleStatus"
+  ></app-change-status-form>
+
+  <app-assign-to-officer-form
+    *ngIf="permissions.asssignToOfficer && isComplete && !isPending"
+    [url]="assignToOfficerSubmitURL"
+    [id]="changeStatusId"
+    [assignForModule]="changeStatusModule"
+  ></app-assign-to-officer-form>
+
+  <app-change-status
+    *ngIf="permissions.changeStatusList"
+    [changeStatusPath]="changeStatusPath"
+    [deleteButtonCode]="changeStatusDeleteCode"
+    [deleteButtonUrl]="changeStatusDeleteUrl"
+    [changeStatusModule]="changeStatusModule"
+    [changeStatusId]="changeStatusId"
+  ></app-change-status>
+
+  <app-forward-to-destination-form
+    *ngIf="permissions.forwardToDestination && isComplete && !isPending"
+    [url]="forwatdToDestinationSubmitURL"
+    [id]="changeStatusId"
+  >
+  </app-forward-to-destination-form>
+
+  <app-forward-to-destination
+    *ngIf="permissions.forwardToDestinationList"
+    [forwardDestinationPath]="forwardDestinationPath"
+    [deleteButtonCode]="forwardDestinationDeleteCode"
+    [deleteButtonUrl]="forwardDestinationDeleteUrl"
+    [forwardDestinationModule]="forwardDestinationModule"
+    [forwardDestinationId]="forwardDestinationId"
+  >
+  </app-forward-to-destination>
+
+  <app-sms-sending-form
+    *ngIf="permissions.sendSMSToUser && isComplete && !isPending"
+    [url]="smsSendingSubmitURL"
+    [id]="smsSendingId"
+    [departmentName]="visitorsSMS"
+  >
+  </app-sms-sending-form>
+
+  <app-sms-sending
+    *ngIf="permissions.sendSMSToUserList"
+    [smsSendingPath]="smsSendingPath"
+    [smsSendingModule]="smsSendingModule"
+    [smsSendingId]="smsSendingId"
+    [deparment]="visitorsSMS"
+  ></app-sms-sending>
+</div>

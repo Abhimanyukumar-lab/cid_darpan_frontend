@@ -1,0 +1,168 @@
+<div
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  "
+>
+  <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+    Add Range
+  </div>
+  <button
+    class="dashboard-header btn btn-sm back-btn"
+    style="font-size: 30px"
+    (click)="goBack()"
+  >
+    <!-- &#215; -->
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button>
+</div>
+
+<section class="table-sec">
+  <div class="container">
+    <div class="accordion" id="tableModule">
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle()"
+              >Range Details
+            </span>
+            <div
+              *ngIf="!isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed">
+          <div class="card-body">
+            <form [formGroup]="entryForm">
+              <input
+                type="text"
+                id="id"
+                name="id"
+                class="form-control"
+                formControlName="id"
+                hidden="hidden"
+              />
+
+              <div class="form-group">
+                <div class="row">
+
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="stateId" style="font-weight: bold"
+                        >State Name</label
+                      >
+                    </div>
+                    <div class="col-sm-8">
+                        <select
+                        name="stateId"
+                        id="stateId"
+                        placeholder="Select Police Station"
+                        formControlName="stateId"
+                        autocomplete="off"
+                        class="form-select"
+                        required
+                      >
+                        <option value="null" disabled>
+                          Select State
+                        </option>
+                        <option
+                          *ngFor="let range of RangeList"
+                          value="{{ range.id }}"
+                        >
+                          <span >{{
+                            range.stateName
+                          }}</span>
+                          <!-- <span >{{
+                            range.stateNameHi
+                          }}</span> -->
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="rangeName" style="font-weight: bold"
+                        >Range Name</label
+                      >
+                    </div>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        id="rangeName"
+                        name="rangeName"
+                        formControlName="rangeName"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="rangeNameHi" style="font-weight: bold"
+                        >Range Name(Hi)</label
+                      >
+                    </div>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        id="rangeNameHi"
+                        name="rangeNameHi"
+                        formControlName="rangeNameHi"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  
+                  
+                  
+                </div>
+              </div>
+              <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="saveBasicDetails()"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

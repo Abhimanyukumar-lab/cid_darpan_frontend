@@ -1,0 +1,194 @@
+<div class="login-container">
+  <div class="container">
+    <div
+      class="row d-flex justify-content-center align-content-center align-items-center"
+    >
+      <div class="col-sm-12 col-md-7 col-lg-5 col-lx-4">
+        <div class="login text-center">
+          <img
+            src="/assets/images/stf_homwpage_logo_big.png"
+            alt="Login Image"
+            class="img-fluid"
+            style="width: 100; height: 150px; margin: 50px 0"
+          />
+          <div class="title">
+            <h3 style="text-transform: uppercase;margin-top: -30px;">DARPAN 2.0</h3>
+            <h4 style="text-transform: uppercase">Welcome</h4>
+          </div>
+          <div class="sub-title">
+            <h6>Provide Email and Password to Log in</h6>
+          </div>
+          <div class="login-form-container">
+            <form
+              class="form needs-validation text-center login_form"
+              novalidate
+              [formGroup]="loginForm"
+              autocomplete="off"
+              novalidate="novalidate"
+              id="login_form"
+            >
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text"
+                      style="padding: 10px !important"
+                    >
+                      <i
+                        class="fa-solid fa-user"
+                        [ngClass]="{
+                          errorIcon: isControlHasErrors('email')
+                        }"
+                      ></i>
+                    </span>
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    formControlName="email"
+                    autocomplete="off"
+                    class="form-control"
+                    [ngClass]="{ invalidInput: isControlHasErrors('email') }"
+                    required
+                  />
+                </div>
+                <div
+                  *ngIf="isControlHasError('email', 'required')"
+                  class="invalid"
+                >
+                  <strong>Email is required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('email', 'email')"
+                  class="invalid"
+                >
+                  <strong>Enter valid email id</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('email', 'minlength')"
+                  class="invalid"
+                >
+                  <strong>Minimum 3 character required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('email', 'maxlength')"
+                  class="invalid"
+                >
+                  <strong>Max length allowed 320</strong>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text"
+                      style="padding: 10px !important"
+                    >
+                      <i
+                        class="fa-solid fa-key"
+                        [ngClass]="{
+                          errorIcon: isControlHasErrors('password')
+                        }"
+                        sty
+                      ></i>
+                    </span>
+                  </div>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    formControlName="password"
+                    autocomplete="off"
+                    class="form-control"
+                    [ngClass]="{ invalidInput: isControlHasErrors('password') }"
+                    required
+                    style="margin-bottom: 10px"
+                  />
+                  <div class="input-group-append">
+                    <span
+                      class="input-group-text svg-icon svg-primary svg-icon-2x"
+                      [inlineSVG]="'assets/images/Hidden.svg'"
+                      (click)="showPass()"
+                      *ngIf="passwordIcon == 'VISIBLE'"
+                      [ngClass]="{
+                        'svg-danger': isControlHasErrors('password')
+                      }"
+                    >
+                    </span>
+                    <span
+                      class="input-group-text svg svg-primary"
+                      (click)="showPass()"
+                      *ngIf="passwordIcon == 'HIDDEN'"
+                      [ngClass]="{
+                        'svg-danger': isControlHasErrors('password')
+                      }"
+                    >
+                      <i
+                        class="fi fi-eye primaryIcon"
+                        [ngClass]="{
+                          errorIcon: isControlHasErrors('password')
+                        }"
+                      ></i>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  *ngIf="isControlHasError('password', 'required')"
+                  class="invalid"
+                >
+                  <strong>Password is required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('password', 'minlength')"
+                  class="invalid"
+                >
+                  <strong>Password Minimum length is 3</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('password', 'maxlength')"
+                  class="invalid"
+                >
+                  <strong>max length 100</strong>
+                </div>
+              </div>
+              <!-- <div
+                class="form-group d-flex flex-wrap justify-content-between align-items-center"
+              >
+                <a
+                  href="javascript:;"
+                  routerLink="/official/forgot-password"
+                  class="text-dark-50 text-hover-primary"
+                  id="login_forgot"
+                  >Forgot Password ?</a
+                >
+              </div> -->
+              <button
+                id="login_signin_submit"
+                (click)="submit()"
+                class="login_signin_submit"
+                [disabled]="loading"
+              >
+                Login
+                <div
+                  class="spinner-border spinner-border-sm text-light align-middle"
+                  *ngIf="loading"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </button>
+            </form>
+          </div>
+          <!-- <div style="width: 100%; text-align: center; color: #000">
+            <a routerLink="/officialResource/login" target="_blank"
+              >Apply For Leave!</a
+            >
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

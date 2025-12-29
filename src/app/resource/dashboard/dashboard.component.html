@@ -1,0 +1,13 @@
+<div class="main-platter">
+  <div class="header">
+    <app-header></app-header>
+  </div>
+  <div class="content">
+    <div class="sidebar" [@slide]="isSidebar" style="background: #663259">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

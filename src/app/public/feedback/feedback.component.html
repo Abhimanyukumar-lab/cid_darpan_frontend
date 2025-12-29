@@ -1,0 +1,266 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{ "HOME.FEEDBACK" | translate }}</span>
+</div>
+<div class="feedback">
+  <div class="feedback-form">
+    <ngb-alert
+      [type]="alertType"
+      [dismissible]="false"
+      *ngIf="alertType && errorMsg"
+    >
+      <span style="width: 100%">
+        {{ errorMsg }}
+      </span>
+    </ngb-alert>
+
+    <form
+      #questionForm
+      id="questionForm"
+      class="form needs-validation text-center"
+      novalidate
+      autocomplete="off"
+      novalidate="novalidate"
+    >
+      <div class="col-sm-12">
+        <div
+          class="col-md-12 col-sm-12"
+          *ngFor="let question of questionList; let i = index"
+        >
+          <span class="glob-span"
+            >{{ i + 1 }}. {{ question.questionName }}</span
+          >
+          <div class="row">
+            <div class="col-4 form-check answers" *ngIf="question.answer1Title">
+              <input
+                #qoption
+                type="radio"
+                id="{{ i + 1 + 'question' + i }}"
+                name="{{ i + 1 + 'question' }}"
+                class="form-check-input"
+                value="question.answer1Title"
+                (click)="update(question.answer1Title, question.id)"
+              />
+              <label
+                class="form-check-label"
+                for="{{ i + 1 + 'question' + i }}"
+              >
+                {{ question.answer1Title }}
+              </label>
+            </div>
+            <div class="col-4 form-check answers" *ngIf="question.answer1Title">
+              <input
+                type="radio"
+                #qoption
+                id="{{ i + 2 + 'question' + i }}"
+                name="{{ i + 1 + 'question' }}"
+                class="form-check-input"
+                value="question.answer2Title"
+                (click)="update(question.answer2Title, question.id)"
+              />
+              <label
+                class="form-check-label"
+                for="{{ i + 2 + 'question' + i }}"
+              >
+                {{ question.answer2Title }}
+              </label>
+            </div>
+            <div class="col-4 form-check answers" *ngIf="question.answer1Title">
+              <input
+                type="radio"
+                #qoption
+                id="{{ i + 3 + 'question' + i }}"
+                name="{{ i + 1 + 'question' }}"
+                class="form-check-input"
+                value="question.answer3Title"
+                (click)="update(question.answer3Title, question.id)"
+              />
+              <label
+                class="form-check-label"
+                for="{{ i + 3 + 'question' + i }}"
+              >
+                {{ question.answer3Title }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divide-line"></div>
+    </form>
+
+    <form
+      class="form needs-validation text-center"
+      novalidate
+      [formGroup]="appForm"
+      autocomplete="off"
+      novalidate="novalidate"
+      id="public_passport"
+    >
+      <input id="id" name="id" formControlName="id" style="display: none" />
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-md-4 col-sm-4">
+            <span class="glob-span">{{ "APPOINTMENT.NAME" | translate }}</span>
+            <input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              (keypress)="validAplpha($event)"
+              id="citizenName"
+              placeholder="{{
+                'APPOINTMENT.SELECT_APPLICANT_NAME' | translate
+              }}"
+              name="citizenName"
+              formControlName="citizenName"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('citizenName')
+              }"
+              required
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              (keypress)="validAplpha($event)"
+              id="citizenName"
+              placeholder="{{
+                'APPOINTMENT.SELECT_APPLICANT_NAME' | translate
+              }}"
+              name="citizenName"
+              formControlName="citizenName"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('citizenName')
+              }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('citizenName', 'required')"
+              class="invalid"
+            >
+              <strong>Name is Required</strong>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <span class="glob-span">{{
+              "DISTRICT_DETAILS.DIST_EMAIL" | translate
+            }}</span>
+            <input
+              type="email"
+              id="email"
+              placeholder="eg. abc@gmail.com"
+              name="citizenEmail"
+              formControlName="citizenEmail"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('citizenEmail') }"
+            />
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <span class="glob-span">{{ "CONTACT.MOBILE_NO" | translate }}</span>
+            <input
+              type="text"
+              (keypress)="numberOnly($event)"
+              id="citizenMobile"
+              maxlength="10"
+              placeholder="{{ 'CONTACT.SEL_MOBILE_NO' | translate }}"
+              name="citizenMobile"
+              formControlName="citizenMobile"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('citizenMobile') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('citizenMobile', 'required')"
+              class="invalid"
+            >
+              <strong>Mobile Number is Required</strong>
+            </div>
+            <div
+              *ngIf="isControlHasError('citizenMobile', 'pattern')"
+              class="invalid"
+            >
+              <strong>Enter Valid Data</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-4">
+            <span class="glob-span">{{
+              "APPOINTMENT.DISTRICT" | translate
+            }}</span>
+            <select
+              name="districtName"
+              id="districtName"
+              placeholder="Enter District"
+              formControlName="districtId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('districtId') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_DISTRICT" | translate }}
+              </option>
+              <option
+                *ngFor="let district of districtList"
+                value="{{ district.id }}"
+              >
+                <span *ngIf="currrentLang == 'en'">{{
+                  district.districtName
+                }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  district.districtNameHi
+                }}</span>
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('districtId', 'required')"
+              class="invalid"
+            >
+              <strong> District is required</strong>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <span class="glob-span">{{ "PASSPORT.COMMENTS" | translate }}</span>
+            <textarea
+              *ngIf="currrentLang == 'hi'"
+              name="feedbackComments"
+              id="feedbackComments"
+              formControlName="feedbackComments"
+              placeholder="{{ 'CHARACTER.SEL_COMMERCIAL' | translate }}"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('feedbackComments')
+              }"
+              required
+            ></textarea>
+            <textarea
+              *ngIf="currrentLang == 'en'"
+              name="feedbackComments"
+              id="feedbackComments"
+              formControlName="feedbackComments"
+              placeholder="{{ 'CHARACTER.SEL_COMMERCIAL' | translate }}"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('feedbackComments')
+              }"
+              required
+            ></textarea>
+            <div
+              *ngIf="isControlHasError('feedbackComments', 'required')"
+              class="invalid"
+            >
+              <strong>Comment is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divide-line"></div>
+      <div class="row">
+        <div class="col-sm-12 submit-bar">
+          <button class="submit-btn" (click)="submit(); questionForm.reset()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

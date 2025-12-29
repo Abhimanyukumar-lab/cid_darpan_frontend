@@ -1,0 +1,356 @@
+<div class="view-role">
+  <div class="dashboard-header">Send Notifications</div>
+</div>
+
+<!-- <div class="button-panel">
+  <a
+    routerLink="{{ permissions.add_url }}"
+    class="btn btn-success m-2"
+    *ngIf="permissions.add && permissions.add_url"
+    >Create List</a
+  >
+</div> -->
+<!-- 
+<div style="padding: 20px">
+  <app-table-data
+    [rows]="listrows"
+    [page]="listpage"
+    [columns]="listcolumns"
+    [path]="listpath"
+    [permissions]="permissions"
+  ></app-table-data>
+</div> -->
+
+<div class="container">
+  <div class="card-body d-flex justify-content-between aling-item-center">
+    <div class="container">
+      <div class="row">
+        <form
+          class="form needs-validation text-center container"
+          novalidate
+          [formGroup]="sendNotificationForm"
+          autocomplete="off"
+          novalidate="novalidate"
+          id="sendNotificationForm"
+        >
+          <input name="id" formControlName="id" style="display: none" />
+          <div class="row mb-2">
+            <!-- <div class="col-sm-12 col-md-12">
+              <div class="row">
+                <div class="col-3">
+                  <span class="glob-span">List :</span>
+                </div>
+                <div class="col-9">
+                  <angular2-multiselect
+                    [data]="officersList"
+                    name="listName"
+                    formControlName="listName"
+                    [settings]="dropdownSettings"
+                    (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)"
+                    (onDeSelect)="onDeSelect($event)"
+                    (onDeSelectAll)="onDeSelectAll($event)"
+                    (onGroupSelect)="onGroupSelect($event)"
+                    (onGroupDeSelect)="onGroupDeSelect($event)"
+                  >
+                  </angular2-multiselect>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="col-sm-12 col-md-12">
+              <span class="glob-span">List :</span>
+
+              <!-- <ng-multiselect-dropdown
+                class="ngDropDown"
+                [placeholder]="'Select officer name'"
+                [data]="officersList"
+                name="listName"
+                formControlName="listName"
+                [settings]="dropdownSettings"
+                (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+                (onDeSelect)="onDeSelect($event)"
+                (onDeSelectAll)="onDeSelectAll($event)"
+                (onGroupSelect)="onGroupSelect($event)"
+                (onGroupDeSelect)="onGroupDeSelect($event)"
+              >
+              </ng-multiselect-dropdown> -->
+
+              <angular2-multiselect
+                [data]="officersList"
+                name="listName"
+                formControlName="listName"
+                [settings]="dropdownSettings"
+                (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+                (onDeSelect)="onDeSelect($event)"
+                (onDeSelectAll)="onDeSelectAll($event)"
+                (onGroupSelect)="onGroupSelect($event)"
+                (onGroupDeSelect)="onGroupDeSelect($event)"
+              >
+              </angular2-multiselect>
+            </div>
+
+            <div class="col-sm-12 col-md-12">
+              <span class="glob-span">Message: </span>
+              <textarea
+                name="message"
+                formControlName="message"
+                placeholder="Enter Message"
+                class="form-control hindi"
+                [ngClass]="{ hindiFont: language == 'hi' }"
+                (change)="focusOut($event, 'message')"
+                (focusout)="focusOut($event, 'message')"
+                required
+              ></textarea>
+            </div>
+
+            <div class="notifys-form" style="margin-top: 20px">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Village Name</th>
+                    <th scope="col">User Designation</th>
+                    <th scope="col">User Mobile</th>
+                    <th scope="col">User Contact</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of selectedItems">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.villageName }}</td>
+                    <td>{{ item.userDesignation }}</td>
+                    <td>{{ item.userMobile1 }}</td>
+                    <td>{{ item.userMobile2 }}</td>
+                  </tr>
+
+                  <tr *ngIf="selectedItems.length == 0">
+                    <td colspan="5" style="text-align: center">
+                      NO USER ADDED
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="
+                form-group
+                d-flex
+                justify-content-center
+                align-items-center
+              "
+              style="margin-top: 5px"
+            >
+              <button
+                id="notification_submit"
+                (click)="submit()"
+                class="btn btn-primary px-9 py-9"
+                [disabled]="loading"
+              >
+                Submit
+                <div
+                  class="
+                    spinner-border spinner-border-sm
+                    text-light
+                    align-middle
+                  "
+                  *ngIf="loading"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- 
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>Send Notification</a>
+    <ng-template ngbNavContent>
+        <div class="card-body d-flex justify-content-between aling-item-center">
+          <div class="container">
+            <div class="row">
+              <form
+                class="form needs-validation text-center container"
+                novalidate
+                [formGroup]="sendNotificationForm"
+                autocomplete="off"
+                novalidate="novalidate"
+                id="sendNotificationForm"
+              >
+                <input name="id" formControlName="id" style="display: none" />
+                <div class="row mb-2">
+                  <div class="col-sm-12 col-md-12">
+                    <div class="row">
+                      <div class="col-3">
+                        <span class="glob-span">List :</span>
+                      </div>
+                      <div class="col-9">
+                        <angular2-multiselect
+                          [data]="officersList"
+                          name="listName"
+                          formControlName="listName"
+                          [settings]="dropdownSettings"
+                          (onSelect)="onItemSelect($event)"
+                          (onSelectAll)="onSelectAll($event)"
+                          (onDeSelect)="onDeSelect($event)"
+                          (onDeSelectAll)="onDeSelectAll($event)"
+                          (onGroupSelect)="onGroupSelect($event)"
+                          (onGroupDeSelect)="onGroupDeSelect($event)"
+                        >
+                        </angular2-multiselect>
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div class="col-sm-12 col-md-12">
+                    <span class="glob-span">List :</span>
+            
+                    <ng-multiselect-dropdown
+                          class="ngDropDown"
+                          [placeholder]="'Select Station User'"
+                          [data]="officersList"
+                          name="listName"
+                          formControlName="listName"
+                          [settings]="dropdownSettings"
+                          (onSelect)="onItemSelect($event)"
+                          (onSelectAll)="onSelectAll($event)"
+                          (onDeSelect)="onDeSelect($event)"
+                          (onDeSelectAll)="onDeSelectAll($event)"
+                          (onGroupSelect)="onGroupSelect($event)"
+                          (onGroupDeSelect)="onGroupDeSelect($event)"
+                        >
+                        </ng-multiselect-dropdown>
+            
+                     <angular2-multiselect
+                      [data]="officersList"
+                      name="userName"
+                      formControlName="userName"
+                      [settings]="dropdownSettings"
+                      (onSelect)="onItemSelect($event)"
+                      (onSelectAll)="onSelectAll($event)"
+                      (onDeSelect)="onDeSelect($event)"
+                      (onDeSelectAll)="onDeSelectAll($event)"
+                      (onGroupSelect)="onGroupSelect($event)"
+                      (onGroupDeSelect)="onGroupDeSelect($event)"
+                    >
+                    </angular2-multiselect> 
+                  </div>
+
+                  <div class="col-sm-12 col-md-12">
+                    <span class="glob-span">Message: </span>
+                    <textarea
+                      name="message"
+                      formControlName="message"
+                      placeholder="Enter Message"
+                      class="form-control hindi"
+                      [ngClass]="{ hindiFont: language == 'hi' }"
+                      (change)="focusOut($event, 'message')"
+                      (focusout)="focusOut($event, 'message')"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="notifys-form" style="margin-top: 20px">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Village Name</th>
+                          <th scope="col">User Designation</th>
+                          <th scope="col">User Mobile</th>
+                          <th scope="col">User Contact</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of selectedItems">
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.villageName }}</td>
+                          <td>{{ item.userDesignation }}</td>
+                          <td>{{ item.userMobile1 }}</td>
+                          <td>{{ item.userMobile2 }}</td>
+                        </tr>
+
+                        <tr *ngIf="selectedItems.length == 0">
+                          <td colspan="5" style="text-align: center">
+                            NO USER ADDED
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div
+                    class="
+                      form-group
+                      d-flex
+                      justify-content-center
+                      align-items-center
+                    "
+                    style="margin-top: 5px"
+                  >
+                    <button
+                      id="notification_submit"
+                      (click)="submit()"
+                      class="btn btn-primary px-9 py-9"
+                      [disabled]="loading"
+                    >
+                      Submit
+                      <div
+                        class="
+                          spinner-border spinner-border-sm
+                          text-light
+                          align-middle
+                        "
+                        *ngIf="loading"
+                        role="status"
+                      >
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+     <li ngbNavItem>
+      <a ngbNavLink>Notification User List</a>
+      <ng-template ngbNavContent>
+        <div>
+          <div class="sms-schedular">
+            <div class="button-panel">
+              <a
+                routerLink="{{ permissions.add_url }}"
+                class="btn btn-success m-2"
+                *ngIf="permissions.add && permissions.add_url"
+                >Create List</a
+              >
+            </div>
+
+            <div style="padding: 20px">
+              <app-table-data
+                [rows]="userrows"
+                [page]="userpage"
+                [columns]="usercolumns"
+                [path]="userpath"
+                [permissions]="permissions"
+              >
+              </app-table-data>
+            </div>
+          </div>
+        </div>
+      </ng-template> 
+    </li> 
+  </ul>
+  <div [ngbNavOutlet]="nav"></div> -->
+</div>

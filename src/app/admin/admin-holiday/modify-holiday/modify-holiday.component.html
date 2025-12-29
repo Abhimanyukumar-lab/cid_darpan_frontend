@@ -1,0 +1,273 @@
+<div class="image-edit">
+  <div class="dashboard-header">
+    {{ "HOLIDAYS.HOL_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="image-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="holidayForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="holidayForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="holidayName" class="col-3 col-form-label">{{
+        "HOLIDAYS.HOL_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="holidayName"
+          name="holidayName"
+          placeholder="{{ 'HOLIDAYS.ENTR_HOL_NAME' | translate }}"
+          formControlName="holidayName"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('holidayName')
+          }"
+          (change)="focusOut($event, 'holidayName')"
+          (focusout)="focusOut($event, 'holidayName')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="holidayName"
+          name="holidayName"
+          placeholder="{{ 'HOLIDAYS.ENTR_HOL_NAME' | translate }}"
+          formControlName="holidayName"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('holidayName')
+          }"
+          (change)="focusOut($event, 'holidayName')"
+          (focusout)="focusOut($event, 'holidayName')"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('holidayName', 'required')" class="invalid">
+        <strong>Title is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('holidayName', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('holidayName', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="form-group">
+        <div class="row mb-2">
+          <label for="holidayDate" class="col-3 col-form-label">{{
+            "HOLIDAYS.HOL_DATE" | translate
+          }}</label>
+          <div class="col-8">
+            <div class="input-group">
+              <input
+                #dpFromDate
+                class="form-control"
+                placeholder="dd/mm/yyyy"
+                formControlName="holidayDate"
+                id="holidayDate"
+                name="holidayDate"
+                [value]="formatter.format(fromDate)"
+                (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                [ngClass]="{
+                  invalidInput: isControlHasErrors('holidayDate')
+                }"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-secondary calendar"
+                  (click)="datepicker.toggle()"
+                  type="button"
+                ></button>
+              </div>
+            </div>
+
+            <div
+              *ngIf="isControlHasError('holidayDate', 'required')"
+              class="invalid"
+            >
+              <strong>Start date is required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group ml-2">
+        <div class="row mb-2">
+          <label for="holidayEndDate" class="col-3 col-form-label">{{
+            "HOLIDAYS.HOL_END_DATE" | translate
+          }}</label>
+          <div class="col-8">
+            <div class="input-group">
+              <input
+                #dpToDate
+                class="form-control"
+                placeholder="dd/mm/yyyy"
+                formControlName="holidayEndDate"
+                id="holidayEndDate"
+                name="holidayEndDate"
+                [value]="formatter.format(toDate)"
+                (input)="toDate = validateInput(toDate, dpToDate.value)"
+                [ngClass]="{
+                  invalidInput: isControlHasErrors('holidayEndDate')
+                }"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-secondary calendar"
+                  (click)="datepicker.toggle()"
+                  type="button"
+                ></button>
+              </div>
+            </div>
+
+            <div
+              *ngIf="isControlHasError('holidayEndDate', 'required')"
+              class="invalid"
+            >
+              <strong>End date is required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="height: 0; margin: 0; border: none; padding: 0">
+      <div
+        class="col-3"
+        style="height: 0; margin: 0; border: none; padding: 0"
+      ></div>
+      <div class="col-8" style="height: 0">
+        <div
+          class="form-group"
+          style="width: 0; height: 0; margin: 0; border: none; padding: 0"
+        >
+          <div class="input-group" style="height: 0">
+            <input
+              name="datepicker"
+              class="form-control"
+              ngbDatepicker
+              #datepicker="ngbDatepicker"
+              [autoClose]="'outside'"
+              (dateSelect)="onDateSelection($event)"
+              [displayMonths]="2"
+              [dayTemplate]="t"
+              outsideDays="hidden"
+              [startDate]="fromDate!"
+              tabindex="-1"
+              style="width: 0; height: 0; margin: 0; border: none; padding: 0"
+            />
+            <ng-template #t let-date let-focused="focused">
+              <span
+                class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isRange(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null"
+              >
+                {{ date.day }}
+              </span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="priority" class="col-3 col-form-label">{{
+        "FORMS.PRIORITY" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="number"
+          id="priority"
+          min="1"
+          (keypress)="numberOnly($event)"
+          name="priority"
+          placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+          formControlName="priority"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('priority') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('priority', 'required')" class="invalid">
+        <strong>Priority is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('priority', 'minlength')" class="invalid">
+        <strong>Priority Minimum length is 1</strong>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="imageGallery_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_HOLIDAY && ADD_URL && !HOLIDAY_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="imageGallery_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_HOLIDAY && EDIT_URL && HOLIDAY_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,292 @@
+.dsp-area {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+  display: flex;
+}
+.dsp-area .container {
+  margin: auto;
+  position: relative;
+}
+.dsp-area .container .card {
+  width: 24%;
+  margin: 5px;
+  min-height: 370px;
+  max-height: 370px !important;
+  float: left;
+  padding: 0px 5px;
+}
+.dsp-area .container .card .box {
+  padding: 2px;
+  height: 100%;
+  margin: 0 0 5px;
+  text-align: center;
+}
+.dsp-area .container .card .box .team-img {
+  width: 100%;
+  display: flex;
+  height: auto;
+}
+.dsp-area .container .card .box .officer-name {
+  padding-top: 2px;
+  font-size: 15px;
+  text-align: center;
+}
+.dsp-area .container .card .box .officer-about {
+  text-align: center;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.sdpo-area {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+  display: flex;
+}
+.sdpo-area .container {
+  margin: auto;
+  position: relative;
+}
+.sdpo-area .container .lable-area {
+  width: 30%;
+}
+.sdpo-area .container .lable-area .lable-name {
+  width: 100%;
+}
+.sdpo-area .container .card {
+  width: 24%;
+  margin: 5px;
+  min-height: 380px;
+  max-height: 380px !important;
+  float: left;
+  padding: 0px 5px;
+}
+.sdpo-area .container .card .box {
+  padding: 2px;
+  height: 100%;
+  margin: 0 0 5px;
+  text-align: center;
+}
+.sdpo-area .container .card .box .team-img {
+  width: 100%;
+  display: flex;
+  height: auto;
+}
+.sdpo-area .container .card .box .officer-name {
+  padding-top: 2px;
+  font-size: 15px;
+  text-align: center;
+}
+.sdpo-area .container .card .box .officer-about {
+  text-align: center;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.circle-area {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+  display: flex;
+}
+.circle-area .container {
+  margin: auto;
+  position: relative;
+}
+.circle-area .container .card {
+  width: 24%;
+  margin: 5px;
+  min-height: 400px;
+  max-height: 400px !important;
+  float: left;
+  padding: 0px 5px;
+}
+.circle-area .container .card .box {
+  padding: 2px;
+  height: 100%;
+  margin: 0 0 5px;
+  text-align: center;
+}
+.circle-area .container .card .box .team-img {
+  width: 100%;
+  display: flex;
+  height: auto;
+}
+.circle-area .container .card .box .officer-name {
+  padding-top: 2px;
+  font-size: 15px;
+  text-align: center;
+}
+.circle-area .container .card .box .officer-about {
+  text-align: center;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.station-area {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+  display: flex;
+}
+.station-area .container {
+  margin: auto;
+  position: relative;
+}
+.station-area .container .card {
+  width: 24%;
+  margin: 5px;
+  min-height: 410px;
+  max-height: 410px !important;
+  float: left;
+  padding: 0px 5px;
+}
+.station-area .container .card .box {
+  padding: 2px;
+  height: 100%;
+  margin: 0 0 5px;
+}
+.station-area .container .card .box .team-img {
+  width: 100%;
+  display: flex;
+  height: auto;
+}
+.station-area .container .card .box .officer-name {
+  padding-top: 2px;
+  font-size: 15px;
+}
+.station-area .container .card .box .officer-about {
+  max-height: 60px;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1440px) {
+  .dsp-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .dsp-area .container .card {
+    min-height: 370px;
+    max-height: 370px !important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .sdpo-area {
+    width: 100%;
+    margin: 5px;
+    height: auto;
+  }
+  .sdpo-area .lable-area {
+    width: 100%;
+  }
+  .sdpo-area .lable-area .lable-name {
+    width: 100%;
+  }
+  .sdpo-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .sdpo-area .container .card {
+    width: 32%;
+    margin-right: 5px;
+  }
+  .dsp-area {
+    width: 100%;
+    margin: 5px;
+    height: auto;
+  }
+  .dsp-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .dsp-area .container .card {
+    width: 32%;
+    margin-right: 5px;
+  }
+  .circle-area {
+    width: 100%;
+    margin: 5px;
+    height: auto;
+  }
+  .circle-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .circle-area .container .card {
+    width: 32%;
+    margin-right: 5px;
+  }
+  .station-area {
+    width: 100%;
+    margin: 5px;
+    height: auto;
+  }
+  .station-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .station-area .container .card {
+    width: 32%;
+    margin-right: 5px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .sdpo-area {
+    width: 100%;
+    height: auto;
+  }
+  .sdpo-area .lable-area {
+    width: 100% !important;
+  }
+  .sdpo-area .lable-area .lable-name {
+    width: 100% !important;
+  }
+  .sdpo-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .sdpo-area .container .card {
+    width: 100%;
+    margin: 5px 0px !important;
+  }
+  .dsp-area {
+    width: 100%;
+    height: auto;
+  }
+  .dsp-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .dsp-area .container .card {
+    width: 100%;
+    margin: 5px 0px !important;
+  }
+  .circle-area {
+    width: 100%;
+    height: auto;
+  }
+  .circle-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .circle-area .container .card {
+    width: 100%;
+    margin: 5px 0px !important;
+  }
+  .station-area {
+    width: 100%;
+    height: auto;
+  }
+  .station-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .station-area .container .card {
+    width: 100%;
+    margin: 5px 0px !important;
+  }
+}
+p {
+  margin: 0;
+}/*# sourceMappingURL=police-station.component.css.map */

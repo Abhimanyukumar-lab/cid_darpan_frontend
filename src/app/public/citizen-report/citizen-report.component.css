@@ -1,0 +1,93 @@
+.citizen-report {
+  width: 100%;
+  padding: 20px 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+}
+.citizen-report .citizen-form {
+  width: 100%;
+  padding: 0px 50px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  border: 1px solid;
+  border-radius: 20px;
+}
+.citizen-report .citizen-form .l-btn {
+  padding: 10px 50px !important;
+}
+.citizen-report .citizen-form form {
+  padding: 0 50px;
+}
+
+@media screen and (min-width: 1440px) {
+  .citizen-report {
+    width: 100%;
+    padding: 30px;
+  }
+  .citizen-report .citizen-form {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+}
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+  .citizen-report {
+    width: 100%;
+    padding: 25px;
+  }
+  .citizen-report .citizen-form {
+    width: 100%;
+    padding: 25px;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .citizen-report {
+    width: 100%;
+    padding: 20px;
+  }
+  .citizen-report .citizen-form {
+    width: 100%;
+    padding: 20px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .citizen-report {
+    width: 100%;
+    padding: 10px;
+  }
+  .citizen-report .citizen-form {
+    width: 100%;
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .citizen-report {
+    width: 100%;
+    padding: 5px;
+  }
+  .citizen-report .citizen-form {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+  .citizen-report .citizen-form .l-btn {
+    width: 100% !important;
+    float: unset;
+  }
+}
+.checkStatusModal {
+  width: 100%;
+  height: 25%;
+  padding: 15px;
+}/*# sourceMappingURL=citizen-report.component.css.map */

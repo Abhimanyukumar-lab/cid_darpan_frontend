@@ -1,0 +1,300 @@
+<div class="menu-edit">
+  <div class="dashboard-header">Police Diary</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="menu-form">
+  <form
+    class="form needs-validation container"
+    novalidate
+    [formGroup]="entryForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="menu_form"
+  >
+    <div class="col-sm-12">
+      <div class="row">
+        <input id="id" name="id" formControlName="id" style="display: none" />
+        <div class="col-sm-4">
+          <label for="crNo" class="col-12 col-form-label">{{
+            "POLICE_DIARY.CR_NO" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="crNo"
+              name="crNo"
+              placeholder="{{ 'POLICE_DIARY.CR_NO' | translate }}"
+              formControlName="crNo"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('crNo') }"
+              required
+            />
+            <!-- (keypress)="validAplpha($event)" -->
+          </div>
+
+          <div *ngIf="isControlHasError('crNo', 'required')" class="invalid">
+            <strong> Sr No is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="kandTithi" class="col-12 col-form-label">{{
+            "POLICE_DIARY.KAND_TITHI" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="kandTithi"
+              name="kandTithi"
+              placeholder="{{ 'POLICE_DIARY.KAND_TITHI' | translate }}"
+              formControlName="kandTithi"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('kandTithi') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('kandTithi', 'required')"
+            class="invalid"
+          >
+            <strong> Kand Tithi is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="dhara" class="col-12 col-form-label">{{
+            "POLICE_DIARY.DHARA" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="dhara"
+              name="dhara"
+              placeholder="{{ 'POLICE_DIARY.DHARA' | translate }}"
+              formControlName="dhara"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('dhara') }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('dhara', 'required')" class="invalid">
+            <strong> Dhara is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="crimeLocation" class="col-12 col-form-label">{{
+            "POLICE_DIARY.CRIME_LOCATION" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="crimeLocation"
+              name="crimeLocation"
+              placeholder="{{ 'POLICE_DIARY.CRIME_LOCATION' | translate }}"
+              formControlName="crimeLocation"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('crimeLocation') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('crimeLocation', 'required')"
+            class="invalid"
+          >
+            <strong>Crime Location is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="personDetails" class="col-12 col-form-label">{{
+            "POLICE_DIARY.PERSONAL_DETAIL" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="personDetails"
+              name="personDetails"
+              placeholder="{{ 'POLICE_DIARY.PERSONAL_DETAIL' | translate }}"
+              formControlName="personDetails"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('personDetails') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('personDetails', 'required')"
+            class="invalid"
+          >
+            <strong>Person Details is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="otherDetails" class="col-12 col-form-label">{{
+            "POLICE_DIARY.OTHER_DETAIL" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="otherDetails"
+              name="otherDetails"
+              placeholder="{{ 'POLICE_DIARY.OTHER_DETAIL' | translate }}"
+              formControlName="otherDetails"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('otherDetails') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('otherDetails', 'required')"
+            class="invalid"
+          >
+            <strong>Other Details is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="location" class="col-12 col-form-label">{{
+            "POLICE_DIARY.LOCATION" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="location"
+              name="location"
+              placeholder="{{ 'POLICE_DIARY.LOCATION' | translate }}"
+              formControlName="location"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('location') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('location', 'required')"
+            class="invalid"
+          >
+            <strong>Location is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="fillOne" class="col-12 col-form-label">{{
+            "POLICE_DIARY.FILL_1" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="fillOne"
+              name="fillOne"
+              placeholder="{{ 'POLICE_DIARY.FILL_1' | translate }}"
+              formControlName="fillOne"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('fillOne') }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('fillOne', 'required')" class="invalid">
+            <strong> Fill One is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="fillTwo" class="col-12 col-form-label">{{
+            "POLICE_DIARY.FILL_2" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="fillTwo"
+              name="fillTwo"
+              placeholder="{{ 'POLICE_DIARY.FILL_2' | translate }}"
+              formControlName="fillTwo"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('fillTwo') }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('fillTwo', 'required')" class="invalid">
+            <strong> Fill Two is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div
+      class="form-group d-flex flex-wrap justify-content-center align-items-center"
+    >
+      <button
+        id="menu_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_ENTRY && ADD_URL && !ENTRY_PARAMS.ID"
+      >
+        Add Entry
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="menu_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_ENTRY && EDIT_URL && ENTRY_PARAMS.ID"
+      >
+        Edit Entry
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

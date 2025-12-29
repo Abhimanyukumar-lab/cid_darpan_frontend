@@ -1,0 +1,137 @@
+.feedback {
+  width: 100%;
+  padding: 20px 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+}
+.feedback .feedback-form {
+  width: 100%;
+  padding: 0px 50px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  border: 1px solid;
+  border-radius: 20px;
+}
+.feedback .feedback-form .question {
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  justify-content: left;
+  align-items: flex-start;
+  text-align: left;
+}
+.feedback .feedback-form .answer-sec {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+}
+.feedback .feedback-form .answer-sec .answer {
+  padding: 5px;
+  display: flex;
+}
+.feedback .feedback-form .answer-sec .answer input {
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+.feedback .feedback-form .answer-sec .answer input:checked {
+  border: 1px solid rgb(56, 165, 255);
+  fill: rgb(56, 165, 255);
+}
+.feedback .feedback-form form {
+  padding: 0 50px;
+}
+
+.form-select {
+  outline: 0 none;
+}
+
+@media screen and (min-width: 1440px) {
+  .feedback {
+    width: 100%;
+    padding: 30px;
+  }
+  .feedback .feedback-form {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+}
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+  .feedback {
+    width: 100%;
+    padding: 25px;
+  }
+  .feedback .feedback-form {
+    width: 100%;
+    padding: 25px;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .feedback {
+    width: 100%;
+    padding: 20px;
+  }
+  .feedback .feedback-form {
+    width: 100%;
+    padding: 20px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .feedback {
+    width: 100%;
+    padding: 10px;
+  }
+  .feedback .feedback-form {
+    width: 100%;
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .feedback {
+    width: 100%;
+    padding: 5px;
+  }
+  .feedback .feedback-form {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+  .feedback .feedback-form .question {
+    width: 100%;
+  }
+  .feedback .feedback-form .answer-sec {
+    width: 100%;
+    display: block;
+  }
+  .feedback .feedback-form .answer-sec .answer {
+    padding: 5px;
+    display: block;
+  }
+}
+.answers {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.answers * {
+  margin: 0 10px;
+}/*# sourceMappingURL=feedback.component.css.map */

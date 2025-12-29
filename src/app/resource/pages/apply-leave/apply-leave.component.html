@@ -1,0 +1,320 @@
+<div class="leave-edit">
+  <div class="dashboard-header">
+    {{ "LEAVE.APPLY_LEAVE_TITLE" | translate }}
+  </div>
+</div>
+
+<div class="leave-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="leaveForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="acts_form"
+  >
+    <div class="row mb-2">
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+        *ngIf="isSelected"
+      >
+        <h6>{{ message }}</h6>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+          (click)="isSelected = false"
+        ></button>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="title" class="col-3 col-form-label">{{
+        "LEAVE.SEL_LEAVE_TITLE" | translate
+      }}</label>
+      <!-- <div class="col-8">
+        <select
+          name="leavetypeId"
+          id="leavetypeId"
+          formControlName="leavetypeId"
+          autocomplete="off"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('leavetypeId') }"
+          required
+          (change)="getSelectedLeaveType()"
+        >
+          <option value="null" disabled>
+            {{ "LEAVE.SEL_LEAVE_TITLE" | translate }}
+          </option>
+          <option *ngFor="let type of leaveTypes" value="{{ type.id }}">
+            {{ type.leaveType.leaveCode }}
+          </option>
+
+        </select>
+      </div> -->
+      <div class="col-8">
+        <select
+          name="leavetypeId"
+          id="leavetypeId"
+          formControlName="leavetypeId"
+          autocomplete="off"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('leavetypeId') }"
+          required
+          (change)="getSelectedLeaveType()"
+        >
+          <option value="null" disabled>
+            {{ "LEAVE.SEL_LEAVE_TITLE" | translate }}
+          </option>
+          <option *ngFor="let type of leaveTypes" [value]="type.id">
+            {{ type.leaveType.leaveCode }}
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="isControlHasError('leavetypeId', 'required')" class="invalid">
+        <strong>Leave Title is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="form-group">
+        <div class="row mb-2">
+          <label for="title" class="col-3 col-form-label">{{
+            "LEAVE.LEAVE_START_DATE" | translate
+          }}</label>
+          <div class="col-8">
+            <div class="input-group">
+              <input
+                #dpFromDate
+                class="form-control"
+                placeholder="dd/mm/yyyy"
+                formControlName="leaveStartDate"
+                id="leaveStartDate"
+                name="leaveStartDate"
+                [value]="formatter.format(fromDate)"
+                (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                [ngClass]="{
+                  invalidInput: isControlHasErrors('leaveStartDate')
+                }"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-secondary calendar"
+                  (click)="datepicker.toggle()"
+                  type="button"
+
+                ></button>
+              </div>
+            </div>
+
+            <div
+              *ngIf="isControlHasError('leaveStartDate', 'required')"
+              class="invalid"
+            >
+              <strong>Start date is required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group ml-2">
+        <div class="row mb-2">
+          <label for="title" class="col-3 col-form-label">{{
+            "LEAVE.LEAVE_END_DATE" | translate
+          }}</label>
+          <div class="col-8">
+            <div class="input-group">
+              <input
+                #dpToDate
+                class="form-control"
+                placeholder="dd/mm/yyyy"
+                formControlName="leaveEndDate"
+                id="leaveEndDate"
+                name="leaveEndDate"
+                [value]="formatter.format(toDate)"
+                (input)="toDate = validateInput(toDate, dpToDate.value)"
+                [ngClass]="{ invalidInput: isControlHasErrors('leaveEndDate') }"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-secondary calendar"
+                  (click)="datepicker.toggle()"
+                  type="button"
+
+                ></button>
+              </div>
+            </div>
+
+            <div
+              *ngIf="isControlHasError('leaveEndDate', 'required')"
+              class="invalid"
+            >
+              <strong>End date is required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="height: 0; margin: 0; border: none; padding: 0">
+      <div
+        class="col-3"
+        style="height: 0; margin: 0; border: none; padding: 0"
+      ></div>
+      <div class="col-8" style="height: 0">
+        <div
+          class="form-group"
+          style="width: 0; height: 0; margin: 0; border: none; padding: 0"
+        >
+          <div class="input-group" style="height: 0">
+            <input
+              name="datepicker"
+              class="form-control"
+              ngbDatepicker
+              #datepicker="ngbDatepicker"
+              [autoClose]="'outside'"
+              (dateSelect)="onDateSelection($event)"
+              [displayMonths]="2"
+              [dayTemplate]="t"
+              outsideDays="hidden"
+              [startDate]="fromDate!"
+              tabindex="-1"
+              style="width: 0; height: 0; margin: 0; border: none; padding: 0"
+              [minDate]="minStartDate"
+              [maxDate]="maxEndDate"
+            />
+            <ng-template #t let-date let-focused="focused">
+              <span
+                class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isRange(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null"
+              >
+                {{ date.day }}
+              </span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="leaveNoOffDays" class="col-3 col-form-label">{{
+        "LEAVE.NO_OFF_DAYS" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="text"
+          id="leaveNoOffDays"
+          name="leaveNoOffDays"
+          placeholder="{{ 'LEAVE.ENTR_NO_OFF_DAYS' | translate }}"
+          formControlName="leaveNoOffDays"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('leaveNoOffDays')
+          }"
+          required
+        />
+      </div>
+
+      <div
+        *ngIf="isControlHasError('leaveNoOffDays', 'required')"
+        class="invalid"
+      >
+        <strong>Title is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="leaveReason" class="col-3 col-form-label"
+        >{{ "LEAVE.SEL_LEAVE_REASON" | translate }}
+      </label>
+      <div class="col-8">
+        <select
+          name="leaveReason"
+          id="leaveReason"
+          formControlName="leaveReason"
+          autocomplete="off"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('leaveReason') }"
+          required
+        >
+          <option value="null" disabled>
+            {{ "LEAVE.SEL_LEAVE_REASON" | translate }}
+          </option>
+          <option value="SickLeave">Sick Leave</option>
+          <option value="FestivalLeave">Festival Leave</option>
+          <option value="MarriageLeave">Marriage Leave</option>
+          <option value="DeathofFamillyLeave">Death of Familly Leave</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div *ngIf="isControlHasError('leaveReason', 'required')" class="invalid">
+        <strong>Leave Reason is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="leaveDescription" class="col-3 col-form-label">{{
+        "LEAVE.LEAVE_DESCRI" | translate
+      }}</label>
+      <div class="col-8">
+        <textarea
+          id="leaveDescription"
+          name="leaveDescription"
+          placeholder="{{ 'LEAVE.ENTR_LEAVE_DESCRI' | translate }}"
+          formControlName="leaveDescription"
+          autocomplete="off"
+          class="form-control hindi"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('leaveDescription'),
+            hindiFont: language == 'hi'
+          }"
+          (change)="focusOut($event, 'leaveDescription')"
+          (focusout)="focusOut($event, 'leaveDescription')"
+          required
+        ></textarea>
+      </div>
+
+      <div
+        *ngIf="isControlHasError('leaveDescription', 'required')"
+        class="invalid"
+      >
+        <strong>Leave Description is required</strong>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="acts_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="isLoading"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="isLoading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

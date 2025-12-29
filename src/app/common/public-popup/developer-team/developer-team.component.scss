@@ -1,0 +1,17 @@
+/* Background */
+.container {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.tech-card {
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Animate.css classes available */

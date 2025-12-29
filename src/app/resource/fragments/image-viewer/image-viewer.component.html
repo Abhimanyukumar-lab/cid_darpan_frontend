@@ -1,0 +1,154 @@
+<img
+  *ngIf="imageURL == null"
+  src="/assets/images/no-image.png"
+  alt="IMAGE"
+  [ngStyle]="{ width: imgWidth, height: imgHeight }"
+/>
+
+<img
+  *ngIf="
+    imageURL != null &&
+    (imageURL.indexOf('jpg') > -1 ||
+      imageURL.indexOf('jpeg') > -1 ||
+      imageURL.indexOf('jpge') > -1 ||
+      imageURL.indexOf('png') > -1 ||
+      imageURL.indexOf('gif') > -1 ||
+      imageURL.indexOf('webp') > -1) &&
+    imageURL.indexOf('pdf') == -1 &&
+    imageURL.indexOf('/viewFile/') > -1
+  "
+  src="{{ baseURL + imageURL }}"
+  onerror="this.src='/assets/images/no-image.png';"
+  alt="IMAGE"
+  [ngStyle]="{ width: imgWidth, height: imgHeight }"
+/>
+<img
+  *ngIf="
+    imageURL != null &&
+    (imageURL.indexOf('jpg') > -1 ||
+      imageURL.indexOf('jpeg') > -1 ||
+      imageURL.indexOf('jpge') > -1 ||
+      imageURL.indexOf('png') > -1 ||
+      imageURL.indexOf('gif') > -1 ||
+      imageURL.indexOf('webp') > -1) &&
+    imageURL.indexOf('pdf') == -1 &&
+    imageURL.indexOf('/viewFile/') == -1
+  "
+  src="{{ imageURL }}"
+  onerror="this.src='/assets/images/no-image.png';"
+  alt="IMAGE"
+  [ngStyle]="{ width: imgWidth, height: imgHeight }"
+/>
+
+<img
+  *ngIf="imageURL != null && imageURL.length == 0"
+  src="/assets/images/no-image.png"
+  alt="IMAGE"
+  [ngStyle]="{ width: imgWidth, height: imgHeight }"
+/>
+
+<a
+  href="{{ imageURL }}"
+  target="_blank"
+  *ngIf="
+    imageURL != null &&
+    imageURL.indexOf('pdf') > -1 &&
+    imageURL.indexOf('/viewFile/') == -1
+  "
+>
+  <img
+    src="/assets/images/PDF_Cover.png"
+    alt="IMAGE"
+    [ngStyle]="{ width: imgWidth, height: imgHeight }"
+  />
+</a>
+
+<a
+  href="{{ baseURL + imageURL }}"
+  target="_blank"
+  *ngIf="
+    imageURL != null &&
+    imageURL.indexOf('pdf') > -1 &&
+    imageURL.indexOf('/viewFile/') > -1
+  "
+>
+  <img
+    src="/assets/images/PDF_Cover.png"
+    alt="IMAGE"
+    [ngStyle]="{ width: imgWidth, height: imgHeight }"
+  />
+</a>
+
+<a
+  href="{{ baseURL + imageURL }}"
+  target="_blank"
+  *ngIf="
+    imageURL != null &&
+    imageURL.length > 0 &&
+    imageURL.indexOf('pdf') == -1 &&
+    imageURL.indexOf('jpg') == -1 &&
+    imageURL.indexOf('jpeg') == -1 &&
+    imageURL.indexOf('jpge') == -1 &&
+    imageURL.indexOf('png') == -1 &&
+    imageURL.indexOf('gif') == -1 &&
+    imageURL.indexOf('webp') == -1 &&
+    imageURL.indexOf('avi') == -1 &&
+    imageURL.indexOf('mov') == -1 &&
+    imageURL.indexOf('mp4') == -1 &&
+    imageURL.indexOf('ogg') == -1 &&
+    imageURL.indexOf('wmv') == -1 &&
+    imageURL.indexOf('webm') == -1 &&
+    imageURL.indexOf('www.youtube.com') == -1
+  "
+>
+  <img
+    src="/assets/images/doc.png"
+    alt="IMAGE"
+    [ngStyle]="{ width: imgWidth, height: imgHeight }"
+  />
+</a>
+
+<video
+  *ngIf="
+    imageURL != null &&
+    (imageURL.indexOf('avi') > -1 ||
+      imageURL.indexOf('mov') > -1 ||
+      imageURL.indexOf('mp4') > -1 ||
+      imageURL.indexOf('ogg') > -1 ||
+      imageURL.indexOf('wmv') > -1 ||
+      imageURL.indexOf('webm') > -1) &&
+    imageURL.indexOf('/viewFile/') > -1
+  "
+  src="{{ baseURL + imageURL }}"
+  alt="IMAGE"
+  [ngStyle]="{ width: imgWidth, height: imgHeight }"
+  controls
+></video>
+
+<video
+  *ngIf="
+    imageURL != null &&
+    (imageURL.indexOf('avi') > -1 ||
+      imageURL.indexOf('mov') > -1 ||
+      imageURL.indexOf('mp4') > -1 ||
+      imageURL.indexOf('ogg') > -1 ||
+      imageURL.indexOf('wmv') > -1 ||
+      imageURL.indexOf('webm') > -1) &&
+    imageURL.indexOf('/viewFile/') == -1 &&
+    imageURL.indexOf('base64') == -1
+  "
+  [ngStyle]="{ width: imgWidth, height: imgHeight }"
+  controls
+>
+  <source src="{{ imageURL }}" type="video/*" />
+  <source src="{{ baseURL + imageURL }}" type="video/*" />
+</video>
+
+<iframe
+  *ngIf="imageURL != null && imageURL.indexOf('www.youtube.com') > -1"
+  [ngStyle]="{ width: imgWidth, height: imgHeight }"
+  [src]="imageURL | Safe"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>

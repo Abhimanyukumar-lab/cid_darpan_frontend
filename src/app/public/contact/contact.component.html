@@ -1,0 +1,93 @@
+<div class="col-sm-12 header-title">
+  <span class="glob-span header-txt">{{
+    "CONTACT.CONTACT_US" | translate
+  }}</span>
+</div>
+<div class="main-contact">
+  <div class="col-sm-6 sub-header-title">
+    <span
+      class="header-txt"
+      style="flex-direction: column; text-align: center"
+      >{{ "CONTACT.CONTACT_DETAILS" | translate }}</span
+    >
+  </div>
+  <div class="address-area">
+    <div class="contact-details">
+      <div class="contacts">
+      <div class="row">
+        <div
+          class="col-6"
+          style="text-align: end; font-weight: 500; font-size: 18px;"
+        >
+          <label>{{ "CONTACT.ADDRESS" | translate }} </label>
+        </div>
+        <div class="col-6" style="text-align: start; width: 300px; font-size: 18px;">
+          <label>{{ districtDetails.headAddress }}</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6" style="text-align: end; font-weight: 500; font-size: 18px;">
+          <span>{{ "CONTACT.LANDLINE_NO" | translate }} </span>
+        </div>
+        <div class="col-6" style="text-align: start; font-size: 18px;">
+          <span>{{ districtDetails.contactNo }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6" style="text-align: end; font-weight: 500; font-size: 18px;">
+          <span>{{ "CONTACT.MOBILE_NO" | translate }} </span>
+        </div>
+        <div class="col-6" style="text-align: start; font-size: 18px;">
+          <span>{{ districtDetails.mobileNo }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6" style="text-align: end; font-weight: 500; font-size: 18px;">
+          <span>{{ "CONTACT.EMAIL" | translate }} </span>
+        </div>
+        <div class="col-6" style="text-align: start; font-size: 18px;">
+          <span>{{ districtDetails.email }}</span>
+        </div>
+      </div>
+    </div>
+      <!-- <span>{{ "CONTACT.ADDRESS" | translate }} </span
+      ><span>{{ districtDetails.headAddress }}</span>
+      <span>{{ "CONTACT.LANDLINE_NO" | translate }}</span
+      ><span>{{ districtDetails.contactNo }}</span>
+      <span>{{ "CONTACT.MOBILE_NO" | translate }}</span
+      ><span>{{ districtDetails.mobileNo }}</span>
+      <span>{{ "CONTACT.EMAIL" | translate }}:</span
+      ><span>{{ districtDetails.email }}</span> -->
+      <div class="btn-div">
+        <button routerLink="/helpLine" class="submit-btn btn-custome">
+          Helpline No
+        </button>
+        <button routerLink="/complaint" class="submit-btn btn-custome">
+          Online Complaint
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 sub-header-title">
+    <span
+      class="header-txt"
+      style="flex-direction: column; text-align: center"
+      >{{ "CONTACT.MAP" | translate }}</span
+    >
+  </div>
+  <div class="map-area">
+    <!-- <span class="contact-header">{{ "CONTACT.MAP" | translate }}</span> -->
+    <div class="map-div">
+      <iframe
+        [src]="districtDetails.mapUrl | Safe"
+        width="100%"
+        height="600"
+        frameborder="0"
+        style="border: 0"
+        allowfullscreen="false"
+        aria-hidden="false"
+        tabindex="0"
+      ></iframe>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,263 @@
+<div class="transfer-edit">
+  <div class="dashboard-header">
+    {{ "TRANSFER.TRANSFER_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="transfer-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="transferListForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="transferList_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="title" class="col-3 col-form-label">{{
+        "TRANSFER.TRANSFER_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="title"
+          name="title"
+          placeholder="{{ 'TRANSFER.ENTER_TRANSFER_NAME' | translate }}"
+          formControlName="title"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('title')
+          }"
+          (change)="focusOut($event, 'title')"
+          (focusout)="focusOut($event, 'title')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="title"
+          name="title"
+          placeholder="{{ 'TRANSFER.ENTER_TRANSFER_NAME' | translate }}"
+          formControlName="title"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('title')
+          }"
+          (change)="focusOut($event, 'title')"
+          (focusout)="focusOut($event, 'title')"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('title', 'required')" class="invalid">
+        <strong>Title is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('title', 'minlength')" class="invalid">
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div *ngIf="isControlHasError('title', 'maxlength')" class="invalid">
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="TransferBy" class="col-3 col-form-label">{{
+        "TRANSFER.TRANSFER_BY" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="TransferBy"
+          name="TransferBy"
+          placeholder="{{ 'TRANSFER.ENTER_TRANSFER_BY' | translate }}"
+          formControlName="releasedBy"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('releasedBy')
+          }"
+          (change)="focusOut($event, 'releasedBy')"
+          (focusout)="focusOut($event, 'releasedBy')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="TransferBy"
+          name="TransferBy"
+          placeholder="{{ 'TRANSFER.ENTER_TRANSFER_BY' | translate }}"
+          formControlName="releasedBy"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('releasedBy')
+          }"
+          (change)="focusOut($event, 'releasedBy')"
+          (focusout)="focusOut($event, 'releasedBy')"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('releasedBy', 'required')" class="invalid">
+        <strong>Released By is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="date" class="col-3 col-form-label">{{
+        "TRANSFER.TRANSFER_DATE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="date"
+          id="date"
+          name="date"
+          formControlName="date"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('date') }"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('date', 'required')" class="invalid">
+        <strong>Date is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="description" class="col-3 col-form-label">{{
+        "FORMS.DESCRIPTION" | translate
+      }}</label>
+      <div class="col-8">
+        <textarea
+          *ngIf="language == 'hi'"
+          type="text"
+          id="description"
+          name="description"
+          placeholder="{{ 'TRANSFER.ENTER_TRANSFER_DESCRIPTION' | translate }}"
+          formControlName="description"
+          autocomplete="off"
+          class="form-textarea hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('description')
+          }"
+          (change)="focusOut($event, 'description')"
+          (focusout)="focusOut($event, 'description')"
+          required
+        ></textarea>
+        <textarea
+          *ngIf="language == 'en'"
+          type="text"
+          id="description"
+          name="description"
+          placeholder="{{ 'TRANSFER.ENTER_TRANSFER_DESCRIPTION' | translate }}"
+          formControlName="description"
+          autocomplete="off"
+          class="form-textarea"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('description')
+          }"
+          (change)="focusOut($event, 'description')"
+          (focusout)="focusOut($event, 'description')"
+          required
+        ></textarea>
+      </div>
+
+      <div *ngIf="isControlHasError('description', 'required')" class="invalid">
+        <strong>Description is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('description', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="priority" class="col-3 col-form-label">{{
+        "FORMS.PRIORITY" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="number"
+          id="priority"
+          min="1"
+          (keypress)="numberOnly($event)"
+          name="priority"
+          placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+          formControlName="priority"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('priority') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('priority', 'required')" class="invalid">
+        <strong>Priority is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('priority', 'minlength')" class="invalid">
+        <strong>Priority Minimum length is 1</strong>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="transferList_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_TRANSFER_LIST && ADD_URL && !TRANSFER_LIST_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="transferList_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_TRANSFER_LIST && EDIT_URL && TRANSFER_LIST_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

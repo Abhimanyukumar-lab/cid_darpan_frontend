@@ -1,0 +1,241 @@
+<div class="progress-summary-container">
+    <!-- Header Section -->
+    <div class="header-section">
+        <h1 class="page-title">CASE COMPLETENESS STATUS</h1>
+        <p class="page-subtitle">Overview of case completion percentages across districts</p>
+    </div>
+
+
+    <!-- Add this in the district-section after the filters container -->
+    <div class="export-buttons text-end">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button (click)="exportToExcel()" class="export-btn excel-btn text-end">
+            📊 Export All to Excel
+        </button>
+        <!-- <button (click)="exportFilteredToExcel()" class="export-btn filtered-excel-btn">
+            🔍 Export Filtered to Excel
+        </button> -->
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+        <div class="error-icon">⚠️</div>
+        <div class="error-text">{{ errorMessage }}</div>
+    </div>
+
+    <!-- State Overview Cards -->
+    <div *ngIf="stateList.length > 0" class="state-overview">
+        <div class="state-container">
+            <div *ngFor="let state of stateList" class="state-box">
+                <div class="state-header">
+                    <h3>Type: {{ state.type }}</h3>
+                </div>
+                <div class="state-content">
+                    <div class="stat-line">
+                        <span class="label">Total:</span>
+                        <span class="value">{{ state.total | number }}</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="label">Complete 100%:</span>
+                        <span class="value">{{ state.complete100 | number }}</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="label">Above 50%:</span>
+                        <span class="value">{{ state.above50 | number }}</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="label">Below 50%:</span>
+                        <span class="value">{{ state.below50 | number }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- District Data Section -->
+    <div *ngIf="mergedDistrictList.length > 0" class="district-section">
+        <div class="section-header">
+            <h2 class="section-title">District-wise Breakdown</h2>
+
+            <!-- Filters -->
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="districtFilter">Search District</label>
+                    <input type="text" id="districtFilter" [(ngModel)]="districtFilter"
+                        (input)="onDistrictFilterChange($event)" placeholder="Enter district name..."
+                        class="filter-input">
+                </div>
+                <!-- 
+                <div class="filter-group">
+                    <label for="typeFilter">Case Type</label>
+                    <select id="typeFilter" [(ngModel)]="typeFilter" (change)="onTypeFilterChange($event)"
+                        class="filter-select">
+                        <option *ngFor="let type of availableTypes" [value]="type">{{ type }}</option>
+                    </select>
+                </div> -->
+
+                <div class="filter-group">
+                    <label for="sortBy">Sort By</label>
+                    <div class="sort-container">
+                        <select id="sortBy" [(ngModel)]="sortBy" (change)="onSortChange($event)" class="filter-select">
+                            <option *ngFor="let option of sortOptions" [value]="option.value">{{ option.label }}
+                            </option>
+                        </select>
+                        <button (click)="toggleSortOrder()" class="sort-order-btn">
+                            {{ sortOrder === 'asc' ? '↑' : '↓' }}
+                        </button>
+                    </div>
+                </div>
+
+                <button (click)="resetFilters()" class="reset-btn">Reset Filters</button>
+            </div>
+        </div>
+
+        <!-- Results Count
+        <div class="results-info">
+            Showing {{ filteredList.length }} of {{ mergedDistrictList.length }} districts
+            <span *ngIf="typeFilter !== 'ALL'" class="filter-info">(Filtered by: {{ typeFilter }})</span>
+        </div> -->
+
+        <!-- District Table -->
+        <div class="table-container">
+            <table class="district-table">
+                <thead>
+                    <tr>
+                        <th>District Name</th>
+                        <th>Types</th>
+                        <th>Total Cases</th>
+                        <th>100% Complete</th>
+                        <th>Above 50%</th>
+                        <th>Below 50%</th>
+                        <th>Completion Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of filteredList; let i = index" [class.row-even]="i % 2 === 0"
+                        [class.row-odd]="i % 2 === 1" [class.multiple-types]="hasMultipleTypes(item)">
+                        <!-- District Name Column -->
+                        <td class="name-cell">
+                            <strong>{{ item.name }}</strong>
+                            <div *ngIf="hasMultipleTypes(item)" class="merged-badge">
+                                Merged {{ item.types.length }} types
+                            </div>
+                        </td>
+
+                        <!-- Types Column -->
+                        <td class="types-cell">
+                            <div class="types-container">
+                                <span *ngFor="let type of item.types" class="type-badge type-{{type.type}}">
+                                    {{ type.type }}
+                                </span>
+                            </div>
+                        </td>
+
+                        <!-- Total Cases Column -->
+                        <td class="total-cell">
+                            {{ item.total | number }}
+                            <div *ngIf="hasMultipleTypes(item)" class="type-breakdown">
+                                <div *ngFor="let type of item.types" class="type-total">
+                                    {{ type.type }}: {{ type.total | number }}
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- 100% Complete Column -->
+                        <td>
+                            <div class="progress-column">
+                                <span class="count-value">{{ item.complete100 | number }}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill complete-fill"
+                                        [style.width.%]="calculatePercentage(item.complete100, item.total)"></div>
+                                </div>
+                                <span class="percentage-value">{{ calculatePercentage(item.complete100, item.total) |
+                                    number:'1.1-1' }}%</span>
+
+                                <!-- Type breakdown for merged districts -->
+                                <div *ngIf="hasMultipleTypes(item)" class="type-breakdown">
+                                    <div *ngFor="let type of item.types" class="type-progress">
+                                        {{ type.type }}: {{ type.complete100 | number }} ({{
+                                        calculatePercentage(type.complete100, type.total) | number:'1.1-1' }}%)
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- Above 50% Column -->
+                        <td>
+                            <div class="progress-column">
+                                <span class="count-value">{{ item.above50 | number }}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill above-fill"
+                                        [style.width.%]="calculatePercentage(item.above50, item.total)"></div>
+                                </div>
+                                <span class="percentage-value">{{ calculatePercentage(item.above50, item.total) |
+                                    number:'1.1-1' }}%</span>
+
+                                <!-- Type breakdown for merged districts -->
+                                <div *ngIf="hasMultipleTypes(item)" class="type-breakdown">
+                                    <div *ngFor="let type of item.types" class="type-progress">
+                                        {{ type.type }}: {{ type.above50 | number }} ({{
+                                        calculatePercentage(type.above50, type.total) | number:'1.1-1' }}%)
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- Below 50% Column -->
+                        <td>
+                            <div class="progress-column">
+                                <span class="count-value">{{ item.below50 | number }}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill below-fill"
+                                        [style.width.%]="calculatePercentage(item.below50, item.total)"></div>
+                                </div>
+                                <span class="percentage-value">{{ calculatePercentage(item.below50, item.total) |
+                                    number:'1.1-1' }}%</span>
+
+                                <!-- Type breakdown for merged districts -->
+                                <div *ngIf="hasMultipleTypes(item)" class="type-breakdown">
+                                    <div *ngFor="let type of item.types" class="type-progress">
+                                        {{ type.type }}: {{ type.below50 | number }} ({{
+                                        calculatePercentage(type.below50, type.total) | number:'1.1-1' }}%)
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- Overall Completion Rate -->
+                        <td>
+                            <div class="completion-rate">
+                                <span class="rate-value"
+                                    [class.high]="calculatePercentage(item.complete100, item.total) > 50"
+                                    [class.medium]="calculatePercentage(item.complete100, item.total) > 20 && calculatePercentage(item.complete100, item.total) <= 50"
+                                    [class.low]="calculatePercentage(item.complete100, item.total) <= 20">
+                                    {{ calculatePercentage(item.complete100, item.total) | number:'1.1-1' }}%
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- No Results Message -->
+        <div *ngIf="filteredList.length === 0" class="no-results">
+            <p>No districts found matching your filters.</p>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="mergedDistrictList.length === 0 && !errorMessage" class="empty-state">
+        <div class="empty-icon">📊</div>
+        <h3>No records found</h3>
+        <p>There is no data to display at the moment.</p>
+    </div>
+</div>

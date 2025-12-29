@@ -1,0 +1,17 @@
+.viewContainer {
+  width: 100%;
+  min-height: 100%;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+.passport {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=view-passport.component.css.map */

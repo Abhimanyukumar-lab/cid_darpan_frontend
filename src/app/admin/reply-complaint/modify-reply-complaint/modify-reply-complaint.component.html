@@ -1,0 +1,87 @@
+<div class="reply-edit">
+  <div class="dashboard-header">Reply Complaint Details</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="reply-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="replyComplaintForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="replyComplaintForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="replyDescription" class="col-3 col-form-label"
+        >Description</label
+      >
+      <div class="col-9">
+        <input
+          type="text"
+          id="replyDescription"
+          name="replyDescription"
+          placeholder="Enter Description"
+          formControlName="replyDescription"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('replyDescription') }"
+          required
+        />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="replyStatus" class="col-3 col-form-label">Status</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="replyStatus"
+          name="replyStatus"
+          placeholder="Enter Status"
+          formControlName="replyStatus"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('replyStatus') }"
+          required
+        />
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="replyComplaint_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_PERMISSION && EDIT_URL && REPLYCOMPLAINT_PARAMS.ID"
+      >
+        Edit Permision
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+.ecom-edit {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ngDropDown * {
+  width: auto;
+}/*# sourceMappingURL=modify-ecomm-dispatch.component.css.map */

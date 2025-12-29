@@ -1,0 +1,215 @@
+<div class="submenu-edit">
+  <div class="dashboard-header">Submenu Details</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="submenu-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="submenuForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="submenu_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="name" class="col-3 col-form-label">Menu Name</label>
+      <div class="col-9">
+        <select
+          name="mainName"
+          id="mainName"
+          placeholder="Enter Menu Name"
+          formControlName="menuId"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('menuId') }"
+          required
+        >
+          <option [ngValue]="null" disabled>Select Menu</option>
+          <option *ngFor="let menu of menuList" [ngValue]="menu.id">
+            {{ menu.menuName }}
+          </option>
+        </select>
+      </div>
+      <div *ngIf="isControlHasError('menuId', 'required')" class="invalid">
+        <strong>Menu Name is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="name" class="col-3 col-form-label">Sub-Menu Name</label>
+      <div class="col-9">
+        <select
+          name="subMenu"
+          id="subMenu"
+          formControlName="subMenuId"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('subMenuId') }"
+        >
+          <option [ngValue]="null" disabled>Select Sub-Menu</option>
+          <option *ngFor="let menu of subMenuList" [ngValue]="menu.id">
+            {{ menu.subMenu }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="menuName" class="col-3 col-form-label">Sub Menu Name</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="menuName"
+          name="menuName"
+          placeholder="Enter Submenu Name"
+          formControlName="menuName"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('menuName') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('menuName', 'required')" class="invalid">
+        <strong>Submenu Name Required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="menuNameHi" class="col-3 col-form-label"
+        >Sub Menu Name (Hi)</label
+      >
+      <div class="col-9">
+        <input
+          type="text"
+          id="menuNameHi"
+          name="menuNameHi"
+          placeholder="Enter Submenu Name"
+          formControlName="menuNameHi"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('menuNameHi')
+          }"
+          (change)="focusOut($event, 'menuNameHi')"
+          (focusout)="focusOut($event, 'menuNameHi')"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('menuNameHi', 'required')" class="invalid">
+        <strong>Submenu Name Required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="menuIcon" class="col-3 col-form-label">Sub-Menu Icon</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="menuIcon"
+          name="menuIcon"
+          placeholder="Enter Submenu Icon"
+          formControlName="menuIcon"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('menuIcon') }"
+        />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="menuUrl" class="col-3 col-form-label">URL</label>
+      <div class="col-9">
+        <input
+          type="menuUrl"
+          id="menuUrl"
+          name="menuUrl"
+          placeholder="Enter URL"
+          formControlName="menuURL"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('menuURL') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('menuURL', 'required')" class="invalid">
+        <strong>URL is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="priority" class="col-3 col-form-label">Priority</label>
+      <div class="col-9">
+        <input
+          type="number"
+          id="priority"
+          min="1"
+          (keypress)="numberOnly($event)"
+          name="priority"
+          placeholder="Enter priority"
+          formControlName="menuPriority"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('menuPriority') }"
+          required
+        />
+      </div>
+      <div
+        *ngIf="isControlHasError('menuPriority', 'required')"
+        class="invalid"
+      >
+        <strong>Priority is required</strong>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="submenu_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SUBMENU && ADD_URL && !SUBMENU_PARAMS.ID"
+      >
+        Add Submenu
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="submenu_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SUBMENU && EDIT_URL && SUBMENU_PARAMS.ID"
+      >
+        Edit Submenu
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

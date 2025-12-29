@@ -1,0 +1,113 @@
+<div class="sidebar-container">
+  <div class="sidebar-menu" *ngFor="let menu of MENU">
+    <a
+      class="menu-item"
+      [ngClass]="{ isActive: isCurrentURL.indexOf(menu.mainMenuUrl) > -1 }"
+      (click)="hideSubMenu(menu)"
+      *ngIf="!menu.subMenus"
+      routerLink="{{ menu.mainMenuUrl }}"
+    >
+      <div class="grouped">
+        <i class="material-icons">{{ menu.mainMenuIcon }}</i>
+        <h6 *ngIf="currrentLang == 'en'">{{ menu.mainMenuName }}</h6>
+        <h6 *ngIf="currrentLang == 'hi'">{{ menu.mainMenuNameHi }}</h6>
+      </div>
+    </a>
+
+    <div
+      class="menu-item"
+      [ngClass]="{ isActive: isCurrentMenu.id == menu.id }"
+      (click)="showSubMenu(menu)"
+      *ngIf="menu.subMenus"
+    >
+      <div class="grouped">
+        <i class="material-icons">{{ menu.mainMenuIcon }}</i>
+        <h6 *ngIf="currrentLang == 'en'">{{ menu.mainMenuName }}</h6>
+        <h6 *ngIf="currrentLang == 'hi'">{{ menu.mainMenuNameHi }}</h6>
+      </div>
+
+      <i
+        class="material-icons"
+        *ngIf="isCurrentMenu.id != menu.id && !menu.isSelected"
+        >navigate_next</i
+      >
+      <i class="material-icons" *ngIf="isCurrentMenu.id == menu.id"
+        >keyboard_arrow_down</i
+      >
+    </div>
+    <div
+      class="sub-menu-container"
+      *ngIf="menu.subMenus && isCurrentMenu.id == menu.id"
+    >
+      <div *ngFor="let submenu of menu.subMenus">
+        <div
+          class="menu-item"
+          [ngClass]="{ isActive: isCurrentSubMenu.id == submenu.id }"
+          (click)="showSubSubMenu(submenu)"
+          *ngIf="submenu.submenus && submenu.submenus.length > 0"
+        >
+          <div class="grouped">
+            <i class="material-icons">{{ submenu.menuIcon }}</i>
+            <h6 *ngIf="currrentLang == 'en'">{{ submenu.menuName }}</h6>
+            <h6 *ngIf="currrentLang == 'hi'">{{ submenu.menuNameHi }}</h6>
+          </div>
+
+          <i
+            class="material-icons"
+            *ngIf="
+              isCurrentMenu.id == menu.id && isCurrentSubMenu.id != submenu.id
+            "
+          >
+            navigate_next
+          </i>
+          <i
+            class="material-icons"
+            *ngIf="
+              isCurrentMenu.id == menu.id && isCurrentSubMenu.id == submenu.id
+            "
+          >
+            keyboard_arrow_down
+          </i>
+        </div>
+        <a
+          class="menu-item"
+          [ngClass]="{ isActive: isCurrentURL.indexOf(submenu.menuUrl) > -1 }"
+          *ngIf="!submenu.submenus"
+          routerLink="{{ submenu.menuUrl }}"
+        >
+          <div class="grouped">
+            <i class="material-icons">{{ submenu.menuIcon }}</i>
+            <h6 *ngIf="currrentLang == 'en'">{{ submenu.menuName }}</h6>
+            <h6 *ngIf="currrentLang == 'hi'">{{ submenu.menuNameHi }}</h6>
+          </div>
+        </a>
+        <div
+          class="sub-menu-container"
+          *ngIf="
+            submenu.submenus &&
+            isCurrentMenu.id == menu.id &&
+            isCurrentSubMenu.id == submenu.id
+          "
+        >
+          <div *ngFor="let subsubmenu of submenu.submenus">
+            <a
+              class="menu-item"
+              [ngClass]="{
+                isActive: isCurrentURL.indexOf(subsubmenu.menuUrl) > -1
+              }"
+              routerLink="{{ subsubmenu.menuUrl }}"
+            >
+              <div class="grouped">
+                <i class="material-icons">{{ subsubmenu.menuIcon }}</i>
+                <h6 *ngIf="currrentLang == 'en'">{{ subsubmenu.menuName }}</h6>
+                <h6 *ngIf="currrentLang == 'hi'">
+                  {{ subsubmenu.menuNameHi }}
+                </h6>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

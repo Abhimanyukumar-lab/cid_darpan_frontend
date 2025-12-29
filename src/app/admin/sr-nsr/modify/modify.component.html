@@ -1,0 +1,128 @@
+<div class="menu-edit">
+  <div class="dashboard-header">SR/NSR Form</div>
+  <button class="btn btn-sm back-btn" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    " (click)="goBack()">
+    &#215;
+  </button>
+</div>
+<div class="menu-form">
+  <form class="form needs-validation container" novalidate [formGroup]="entryForm" autocomplete="off"
+    novalidate="novalidate" id="menu_form">
+    <div class="col-sm-12">
+      <div class="row">
+        <input id="id" name="id" formControlName="id" style="display: none" />
+        <div class="col-sm-4">
+          <label for="firNo" class="col-12 col-form-label">{{
+            "SR_NSR.FIRNO" | translate
+            }}</label>
+          <div class="col-9">
+            <input type="text" id="firNo" name="firNo" placeholder="{{ 'SR_NSR.FIRNO' | translate }}"
+              formControlName="firNo" autocomplete="off" class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('firNo') }" required />
+            <!-- (keypress)="validAplpha($event)" -->
+          </div>
+
+          <div *ngIf="isControlHasError('firNo', 'required')" class="invalid">
+            <strong> FIR No is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="firDate" class="col-12 col-form-label">{{
+            "SR_NSR.FIRDATE" | translate
+            }}</label>
+          <div class="col-9">
+            <input type="date" id="firDate" name="firDate" placeholder="{{ 'SR_NSR.FIRDATE' | translate }}"
+              formControlName="firDate" autocomplete="off" class="form-control hindi hindiFont"
+              onfocus="this.max=new Date().toISOString().split('T')[0]"
+              [ngClass]="{ invalidInput: isControlHasErrors('firDate') }" required />
+          </div>
+
+          <div *ngIf="isControlHasError('firDate', 'required')" class="invalid">
+            <strong> {{
+              "SR_NSR.FIRDATE" | translate
+              }} is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="uis" class="col-12 col-form-label">{{
+            "SR_NSR.UIS" | translate
+            }}</label>
+          <div class="col-9">
+            <input type="text" id="uis" name="uis" placeholder="{{ 'SR_NSR.UIS' | translate }}" formControlName="uis"
+              autocomplete="off" class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('uis') }" required />
+          </div>
+
+          <div *ngIf="isControlHasError('uis', 'required')" class="invalid">
+            <strong> UIS is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="firType" class="col-12 col-form-label">{{
+            "SR_NSR.FIRTYPE" | translate
+            }}</label>
+          <div class="col-9">
+            <select id="firType" name="firType" formControlName="firType" class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('firType') }" required>
+              <option value="">Select FIR Type</option>
+              <option value="SR">SR</option>
+              <option value="NSR">NSR</option>
+            </select>
+
+            <!-- (keypress)="validAplpha($event)" -->
+          </div>
+
+          <div *ngIf="isControlHasError('firType', 'required')" class="invalid">
+            <strong> FIR Type is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="firDoc" class="col-12 col-form-label">{{
+            "SR_NSR.FIRDATE" | translate
+            }}</label>
+          <div class="col-9">
+            <input type="file" id="firDoc" name="firDoc" placeholder="Attach File"
+              (change)="handleFileChange($event.target.files)" formControlName="firDoc" autocomplete="off"
+              class="form-control" accept="image/x-png,image/gif,image/jpeg"
+              [ngClass]="{ invalidInput: isControlHasErrors('firDoc') }" />
+          </div>
+
+          <div *ngIf="isControlHasError('firDoc', 'required')" class="invalid">
+            <strong> FIR Document is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="form-group d-flex flex-wrap justify-content-center align-items-center">
+      <button id="menu_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+        *ngIf="ADD_ENTRY && ADD_URL && !ENTRY_PARAMS.ID">
+        Add Entry
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button id="menu_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+        *ngIf="EDIT_ENTRY && EDIT_URL && ENTRY_PARAMS.ID">
+        Edit Entry
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

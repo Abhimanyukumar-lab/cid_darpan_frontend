@@ -1,0 +1,24 @@
+<div class="user">
+  <div class="dashboard-header">{{ "USER.USER_TITLE" | translate }}</div>
+  <div class="button-panel">
+    <a
+      routerLink="{{ permissions.add_url }}"
+      class="btn btn-success m-2"
+      *ngIf="permissions.add && permissions.add_url"
+      >Add User</a
+    >
+  </div>
+
+  <div style="padding: 20px">
+    <app-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+      [permissions]="permissions"
+      [filterOptions]="filterOptions"
+      [isApiAvailable]="true"
+    >
+    </app-table-data>
+  </div>
+</div>

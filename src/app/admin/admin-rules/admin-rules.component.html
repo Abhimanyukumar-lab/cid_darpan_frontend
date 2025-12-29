@@ -1,0 +1,24 @@
+<div class="rules">
+  <div class="dashboard-header">{{ "RULES.RULES_DOWNLOAD" | translate }}</div>
+  <div class="button-panel">
+    <a
+      routerLink="{{ permissions.add_url }}"
+      class="btn btn-success m-2"
+      *ngIf="permissions.add && permissions.add_url"
+      >{{ "RULES.ADD_DOWNLOAD" | translate }}</a
+    >
+  </div>
+
+  <div style="padding: 20px">
+    <app-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+      [permissions]="permissions"
+      [filterOptions]="filterOptions"
+      [isApiAvailable]="false"
+    >
+    </app-table-data>
+  </div>
+</div>

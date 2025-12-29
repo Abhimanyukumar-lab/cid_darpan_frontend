@@ -1,0 +1,105 @@
+<div class="rti">
+  <div class="dashboard-header">{{ "PROCECUTION.PROC_TITLE" | translate }}</div>
+</div>
+
+<div class="container" style="margin-top: 5px;">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>{{ "PROCECUTION.SUMMON" | translate }}</a>
+      <ng-template ngbNavContent>
+        <div class="button-panel">
+          <a
+            routerLink="{{ permissions.add_url }}"
+            class="btn btn-success m-2"
+            *ngIf="permissions.add && permissions.add_url"
+            >Add Prosecution</a
+          >
+        </div>
+        <div style="padding: 20px">
+          <app-table-data
+            [rows]="rows"
+            [page]="page"
+            [columns]="columns"
+            [path]="path"
+            [permissions]="permissions"
+            [isApiAvailable]="false"
+          >
+          </app-table-data>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>{{ "PROCECUTION.WARRENT" | translate }}</a>
+      <ng-template ngbNavContent>
+        <div class="button-panel">
+          <a
+            routerLink="{{ permissions.add_url }}"
+            class="btn btn-success m-2"
+            *ngIf="permissions.add && permissions.add_url"
+            >Add Prosecution</a
+          >
+        </div>
+        <div style="padding: 20px">
+          <app-table-data
+            [rows]="rowsWarrent"
+            [page]="pageWarrent"
+            [columns]="columnsWarrent"
+            [path]="path"
+            [permissions]="permissions"
+            [isApiAvailable]="false"
+          >
+          </app-table-data>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>{{ "PROCECUTION.PROCLAIM" | translate }}</a>
+      <ng-template ngbNavContent>
+        <div class="button-panel">
+          <a
+            routerLink="{{ permissions.add_url }}"
+            class="btn btn-success m-2"
+            *ngIf="permissions.add && permissions.add_url"
+            >Add Prosecution</a
+          >
+        </div>
+        <div style="padding: 20px">
+          <app-table-data
+            [rows]="rowsProclaimation"
+            [page]="pageProclaimation"
+            [columns]="columnsProclaimation"
+            [path]="path"
+            [permissions]="permissions"
+            [isApiAvailable]="false"
+          >
+          </app-table-data>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>{{ "PROCECUTION.ATTACHMENT" | translate }}</a>
+      <ng-template ngbNavContent>
+        <div class="button-panel">
+          <a
+            routerLink="{{ permissions.add_url }}"
+            class="btn btn-success m-2"
+            *ngIf="permissions.add && permissions.add_url"
+            >Add Prosecution</a
+          >
+        </div>
+        <div style="padding: 20px">
+          <app-table-data
+            [page]="rowsAttachment"
+            [page]="pageAttachment"
+            [columns]="columnsAttachment"
+            [path]="path"
+            [permissions]="permissions"
+            [isApiAvailable]="false"
+          >
+          </app-table-data>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</div>

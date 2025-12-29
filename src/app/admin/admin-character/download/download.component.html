@@ -1,0 +1,570 @@
+<div id="downloadCerificateunSigned" *ngIf="type == 'TYPE1'">
+  <div style="margin: 20px; border: 1px solid #000">
+    <table>
+      <tr>
+        <td style="width: 30%; border-bottom: 1px solid black">
+          <img
+            src="/assets/images/logo_bihar.png"
+            style="width: 100px; height: 100px; margin: 10px; padding: 10px"
+          />
+        </td>
+        <td
+          style="width: 40%; text-align: center; border-bottom: 1px solid black"
+          *ngIf="language == 'en'"
+        >
+          <p>Character Certificate</p>
+          <p>----------------------------------------</p>
+          <p>
+            Office Of The Superintendent Of Police,
+            {{ "HOME.CHAR_DISTRICT_POLICE" | translate }}
+          </p>
+        </td>
+        <td
+          style="width: 40%; text-align: center; border-bottom: 1px solid black"
+          *ngIf="language == 'hi'"
+        >
+          <p>चरित्र प्रमाण पत्र</p>
+          <p>----------------------------------------</p>
+          <p>
+            पुलिस अधीक्षक का कार्यालय,
+            {{ "HOME.CHAR_DISTRICT_POLICE" | translate }}।
+          </p>
+        </td>
+        <td
+          style="width: 30%; border-bottom: 1px solid black; text-align: right"
+        >
+          <img
+            src="/assets/images/logo.jpeg"
+            style="width: 100px; height: 100px; margin: 10px; padding: 10px"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="padding: 10px 0 0 30px"
+          colspan="2"
+          valign="bottom"
+          *ngIf="language == 'en'"
+        >
+          <p>
+            Dist Memo No :
+            <span style="font-weight: bold">{{
+              charFormData?.districtMemoNo
+            }}</span>
+            <br />
+            Character Certificate No:
+            <span style="font-weight: bold">{{
+              charFormData?.id +
+                "/" +
+                (charFormData?.updatedDate | date: "yyyy")
+            }}</span>
+          </p>
+        </td>
+        <td
+          style="padding: 10px 0 0 30px"
+          colspan="2"
+          valign="bottom"
+          *ngIf="language == 'hi'"
+        >
+          <p>
+            जिला ज्ञापांक नम्बर :
+            <span style="font-weight: bold">{{
+              charFormData?.districtMemoNo
+            }}</span
+            ><br />
+            चरित्र प्रमाण पत्र नम्बर:
+            <span style="font-weight: bold">{{
+              charFormData?.id +
+                "/" +
+                (charFormData?.updatedDate | date: "yyyy")
+            }}</span>
+          </p>
+        </td>
+        <td
+          style="width: 30%; padding-top: 20px; text-align: center"
+          rowspan="2"
+        >
+          <img
+            [src]="url + charFormData?.userImage"
+            style="width: 100px; height: 130px"
+          />
+        </td>
+      </tr>
+      <tr valign="top">
+        <td
+          style="width: 30%; padding-left: 30px"
+          colspan="2"
+          *ngIf="language == 'en'"
+        >
+          <p>
+            Dated :
+            <span style="font-weight: bold">{{
+              charFormData?.updatedDate | date: "dd/MM/yyyy"
+            }}</span>
+          </p>
+        </td>
+        <td
+          style="width: 30%; padding-left: 30px"
+          colspan="2"
+          *ngIf="language == 'hi'"
+        >
+          <p>
+            दिनांक :
+            <span style="font-weight: bold">{{
+              charFormData?.updatedDate | date: "dd/MM/yyyy"
+            }}</span>
+          </p>
+        </td>
+      </tr>
+      <tr style="height: 350px" valign="top">
+        <td colspan="3" *ngIf="language == 'en'">
+          <p
+            style="
+              text-align: justify;
+              padding: 30px;
+              line-height: 2;
+              text-align: justify;
+            "
+          >
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            This is to certify that
+            <span style="font-weight: bold">{{
+              charFormData?.initialsName
+            }}</span
+            >&nbsp;<span style="font-weight: bold">{{
+              charFormData?.name
+            }}</span
+            >&nbsp;<span style="font-weight: bold">{{
+              charFormData?.relationName
+            }}</span
+            ><span
+              style="font-weight: bold"
+              *ngIf="charFormData?.guardianRelation"
+              >{{ charFormData?.guardianRelation }}</span
+            >&nbsp;<span style="font-weight: bold"
+              >{{ charFormData?.fatherHusbandName }}
+            </span>
+            Village
+            <span style="font-weight: bold"
+              >{{ charFormData?.villageLocality }}
+            </span>
+            Post
+            <span style="font-weight: bold"
+              >{{ charFormData?.postOffice }}
+            </span>
+            PS
+            <span style="font-weight: bold">{{
+              charFormData?.stationName
+            }}</span>
+            District {{ "HOME.DISTRICT" | translate }} has been verified by the
+            concerned PS
+            <span style="font-weight: bold">{{
+              charFormData?.stationName
+            }}</span>
+            on the applicant&apos;s given address. It has been informed vide
+            SHO&apos;s Memo No
+            <span style="font-weight: bold">{{
+              charFormData?.stationMemoNo
+            }}</span>
+            dated
+            <span style="font-weight: bold">{{
+              characterForm?.updatedDate | date: "dd/MM/yyyy"
+            }}</span>
+            that the name and address of the applicant
+            <span style="font-weight: bold">{{ charFormData?.name }}</span>
+            found correct and he/she has been residing at the given address for
+            <span style="font-weight: bold"
+              >{{ charFormData?.durationIn }}
+            </span>
+            <span style="font-weight: bold">{{
+              charFormData?.durationStay
+            }}</span>
+            . At present the applicant is doing
+            <span style="font-weight: bold">{{
+              characterForm?.question7
+            }}</span>
+            and there is nothing adverse reported against him/her in the Police
+            Station records. This Character Certificate is issued for
+            <span style="font-weight: bold">{{
+              characterForm?.question9 || charFormData?.type
+            }}</span>
+            &nbsp;Purpose. This Certificate is Valid for SIX Months from the
+            Date of Issue.
+          </p>
+        </td>
+        <td colspan="3" *ngIf="language == 'hi'">
+          <p
+            style="
+              text-align: justify;
+              padding: 30px;
+              line-height: 2;
+              text-align: justify;
+            "
+          >
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+              style="font-weight: bold"
+              >{{ charFormData?.initialsName }}</span
+            >&nbsp;<span style="font-weight: bold">{{
+              charFormData?.name
+            }}</span
+            >&nbsp;<span style="font-weight: bold">{{
+              charFormData?.relationName
+            }}</span
+            ><span
+              style="font-weight: bold"
+              *ngIf="charFormData?.guardianRelation"
+              >{{ charFormData?.guardianRelation }}</span
+            >&nbsp;<span style="font-weight: bold"
+              >{{ charFormData?.fatherHusbandName }}
+            </span>
+            निवास
+            <span style="font-weight: bold"
+              >{{ charFormData?.villageLocality }}
+            </span>
+            पोस्ट
+            <span style="font-weight: bold"
+              >{{ charFormData?.postOffice }}
+            </span>
+            थाना
+            <span style="font-weight: bold">{{
+              charFormData?.stationName
+            }}</span>
+            जिला {{ "HOME.DISTRICT" | translate }} का चरित्र सत्यापन उनके द्वारा
+            दिये गये पता पर थानाध्यक्ष
+            <span style="font-weight: bold">{{
+              charFormData?.stationName
+            }}</span>
+            द्वारा कराया गया है। सत्यापन के क्रम में संबंधित थानाध्यक्ष अपने
+            ज्ञापांक नम्बर
+            <span style="font-weight: bold">{{
+              charFormData?.stationMemoNo
+            }}</span>
+            दिनांक
+            <span style="font-weight: bold">{{
+              characterForm?.updatedDate | date: "dd/MM/yyyy"
+            }}</span>
+            द्वारा सूचित किया गया है कि अभ्यर्थी
+            <span style="font-weight: bold">{{ charFormData?.name }}</span>
+            का नाम व पता सही है एवं इस पता पर
+            <span style="font-weight: bold"
+              >{{ charFormData?.durationIn }}
+            </span>
+            <span style="font-weight: bold">{{
+              charFormData?.durationStay
+            }}</span>
+            से रह रहे है। ये
+            <span style="font-weight: bold">{{
+              characterForm?.question7
+            }}</span>
+            कार्य करते है तथा इनके विरुद्ध इस
+            <span style="font-weight: bold">{{
+              charFormData?.stationName
+            }}</span>
+            अभिलेख में कोई प्रतिकूल प्रविष्टि नही पायी गयी है। इसके आधार पर यह
+            चरित्र प्रमाण-पत्र
+            <span style="font-weight: bold">{{
+              characterForm?.question9 || charFormData?.type
+            }}</span>
+            कार्य के लिए जारी किया गया है। इसकी वैधता निर्गत होने की तिथि से छ:
+            माह तक ही है।
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="padding: 100px 0 0 30px"
+          colspan="2"
+          *ngIf="language == 'en'"
+        >
+          Location:
+          <span style="font-weight: bold">{{
+            "HOME.DISTRICT" | translate
+          }}</span>
+        </td>
+        <td
+          style="padding: 100px 0 0 30px"
+          colspan="2"
+          *ngIf="language == 'hi'"
+        >
+          स्थान:
+          <span style="font-weight: bold">{{
+            "HOME.CHAR_DISTRICT_POLICE" | translate
+          }}</span>
+        </td>
+        <td></td>
+      </tr>
+      <tr *ngIf="language == 'en'">
+        <td valign="top" style="padding: 0 0 0 30px" colspan="2">
+          Date :
+          <span style="font-weight: bold"
+            ><span style="font-weight: bold">{{
+              characterForm?.updatedDate | date: "dd/MM/yyyy"
+            }}</span></span
+          >
+        </td>
+        <td style="width: 10%">
+          <p>
+            Superintendent of Police,
+            {{ "HOME.CHAR_DISTRICT_POLICE" | translate }}
+          </p>
+        </td>
+      </tr>
+      <tr *ngIf="language == 'hi'">
+        <td valign="top" style="padding: 0 0 0 30px" colspan="2">
+          दिनांक :
+          <span style="font-weight: bold"
+            ><span style="font-weight: bold">{{
+              characterForm?.updatedDate | date: "dd/MM/yyyy"
+            }}</span></span
+          >
+        </td>
+        <td style="width: 10%">
+          <p>पुलिस अधीक्षक, {{ "HOME.CHAR_DISTRICT_POLICE" | translate }}</p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="padding: 20px 0" *ngIf="language == 'en'">
+          <p style="text-align: justify; padding: 20px 30px; line-height: 2">
+            Before using this certificate, its validity should be verified by
+            going to the {{ "HOME.DISTRICT" | translate }} Police official Web
+            Portal,
+            {{ url + "/characterDownload" }}
+            by providing the given District Memo No:
+            {{ charFormData?.districtMemoNo }} & Character Certificate No:
+            {{
+              charFormData?.id +
+                "/" +
+                (charFormData?.updatedDate | date: "yyyy")
+            }}
+          </p>
+        </td>
+        <td colspan="3" *ngIf="language == 'hi'">
+          <p style="text-align: justify; padding: 30px 30px; line-height: 2">
+            इस प्रमाण पत्र को उपयोग मे लाने से पूर्व इसकी वैधता की जाँच आप
+            {{ "HOME.DISTRICT" | translate }} पुलिस के अधिकारिक वेब पोर्टल,
+            {{ url + "/characterDownload" }}
+            पर दिया हुआ जिला ज्ञापांक नम्बर:
+            {{ charFormData?.districtMemoNo }} और चरित्र प्रमाण पत्र नम्बर:
+            {{
+              charFormData?.id +
+                "/" +
+                (charFormData?.updatedDate | date: "yyyy")
+            }}
+            प्रदान करके इसकी सत्यता की जाँच कर सकते हैं
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="downloadCerificateunSigned" *ngIf="type == 'TYPE2'">
+  <div style="margin: 20px; border: 1px solid #000">
+    <table>
+      <tr>
+        <td align="center" colspan="2">
+          <img
+            src="/assets/images/logo_bihar.png"
+            style="width: 80px; height: 80px; margin: 10px; padding: 10px"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td align="center" colspan="2">बिहार सरकार</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="2" style="font-weight: bold">
+          Government of Bihar
+        </td>
+      </tr>
+      <tr>
+        <td align="center" colspan="2">
+          पुलिस अधीक्षक / वरीय पुलिस अधीक्षक का कार्यालय
+        </td>
+      </tr>
+      <tr>
+        <td align="center" colspan="2" style="font-weight: bold">
+          Office of Superintendent of Police / Sr. Superintendent of Police
+        </td>
+      </tr>
+      <tr>
+        <td align="center" colspan="2">
+          जिला / <span style="font-weight: bold">District</span> :
+          {{ districtnameHI }} /
+          <span style="font-weight: bold">{{
+            districtnameEN | uppercase
+          }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" colspan="2">
+          चरित्र प्रमाण पत्र /
+          <span style="font-weight: bold">Character Certificate</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          प्रमाण-पत्र संख्या /
+          <span style="font-weight: bold">Appl. Ref. No</span>:
+          <span style="font-weight: bold">{{
+            charFormData?.id + "/" + (charFormData?.updatedDate | date: "yyyy")
+          }}</span>
+        </td>
+        <td align="right">
+          दिनांक / <span style="font-weight: bold">Date</span> :
+          <span style="font-weight: bold"
+            ><span style="font-weight: bold">{{
+              characterForm?.updatedDate | date: "dd/MM/yyyy"
+            }}</span></span
+          >
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width: 30%; padding-top: 10px" align="right" colspan="2">
+          <img
+            [src]="url + charFormData?.userImage"
+            style="width: 80px; height: 100px"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" style="padding: 5px; font-size: 16px">
+          <p style="text-align: justify; padding-block-start: 10px">
+            &nbsp; &nbsp; अभ्यर्थी {{ charFormData?.name }} ({{
+              charFormData?.name
+            }}), {{ charFormData?.relationName }}-
+            {{ charFormData?.fatherHusbandName }}, निवासी
+            {{ charFormData?.villageLocality }}, डाकघर
+            {{ charFormData?.postOffice }}, थाना
+            {{ charFormData?.stationName }}, जिला {{ districtnameHI }} का पत्र
+            सत्यापन उनके द्वारा दिए गए पता पर थानाध्यक्ष
+            {{ charFormData?.stationName }} द्वारा कराया गया है। सत्यापन के क्रम
+            में सम्बंधित थानाध्यक्ष ने सूचित किया है। कि अभ्यर्थी का नाम व पता
+            सही है एवं इस पता पर
+            {{ charFormData?.updatedDate | date: "MMMM yyyy" }} से
+            {{ newSixMonthDate | date: "MMMM yyyy" }} तक रहे हैं। ये छात्र का
+            कार्य करते है तथा इनके विरुद्ध |
+            {{ charFormData?.stationName }} थाना अभिलेख में कोई प्रतिकूल
+            प्रविष्ट नहीं पायी गई है। इसके आधार पर यह चरित्र प्रमाण पत्र अन्य
+            कार्य के लिए जारी किया गया है। इसकी वैधता निर्गत होने की तिथि से छः
+            माह तक ही है।
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          colspan="2"
+          style="
+            text-align: justify;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 14px;
+          "
+        >
+          &nbsp; &nbsp; Candidate {{ charFormData?.name }},
+          {{ charFormData?.relationName }}
+          {{ charFormData?.fatherHusbandName }}, Resident -
+          {{ charFormData?.villageLocality }}, Post office -
+          {{ charFormData?.postOffice }}, police station -
+          {{ charFormData?.stationName }}, district
+          {{ districtnameEN }} character verification has been done by SHO
+          {{ charFormData?.stationName }} at the address given by him. In the
+          course of verification, the concerned SHO has informed that the name
+          and address of the candidate is correct and has been on this address
+          from {{ charFormData?.updatedDate | date: "MMMM yyyy" }} to
+          {{ newSixMonthDate | date: "MMMM yyyy" }}. They work as Student and no
+          adverse entry has been found against them in
+          {{ charFormData?.stationName }} police station record. Based on this
+          character certificate Other has been issued for the work. Its validity
+          is only for six months from the date of issue..
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          Place : {{ districtnameHI }} /
+          <span style="font-weight: bold">{{
+            districtnameEN | uppercase
+          }}</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          Date:
+          <span style="font-weight: bold">{{
+            characterForm?.updatedDate | date: "dd/MM/yyyy"
+          }}</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <ngx-qrcode [elementType]="elementType" [value]="value"> </ngx-qrcode>
+        </td>
+        <td align="right">
+          पुलिस अधीक्षक /
+          <span style="font-weight: bold">Superinten of Police</span> <br />
+          {{ districtnameHI }} /
+          <span style="font-weight: bold">{{
+            districtnameEN | uppercase
+          }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" *ngIf="language == 'en'">
+          <p style="text-align: justify; line-height: 1.5">
+            Before using this certificate, its validity should be verified by
+            going to the {{ "HOME.DISTRICT" | translate }} Police official Web
+            Portal,
+            {{ url + "/characterDownload" }}
+            by providing the given District Memo No:
+            {{ charFormData?.districtMemoNo }} & Character Certificate No:
+            {{
+              charFormData?.id +
+                "/" +
+                (charFormData?.updatedDate | date: "yyyy")
+            }}
+          </p>
+        </td>
+        <td colspan="3" *ngIf="language == 'hi'">
+          <p style="text-align: justify; padding: 10px; line-height: 1.5">
+            इस प्रमाण पत्र को उपयोग मे लाने से पूर्व इसकी वैधता की जाँच आप
+            {{ "HOME.DISTRICT" | translate }} पुलिस के अधिकारिक वेब पोर्टल,
+            {{ url + "/characterDownload" }}
+            पर दिया हुआ जिला ज्ञापांक नम्बर:
+            {{ charFormData?.districtMemoNo }} और चरित्र प्रमाण पत्र नम्बर:
+            {{
+              charFormData?.id +
+                "/" +
+                (charFormData?.updatedDate | date: "yyyy")
+            }}
+            प्रदान करके इसकी सत्यता की जाँच कर सकते हैं
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div style="width: 100%; text-align: center; padding: 0 0 20px">
+  <button
+    type="button"
+    class="btn btn-primary"
+    style="margin: auto"
+    (click)="openPDF()"
+  >
+    Print
+  </button>
+  <button
+    type="button"
+    class="btn btn-secondary"
+    style="margin-left: 10px"
+    (click)="closeModal('downloadCertificate')"
+  >
+    Close
+  </button>
+</div>

@@ -1,0 +1,62 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>Notification List Details</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">List Name: </span>
+              </div>
+              <div class="col-8">{{ notificationList?.listName }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <app-notification-user-list
+      [listId]="listId"
+      [url]="notificationUserSubmitURL"
+      [editUrl]="notificationUserEditURL"
+      [id]="notificationUserId"
+      [form]="notificationUserForm"
+    ></app-notification-user-list>
+    
+    <app-notification-user
+      [notificationUserPath]="notificationUserPath"
+      [notificationUserDeleteCode]="notificationUserDeleteCode"
+      [notificationUserEditCurrentFormCode]="
+        notificationUserEditCurrentFormCode
+      "
+      [notificationUserDeleteUrl]="notificationUserDeleteUrl"
+      [notificationUserId]="notificationUserId"
+      [form]="notificationUserForm"
+      (formOut)="getUpdatedForm($event)"
+    ></app-notification-user>
+  </div>
+</div>

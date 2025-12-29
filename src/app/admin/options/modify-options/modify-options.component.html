@@ -1,0 +1,210 @@
+<div class="option-edit">
+  <div class="dashboard-header">{{ "OPTIONS.OPTION_DETAILS" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="option-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="optionForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="option_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="optionNameEn" class="col-3 col-form-label">{{
+        "OPTIONS.OPTION_NAME_EN" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="optionNameEn"
+          name="optionNameEn"
+          placeholder="{{ 'OPTIONS.ENTER_OPTION_NAME_EN' | translate }}"
+          formControlName="optionNameEn"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('optionNameEn') }"
+          required
+        />
+      </div>
+
+      <div
+        *ngIf="isControlHasError('optionNameEn', 'required')"
+        class="invalid"
+      >
+        <strong> Option Name is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('optionNameEn', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('optionNameEn', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 100</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="optionNameHi" class="col-3 col-form-label">{{
+        "OPTIONS.OPTION_NAME_HI" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="optionNameHi"
+          name="optionNameHi"
+          placeholder="{{ 'OPTIONS.ENTER_OPTION_NAME_HI' | translate }}"
+          formControlName="optionNameHi"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('optionNameHi'),
+            hindi: langModule.language
+          }"
+          required
+        />
+      </div>
+
+      <div
+        *ngIf="isControlHasError('optionNameHi', 'required')"
+        class="invalid"
+      >
+        <strong> Option Name is required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('optionNameHi', 'minlength')"
+        class="invalid"
+      >
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div
+        *ngIf="isControlHasError('optionNameHi', 'maxlength')"
+        class="invalid"
+      >
+        <strong>Max length allowed 100</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="optionValue" class="col-3 col-form-label">{{
+        "OPTIONS.OPTION_VALUE" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="optionValue"
+          name="optionValue"
+          placeholder="{{ 'OPTIONS.ENTER_OPTION_VALUE' | translate }}"
+          formControlName="optionValue"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('optionValue') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('optionValue', 'required')" class="invalid">
+        <strong> Option Value is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="formId" class="col-3 col-form-label">{{
+        "OPTIONS.OPTION_FORM_ID" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="formId"
+          name="formId"
+          placeholder="{{ 'OPTIONS.ENTER_OPTION_FORM_ID' | translate }}"
+          formControlName="formId"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('formId') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('formId', 'required')" class="invalid">
+        <strong> Form ID is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="priority" class="col-3 col-form-label">Priority</label>
+      <div class="col-9">
+        <input
+          type="number"
+          id="priority"
+          name="priority"
+          placeholder="Enter Priority"
+          formControlName="priority"
+          autocomplete="off"
+          class="form-control"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('priority', 'required')" class="invalid">
+        <strong>Priority is required</strong>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="option_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_OPTION && ADD_URL && !OPTION_PARAMS.ID"
+      >
+        Add Option
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="option_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_OPTION && EDIT_URL && OPTION_PARAMS.ID"
+      >
+        Edit Option
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

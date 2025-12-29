@@ -1,0 +1,173 @@
+<div class="user-edit">
+  <div class="dashboard-header">{{ "USER.USER_DETAILS" | translate }}</div>
+  <button class="btn btn-sm back-btn" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    " (click)="goBack()">
+    &#215;
+  </button>
+</div>
+
+<div class="container mb-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="user-form">
+        <form class="form needs-validation text-center container" novalidate [formGroup]="userProfileForm"
+          autocomplete="off" novalidate="novalidate" id="userForm">
+          <div class="row">
+            <div class="col-lg-9">
+              <fieldset class="border p-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group mb-0">
+                      <label for="firstName" class="col-4 col-form-label">{{ "USER.FIRST_NAME" | translate }}:</label>
+                      <div class="controls">
+                        <input type="text" id="firstName" name="firstName" placeholder="{{
+                            'USER.ENTER_FIRST_NAME' | translate
+                          }}" formControlName="firstName" (keypress)="validAplpha($event)" autocomplete="off"
+                          class="form-control hindi" [ngClass]="{
+                            invalidInput: isControlHasErrors('firstName'),
+                            hindiFont: language == 'hi'
+                          }" (change)="focusOut($event, 'firstName')" (focusout)="focusOut($event, 'firstName')"
+                          required />
+                        <div *ngIf="isControlHasError('firstName', 'required')" class="invalid">
+                          <strong>First Name is required</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group mb-0">
+                      <label for="lastName" class="col-4 col-form-label">{{ "USER.LAST_NAME" | translate }}:</label>
+                      <div class="controls">
+                        <input type="text" id="lastName" name="lastName"
+                          placeholder="{{ 'USER.ENTER_LAST_NAME' | translate }}" formControlName="lastName"
+                          (keypress)="validAplpha($event)" autocomplete="off" class="form-control hindi" [ngClass]="{
+                            invalidInput: isControlHasErrors('lastName'),
+                            hindiFont: language == 'hi'
+                          }" (change)="focusOut($event, 'lastName')" (focusout)="focusOut($event, 'lastName')"
+                          required />
+                        <div *ngIf="isControlHasError('lastName', 'required')" class="invalid">
+                          <strong>Last Name is required</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group mb-0">
+                      <label for="email" class="col-4 col-form-label">User Id:</label>
+                      <div class="controls">
+                        <input type="email" id="email" name="email" placeholder="{{ 'USER.ENTR_USER_ID' | translate }}"
+                          formControlName="email" autocomplete="off" class="form-control" disabled [ngClass]="{
+                            invalidInput: isControlHasErrors('email')
+                          }" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group mb-0">
+                      <label for="mobileNo" class="col-4 col-form-label">{{
+                        "CONTACT.MOBILE_NUMBER" | translate
+                        }}</label>
+                      <div class="controls">
+                        <input type="text" id="mobileNo" name="mobileNo" placeholder="{{
+                            'CONTACT.SEL_MOBILE_NO' | translate
+                          }}" formControlName="mobileNo" (keypress)="numberOnly($event)" minlength="10" maxlength="13"
+                          autocomplete="off" class="form-control" [ngClass]="{
+                            invalidInput: isControlHasErrors('mobileNo')
+                          }" required />
+                      </div>
+
+                      <div *ngIf="isControlHasError('mobileNo', 'required')" class="invalid">
+                        <strong>Mobile Number is required</strong>
+                      </div>
+                      <div *ngIf="isControlHasError('mobileNo', 'minlength')" class="invalid">
+                        <strong>Minimum 10 digit Mobile Number</strong>
+                      </div>
+                      <div *ngIf="isControlHasError('mobileNo', 'maxlength')" class="invalid">
+                        <strong>Maximum 13 digit Mobile Number</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group mb-0">
+                      <label for="contactNo" class="col-4 col-form-label">{{
+                        "SECTIONS.SEC_OFFICER_CONTACT" | translate
+                        }}</label>
+                      <div class="controls">
+                        <input type="text" id="contactNo" name="contactNo" placeholder="{{
+                            'SECTIONS.ENTER_SEC_OFFICER_CONTACT' | translate
+                          }}" formControlName="contactNo" (keypress)="numberOnly($event)" maxlength="12" minlength="10"
+                          autocomplete="off" class="form-control" [ngClass]="{
+                            invalidInput: isControlHasErrors('contactNo')
+                          }" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group mb-0">
+                      <label for="password" class="col-4 col-form-label">New Password:</label>
+                      <div class="controls">
+                        <input type="password" id="password" name="password" formControlName="password"
+                          placeholder="{{ 'USER.ENTER_PASSWORD' | translate }}" autocomplete="off" class="form-control"
+                          [ngClass]="{
+                            invalidInput: isControlHasErrors('password')
+                          }" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <!-- //image -->
+            <div class="col-lg-3">
+              <fieldset class="border p-3">
+                <div class="col-12">
+                  <div class="form-group mb-0">
+                    <img *ngIf="imgURL == null" src="/assets/images/no-image.png" alt="IMAGE"
+                      class="img-thumbnail w-100" height="175px" />
+                    <img *ngIf="imgURL != null" [src]="imgURL" class="img-thumbnail w-100" height="175px"
+                      alt="User Image" />
+                    <div class="mt-2">
+                      <input type="file" accept="image/jpg,image/jpeg" (change)="preview($event.target.files)" />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <div>
+              <!-- <div class="text-center">
+                <button [disabled]="loading" type="submit" (click)="submit()" class="btn btn-primary btn-custom-class">
+                  Update Profile
+                </button>
+                <li class="dropdown-item" (click)="doLogOut()" style="cursor: pointer">
+                  Log Out
+                </li>
+              </div> -->
+
+              <div class="text-center">
+                <button [disabled]="loading" type="button" (click)="submitAndLogout()"
+                  class="btn btn-primary btn-custom-class">
+                  Update Password
+                </button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary btn-custom-class ms-2" (click)="goBack()">
+                  Cancel
+                </button>
+              </div>
+
+
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

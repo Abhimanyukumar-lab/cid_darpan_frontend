@@ -1,0 +1,16 @@
+.sdpo-edit {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sdpo-edit .sdpo-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=modify-sdpo.component.css.map */

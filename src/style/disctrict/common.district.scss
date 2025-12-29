@@ -1,0 +1,452 @@
+@import "../../environments/district.scss";
+
+ 
+    $super-header-color: #031b2e; 
+    $primary-color: #031b2e; 
+    $top-bar: #f10101; 
+    $active-menu: #272729; 
+    $active-menu-hover: #0c2d49; 
+   
+    $title-bar:lighten(#031b2e, 10%); 
+    $page-title: #031b2e; 
+   
+    $service-menu: #5c2211; 
+    $service-menu-hover: #3db7ef; 
+    $service-sidebar: #172646; 
+   
+    $footer: #031b2e; 
+    $super-footer: #000000; 
+   
+    $news-sidebar: #5fb611; 
+   
+    $black: #000000; 
+    $white: #ffffff; 
+   
+    $botton: #262809; 
+    $botton-hover: #31330e; 
+   
+    $header-color: #f5f5f5; 
+    $header-text-color: #000000;
+
+@if $profile == "bhojpur" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+}
+@else if $profile == "buxer" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #6a1b03;
+  $active-menu: #031b2e;
+  $active-menu-hover: #031b2e;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #031b2e;
+  $service-menu-hover: #031b2e;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #031b2e;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #5c727e;
+  $botton-hover: #344a55;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+}
+
+@else if $profile == "rohtas" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+} @else if $profile == "saran" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+} @else if $profile == "sheohar" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+} @else if $profile == "sitamarhi" {
+  $super-header-color: #3ab795;
+  $primary-color: #3ab795;
+  $top-bar: #f10101;
+  $active-menu: #3ab795;
+  $active-menu-hover: #3ab795;
+
+  $title-bar: #275407;
+  $page-title: #3ab795;
+
+  $service-menu: #3ab795;
+  $service-menu-hover: #3ab795;
+  $service-sidebar: #172646;
+
+  $footer: #3ab795;
+  $super-footer: #000000;
+
+  $news-sidebar: #eb688f;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #eb688f;
+  $botton-hover: #3ab795;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+} @else if $profile == "vaishali" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+} @else if $profile == "darbhanga" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+
+}
+
+@else if $profile == "cid" { 
+    $super-header-color: #031b2e; 
+    $primary-color: #031b2e; 
+    $top-bar: #f10101; 
+    $active-menu: #272729; 
+    $active-menu-hover: #0c2d49; 
+   
+    $title-bar:lighten(#031b2e, 10%); 
+    $page-title: #031b2e; 
+   
+    $service-menu: #5c2211; 
+    $service-menu-hover: #3db7ef; 
+    $service-sidebar: #172646; 
+   
+    $footer: #031b2e; 
+    $super-footer: #000000; 
+   
+    $news-sidebar: #5fb611; 
+   
+    $black: #000000; 
+    $white: #ffffff; 
+   
+    $botton: #262809; 
+    $botton-hover: #31330e; 
+   
+    $header-color: #f5f5f5; 
+    $header-text-color: #000000; 
+}
+@else if $profile == "seohar" {
+
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+
+
+
+}
+
+@else if $profile == "purnea" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+} @else if $profile == "jamui" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+}
+@else if $profile == "begusarai" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+}@else if $profile == "jehanabad" {
+  $super-header-color: #031b2e;
+  $primary-color: #031b2e;
+  $top-bar: #f10101;
+  $active-menu: #031b2e;
+  $active-menu-hover: #0c2d49;
+
+  $title-bar: #6a1b03;
+  $page-title: #031b2e;
+
+  $service-menu: #5c2211;
+  $service-menu-hover: #3db7ef;
+  $service-sidebar: #172646;
+
+  $footer: #031b2e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #262809;
+  $botton-hover: #31330e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+}@else {
+
+  $super-header-color: #3b5b1e;
+  $primary-color: #3b5b1e;
+  $top-bar: #f10101;
+  $active-menu: #3b5b1e;
+  $active-menu-hover: #3b5b1e;
+
+  $title-bar: #f19600;
+  $page-title: #3b5b1e;
+
+  $service-menu: #3b5b1e;
+  $service-menu-hover: #3b5b1e;
+  $service-sidebar: #172646;
+
+  $footer: #3b5b1e;
+  $super-footer: #000000;
+
+  $news-sidebar: #5fb611;
+
+  $black: #000000;
+  $white: #ffffff;
+
+  $botton: #538f1c;
+  $botton-hover: #3b5b1e;
+
+  $header-color: #f5f5f5;
+  $header-text-color: #000000;
+}
+

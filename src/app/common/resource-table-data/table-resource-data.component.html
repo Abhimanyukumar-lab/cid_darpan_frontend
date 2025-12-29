@@ -1,0 +1,223 @@
+<div style="margin: 0 0 15px 0">
+  <div class="container-fluid">
+    <div class="row d-flex align-items-center">
+      <div class="col-sm-4 col-md-1">Item Per page :</div>
+      <div class="col-sm-4 col-md-1">
+        <select
+          name="itemCount"
+          id="itemCount"
+          (change)="changeItemSize($event.target.value)"
+          class="form-control form-control-sm"
+        >
+          <option *ngFor="let item of itemCounts" value="{{ item }}">
+            {{ item }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-md-1">Items</div>
+
+      <!-- <div class="col-sm-12 col-md-2 ms-auto">
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="{
+            hindi: langModule.language == 'hi'
+          }"
+          placeholder="Search"
+          (keyup)="updateAllFilter($event)"
+        />
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<ngx-datatable
+  class="material"
+  [rows]="rows"
+  [columns]="columns"
+  [columnMode]="ColumnMode.flex"
+  [headerHeight]="100"
+  [footerHeight]="50"
+  rowHeight="auto"
+  [count]="page.totalElements"
+  [offset]="page.pageNumber"
+  [limit]="page.size"
+  [externalPaging]="true"
+  (page)="setPage($event)"
+  [externalSorting]="true"
+  (sort)="onSort($event)"
+  [loadingIndicator]="loading"
+  [rowClass]="getRowClass"
+  style="width: 100%"
+>
+  <ngx-datatable-column
+    *ngFor="let column of columns"
+    name="{{ column.name }}"
+    [flexGrow]="column.size ? column.size : 1"
+    [sortable]="column.sort ? true : false"
+    [width]="column.width ? column.width : 'auto'"
+  >
+    <ng-template ngx-datatable-header-template>
+      <span>{{ column.colName | translate }}</span>
+      <input
+        *ngIf="column.name != 'Actions' && column.filter == true"
+        type="text"
+        class="form-control hindi"
+        [ngClass]="{
+          hindiFont: column.isTranslate && currentLang == 'hi'
+        }"
+        placeholder="{{ column.colPlaceHolder | translate }}"
+        (keyup)="updateFilter($event, column.props)"
+      />
+    </ng-template>
+    <ng-template
+      let-rowIndex="rowIndex"
+      let-row="row"
+      let-value="value"
+      ngx-datatable-cell-template
+    >
+      <!-- <span *ngIf="column.props == 'id'">{{ rowIndex + 1 }}</span> -->
+      <span *ngIf="column.name != 'Actions' && !column.type">{{ value }}</span>
+
+      <div *ngIf="column.type == 'DATE'">
+        <div *ngIf="value.indexOf('/') > -1">
+          {{ value }}
+        </div>
+        <div *ngIf="value.indexOf('/') == -1">
+          {{ value | date: "dd/MM/yyyy" }}
+        </div>
+      </div>
+      <div *ngIf="column.type == 'DATETIME'">
+        <div *ngIf="value.indexOf('/') > -1">
+          {{ value }}
+        </div>
+        <div *ngIf="value.indexOf('/') == -1">
+          {{ value | date: "dd/MM/yyyy, h:mm a" }}
+        </div>
+      </div>
+      <div
+        *ngIf="column.type == 'MEDIA'"
+        style="width: 80px; height: 80px; text-align: center"
+      >
+        <app-image-viewer [imageURL]="value"></app-image-viewer>
+      </div>
+
+      <div *ngIf="column.name == 'Actions'">
+        <i
+          class="material-icons m-1"
+          style="cursor: pointer; color: #1bb21b"
+          (click)="goToViewLink(permissions.view_url, row)"
+          *ngIf="permissions.view && permissions.view_url"
+          placement="top"
+          ngbTooltip="View Detail"
+        >
+          remove_red_eye
+        </i>
+
+        <i
+          class="material-icons m-1"
+          style="cursor: pointer; color: #0275d8"
+          (click)="goToEditLink(permissions.edit_url, row)"
+          *ngIf="permissions.edit && permissions.edit_url"
+          placement="top"
+          ngbTooltip="Edit Detail"
+        >
+          mode
+        </i>
+
+        <i
+          class="material-icons m-1"
+          style="cursor: pointer; color: #d9534f"
+          *ngIf="row['active'] && permissions.deactivate"
+          (click)="onDeactivateData(row, permissions.deactivate_url)"
+          placement="top"
+          ngbTooltip="Deactivate Detail"
+        >
+          pause_circle
+        </i>
+
+        <i
+          class="material-icons m-1"
+          style="cursor: pointer; color: #5cb85c"
+          *ngIf="!row['active'] && permissions.activate"
+          (click)="onActivateData(row, permissions.activate_url)"
+          placement="top"
+          ngbTooltip="Activate Detail"
+        >
+          play_circle
+        </i>
+
+        <i
+          class="material-icons m-1"
+          style="cursor: pointer; color: #d21f3c"
+          *ngIf="row['active'] && permissions.delete"
+          (click)="onDeleteData(row, permissions.delete_url)"
+          placement="top"
+          ngbTooltip="Delete Detail Forever"
+        >
+          delete_forever
+        </i>
+
+        <i
+          class="material-icons m-1"
+          style="cursor: pointer; color: #d21f3c"
+          *ngIf="row['active'] && permissions.changeStatusDelete"
+          (click)="
+            onDeleteDataAndRefreshView(row, permissions.changeStatusDelete_url)
+          "
+          placement="top"
+          ngbTooltip="Delete Detail Forever"
+        >
+          delete_forever
+        </i>
+
+        <i
+          class="material-icons m-1"
+          style="cursor: pointer; color: #d21f3c"
+          *ngIf="row['active'] && permissions.forwardDestinationDelete"
+          (click)="onDeleteData(row, permissions.forwardDestinationDelete_url)"
+          placement="top"
+          ngbTooltip="Delete Detail Forever"
+        >
+          delete_forever
+        </i>
+
+        <!-- <button
+          (click)="goToViewLink(permissions.view_url, row)"
+          class="btn btn-success mx-1 btn-sm"
+          
+        >
+          View
+        </button> -->
+        <!-- <button
+          (click)="goToEditLink(permissions.edit_url, row)"
+          class="btn btn-primary mx-1 btn-sm"
+          *ngIf="permissions.edit && permissions.edit_url"
+        >
+          Edit
+        </button> -->
+        <!-- <button
+          class="btn btn-danger mx-1 btn-sm"
+          *ngIf="row['active'] && permissions.deactivate"
+          (click)="onDeactivateData(row, permissions.deactivate_url)"
+        >
+          Deactivate
+        </button> -->
+        <!-- <button
+          class="btn btn-success mx-1 btn-sm"
+          *ngIf="!row['active'] && permissions.activate"
+          (click)="onActivateData(row, permissions.activate_url)"
+        >
+          Activate
+        </button> -->
+        <!-- <button
+          class="btn btn-danger mx-1 btn-sm"
+          *ngIf="row['active'] && permissions.delete"
+          (click)="onDeleteData(row, permissions.delete_url)"
+        >
+          Delete
+        </button> -->
+      </div>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>

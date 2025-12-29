@@ -1,0 +1,1222 @@
+
+
+<div
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  "
+>
+  <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+    SR/NSR Cases Form
+  </div>
+  <button
+    class="dashboard-header btn btn-sm back-btn"
+    style="font-size: 30px"
+    (click)="goBack()"
+  >
+    <!-- &#215; -->
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button>
+</div>
+
+<section class="table-sec">
+  <div class="container">
+    <div class="accordion" id="tableModule">
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle()"
+              >Case Details</span
+            >
+            <div
+              *ngIf="!isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed">
+          <div class="card-body">
+            
+            <form [formGroup]="entryForm">
+              <input
+                type="text"
+                id="id"
+                name="id"
+                class="form-control"
+                formControlName="id"
+                hidden="hidden"
+              />
+              <div class="form-group">
+                <div class="row">
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="srsNsrsType" style="font-weight: bold">Select SR/NSR Type</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="srsNsrsType" name="srsNsrsType" formControlName="srsNsrsType" class="form-control">
+                        <option value="null" disabled selected>
+                          Select SR/NSR
+                        </option>
+                        <option value="SR">SR</option>
+                        <option value="NSR">NSR</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="srno" style="font-weight: bold">Sr No.</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="srno" name="srno" 
+                        formControlName="srno" class="form-control"/>  
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="cidCrimeCategoryId" style="font-weight: bold">Major Head</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="cidCrimeCategoryId" name="cidCrimeCategoryId" 
+                        formControlName="cidCrimeCategoryId" class="form-control" (change)="showSubMajorHead()">
+                        <option value="null" disabled selected>Select Major Head</option>
+                        <option *ngFor="let majorHead of majorHeads" [value]="majorHead.id">
+                          <span *ngIf="language == 'en'">{{
+                            majorHead.nameOfCrimeCategory
+                          }}</span>
+                          <span *ngIf="language == 'hi'">{{
+                            majorHead.nameOfCrimeCategoryHi
+                          }}</span>
+                        </option>
+
+                      </select>
+                    </div>
+                  </div>
+              
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="cidCrimeCategoryTypeId" style="font-weight: bold">Sub-Major Head</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="cidCrimeCategoryTypeId" name="cidCrimeCategoryTypeId" 
+                        formControlName="cidCrimeCategoryTypeId" class="form-control" (change)="selectSubMejerHead()">
+                        <option value="null" disabled selected>
+                          Select Sub-Major Head
+                        </option>
+                        <option *ngFor="let majorHead of selectedSubMajerHead" [value]="majorHead.id">
+                          <span *ngIf="language == 'en'">{{
+                            majorHead.typeOfCrime
+                          }}</span>
+                          <span *ngIf="language == 'hi'">{{
+                            majorHead.typeOfCrimeHi
+                          }}</span>
+                        </option>
+
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="cidCrimeModusId" style="font-weight: bold">Modus Operandi</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="cidCrimeModusId" name="cidCrimeModusId" formControlName="cidCrimeModusId" class="form-control">
+                        <option value="null" disabled selected>
+                          Select Modus Operandi
+                        </option>
+                        <option *ngFor="let ModusOperandi of selectedModusOperandi" [value]="ModusOperandi.id">
+                          <span *ngIf="language == 'en'">{{
+                            ModusOperandi.name
+                            }}</span>
+                          <span *ngIf="language == 'hi'">{{
+                            ModusOperandi.nameHi
+                            }}</span>
+                        </option>
+
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="cidDistrictId" style="font-weight: bold">District</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="cidDistrictId" name="cidDistrictId" 
+                      formControlName="cidDistrictId" class="form-control" (change)="selectDistrict()">
+                        <option [ngValue]="null" disabled>Select District</option>
+                        <option *ngFor="let range of DistrictList" [ngValue]="range.id">
+                          <span *ngIf="language == 'en'">{{ range.districtName }}</span>
+                          <span *ngIf="language == 'hi'">{{ range.districtNameHi }}</span>
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="cidSubDivisionId" style="font-weight: bold">Sub Division</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="cidSubDivisionId" name="cidSubDivisionId" 
+                      formControlName="cidSubDivisionId" class="form-control" (change)="selectSubDivision()">
+                        <option [ngValue]="null" disabled>Select Subdivision</option>
+                        <option *ngFor="let subdiv of selectedSubDivisoin" [ngValue]="subdiv.id">
+                          <span *ngIf="language == 'en'">{{ subdiv.name }}</span>
+                          <span *ngIf="language == 'hi'">{{ subdiv.nameHi }}</span>
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="circleInspectorId" style="font-weight: bold">Circle</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="circleInspectorId" name="circleInspectorId" 
+                        formControlName="circleInspectorId" class="form-control" (change)="selectCircle()">
+                        <option [ngValue]="null" disabled>{{ "CIRCLE_INSPECTOR.SEL_CIRCLE_INSPECTOR" | translate }}</option>
+                        <option *ngFor="let circleInspector of selectedCircle" [ngValue]="circleInspector.id">
+                          <span *ngIf="language == 'en'">{{ circleInspector.circleName }}</span>
+                          <span *ngIf="language == 'hi'">{{ circleInspector.circleNameHi }}</span>
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="cidPoliceStationId" style="font-weight: bold">Police Station</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="cidPoliceStationId" name="cidPoliceStationId" 
+                        formControlName="cidPoliceStationId" class="form-control" (change)="selectIoDes()">
+                        <option [ngValue]="null" disabled>{{ "APPOINTMENT.SELECT_POLICE_STATION" | translate }}</option>
+                        <option *ngFor="let station of selectedStations" [ngValue]="station.id">
+                          <span *ngIf="language == 'en'">{{ station.stationName }}</span>
+                          <span *ngIf="language == 'hi'">{{ station.stationNameHi }}</span>
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="firNo" style="font-weight: bold">Fir No</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="firNo" name="firNo" 
+                        formControlName="firNo" class="form-control"/>  
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="firDate" style="font-weight: bold">Fir Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <!-- <input type="date" id="firDate" name="firDate" formControlName="firDate" class="form-control" 
+                        [max]="today | date: 'yyyy-MM-dd'" /> -->
+                        
+                        <input type="datetime-local" id="firDate" name="firDate" formControlName="firDate" class="form-control" 
+                        [min]="entryForm.value['date'] ? entryForm.value['date'].toString().split('T')[0] : null"
+                        [max]="today | date: 'yyyy-MM-dd'" />
+
+
+                       
+                    </div>
+                  </div>
+                   
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="section" style="font-weight: bold">Section</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="section" name="section" 
+                        formControlName="section" class="form-control"/>  
+                    </div>
+                  </div>
+                   
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="placeOfOccurance" style="font-weight: bold">Place of Occurrence</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="placeOfOccurance" name="placeOfOccurance" 
+                        formControlName="placeOfOccurance" class="form-control"/>  
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="date" style="font-weight: bold">Incident Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <!-- <input type="datetime-local" id="date" name="date" formControlName="date" class="form-control" 
+                        [max]="today | date: 'yyyy-MM-dd'" /> -->
+
+                      <input type="datetime-local" id="date" name="date" formControlName="date"
+                        class="form-control hindi hindiFont" [max]="today | date: 'yyyy-MM-dd hh:mm:ss'" />
+
+                       
+                    </div>
+                  </div>
+                      
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="location" style="font-weight: bold">Address</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="location" name="location" 
+                        formControlName="location" class="form-control"/>  
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="esakshya" style="font-weight: bold">E-Sakshye Video</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        name="esakshya"
+                        id="esakshya"
+                        class="form-control"
+                        formControlName="esakshya"
+                      >
+                        <option value="null" selected>Select YES/NO</option>
+                        <option value="YES">YES</option>
+                        <option value="NO">NO</option>
+                      </select>
+                    </div>
+                  </div>
+              
+                      
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="ioId" style="font-weight: bold">IO Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        name="ioId"
+                        id="ioId"
+                        class="form-control"
+                        formControlName="ioId"
+                      >
+                        <option [ngValue]="null" disabled>Select IO</option>
+                        <option *ngFor="let io of selectedIo" [ngValue]="io.id">
+                          <span>{{
+                            io.name
+                            }}</span>
+                        </option>
+
+                      </select> 
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              
+              <div class="form-group">
+                <div class="row">
+                  
+                  <div style="display: flex; justify-content: center; align-items: center; margin: 29px 1px;">
+                    <u>
+                      <h2 style="font-weight: bolder;">
+                        Complainant Details
+                      </h2>
+                    </u>
+                  </div>
+
+              
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comName" style="font-weight: bold">Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comName" name="comName" 
+                        formControlName="comName" class="form-control"/>  
+                    </div>
+                  </div>
+              
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comAge" style="font-weight: bold">age</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comAge" name="comAge" 
+                        formControlName="comAge" class="form-control"/>  
+                    </div>
+                  </div>
+              
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comGender" style="font-weight: bold">Gender</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        name="comGender"
+                        id="comGender"
+                        class="form-control"
+                        formControlName="comGender"
+                      >
+                        <option value="null" selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Any Other">Any Other</option>
+                      </select>
+                    </div>
+                  </div>
+              
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comMob" style="font-weight: bold">Mobile No</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comMob" name="comMob" 
+                        formControlName="comMob" class="form-control"/>  
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comFatName" style="font-weight: bold">Father Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comFatName" name="comFatName" 
+                        formControlName="comFatName" class="form-control"/>  
+                    </div>
+                  </div>
+              
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comMotName" style="font-weight: bold">Mother Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comMotName" name="comMotName" 
+                        formControlName="comMotName" class="form-control"/>  
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="submit()"
+                >
+                  Save
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle1()"
+              >Accused Details</span
+            >
+            <div
+              *ngIf="!isCollapsed1"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle1()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed1"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle1()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed1">
+          <div class="card-body">
+            
+            <form [formGroup]="accusedForm">
+              <input
+                type="text"
+                id="accusedId"
+                name="accusedId"
+                class="form-control"
+                formControlName="accusedId"
+                hidden="hidden"
+              />
+
+              <div style="padding: 20px 0 0">
+                <div class="form-group">
+                  <div class="row">
+                  
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="fir" style="font-weight: bold">FIR / Non FIR</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <select
+                        name="fir"
+                        id="fir"
+                        class="form-control"
+                        formControlName="fir"
+                      >
+                        <option value="null" selected>Select FIR / Non FIR</option>
+                        <option value="true">FIR</option>
+                        <option value="false">Non FIR</option>
+                      </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="name" style="font-weight: bold">Name</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="name" name="name" formControlName="name" class="form-control" />
+                      </div>
+                    </div>
+                
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="fatherName" style="font-weight: bold">Father Name</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="fatherName" name="fatherName" formControlName="fatherName" 
+                          class="form-control" />
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="motherName" style="font-weight: bold">Mother's Name</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="motherName" name="motherName" formControlName="motherName" class="form-control" />
+                      </div>
+                    </div>
+
+                    
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="fatherName" style="font-weight: bold">Wife / Husband Name</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="fatherName" name="fatherName" formControlName="fatherName" 
+                          class="form-control" />
+                      </div>
+                    </div> -->
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="age" style="font-weight: bold">Age</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="number" id="age" name="age" formControlName="age" class="form-control" />
+                      </div>
+                    </div>
+                
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="gender" style="font-weight: bold">Gender</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <select
+                        name="gender"
+                        id="gender"
+                        class="form-control"
+                        formControlName="gender"
+                      >
+                        <option value="null" selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Any Other">Any Other</option>
+                      </select>
+                      </div>
+                    </div>
+                
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="mobileNo" style="font-weight: bold">Mobile No</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="mobileNo" name="mobileNo" formControlName="mobileNo" 
+                          class="form-control" pattern="^[0-9,]+$" />
+                      </div>
+                    </div> -->
+
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="address" style="font-weight: bold">Address</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="address" name="address" formControlName="address"  class="form-control" />
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="presentStatus" style="font-weight: bold">Present Satus</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <select
+                        name="presentStatus"
+                        id="presentStatus"
+                        class="form-control"
+                        formControlName="presentStatus"
+                      >
+                        <option value="Jailed">Jailed</option>
+                        <option value="Bailed">Bailed</option>
+                        <option value="Absconder (Wanted)">
+                          Absconder (Wanted)
+                        </option>
+                        <option value="Dead">Dead</option>
+                        <option value="Kurki">Kurki</option>
+                      </select>
+                      </div>
+                    </div>
+
+                    
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="firDate" style="font-weight: bold">Fir Date</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="date" id="firDate" name="firDate" formControlName="firDate" class="form-control"
+                        [max]="today | date: 'yyyy-MM-dd'" />
+                        
+                      </div>
+                    </div> -->
+                    
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="personImage" style="font-weight: bold">Photo</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="file" accept="image/*" id="personImage" name="personImage"
+                          class="form-control" formControlName="personImage"
+                          (change)="handleFileChange( $event.target.files )"
+                        />
+                      </div>
+                    </div>
+                    
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="confessionStatement" style="font-weight: bold">Confessional Statement</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="file" accept="image/*" id="confessionStatement" name="confessionStatement"
+                          class="form-control" formControlName="confessionStatement"
+                          (change)="handleFileStatementChange( $event.target.files )"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="chargesheet" style="font-weight: bold">Chargesheet</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <select
+                        name="chargesheet"
+                        id="chargesheet"
+                        class="form-control"
+                        formControlName="chargesheet"
+                      >
+                        <option value="null" selected>Select Chargesheet</option>
+                        <option value="yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                      </div>
+                    </div>
+
+                  </div >
+                
+
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="saveAccused()"
+                >
+                  Add On +
+                </button>
+              </div>
+              
+            </form>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="table-panel">
+                  <table
+                    id="cidAccusedData"
+                    class="table table-bordered table-sm"
+                    style="width: 100%"
+                  >
+                    <thead>
+                      <tr>
+                        <td class="th-sm">Sl No.</td>
+                        <td class="th-sm">Name</td>
+                        <td class="th-sm">Age</td>
+                        <td class="th-sm">Gender</td>
+                        <td class="th-sm">Father's Name</td>
+                        <td class="th-sm">Mother's Name</td>
+                        <td class="th-sm">Address</td>
+                        <td class="th-sm">Photo</td>
+                        <td class="th-sm">Edit</td>
+                        <!-- <td class="th-sm">Delete</td> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let accused of accuseds; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ accused.name }}</td>
+                        <td>{{ accused.age }}</td>
+                        <td>{{ accused.gender }}</td>
+                        <td>{{ accused.fatherName }}</td>
+                        <td>{{ accused.motherName }}</td>
+                        <td>{{ accused.address }}</td>
+                        <td>
+                          <!-- <app-image-viewer
+                            [imageURL]="accused?.photoFile"
+                            [imgWidth]="'91px'"
+                            [imgHeight]="'91px'"
+                          ></app-image-viewer> -->
+                        </td>
+                        
+                        <td>
+                          <button
+                            class="btn btn-warning"
+                            (click)="initAccusedForm(accused)"
+                          >
+                            Edit
+                          </button>
+                        </td>
+                        <!-- <td>
+                          <button class="btn btn-success" *ngIf="!accused.active"
+                            (click)="activateCIDCrimeDataAccused(accused.id)">
+                            Activate
+                          </button>
+                          <button
+                            class="btn btn-danger"
+                            *ngIf="accused.active"
+                            (click)="deactivateCIDCrimeDataAccused(accused.id)"
+                          >
+                            Delete
+                          </button>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle2()"
+              >Case Procedings</span
+            >
+            <div
+              *ngIf="!isCollapsed2"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle2()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed2"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle2()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed2">
+          <div class="card-body">
+          
+            <form [formGroup]="caseProceeding">
+              <input
+                type="text"
+                id="idBF"
+                name="idBF"
+                class="form-control"
+                formControlName="idBF"
+                hidden="hidden"
+              />
+              <div class="form-group">
+                <div class="row">
+                  
+                  
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label
+                          for="caseDairyNo"  style="font-weight: bold"
+                          >Last Case Diary & No.
+                        </label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="text"
+                          id="caseDairyNo"
+                          name="caseDairyNo"
+                          formControlName="caseDairyNo"
+                          class="form-control"
+                          [ngClass]="{invalidInput: isControlHasErrors('caseDairyNo',caseProceeding) }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label  style="font-weight: bold" for="ff">Final Form (FF)</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="date" id="ff" name="ff" class="form-control" formControlName="ff"
+                          [ngClass]="{invalidInput: isControlHasErrors('ff',caseProceeding)}" />
+
+                        <div *ngIf="isControlHasError('ff', 'required', caseProceeding)" class="invalid">
+                          <strong> FF is required</strong>
+                        </div>
+                      </div>
+                    </div>
+                    
+
+
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <label for="report" class="col-4 col-form-label"  style="font-weight: bold">Report</label>
+                      <div class="col-8 py-2">
+                        <select id="report" name="report" formControlName="report" class="form-control hindi hindiFont"
+                          [ngClass]="{
+                          invalidInput: isControlHasErrors('report', caseProceeding)
+                        }">
+                          <option value="null">Select Report Type</option>
+                          <option>Report 1</option>
+                          <option>Report 2</option>
+                          <option>Report 3</option>
+                          <option>Report 4</option>
+                          <option>Report 5</option>
+                          <option>Report 6</option>
+                          <option>Report 7</option>
+                          <option>Report 8</option>
+                        </select>
+
+                        <div *ngIf="
+                          isControlHasError('report', 'required', caseProceeding)
+                        " class="invalid">
+                          <strong> Report is required</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <label for="reportDate" class="col-4 col-form-label"  style="font-weight: bold">Report Date</label>
+                      <div class="col-8 py-2">
+                        <input type="date" id="reportDate" name="reportDate" formControlName="reportDate"
+                          class="form-control"
+                          [ngClass]="{invalidInput: isControlHasErrors('reportDate', caseProceeding)}" />
+                        <div *ngIf="isControlHasError('reportDate', 'required', caseProceeding)" class="invalid">
+                          <strong> Report Date is required</strong>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="reportPreparedBy"  style="font-weight: bold">Prepared By</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="text"
+                          id="reportPreparedBy"
+                          name="reportPreparedBy"
+                          formControlName="reportPreparedBy"
+                          class="form-control"
+                          [ngClass]="{invalidInput: isControlHasErrors('reportPreparedBy',caseProceeding) }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="reportRemarks"  style="font-weight: bold">Remarks</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="text"
+                          id="reportRemarks"
+                          name="reportRemarks"
+                          formControlName="reportRemarks"
+                          class="form-control"
+                          [ngClass]="{invalidInput: isControlHasErrors('reportRemarks',caseProceeding) }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="sNote"  style="font-weight: bold">Supervision Report</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <select type="date" id="sNote" name="sNote" class="form-control" formControlName="sNote"
+                          [ngClass]="{
+                                                invalidInput: isControlHasErrors(
+                                                  'sNote',
+                                                  caseProceeding
+                                                )
+                                              }">
+                          <option value="null">Select Supervision Report</option>
+                          <option value="Supervision Report 1">Supervision Report 1</option>
+                          <option value="Supervision Report 2">Supervision Report 2</option>
+                          <option value="Supervision Report 3">Supervision Report 3</option>
+                          <option value="Supervision Report 4">Supervision Report 4</option>
+                          <option value="Supervision Report 5">Supervision Report 5</option>
+                          <option value="Supervision Report 6">Supervision Report 6</option>
+                        </select>
+
+                        <div *ngIf="
+                                                isControlHasError(
+                                                  'sNote',
+                                                  'required',
+                                                  caseProceeding
+                                                )
+                                              " class="invalid">
+                          <strong> Supervision Report is required</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="sNoteDate"  style="font-weight: bold">Supervision Report Date</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="date" id="sNoteDate" name="sNoteDate" class="form-control"
+                          formControlName="sNoteDate" [ngClass]="{
+                            invalidInput: isControlHasErrors(
+                              'sNoteDate',
+                              caseProceeding
+                            )
+                          }" />
+
+                        <div *ngIf="
+                            isControlHasError(
+                              'sNoteDate',
+                              'required',
+                              caseProceeding
+                            )
+                          " class="invalid">
+                          <strong> Supervision Report Date is required</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="sNoteBy"  style="font-weight: bold">Prepared By</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="sNoteBy" name="sNoteBy" class="form-control" formControlName="sNoteBy"
+                          [ngClass]="{invalidInput: isControlHasErrors('sNoteBy',caseProceeding)}" />
+
+                        <div *ngIf="isControlHasError('sNoteBy','required',caseProceeding)" class="invalid">
+                          <strong> Prepared By is required</strong>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="sNoteRemarks"  style="font-weight: bold">Remarks</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="text"
+                          id="sNoteRemarks"
+                          name="sNoteRemarks"
+                          formControlName="sNoteRemarks"
+                          class="form-control"
+                          [ngClass]="{invalidInput: isControlHasErrors('sNoteRemarks',caseProceeding) }"
+                        />
+                      </div>
+                    </div>
+
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <label for="pr" class="col-4 col-form-label"  style="font-weight: bold">Progress Report</label>
+                      <div class="col-8 py-2">
+                        <select id="pr" name="pr" formControlName="pr" class="form-control hindi hindiFont"
+                          [ngClass]="{invalidInput: isControlHasErrors('pr', caseProceeding)}">
+                          <option value="null">Select Progress Report</option>
+                          <option value="Progress Report 1">Progress Report 1</option>
+                          <option value="Progress Report 2">Progress Report 2</option>
+                          <option value="Progress Report 3">Progress Report 3</option>
+                          <option value="Progress Report 4">Progress Report 4</option>
+                          <option value="Progress Report 5">Progress Report 5</option>
+                        </select>
+
+                        <div *ngIf="isControlHasError('pr', 'required', caseProceeding)" class="invalid">
+                          <strong> Progress Report is required</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <label  style="font-weight: bold" for="prDate" class="col-4 col-form-label"  style="font-weight: bold">Progress Report Date</label>
+                      <div class="col-8 py-2">
+                        <input type="date" id="prDate" name="prDate" formControlName="prDate"
+                          class="form-control hindi hindiFont"
+                          [ngClass]="{invalidInput: isControlHasErrors('prDate', caseProceeding)}" />
+                        <div *ngIf="isControlHasError('prDate', 'required', caseProceeding)" class="invalid">
+                          <strong> Progress Report Date is required</strong>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label  style="font-weight: bold" for="prPreparedBy" >Prepared By</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="text"
+                          id="prPreparedBy"
+                          name="prPreparedBy"
+                          formControlName="prPreparedBy"
+                          class="form-control"
+                          [ngClass]="{invalidInput: isControlHasErrors('prPreparedBy',caseProceeding) }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label  style="font-weight: bold" for="prRemarks">Remarks</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input
+                          type="text"
+                          id="prRemarks"
+                          name="prRemarks"
+                          formControlName="prRemarks"
+                          class="form-control"
+                          [ngClass]="{invalidInput: isControlHasErrors('prRemarks',caseProceeding) }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <label  style="font-weight: bold" for="caseDocumentType" class="col-4 col-form-label">Case Document Type</label>
+                      <div class="col-8 py-2">
+                        <select id="caseDocumentType" name="caseDocumentType" formControlName="caseDocumentType"
+                          class="form-control hindi hindiFont"
+                          [ngClass]="{invalidInput: isControlHasErrors('caseDocumentType', caseProceeding)}">
+                          <option value="null">Select Case Document Type</option>
+                          <option value="Case File">Case File</option>
+                          <option value="Postmortem">Postmortem</option>
+                          <option value="Forensic Report">Forensic Report</option>
+                          <option value="Armed Test">Armed Test</option>
+                          <option value="Explosive Test">Explosive Test</option>
+                        </select>
+
+                        <div *ngIf="isControlHasError('caseDocumentType', 'required', caseProceeding)" class="invalid">
+                          <strong> Case Document Type is required</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label  style="font-weight: bold" for="caseDocument">Case Document</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="file" id="caseDocument" name="caseDocument" class="form-control"
+                          formControlName="caseDocument" [ngClass]="{
+                                                invalidInput: isControlHasErrors(
+                                                  'caseDocument',
+                                                  caseProceeding
+                                                )
+                                              }" (change)="
+                                                handleCaseDocumentsFileChange($event.target.files)
+                                              " />
+
+                        <div *ngIf="
+                                                isControlHasError(
+                                                  'caseDocument',
+                                                  'required',
+                                                  caseProceeding
+                                                )
+                                              " class="invalid">
+                          <strong> Case Document is required</strong>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label  style="font-weight: bold" for="currentCaseStatus">Current Case Status</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <select id="currentCaseStatus" name="currentCaseStatus" class="form-control"
+                          formControlName="currentCaseStatus" [ngClass]="{
+                            invalidInput: isControlHasErrors(
+                              'currentCaseStatus',
+                              caseProceeding
+                            )
+                          }">
+                          <option value="null">
+                            Select Case Current Status
+                          </option>
+                          <option value="In trail">In trail</option>
+                          <option value="In court">In Court</option>
+                          <option value="Inquiry">Inquiry</option>
+                          <option value="In closure">In closure</option>
+                          <option value="Suspended">Suspended</option>
+                          <option value="Dismissed">Dismissed</option>
+                        </select>
+
+                        <div *ngIf="
+                            isControlHasError(
+                              'currentCaseStatus',
+                              'required',
+                              caseProceeding
+                            )
+                          " class="invalid">
+                          <strong> Current Case Status is required</strong>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label  style="font-weight: bold" for="caseFinalHead">Remarks</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="caseFinalHead" name="caseFinalHead" class="form-control"
+                          formControlName="caseFinalHead" [ngClass]="{
+                                                invalidInput: isControlHasErrors(
+                                                  'caseFinalHead',
+                                                  caseProceeding
+                                                )
+                                              }" />
+
+                        <div *ngIf="
+                                                isControlHasError(
+                                                  'caseFinalHead',
+                                                  'required',
+                                                  caseProceeding
+                                                )
+                                              " class="invalid">
+                          <strong>Remarks is required</strong>
+                        </div>
+                      </div>
+                    </div>
+
+
+                
+                    <div class="text-center">
+                      <button type="button" class="btn btn-success" (click)="saveCaseProceeding()">
+                        Save
+                      </button>
+                    </div>
+
+
+                </div>
+              </div>
+
+                
+              <!-- <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="saveBackwardForward()"
+                >
+                  Save as Draft
+                </button>
+              </div> -->
+                
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,479 @@
+<div class="supplier-edit">
+  <div class="dashboard-header">
+    {{ "ASSET_PRODUCT.PRODUCT_TITLE" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="supreme-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="suppliersProductsForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="suppliersProductsForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <div class="row mb-2">
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.SEL_SUPPLIER" | translate }}:
+          </span>
+          <select
+            name="supplierName"
+            id="supplierName"
+            formControlName="supplierId"
+            autocomplete="off"
+            class="form-select"
+            [ngClass]="{ invalidInput: isControlHasErrors('supplierId') }"
+            required
+          >
+            <option value="null" disabled>
+              {{ "ASSET_PRODUCT.SEL_SUPPLIER" | translate }}
+            </option>
+            <option
+              *ngFor="let supplier of suppliersList"
+              value="{{ supplier.id }}"
+            >
+              {{ supplier.supplierName }}
+            </option>
+          </select>
+          <div
+            *ngIf="isControlHasError('supplierId', 'required')"
+            class="invalid"
+          >
+            <strong>Supplier Name Required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.SEL_ASSET_TYPE" | translate }}:
+          </span>
+          <select
+            name="assetTypeName"
+            id="assetTypeName"
+            formControlName="assetTypeId"
+            autocomplete="off"
+            class="form-select"
+            [ngClass]="{ invalidInput: isControlHasErrors('assetTypeId') }"
+            required
+          >
+            <option value="null" disabled>
+              {{ "ASSET_PRODUCT.SEL_ASSET_TYPE" | translate }}
+            </option>
+            <option
+              *ngFor="let assetType of assetTypeList"
+              value="{{ assetType.id }}"
+            >
+              <span *ngIf="language == 'en'">{{ assetType.assetsName }}</span>
+              <span *ngIf="language == 'hi'">{{ assetType.assetsName }}</span>
+            </option>
+          </select>
+          <div
+            *ngIf="isControlHasError('assetTypeId', 'required')"
+            class="invalid"
+          >
+            <strong>Asset Type Required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_NAME" | translate }}:
+          </span>
+          <input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            id="productName"
+            formControlName="productName"
+            placeholder="{{ 'ASSET_PRODUCT.ENTR_PROD_NAME' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('productName')
+            }"
+            (change)="focusOut($event, 'productName')"
+            (focusout)="focusOut($event, 'productName')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            id="productName"
+            formControlName="productName"
+            placeholder="{{ 'ASSET_PRODUCT.ENTR_PROD_NAME' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('productName')
+            }"
+            (change)="focusOut($event, 'productName')"
+            (focusout)="focusOut($event, 'productName')"
+            required
+          />
+          <div
+            *ngIf="isControlHasError('productName', 'required')"
+            class="invalid"
+          >
+            <strong>Product Name is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_PRICE" | translate }}:
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            id="productPrice"
+            formControlName="productPrice"
+            placeholder="Enter Product Price"
+            (keypress)="numberOnly($event)"
+            (keyup)="setDataRecipt($event.target.value, 'price')"
+            [ngClass]="{ invalidInput: isControlHasErrors('productPrice') }"
+            required
+          />
+          <div
+            *ngIf="isControlHasError('productPrice', 'required')"
+            class="invalid"
+          >
+            <strong>Product Price is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_QUANTITY" | translate }}:
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            id="productQuantity"
+            formControlName="productQuantity"
+            placeholder="Enter Product Quantity"
+            (keypress)="numberOnly($event)"
+            (keyup)="setDataRecipt($event.target.value, 'quentity')"
+            [ngClass]="{ invalidInput: isControlHasErrors('productQuantity') }"
+            required
+          />
+          <div
+            *ngIf="isControlHasError('productQuantity', 'required')"
+            class="invalid"
+          >
+            <strong>Product Quantity is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_TOTAL_PRICE" | translate }}:
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            id="totalPrice"
+            formControlName="totalPrice"
+            [ngClass]="{ invalidInput: isControlHasErrors('totalPrice') }"
+          />
+          <div
+            *ngIf="isControlHasError('totalPrice', 'required')"
+            class="invalid"
+          >
+            <strong>Product Quantity is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_ORDER_BY" | translate }}:
+          </span>
+          <input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            id="orderedBy"
+            formControlName="orderedBy"
+            placeholder="{{ 'ASSET_PRODUCT.ENTR_PROD_ORDER_BY' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('orderedBy')
+            }"
+            (change)="focusOut($event, 'orderedBy')"
+            (focusout)="focusOut($event, 'orderedBy')"
+            required
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            id="orderedBy"
+            formControlName="orderedBy"
+            placeholder="{{ 'ASSET_PRODUCT.ENTR_PROD_ORDER_BY' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('orderedBy')
+            }"
+            (change)="focusOut($event, 'orderedBy')"
+            (focusout)="focusOut($event, 'orderedBy')"
+            required
+          />
+          <div
+            *ngIf="isControlHasError('orderedBy', 'required')"
+            class="invalid"
+          >
+            <strong>Ordered By is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_ORDER_DATE" | translate }}:
+          </span>
+          <input
+            type="date"
+            class="form-control"
+            id="orderedDate"
+            formControlName="orderedDate"
+            [ngClass]="{ invalidInput: isControlHasErrors('orderedDate') }"
+            required
+          />
+          <div
+            *ngIf="isControlHasError('orderedDate', 'required')"
+            class="invalid"
+          >
+            <strong>Ordered By is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_REQUEST_BY" | translate }}:
+          </span>
+          <input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            id="requiredBy"
+            formControlName="requiredBy"
+            placeholder="{{ 'ASSET_PRODUCT.ENTR_PROD_REQUEST_BY' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('requiredBy')
+            }"
+            (change)="focusOut($event, 'requiredBy')"
+            (focusout)="focusOut($event, 'requiredBy')"
+            required
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            id="requiredBy"
+            formControlName="requiredBy"
+            placeholder="{{ 'ASSET_PRODUCT.ENTR_PROD_REQUEST_BY' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('requiredBy')
+            }"
+            (change)="focusOut($event, 'requiredBy')"
+            (focusout)="focusOut($event, 'requiredBy')"
+            required
+          />
+          <div
+            *ngIf="isControlHasError('requiredBy', 'required')"
+            class="invalid"
+          >
+            <strong>Purchased By is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_DESCRIPTION" | translate }}:
+          </span>
+          <textarea
+            *ngIf="language == 'hi'"
+            class="form-control hindi hindiFont"
+            id="decription"
+            formControlName="decription"
+            placeholder="{{
+              'ASSET_PRODUCT.ENTR_PROD_DESCRIPTION' | translate
+            }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('decription')
+            }"
+            (change)="focusOut($event, 'decription')"
+            (focusout)="focusOut($event, 'decription')"
+            required
+          ></textarea>
+          <textarea
+            *ngIf="language == 'en'"
+            class="form-control"
+            id="decription"
+            formControlName="decription"
+            placeholder="{{
+              'ASSET_PRODUCT.ENTR_PROD_DESCRIPTION' | translate
+            }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('decription')
+            }"
+            (change)="focusOut($event, 'decription')"
+            (focusout)="focusOut($event, 'decription')"
+          ></textarea>
+          <div
+            *ngIf="isControlHasError('decription', 'required')"
+            class="invalid"
+          >
+            <strong>Description is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.ATTACH_FILE" | translate }}:
+          </span>
+          <input
+            type="file"
+            id="invoice"
+            name="invoice"
+            placeholder="Attach File"
+            (change)="handleFileChange($event.target.files)"
+            formControlName="invoice"
+            autocomplete="off"
+            class="form-control"
+            accept="image/jpg,image/jpeg,application/pdf"
+            [ngClass]="{ invalidInput: isControlHasErrors('invoice') }"
+          />
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.PROD_PURCHASE_DATE" | translate }}:
+          </span>
+          <input
+            type="date"
+            id="purchaseDate"
+            name="purchaseDate"
+            placeholder="Attach File"
+            formControlName="purchaseDate"
+            autocomplete="off"
+            class="form-control"
+            [ngClass]="{ invalidInput: isControlHasErrors('purchaseDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('decription', 'purchaseDate')"
+            class="invalid"
+          >
+            <strong>Purchase Date is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.SEL_PROD_AMC" | translate }}:
+          </span>
+          <select
+            name="amcStatus"
+            id="amcStatus"
+            formControlName="amcStatus"
+            autocomplete="off"
+            (change)="doCheckAMCStatus($event.target)"
+            class="form-select"
+            [ngClass]="{ invalidInput: isControlHasErrors('amcStatus') }"
+            required
+          >
+            <option value="null" disabled>
+              {{ "ASSET_PRODUCT.SEL_PROD_AMC" | translate }}
+            </option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <div
+            *ngIf="isControlHasError('amcStatus', 'required')"
+            class="invalid"
+          >
+            <strong>AMC Status is Required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4" *ngIf="isDatePresent">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.AMC_START" | translate }}: </span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="amcStartDate"
+            id="amcStartDate"
+            [ngClass]="{ invalidInput: isControlHasErrors('amcStartDate') }"
+            (change)="startDateChanged()"
+          />
+        </div>
+
+        <div class="col-sm-4" *ngIf="isDatePresent">
+          <span class="glob-span"
+            >{{ "ASSET_PRODUCT.AMC_END" | translate }}: </span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="amcEndDate"
+            id="amcEndDate"
+            [ngClass]="{ invalidInput: isControlHasErrors('amcEndDate') }"
+          />
+        </div>
+      </div>
+
+      <div
+        class="
+          form-group
+          d-flex
+          flex-wrap
+          justify-content-center
+          align-items-center
+        "
+        style="margin-top: 5px"
+      >
+        <button
+          id="high_submit"
+          (click)="submit()"
+          class="btn btn-primary px-9 py-9"
+          [disabled]="loading"
+          *ngIf="ADD_PRODUCTS && ADD_URL && !PRODUCTS_PARAMS.ID"
+        >
+          Save
+          <div
+            class="spinner-border spinner-border-sm text-light align-middle"
+            *ngIf="loading"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </button>
+        <button
+          id="high_submit"
+          (click)="submit()"
+          class="btn btn-primary px-9 py-9"
+          [disabled]="loading"
+          *ngIf="EDIT_PRODUCTS && EDIT_URL && PRODUCTS_PARAMS.ID"
+        >
+          Save
+          <div
+            class="spinner-border spinner-border-sm text-light align-middle"
+            *ngIf="loading"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

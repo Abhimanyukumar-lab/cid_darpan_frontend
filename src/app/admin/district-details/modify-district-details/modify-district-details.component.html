@@ -1,0 +1,568 @@
+<div class="district-details-edit">
+  <div class="dashboard-header">
+    {{ "DISTRICT_DETAILS.DIST_DETAILS_TITLE" | translate }}
+  </div>
+  <button class="btn btn-sm back-btn" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    " (click)="goBack()">
+    &#215;
+  </button>
+</div>
+<div class="district-details-form">
+  <form class="form needs-validation text-center container" novalidate [formGroup]="detailsForm" autocomplete="off"
+    novalidate="novalidate" id="details_form">
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="fullName" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_NAME" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input *ngIf="language == 'hi'" type="text" id="fullName" name="fullName"
+              placeholder="{{ 'DISTRICT_DETAILS.ENTER_DIST_NAME' | translate }}" formControlName="fullName"
+              (keypress)="validAplpha($event)" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('fullName')
+              }" (change)="focusOut($event, 'fullName')" (focusout)="focusOut($event, 'fullName')" required />
+            <input *ngIf="language == 'en'" type="text" id="fullName" name="fullName"
+              placeholder="{{ 'DISTRICT_DETAILS.ENTER_DIST_NAME' | translate }}" formControlName="fullName"
+              (keypress)="validAplpha($event)" autocomplete="off" class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('fullName')
+              }" (change)="focusOut($event, 'fullName')" (focusout)="focusOut($event, 'fullName')" required />
+          </div>
+        </div>
+
+        <div *ngIf="isControlHasError('fullName', 'required')" class="invalid">
+          <strong>District Name is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="headAddress" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_ADDRESS" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input *ngIf="language == 'hi'" type="text" id="headAddress" name="headAddress" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_ADDRESS' | translate
+              }}" formControlName="headAddress" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('headAddress')
+              }" (change)="focusOut($event, 'headAddress')" (focusout)="focusOut($event, 'headAddress')" required />
+            <input *ngIf="language == 'en'" type="text" id="headAddress" name="headAddress" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_ADDRESS' | translate
+              }}" formControlName="headAddress" autocomplete="off" class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('headAddress')
+              }" (change)="focusOut($event, 'headAddress')" (focusout)="focusOut($event, 'headAddress')" required />
+          </div>
+        </div>
+
+        <div *ngIf="isControlHasError('headAddress', 'required')" class="invalid">
+          <strong>District Address is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="email" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_EMAIL" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="email" id="email" name="email" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_EMAIL' | translate
+              }}" formControlName="email" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('email') }" required />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('email', 'required')" class="invalid">
+          <strong>Email is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="contactNo" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_CONTACT_NO" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="contactNo" name="contactNo" maxlength="12" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_CONTACT_NO' | translate
+              }}" formControlName="contactNo" (keypress)="numberOnly($event)" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('contactNo') }" required />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('contactNo', 'required')" class="invalid">
+          <strong>Contact Number is required</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="mobileNo" class="col-form-label">{{
+              "CONTACT.MOBILE_NO" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="mobileNo" name="mobileNo" maxlength="10"
+              placeholder="{{ 'CONTACT.SEL_MOBILE_NO' | translate }}" formControlName="mobileNo"
+              (keypress)="numberOnly($event)" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="fbLink" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_FB_LINK" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="fbLink" name="fbLink" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_FB_LINK' | translate
+              }}" formControlName="fbLink" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('fbLink') }" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="youtubeLink" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_YOUTUBE_LINK" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="youtubeLink" name="youtubeLink" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_YOUTUBE_LINK' | translate
+              }}" formControlName="youtubeLink" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('youtubeLink') }" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="twitterLink" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_TWIT_LINK" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="twitterLink" name="twitterLink" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_TWIT_LINK' | translate
+              }}" formControlName="twitterLink" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('twitterLink') }" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="qrCode" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_QR_CODE" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="file" id="qrCode" name="qrCode" formControlName="qrCode" autocomplete="off"
+              class="form-control" [ngClass]="{ invalidInput: isControlHasErrors('qrCode') }"
+              (change)="handleQrFile($event.target.files)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="downloadLink" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_DOWNLOAD_LINK" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="downloadLink" name="downloadLink" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_DOWNLOAD_LINK' | translate
+              }}" formControlName="downloadLink" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('downloadLink') }" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="gplayLink" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_GPLAY_LINK" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="gplayLink" name="gplayLink" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_GPLAY_LINK' | translate
+              }}" formControlName="gplayLink" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('gplayLink') }" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="dgpImage" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_DGP_IMAGE" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="file" id="dgpImage" name="dgpImage" formControlName="dgpImage" autocomplete="off"
+              class="form-control" [ngClass]="{ invalidInput: isControlHasErrors('dgpImage') }"
+              (change)="handleDgpFile($event.target.files)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="dgpName" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_DGP_NAME" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input *ngIf="language == 'hi'" type="text" id="dgpName" name="dgpName" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_DGP_NAME' | translate
+              }}" formControlName="dgpName" (keypress)="validAplpha($event)" autocomplete="off"
+              class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('dgpName')
+              }" (change)="focusOut($event, 'dgpName')" (focusout)="focusOut($event, 'dgpName')" required />
+            <input *ngIf="language == 'en'" type="text" id="dgpName" name="dgpName" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_DGP_NAME' | translate
+              }}" formControlName="dgpName" (keypress)="validAplpha($event)" autocomplete="off" class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('dgpName')
+              }" (change)="focusOut($event, 'dgpName')" (focusout)="focusOut($event, 'dgpName')" required />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('dgpName', 'required')" class="invalid">
+          <strong>DGP Name is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="spImage" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_SP_IMAGE" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="file" id="spImage" name="spImage" formControlName="spImage" autocomplete="off"
+              class="form-control" [ngClass]="{ invalidInput: isControlHasErrors('spImage') }"
+              (change)="handleSpFile($event.target.files)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="spName" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_SP_NAME" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input *ngIf="language == 'hi'" type="text" id="spName" name="spName" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_SP_NAME' | translate
+              }}" formControlName="spName" (keypress)="validAplpha($event)" autocomplete="off"
+              class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('spName')
+              }" (change)="focusOut($event, 'spName')" (focusout)="focusOut($event, 'spName')" required />
+            <input *ngIf="language == 'en'" type="text" id="spName" name="spName" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_SP_NAME' | translate
+              }}" formControlName="spName" (keypress)="validAplpha($event)" autocomplete="off" class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('spName')
+              }" (change)="focusOut($event, 'spName')" (focusout)="focusOut($event, 'spName')" required />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('spName', 'required')" class="invalid">
+          <strong> {{environment.IS_MAIN_DESIG}} Name is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="map" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_MAP" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="text" id="map" name="map" placeholder="{{ 'DISTRICT_DETAILS.ENTER_DIST_MAP' | translate }}"
+              formControlName="map" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('map') }" required />
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('map', 'required')" class="invalid">
+          <strong>Map URL is required</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="logo" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_LOGO" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="file" id="logo" name="logo" formControlName="logo" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('logo') }" (change)="handleLogoFile($event.target.files)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="visitorsNumber" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_VISITOR_NO" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="number" id="visitorsNumber" name="visitorsNumber" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_VISITOR_NO' | translate
+              }}" formControlName="visitorsNumber" autocomplete="off" class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('visitorsNumber') }" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="aboutUs" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_ABOUT_US" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <textarea *ngIf="language == 'hi'" id="aboutUs" name="aboutUs" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_ABOUT_US' | translate
+              }}" formControlName="aboutUs" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('aboutUs')
+              }" (change)="focusOut($event, 'aboutUs')" (focusout)="focusOut($event, 'aboutUs')" required></textarea>
+            <textarea *ngIf="language == 'en'" id="aboutUs" name="aboutUs" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_ABOUT_US' | translate
+              }}" formControlName="aboutUs" autocomplete="off" class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('aboutUs')
+              }" (change)="focusOut($event, 'aboutUs')" (focusout)="focusOut($event, 'aboutUs')" required></textarea>
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('aboutUs', 'required')" class="invalid">
+          <strong>About Us is Required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="aboutSp" class="col-form-label">{{
+              "DISTRICT_DETAILS.DIST_ABOUT_SP" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <textarea *ngIf="language == 'hi'" id="aboutSp" name="aboutSp" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_ABOUT_SP' | translate
+              }}" formControlName="aboutSp" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('aboutSp')
+              }" (change)="focusOut($event, 'aboutSp')" (focusout)="focusOut($event, 'aboutSp')" required></textarea>
+            <textarea *ngIf="language == 'en'" id="aboutSp" name="aboutSp" placeholder="{{
+                'DISTRICT_DETAILS.ENTER_DIST_ABOUT_SP' | translate
+              }}" formControlName="aboutSp" autocomplete="off" class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('aboutSp')
+              }" (change)="focusOut($event, 'aboutSp')" (focusout)="focusOut($event, 'aboutSp')" required></textarea>
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('aboutSp', 'required')" class="invalid">
+          <strong>About Sp is Required</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="extraPersonName" class="col-form-label">{{
+              "DISTRICT_DETAILS.EXTRA_PERSON_NAME" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input *ngIf="language == 'hi'" type="text" id="extraPersonName" name="extraPersonName" placeholder="{{
+                'DISTRICT_DETAILS.EXTRA_PERSON_NAME' | translate
+              }}" formControlName="extraPersonName" (keypress)="validAplpha($event)" autocomplete="off"
+              class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('extraPersonName')
+              }" (change)="focusOut($event, 'extraPersonName')" (focusout)="focusOut($event, 'extraPersonName')" />
+            <input *ngIf="language == 'en'" type="text" id="extraPersonName" name="extraPersonName" placeholder="{{
+                'DISTRICT_DETAILS.EXTRA_PERSON_NAME' | translate
+              }}" formControlName="extraPersonName" (keypress)="validAplpha($event)" autocomplete="off"
+              class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('extraPersonName')
+              }" (change)="focusOut($event, 'extraPersonName')" (focusout)="focusOut($event, 'extraPersonName')" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="extraPersonPosition" class="col-form-label">{{
+              "DISTRICT_DETAILS.EXTRA_PERSON_POSITION" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input *ngIf="language == 'hi'" type="text" id="extraPersonPosition" name="extraPersonPosition" placeholder="{{
+                'DISTRICT_DETAILS.EXTRA_PERSON_POSITION' | translate
+              }}" formControlName="extraPersonPosition" (keypress)="validAplpha($event)" autocomplete="off"
+              class="form-control hindi hindiFont" [ngClass]="{
+                invalidInput: isControlHasErrors('extraPersonPosition')
+              }" (change)="focusOut($event, 'extraPersonPosition')"
+              (focusout)="focusOut($event, 'extraPersonPosition')" />
+            <input *ngIf="language == 'en'" type="text" id="extraPersonPosition" name="extraPersonPosition" placeholder="{{
+                'DISTRICT_DETAILS.EXTRA_PERSON_POSITION' | translate
+              }}" formControlName="extraPersonPosition" (keypress)="validAplpha($event)" autocomplete="off"
+              class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('extraPersonPosition')
+              }" (change)="focusOut($event, 'extraPersonPosition')"
+              (focusout)="focusOut($event, 'extraPersonPosition')" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="extraPersonImage" class="col-form-label">{{
+              "DISTRICT_DETAILS.EXTRA_PERSON_IMAGE" | translate
+              }}</label>
+          </div>
+          <div class="col-9">
+            <input type="file" id="extraPersonImage" name="extraPersonImage" formControlName="extraPersonImage"
+              autocomplete="off" class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('extraPersonImage')
+              }" (change)="handleEPIFile($event.target.files)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="isCharacter" class="col-form-label">Allowed Character</label>
+          </div>
+          <div class="col-9">
+            <input type="checkbox" id="isCharacter" name="isCharacter" formControlName="isCharacter" autocomplete="off"
+              [ngClass]="{ invalidInput: isControlHasErrors('isCharacter') }" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="isCharacterStatusCheck" class="col-form-label">Allowed Character Check Status</label>
+          </div>
+          <div class="col-9">
+            <input type="checkbox" id="isCharacterStatusCheck" name="isCharacterStatusCheck"
+              formControlName="isCharacterStatusCheck" autocomplete="off" [ngClass]="{
+                invalidInput: isControlHasErrors('isCharacterStatusCheck')
+              }" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="isCharacterType" class="col-form-label">Character Type</label>
+          </div>
+          <div class="col-9">
+            <select name="isCharacterType" id="isCharacterType" formControlName="isCharacterType" class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('isCharacterType')
+              }" required>
+              <option value="TYPE1">TYPE1</option>
+              <option value="TYPE2">TYPE2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label for="digSignFile" class="col-form-label">{{environment.IS_MAIN_DESIG}} Digital Signature :
+            </label>
+          </div>
+          <div class="col-9">
+            <input type="file" id="digSignFile" name="digSignFile" formControlName="digSignFile" autocomplete="off"
+              class="form-control" [ngClass]="{
+                invalidInput: isControlHasErrors('digSignFile')
+              }" (change)="handleDigSignFile($event.target.files)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      ">
+      <button id="details_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+        *ngIf="ADD_DISTRICT_DETAILS && ADD_URL && !DISTRICT_DETAILS_PARAMS.ID">
+        Save
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button id="details_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+        *ngIf="EDIT_DISTRICT_DETAILS && EDIT_URL && DISTRICT_DETAILS_PARAMS.ID">
+        Save
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,178 @@
+<div class="team-edit">
+  <div class="dashboard-header">
+    {{ "GPO.TITLE" | translate }}
+  </div>
+  <button class="btn btn-sm back-btn" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    " (click)="goBack()">
+    &#215;
+  </button>
+</div>
+
+<div class="team-form">
+  <form class="form needs-validation text-center container" novalidate [formGroup]="grievancePoliceOfficialForm"
+    autocomplete="off" novalidate="novalidate" id="grievancePoliceOfficial_form">
+
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <label for="employeeId" class="col-3 col-form-label">{{
+        "GPO.EMPLOYEE_ID" | translate
+        }}</label>
+      <div class="col-8">
+        <input type="text" id="employeeId" name="employeeId" placeholder="{{ 'GPO.EMPLOYEE_ID' | translate }}"
+          formControlName="employeeId" autocomplete="off" class="form-control" [ngClass]="{
+            invalidInput: isControlHasErrors('employeeId')
+          }" required />
+      </div>
+
+      <div *ngIf="isControlHasError('employeeId', 'required')" class="invalid">
+        <strong>Employee Id is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="name" class="col-3 col-form-label">{{
+        "GPO.NAME" | translate
+        }}</label>
+      <div class="col-8">
+        <input type="text" id="name" name="name" placeholder="{{ 'GPO.NAME' | translate }}" formControlName="name"
+          (keypress)="validAplpha($event)" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }" (change)="focusOut($event, 'name')" (focusout)="focusOut($event, 'name')" required />
+      </div>
+
+      <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+        <strong>Name is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="mobileNo" class="col-3 col-form-label">{{
+        "GPO.MOBILENO" | translate
+        }}</label>
+      <div class="col-8">
+        <input type="text" id="mobileNo" name="mobileNo" placeholder="{{ 'GPO.MOBILENO' | translate }}"
+          formControlName="mobileNo" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                        invalidInput: isControlHasErrors('mobileNo')
+                      }" (change)="focusOut($event, 'mobileNo')" (focusout)="focusOut($event, 'mobileNo')" required />
+      </div>
+
+      <div *ngIf="isControlHasError('mobileNo', 'required')" class="invalid">
+        <strong>Mobile No is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="email" class="col-3 col-form-label">{{
+        "GPO.EMAIL" | translate
+        }}</label>
+      <div class="col-8">
+        <input type="email" id="email" name="email" placeholder="{{ 'GPO.EMAIL' | translate }}" formControlName="email"
+          autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                    invalidInput: isControlHasErrors('email')
+                  }" (change)="focusOut($event, 'email')" (focusout)="focusOut($event, 'email')" required />
+      </div>
+
+      <div *ngIf="isControlHasError('email', 'required')" class="invalid">
+        <strong>Email is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="complaintImage" class="col-3 col-form-label">{{
+        "GPO.COMPLAINTIMAGE" | translate
+        }}</label>
+      <div class="col-8">
+        <input type="file" id="complaintImage" name="complaintImage" (change)="handleFileChange($event.target.files)"
+          formControlName="complaintImage" autocomplete="off" class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('complaintImage') }" />
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="description" class="col-3 col-form-label">{{
+        "GPO.DESCRIPTION" | translate
+        }}</label>
+      <div class="col-8">
+        <textarea type="text" id="description" name="description" placeholder="{{ 'GPO.DESCRIPTION' | translate }}"
+          formControlName="description" autocomplete="off" class="form-textarea" [ngClass]="{
+            invalidInput: isControlHasErrors('description')
+          }" required></textarea>
+      </div>
+
+      <div *ngIf="isControlHasError('description', 'required')" class="invalid">
+        <strong>Description is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('description', 'minlength')" class="invalid">
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div *ngIf="isControlHasError('description', 'maxlength')" class="invalid">
+        <strong>Maximum 500 character required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="currentPosting" class="col-3 col-form-label">{{
+        "GPO.CURRENT_POSTING" | translate
+        }}</label>
+      <div class="col-8">
+        <input type="text" id="currentPosting" name="currentPosting"
+          placeholder="{{ 'GPO.CURRENT_POSTING' | translate }}" formControlName="currentPosting"
+          (keypress)="validAplpha($event)" autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                    invalidInput: isControlHasErrors('currentPosting')
+                  }" (change)="focusOut($event, 'currentPosting')" (focusout)="focusOut($event, 'currentPosting')"
+          required />
+      </div>
+
+      <div *ngIf="isControlHasError('currentPosting', 'required')" class="invalid">
+        <strong>Current Posting is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="currentEmployeeStatus" class="col-3 col-form-label">{{
+        "GPO.CURRENT_EMPLOYEE_STATUS" | translate
+        }}</label>
+      <div class="col-8">
+        <select name="currentEmployeeStatus" id="currentEmployeeStatus" formControlName="currentEmployeeStatus"
+          autocomplete="off" class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('currentEmployeeStatus') }" required>
+          <option value="null" disabled>Select Current Employee Status</option>
+          <option value="Retired">Retired</option>
+          <option value="Working Official">Working Official</option>
+        </select>
+      </div>
+
+      <div *ngIf="isControlHasError('currentEmployeeStatus', 'required')" class="invalid">
+        <strong>Current Employee Status is required</strong>
+      </div>
+    </div>
+
+    <div class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      ">
+      <button id="grievancePoliceOfficial_submit" (click)="submit()" class="btn btn-primary px-9 py-9"
+        [disabled]="loading" *ngIf="ADD_GRIEVANCE_POLICE_OFFICIAL && ADD_URL && !GRIEVANCE_POLICE_OFFICIAL_PARAMS.ID">
+        Save
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button id="grievancePoliceOfficial_submit" (click)="submit()" class="btn btn-primary px-9 py-9"
+        [disabled]="loading" *ngIf="EDIT_GRIEVANCE_POLICE_OFFICIAL && EDIT_URL && GRIEVANCE_POLICE_OFFICIAL_PARAMS.ID">
+        Save
+        <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

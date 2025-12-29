@@ -1,0 +1,132 @@
+.character {
+  width: 100%;
+  padding: 20px 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+}
+.character .char-form {
+  width: 100%;
+  padding: 0px 50px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  border: 1px solid;
+  border-radius: 20px;
+}
+.character .char-form form {
+  padding: 0 50px;
+}
+
+.form-select {
+  outline: 0 none;
+}
+
+.mirrored {
+  width: 100% !important;
+}
+
+.modal-dialog {
+  width: 90% !important;
+}
+
+@media screen and (min-width: 1440px) {
+  .character {
+    width: 100%;
+    padding: 30px;
+  }
+  .character .char-form {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+  .modal-dialog {
+    width: 90% !important;
+  }
+}
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+  .character {
+    width: 100%;
+    padding: 25px;
+  }
+  .character .char-form {
+    width: 100%;
+    padding: 25px;
+  }
+  .modal-dialog {
+    width: 90% !important;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .character {
+    width: 100%;
+    padding: 20px;
+  }
+  .character .char-form {
+    width: 100%;
+    padding: 20px;
+  }
+  .modal-dialog {
+    width: 90% !important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .character {
+    width: 100%;
+    padding: 10px;
+  }
+  .character .char-form {
+    width: 100%;
+    padding: 10px;
+  }
+  .modal-dialog {
+    width: 90% !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .character {
+    width: 100%;
+    padding: 5px;
+  }
+  .character .char-form {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+  .modal-dialog {
+    width: 100% !important;
+  }
+}
+@media screen and (min-width: 576px) {
+  .modal-dialog {
+    width: 90% !important;
+  }
+}
+.characterUploadModel {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.checkStatusModal {
+  width: 100%;
+  height: 25%;
+  padding: 15px;
+}
+
+video,
+img {
+  width: 100%;
+  height: 100%;
+}/*# sourceMappingURL=charatcer.component.css.map */

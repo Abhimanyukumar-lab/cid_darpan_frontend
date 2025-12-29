@@ -1,0 +1,391 @@
+<!-- <div class="banner-area">
+  <div
+    id="carouselExampleCaptions"
+    class="carousel carousel-dark slide"
+    data-bs-ride="carousel"
+    *ngIf="isFloating"
+    style="
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <div class="carousel-inner" style="height: 100%">
+      <div
+        class="carousel-item"
+        *ngFor="let banner of fixedBanner; let i = index"
+        [ngClass]="{ active: banner.type == 'Fixed' }"
+        style="
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <app-image-viewer
+          [imageURL]="banner.url"
+          [imgWidth]="'100%'"
+          [imgHeight]="'100%'"
+          class="d-block"
+          style="width: 100%; height: 100%"
+        ></app-image-viewer>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="carouselExampleCaptions"
+    class="carousel carousel-dark slide"
+    data-bs-ride="carousel"
+    style="
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+    *ngIf="!isFloating"
+  >
+    <ol class="carousel-indicators">
+      <div *ngFor="let banner of floatingBanner; let i = index">
+        <li
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="i"
+          [ngClass]="{ active: i == 0 }"
+        ></li>
+      </div>
+    </ol>
+    <div class="carousel-inner" style="height: 100%">
+      <div
+        class="carousel-item"
+        *ngFor="let banner of floatingBanner; let i = index"
+        [ngClass]="{ active: i == 0 }"
+        style="
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <app-image-viewer
+          [imageURL]="banner.url"
+          [imgWidth]="'100%'"
+          [imgHeight]="'100%'"
+          class="d-block"
+          style="width: 100%; height: 100%"
+        ></app-image-viewer>
+      </div>
+    </div>
+    <a
+      class="carousel-control-prev"
+      href="#carouselExampleCaptions"
+      role="button"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a
+      class="carousel-control-next"
+      href="#carouselExampleCaptions"
+      role="button"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </div>
+</div> -->
+
+
+<!-- <ngb-carousel #carousel [interval]="7000" [pauseOnHover]="true" [pauseOnFocus]="false" *ngIf="!isFloating">
+  <ng-template ngbSlide *ngFor="let banner of floatingBanner; let i = index">
+    <app-image-viewer [imageURL]="banner.url" [imgHeight]="'400px'" imgWidth="100%"></app-image-viewer>
+  </ng-template>
+</ngb-carousel> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+
+/* Floating Social Media Bar Style Starts Here */
+
+.fl-fl {
+    background-color: #FFF;
+    border: solid 1px #000;
+    border-radius: 10px 0px 0px 10px;
+    padding: 4px;
+    width: 215px;
+    position: fixed;
+    right: -177px;
+    z-index: 1000;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    transition: all .25s ease;
+}
+
+    .fl-fl img {
+        width: 30px;
+    }
+
+    .fl-fl .fa {
+        font-size: 29px;
+        color: #ff2323;
+        padding: 0px 6px;
+        width: 40px;
+        margin-left: 1px;
+    }
+
+    .fl-fl:hover {
+        right: 0;
+    }
+
+    .fl-fl a {
+        color: #1e1e1e !important;
+        text-decoration: none;
+        text-align: center;
+        line-height: 28px !important;
+        vertical-align: top !important;
+        font-size: 12px;
+        width: 100%;
+    }
+
+.float-fb {
+    top: 232px;
+}
+
+.float-tw {
+    top: 271px;
+}
+
+.float-gp {
+    top: 310px;
+}
+
+.float-rs {
+    top: 349px;
+}
+
+.float-ig {
+    top: 389px;
+}
+
+.float-pn {
+    top: 435px;
+}
+
+.float-pf {
+    top: 428px;
+}
+
+
+.s-soft {
+    position: fixed;
+    top: 300px;
+    left: 0px;
+    z-index: 1000;
+    transition: all linear 0.2s;
+}
+
+    .s-soft a:first-child {
+        border-radius: 0 15px 0 0;
+    }
+
+    .s-soft a:last-child {
+        border-radius: 0 0 12px 0;
+    }
+
+.s-item {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: white;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    transition: all linear 0.2s;
+}
+
+    .s-item:hover {
+        width: 110px;
+        border-radius: 0px 20px 20px 0px;
+        color: white;
+        text-align: right;
+        padding-right: 15px;
+    }
+
+#so-open {
+    position: fixed;
+    top: 100px;
+    left: -90px;
+    border-radius: 0 30px 30px 0;
+    transition: all linear 0.2s;
+}
+
+.facebook {
+    background-color: #3b5999;
+}
+
+.twitter {
+    background-color: #3AAFD6;
+}
+
+.print {
+    background-color: #de3c7d;
+}
+
+.pinterest {
+    background-color: #BD081C;
+}
+
+.linkedin {
+    background-color: #0e76a8;
+}
+
+.instagram {
+    background-color: #c32aa3;
+}
+
+.so-collapse {
+    left: -60px;
+}
+
+/*right side app link*/
+.s-soft1 {
+    position: fixed;
+    top: 300px;
+    right: 0px;
+    z-index: 1000;
+    transition: all 0.25s ease-in-out;
+    ;
+}
+
+    .s-soft1 a:first-child {
+        border-radius: 0 5px 0 0;
+    }
+
+    .s-soft1 a:last-child {
+        border-radius: 0 0 5px 0;
+    }
+
+.s-item1 {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: white;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    transition: all 0.25s ease-in-out;
+}
+
+    .s-item1:hover {
+        width: 110px;
+        border-radius: 0px 20px 20px 0px;
+        color: white;
+        text-align: right;
+        padding-right: 15px;
+    }
+
+#so-open1 {
+    position: fixed;
+    top: 100px;
+    left: -90px;
+    border-radius: 0 30px 30px 0;
+    transition: all 0.25s ease-in-out;
+}
+
+.facebook {
+    background-color: #3b5999;
+}
+
+.twitter {
+    background-color: #3AAFD6;
+}
+
+
+
+#div_FloatingSocialMedia_En {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-text-container {
+    display: flex;
+    align-items: center; /* Center vertically (top to bottom) */
+    justify-content: center; /* Center horizontally (left to right) */
+}
+
+.icon-text-container i {
+    color: blue; /* Add color to the icon */
+    font-size: 20px; /* Adjust the icon size as needed */
+    /* Add some spacing between the icon and text */
+}
+
+.icon-text-container a {
+    text-decoration: none; /* Remove underline from the link */
+    color: blue; /* Add color to the text */
+}
+
+
+
+
+
+</style>
+
+<div class="s-soft">
+  <a href="https://www.facebook.com/SPVaishaliOfficial" target="_blank" class="s-item facebook">
+    <span class="fa-brands fa-facebook"></span>
+  </a>
+  <a href="https://twitter.com/spvaishali" target="_blank" class="s-item twitter">
+
+      <span class="fa-brands fa-x-twitter"></span>
+  </a>
+  <a href="https://www.youtube.com/@biharpoliceofficial" target="" class="s-item pinterest">
+     <span class="fa-brands fa-youtube"></span>
+  </a>
+  <a href="https://www.instagram.com/district.police.vaishali/" target="_blank" class="s-item instagram">
+     <span class="fa-brands fa-instagram"></span>
+  </a>
+</div>
+<!-- <hr/> -->
+<div id="div_FloatingSocialMedia_En" class="float-sm">
+<div class="fl-fl float-tw">
+  <div class="icon-text-container">
+      <i class="fas fa-phone"></i>
+      <a href="tel:100" target="_blank" style="color: blue;">पुलिस हेल्पलाइन : 100</a>
+  </div>
+</div>
+<div class="fl-fl float-gp">
+  <div class="icon-text-container">
+    <i class="fa-solid fa-person-dress"></i>
+      <a href="tel:181" target="_blank" style="color: blue;">महिला हेल्पलाइन : 181 </a>
+  </div>
+</div>
+<div class="fl-fl float-rs">
+  <div class="icon-text-container">
+    <i class="fa-solid fa-globe"></i>
+      <a href="tel:1900" target="_blank" style="color: blue;">साइबर क्राइम : 1930  </a>
+  </div>
+</div>
+</div>
+
+
+<ngb-carousel #carousel [interval]="7000" [pauseOnHover]="true" [pauseOnFocus]="false" *ngIf="isFloating"
+  [animation]="false" [showNavigationArrows]="false" [showNavigationIndicators]="false">
+  <ng-template ngbSlide *ngFor="let banner of fixedBanner; let i = index">
+    <app-image-viewer [imageURL]="banner.url" [imgHeight]="'250px'" imgWidth="100%"></app-image-viewer>
+  </ng-template>
+</ngb-carousel>
+
+<div *ngIf="!isFloating" class="banner-area">
+  <div id="banner" class="banner-area-slide">
+    <div class="slide banner-area-slide" *ngFor="let banner of floatingBanner; let i = index">
+      <!-- <app-image-viewer [imageURL]="banner.url" [imgHeight]="'100%'" imgWidth="100%"></app-image-viewer> -->
+      <img [src]="baseUrl + banner.url" [alt]="i" style="width: 100%;height: 100%;">
+    </div>
+  </div>
+</div>

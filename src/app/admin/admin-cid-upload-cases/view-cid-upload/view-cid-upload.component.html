@@ -1,0 +1,405 @@
+<div class="viewContainer">
+  <div style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+    ">
+    <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+      Bihar Police Case Database (From Excel)
+    </div>
+    <button class="dashboard-header btn btn-sm back-btn" style="font-size: 30px" (click)="goBack()">
+      &#215;
+    </button>
+  </div>
+
+
+
+
+  <section class="table-sec">
+    <div class="container">
+      <div class="accordion" id="tableModule">
+
+        <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span class="justify-content-center text-left" style="cursor: pointer" (click)="toggle()">Case
+                Details</span>
+              <div *ngIf="!isCollapsed" style="justify-content: flex-end; align-items: flex-end">
+                <i class="material-icons" style="cursor: pointer" (click)="toggle()">add</i>
+              </div>
+              <div *ngIf="isCollapsed" style="justify-content: flex-end; align-items: flex-end">
+                <i class="material-icons" style="cursor: pointer" (click)="toggle()">remove</i>
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed">
+            <div class="card-body d-flex justify-content-between aling-item-center">
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                  <table id="basicDetailsTable" style="width: 100%" class="table table-striped table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td><strong>SR / NSR</strong></td>
+                        <td>{{ entry.srsNsrsType }}</td>
+                        <td><strong>Sr. No</strong></td>
+                        <td>{{ entry.specialReportNoYear }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Major Head</strong></td>
+                        <td>{{ entry.majorHead }}</td>
+                        <td><strong>Sub Head</strong></td>
+                        <td>{{ entry.subHead }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>District</strong></td>
+                        <td>{{ entry.districtName }}</td>
+                        <td><strong>Subdivision</strong></td>
+                        <td>{{ entry.subdivisionName }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Circle</td>
+                        <td>{{ entry.circleName }}</td>
+                        <td><strong>Police Station</strong></td>
+                        <td>{{ entry.policestationName }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Case No</td>
+                        <td>{{ entry.caseNo }}</td>
+                        <td><strong>Case Date</strong></td>
+                        <td>{{ entry.caseDate }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Section</strong></td>
+                        <td>{{ entry.section }}</td>
+                        <td><strong>Max Punishment</strong></td>
+                        <td>{{ entry.maxPunishment }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>IO Name</strong></td>
+                        <td>{{ entry.ioName }}</td>
+                        <td><strong>IO Designation</strong></td>
+                        <td>{{ entry.ioDesignationName }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>FSL Visit</strong></td>
+                        <td>{{ entry.fslVisit }}</td>
+                        <td><strong>eSakshya Video</strong></td>
+                        <td>{{ entry.eSakshyaVideo }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Complainant Name</strong></td>
+                        <td>{{ entry.nameComplainant }}</td>
+                        <td><strong>Case Year</strong></td>
+                        <td>{{ entry.yearOfCase }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span class="justify-content-center text-left" style="cursor: pointer" (click)="toggle1()">Accused
+                Details</span>
+              <div *ngIf="!isCollapsed1" style="justify-content: flex-end; align-items: flex-end">
+                <i class="material-icons" style="cursor: pointer" (click)="toggle1()">add</i>
+              </div>
+              <div *ngIf="isCollapsed1" style="justify-content: flex-end; align-items: flex-end">
+                <i class="material-icons" style="cursor: pointer" (click)="toggle1()">remove</i>
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed1">
+            <div class="card-body d-flex justify-content-between aling-item-center">
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                  <table id="cidAccusedData" style="width: 100%; overflow: auto"
+                    class="table table-striped table-bordered table-sm">
+                    <thead>
+                      <tr>
+                        <th style="font-weight: bold">ID</th>
+                        <th style="font-weight: bold">Name</th>
+                        <th style="font-weight: bold">FIR/Non-FIR</th>
+                        <th style="font-weight: bold">Supervision Officer</th>
+                        <th style="font-weight: bold">Supervision Date</th>
+                        <th style="font-weight: bold">Remarks</th>
+                        <th style="font-weight: bold">Created Date</th>
+                        <th style="font-weight: bold">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let accused of accuseds">
+                        <td>{{ accused.id }}</td>
+                        <td>{{ accused.accusedName }}</td>
+                        <td>{{ accused.firNonFir }}</td>
+                        <td>{{ accused.supervisionOfficerName }}</td>
+                        <td>{{ accused.supervisionOfficerDate | date:'mediumDate' }}</td>
+                        <td class="text-truncate" style="max-width: 200px;" [title]="accused.supervisionOfficerRemarks">
+                          {{ accused.supervisionOfficerRemarks }}
+                        </td>
+                        <td>{{ accused.createdDate | date:'medium' }}</td>
+                        <td>
+                          <span class="badge"
+                            [ngClass]="{'badge-success': accused.active, 'badge-danger': !accused.active}">
+                            {{ accused.active ? 'Active' : 'Inactive' }}
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span class="justify-content-center text-left" style="cursor: pointer" (click)="toggle4()">Case
+                Proceeding</span>
+              <div *ngIf="!isCollapsed4" style="justify-content: flex-end; align-items: flex-end">
+                <i class="material-icons" style="cursor: pointer" (click)="toggle4()">add</i>
+              </div>
+              <div *ngIf="isCollapsed4" style="justify-content: flex-end; align-items: flex-end">
+                <i class="material-icons" style="cursor: pointer" (click)="toggle4()">remove</i>
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed4">
+            <div class="card-body d-flex justify-content-between aling-item-center">
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                  <table id="basicDetailsTable" style="width: 100%" class="table table-striped table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td><strong>Supervision Date</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.supervisionDate }}</td>
+                        <td><strong>Supervision Note Date</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.supervisionNoteDate }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Supervisory Officer Name</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.supervisoryOfficerName }}</td>
+                        <td><strong>Supervisory Officer Designation</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.supervisoryOfficerDesignation }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Accused Found in Supervision</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.nameOfAccuseFoundTinSupervision }}</td>
+                        <td><strong>Special Report Issue Date</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.specialReportIssueDate }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Accused Found in Special Report</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.nameOfAccusedFoundTInSpecialReport }}</td>
+                        <td><strong>Progress Report Date</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.progressReportDate }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Officer Issuing PR</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.nameOfOfficerIssuingPR }}</td>
+                        <td><strong>Designation of Officer Issuing PR</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.designationOfIssuingPR }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Last Review Date</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.lastReviewDate }}</td>
+                        <td><strong>Officer of Last Review</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.nameOfOfficerOfLstReview }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Designation of Last Review Officer</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.designationOfOfficerOfLastReview }}</td>
+                        <td><strong>Last Case Diary No</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.noOfLastCaseDiary }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Last Case Diary Date</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.dateOfLastCaseDiary }}</td>
+                        <td><strong>Review Note Date</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.reviewNoteDate }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Case Status</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.chargeSheetedFinalReportStatus }}</td>
+                        <td><strong>Final Form</strong></td>
+                        <td>{{ cidCrimeCaseProceeding.finalForm }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Remarks</strong></td>
+                        <td colspan="3">{{ cidCrimeCaseProceeding.remarks }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div *ngIf="cidCrimeCaseProceeding?.updateHistories?.length > 0">
+              <div class="card-header">
+                <h5>Update History</h5>
+              </div>
+                  <span>{{ groupedHistory | json }}</span>
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Field Name</th>
+                    <th>Change Sequence</th>
+                    <th>Updated By</th>
+                    <th>Updated At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of objectKeys(groupedHistory)">
+                    <td><strong>{{ field }}</strong></td>
+                    <td>
+                      <ng-container *ngFor="let history of groupedHistory[field]; let last = last">
+                        <span>{{ history.oldValue }}</span>
+                        <span *ngIf="!last"> → </span>
+                      </ng-container>
+                      <strong> → {{ getCurrentValue(field) }}</strong>
+                    </td>
+                    <td>{{ groupedHistory[field][0].updatedBy }}</td>
+                    <td>{{ groupedHistory[field][0].updatedAt | date:'medium' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="!(cidCrimeCaseProceeding?.updateHistories?.length > 0)" class="alert alert-info">
+              No update history available for this case proceeding.
+            </div> -->
+
+            <div *ngIf="cidCrimeCaseProceeding?.updateHistories?.length > 0">
+              <div class="card-header">
+                <h5>Update History</h5>
+              </div>
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Field Name</th>
+                    <th>Change Sequence</th>
+                    <th>Updated By (Last)</th>
+                    <th>Updated At (Last)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of objectKeys(groupedHistory)">
+                    <td><strong>{{ field }}</strong></td>
+                    <!-- <td>
+                      <ng-container *ngFor="let history of groupedHistory[field]; let i = index; let last = last">
+                        <ng-container *ngIf="i === 0">
+                          <span class="d-block">{{ history.oldValue === null ? 'N/A' : history.oldValue }}</span>
+                          </ng-container>
+                        <ng-container *ngIf="i === 0 && !last">
+                          <span> → </span>
+                        </ng-container>
+
+                        <ng-container *ngIf="i > 0">
+                          <span class="d-block">{{ groupedHistory[field][i - 1].newValue }}</span>
+                          <small class="text-muted d-block">{{ groupedHistory[field][i - 1].updatedBy }}</small>
+                          <ng-container *ngIf="!last">
+                            <span> → </span>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="last">
+                          <span class="d-block">{{ history.newValue }}</span>
+                          <small class="text-muted d-block">{{ history.updatedBy }}</small>
+                        </ng-container>
+                      </ng-container>
+                    </td> -->
+                    <!-- <td>
+                      <ng-container *ngFor="let history of groupedHistory[field]; let i = index; let last = last">
+                        <ng-container *ngIf="i === 0">
+                          <span class="d-block" style="color: #6c757d; font-weight: bold;">
+                            {{ history.oldValue === null ? 'N/A (Initial)' : history.oldValue }}
+                          </span>
+                        </ng-container>
+
+                        <ng-container *ngIf="i === 0 && !last">
+                          <span style="color: #adb5bd; margin: 0 0.5rem; font-size: 1.25rem;">→</span>
+                        </ng-container>
+
+                        <ng-container *ngIf="i > 0">
+                          <span class="d-block" style="color: #adb5bd; font-weight: bold;">
+                            {{ groupedHistory[field][i - 1].newValue }}
+                          </span>
+                          <small class="d-block fst-italic" style="color: #adb5bd;">{{ groupedHistory[field][i - 1].updatedBy }}</small>
+
+                          <ng-container *ngIf="!last">
+                            <span style="color: #adb5bd; margin: 0 0.5rem; font-size: 1.25rem;">→</span>
+                          </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="last">
+                          <span class="d-block" style="color: #6c757d; font-weight: bold;">
+                            {{ history.newValue === null ? 'N/A (Current)' : history.newValue }}
+                          </span>
+                          <small class="d-block fst-italic" style="color: #adb5bd;">{{ history.updatedBy }}</small>
+                        </ng-container>
+                      </ng-container>
+                    </td> -->
+                    <td>
+                      <ng-container *ngFor="let history of groupedHistory[field]; let i = index; let last = last">
+                        <ng-container *ngIf="i === 0">
+                          <span class="d-block" style="color: #232e39; font-weight: 500;">
+                            {{ history.oldValue === null ? 'N/A (Initial)' : history.oldValue }}
+                          </span>
+                        </ng-container>
+
+                        <ng-container *ngIf="i === 0 && !last">
+                          <span style="color: #494a4a; margin: 0 0.5rem; font-size: 1.25rem;">→</span>
+                        </ng-container>
+
+                        <ng-container *ngIf="i > 0">
+                          <span class="d-block" style="color: #868e96; font-weight: 500;">
+                            {{ groupedHistory[field][i - 1].newValue }}
+                          </span>
+                          <small class="d-block fst-italic" style="color: #2e2e2e; font-size: 0.85rem;">{{
+                            groupedHistory[field][i - 1].updatedBy }}</small>
+
+                          <ng-container *ngIf="!last">
+                            <span style="color: #3d3e3e; margin: 0 0.5rem; font-size: 1.25rem;">→</span>
+                          </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="last">
+                          <span class="d-block" style="color: #000000; font-weight: 500;">
+                            {{ history.newValue === null ? 'N/A (Current)' : history.newValue }}
+                          </span>
+                          <small class="d-block fst-italic" style="color: #2e2e2e; font-size: 0.85rem;">{{
+                            history.updatedBy }}</small>
+                        </ng-container>
+                      </ng-container>
+                    </td>
+                    <td>{{ groupedHistory[field][groupedHistory[field].length - 1].updatedBy }}</td>
+                    <td>{{ groupedHistory[field][groupedHistory[field].length - 1].updatedAt | date:'medium' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="!(cidCrimeCaseProceeding?.updateHistories?.length > 0)" class="alert alert-info">
+              No update history available for this case proceeding.
+            </div>
+
+
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>

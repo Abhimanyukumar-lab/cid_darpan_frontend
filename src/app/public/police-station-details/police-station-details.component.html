@@ -1,0 +1,587 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "POLICE_STATION.STATION_DETAILS" | translate
+  }}</span>
+</div>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-left back-btn">
+        <button
+          class="btn btn-sm back-btn"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+          "
+          (click)="goBack()"
+        >
+          &#215;
+        </button>
+      </div>
+      <div class="col-md-6 text-center stn-name" *ngIf="currrentLang == 'en'">
+        <label class="justify-content-center font-weight-bold text-primary h3"
+          ><span class="underline">
+            {{ policeStation.stationName }}</span
+          ></label
+        >
+      </div>
+      <div class="col-md-6 text-center stn-name" *ngIf="currrentLang == 'hi'">
+        <label class="justify-content-center font-weight-bold text-primary h3"
+          ><span class="underline">
+            {{ policeStation.stationNameHi }}</span
+          ></label
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="w-80 h-80 col-sm-6 col-md-6 p-3 d-flex justify-content-center"
+      >
+        <app-image-viewer
+          style="width: 100%; height: 450px !important"
+          [imageURL]="policeStation.stationImag"
+          [imgWidth]="'100%'"
+          [imgHeight]="'100%'"
+        >
+        </app-image-viewer>
+      </div>
+      <div
+        class="w-80 h-80 col-sm-6 col-md-6 p-3 d-flex justify-content-center"
+      >
+        <iframe
+          [src]="policeStation.stationUrl | Safe"
+          width="100%"
+          height="450"
+          frameborder="0"
+          style="border: 0"
+          allowfullscreen="false"
+          aria-hidden="false"
+          tabindex="0"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 p-3 d-flex justify-content-left">
+        <div class="row">
+          <div class="col-sm-12 md-12">
+            <span>{{ "POLICE_STATION.STATION_EMAIL" | translate }} : </span
+            ><span>{{ policeStation.stationEmail }}</span>
+          </div>
+          <div class="col-sm-12 md-12">
+            <span>{{ "SECTIONS.SEC_OFFICER_MOBILE" | translate }} : </span
+            ><span>{{ policeStation.stationNo }}</span>
+          </div>
+          <div class="col-sm-12 md-12" *ngIf="policeStation.stationAddress">
+            <span>{{ "POLICE_STATION.STATION_ADDRESS" | translate }} : </span
+            ><span>{{ policeStation.stationAddress }}</span>
+          </div>
+          <div class="col-sm-12 md-12" *ngIf="policeStation.stationDesc">
+            <span>{{ "POLICE_STATION.AREA_COVERED" | translate }} : </span
+            ><span>{{ policeStation.stationDesc }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div
+          class="justify-content-center"
+          style="border: 1px solid black"
+        ></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sho-area">
+  <div class="container">
+    <div class="card" *ngIf="shoList.name">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer
+            [imageURL]="shoList.image"
+            [imgWidth]="'100%'"
+            [imgHeight]="'100%'"
+          ></app-image-viewer>
+        </div>
+        <p
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "HELPLINE.HELPLINE_NAME" | translate }} : </span
+          >{{ shoList.name }}
+        </p>
+        <p
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "HELPLINE.DESIGNATION" | translate }} : </span
+          >{{ "POLICE_OFFICER.SHO" | translate }}
+        </p>
+        <p
+          class="officer-about"
+          *ngIf="shoList.contactNo && shoList.contactNo != 'null'"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} : </span
+          >{{ shoList.contactNo }}
+        </p>
+        <p
+          class="officer-about"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} : </span
+          >{{ shoList.mobileNo }}
+        </p>
+      </div>
+    </div>
+    <div class="card" *ngIf="InvestigationOfficer.name">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer
+            [imageURL]="InvestigationOfficer.image"
+            [imgWidth]="'100%'"
+            [imgHeight]="'100%'"
+          ></app-image-viewer>
+        </div>
+        <p
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "HELPLINE.HELPLINE_NAME" | translate }} : </span
+          >{{ InvestigationOfficer.name }}
+        </p>
+        <p
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "HELPLINE.DESIGNATION" | translate }} : </span
+          >{{ "POLICE_OFFICER.INVESTIGATION_OFFICER" | translate }}
+        </p>
+        <p
+          class="officer-about"
+          *ngIf="
+            InvestigationOfficer.contactNo &&
+            InvestigationOfficer.contactNo != 'null'
+          "
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} : </span
+          >{{ InvestigationOfficer.contactNo }}
+        </p>
+        <p
+          class="officer-about"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} : </span
+          >{{ InvestigationOfficer.mobileNo }}
+        </p>
+      </div>
+    </div>
+    <div class="card" *ngIf="LawOrderOfficer.name">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer
+            [imageURL]="LawOrderOfficer.image"
+            [imgWidth]="'100%'"
+            [imgHeight]="'100%'"
+            style="height: 150px !important"
+          >
+          </app-image-viewer>
+        </div>
+        <p
+          class="officer-name"
+          style="margin-bottom: 2px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "HELPLINE.HELPLINE_NAME" | translate }} : </span
+          >{{ LawOrderOfficer.name }}
+        </p>
+        <p
+          class="officer-name"
+          style="margin-bottom: 2px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "HELPLINE.DESIGNATION" | translate }} : </span
+          >{{ "POLICE_OFFICER.LAW_ORDER" | translate }}
+        </p>
+        <p
+          class="officer-about"
+          *ngIf="
+            LawOrderOfficer.contactNo && LawOrderOfficer.contactNo != 'null'
+          "
+          style="margin-bottom: 2px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} : </span
+          >{{ LawOrderOfficer.contactNo }}
+        </p>
+        <p
+          class="officer-about"
+          style="margin-bottom: 2px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} : </span
+          >{{ LawOrderOfficer.mobileNo }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row" *ngIf="shoList || InvestigationOfficer || LawOrderOfficer">
+      <div class="col-md-12 col-sm-12">
+        <div
+          class="justify-content-center"
+          style="border: 1px dotted black"
+        ></div>
+      </div>
+    </div>
+
+    <div class="col-md-12 text-center m-3">
+      <label class="justify-content-center font-weight-bold text-primary h3">
+        <span class="underline">{{
+          "POLICE_STATION.STATION_HELPLINE_TITLE" | translate
+        }}</span>
+      </label>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 p-3 justify-content-center">
+        <div class="row">
+          <div class="col-sm-12 md-12">
+            <span class="glop-span"
+              >{{ "POLICE_STATION.STATION_HELPLINE" | translate }} : </span
+            ><span>{{ policeStation.stationHelpline }}</span>
+          </div>
+          <div class="col-sm-12 md-12">
+            <span class="glop-span"
+              >{{ "POLICE_STATION.STATION_MEDICAL" | translate }} : </span
+            ><span>{{ policeStation.stationMedical }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 p-3 justify-content-center">
+        <div class="row">
+          <div class="col-sm-12 md-12">
+            <span class="glop-span"
+              >{{ "POLICE_STATION.STATION_FIRE_BRIGADE" | translate }} : </span
+            ><span>{{ policeStation.stationFireBrigade }}</span>
+          </div>
+          <div class="col-sm-12 md-12">
+            <span class="glop-span"
+              >{{ "POLICE_STATION.STATION_AMBULANCE" | translate }} : </span
+            ><span>{{ policeStation.stationAmbulane }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div
+          class="justify-content-center"
+          style="border: 1px dotted black"
+        ></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="table-sec">
+  <div class="container">
+    <div class="accordion" id="tableModule">
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-center"
+              style="cursor: pointer"
+              (click)="toggle()"
+              >{{ "POLICE_OFFICER.POLICE_OFFICER" | translate }}</span
+            >
+            <div
+              *ngIf="!isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed">
+          <div class="card-body">
+            <table class="table">
+              <thead style="background-color: black">
+                <th style="width: 10%; color: white; padding: 15px">
+                  {{ "FORMS.SL_NO" | translate }}
+                </th>
+                <th style="width: 32%; color: white; padding: 15px">
+                  {{ "HELPLINE.HELPLINE_NAME" | translate }}
+                </th>
+                <th style="width: 25%; color: white; padding: 15px">
+                  {{ "DESIGNATION.DESIGN_TITLE" | translate }}
+                </th>
+                <th style="width: 33%; color: white; padding: 15px">
+                  {{ "SECTIONS.SEC_OFFICER_CONTACT" | translate }}
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let officer of officerUsers; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ officer.name }}</td>
+                  <td>
+                    {{ officer.designationName }}
+                    <span
+                      *ngIf="officer.villageName && officer.villageName != null"
+                      >,{{ officer.villageName }}</span
+                    >
+                  </td>
+                  <td>{{ officer.contactNo }} {{ officer.mobileNo }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-center"
+              style="cursor: pointer"
+              (click)="toggle1()"
+              >{{ "POLICE_OFFICER.POLICE_STAFF" | translate }}</span
+            >
+            <div
+              *ngIf="!isCollapsed1"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle1()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed1"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle1()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed1">
+          <div class="card-body">
+            <table class="table">
+              <thead style="background-color: black">
+                <th style="width: 10%; color: white; padding: 15px">
+                  {{ "FORMS.SL_NO" | translate }}
+                </th>
+                <th style="width: 32%; color: white; padding: 15px">
+                  {{ "HELPLINE.HELPLINE_NAME" | translate }}
+                </th>
+                <th style="width: 25%; color: white; padding: 15px">
+                  {{ "DESIGNATION.DESIGN_TITLE" | translate }}
+                </th>
+                <th style="width: 33%; color: white; padding: 15px">
+                  {{ "SECTIONS.SEC_OFFICER_CONTACT" | translate }}
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let officer of staffUsers; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ officer.name }}</td>
+                  <td>
+                    {{ officer.designationName }}
+                    <span
+                      *ngIf="officer.villageName && officer.villageName != null"
+                      >,{{ officer.villageName }}</span
+                    >
+                  </td>
+                  <td>{{ officer.contactNo }} {{ officer.mobileNo }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-center"
+              style="cursor: pointer"
+              (click)="toggle2()"
+              >{{ "CHOKIDAR_DAFADAR.CHOKIDAR_DETAILS" | translate }}</span
+            >
+            <div
+              *ngIf="!isCollapsed2"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle2()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed2"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle2()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed2">
+          <div class="card-body">
+            <table class="table">
+              <thead style="background-color: black">
+                <th style="width: 10%; color: white; padding: 15px">
+                  {{ "FORMS.SL_NO" | translate }}
+                </th>
+                <th style="width: 32%; color: white; padding: 15px">
+                  {{ "HELPLINE.HELPLINE_NAME" | translate }}
+                </th>
+                <th style="width: 25%; color: white; padding: 15px">
+                  {{ "DESIGNATION.DESIGN_TITLE" | translate }}
+                </th>
+                <th style="width: 33%; color: white; padding: 15px">
+                  {{ "SECTIONS.SEC_OFFICER_CONTACT" | translate }}
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let officer of chakidarUsers; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ officer.name }}</td>
+                  <td>
+                    {{ officer.designationName
+                    }}<span
+                      *ngIf="officer.villageName && officer.villageName != null"
+                      >,{{ officer.villageName }}</span
+                    >
+                  </td>
+                  <td>{{ officer.contactNo }} {{ officer.mobileNo }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-center"
+              style="cursor: pointer"
+              (click)="toggle3()"
+              >{{ "OTHER_OFFICER.OTHER_OFFICER_DETAILS" | translate }}</span
+            >
+            <div
+              *ngIf="!isCollapsed3"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle3()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed3"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle3()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed3">
+          <div class="card-body">
+            <table class="table">
+              <thead style="background-color: black">
+                <th style="width: 10%; color: white; padding: 15px">
+                  {{ "FORMS.SL_NO" | translate }}
+                </th>
+                <th style="width: 32%; color: white; padding: 15px">
+                  {{ "HELPLINE.HELPLINE_NAME" | translate }}
+                </th>
+                <th style="width: 25%; color: white; padding: 15px">
+                  {{ "DESIGNATION.DESIGN_TITLE" | translate }}
+                </th>
+                <th style="width: 33%; color: white; padding: 15px">
+                  {{ "SECTIONS.SEC_OFFICER_CONTACT" | translate }}
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let officer of otherUsers; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ officer.name }}</td>
+                  <td>
+                    {{ officer.designationName }}
+                    <span
+                      *ngIf="officer.villageName && officer.villageName != null"
+                      >,{{ officer.villageName }}</span
+                    >
+                  </td>
+                  <td>{{ officer.contactNo }} {{ officer.mobileNo }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,698 @@
+<div style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  ">
+  <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+    CID Case Form
+  </div>
+  <!-- <button class="dashboard-header btn btn-sm back-btn" style="font-size: 30px" (click)="goBack()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button> -->
+  <button class="dashboard-header btn btn-sm back-btn" style="font-size: 30px" (click)="goBack()">
+    &#215;
+  </button>
+</div>
+
+<section class="table-sec">
+  <div class="container">
+    <div class="accordion" id="tableModule">
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span class="justify-content-center text-left" style="cursor: pointer" (click)="toggle()">Case
+              Details</span>
+            <div *ngIf="!isCollapsed" style="justify-content: flex-end; align-items: flex-end">
+              <i class="material-icons" style="cursor: pointer" (click)="toggle()">add</i>
+            </div>
+            <div *ngIf="isCollapsed" style="justify-content: flex-end; align-items: flex-end">
+              <i class="material-icons" style="cursor: pointer" (click)="toggle()">remove</i>
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed">
+          <div class="card-body">
+
+            <form [formGroup]="entryForm">
+              <input type="text" id="id" name="id" class="form-control" formControlName="id" hidden="hidden" />
+              <div class="form-group">
+                <div class="row">
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="srsNsrsType" style="font-weight: bold">Select SR/NSR Type</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select id="srsNsrsType" name="srsNsrsType" formControlName="srsNsrsType" class="form-control">
+                        <option value="null" disabled selected>
+                          Select SR/NSR
+                        </option>
+                        <option value="SR">SR</option>
+                        <option value="NSR">NSR</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="specialReportNoYear" style="font-weight: bold">Sr No</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="specialReportNoYear" name="specialReportNoYear"
+                        formControlName="specialReportNoYear" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="majorHead" style="font-weight: bold">Major Head</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="majorHead" name="majorHead" formControlName="majorHead"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="subHead" style="font-weight: bold">Sub-Major Head</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="subHead" name="subHead" formControlName="subHead" class="form-control" />
+                    </div>
+                  </div>
+
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="districtName" style="font-weight: bold">District</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="districtName" name="districtName" formControlName="districtName"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="subdivisionName" style="font-weight: bold">Sub Division</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="subdivisionName" name="subdivisionName" formControlName="subdivisionName"
+                        class="form-control" />
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="circleName" style="font-weight: bold">Circle</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="circleName" name="circleName" formControlName="circleName"
+                        class="form-control" />
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="policestationName" style="font-weight: bold">Police Station</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="policestationName" name="policestationName"
+                        formControlName="policestationName" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="caseNo" style="font-weight: bold">Case No</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="caseNo" name="caseNo" formControlName="caseNo" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="caseDate" style="font-weight: bold">Case Date</label>
+                    </div>
+                    <div class="col-sm-8">
+
+                      <input type="date" id="caseDate" name="caseDate" formControlName="caseDate" class="form-control"
+                        [max]="today | date: 'yyyy-MM-dd'" />
+
+
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="section" style="font-weight: bold">Section</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="section" name="section" formControlName="section" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="maxPunishment" style="font-weight: bold">Max Punishment</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="maxPunishment" name="maxPunishment" formControlName="maxPunishment"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="ioName" style="font-weight: bold">IO Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="ioName" name="ioName" formControlName="ioName" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="ioDesignationName" style="font-weight: bold">IO Designation</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="ioDesignationName" name="ioDesignationName"
+                        formControlName="ioDesignationName" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="fslVisit" style="font-weight: bold">FSL Visit</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="fslVisit" name="fslVisit" formControlName="fslVisit"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="esakshyaVideo" style="font-weight: bold">E-Sakshye Video</label>
+                    </div>
+                    <div class="col-sm-8">
+
+                      <input type="input" id="eSakshyaVideo" name="eSakshyaVideo" formControlName="eSakshyaVideo"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="nameComplainant" style="font-weight: bold">Complainent Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="nameComplainant" name="nameComplainant" formControlName="nameComplainant"
+                        class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="yearOfCase" style="font-weight: bold">Case year</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="yearOfCase" name="yearOfCase" formControlName="yearOfCase"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+
+
+              <div class="text-center">
+                <button type="button" class="btn btn-success" (click)="submit()">
+                  Save
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span class="justify-content-center text-left" style="cursor: pointer" (click)="toggle1()">Accused
+              Details</span>
+            <div *ngIf="!isCollapsed1" style="justify-content: flex-end; align-items: flex-end">
+              <i class="material-icons" style="cursor: pointer" (click)="toggle1()">add</i>
+            </div>
+            <div *ngIf="isCollapsed1" style="justify-content: flex-end; align-items: flex-end">
+              <i class="material-icons" style="cursor: pointer" (click)="toggle1()">remove</i>
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed1">
+          <div class="card-body">
+
+
+
+            <form [formGroup]="accusedForm">
+              <input type="text" id="id" name="id" class="form-control" formControlName="id" hidden="hidden" />
+              <!-- <input type="text" id="basicId" name="basicId" class="form-control" formControlName="basicId" hidden="hidden" /> -->
+
+              <div style="padding: 20px 0 0">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="firNonFir" style="font-weight: bold">FIR / Non FIR</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <select name="firNonFir" id="firNonFir" class="form-control" formControlName="firNonFir">
+                          <option value="null" selected>Select FIR / Non FIR</option>
+                          <option value="FIR">FIR</option>
+                          <option value="Non FIR">Non FIR</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="accusedName" style="font-weight: bold">Accused Name</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="accusedName" name="accusedName" formControlName="accusedName"
+                          class="form-control" />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="supervisionOfficerName" style="font-weight: bold">Supervision Officer Name</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" id="supervisionOfficerName" name="supervisionOfficerName"
+                          formControlName="supervisionOfficerName" class="form-control" />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-4">
+                        <label for="supervisionOfficerDate" style="font-weight: bold">Supervision Officer Date</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="date" id="supervisionOfficerDate" name="supervisionOfficerDate"
+                          formControlName="supervisionOfficerDate" class="form-control" />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-start align-items-center my-2">
+                      <div class="col-sm-2">
+                        <label for="supervisionOfficerRemarks" style="font-weight: bold">Supervision Officer
+                          Remarks</label>
+                      </div>
+                      <div class="col-sm-10">
+                        <textarea id="supervisionOfficerRemarks" name="supervisionOfficerRemarks"
+                          formControlName="supervisionOfficerRemarks" class="form-control" rows="3"></textarea>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="button" class="btn btn-success" (click)="saveAccused()">
+                  Add on +
+                </button>
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="table-panel">
+                  <table id="cidAccusedData" class="table table-bordered table-sm" style="width: 100%">
+                    <thead>
+                      <tr>
+                        <td class="th-sm">Sl No.</td>
+                        <td class="th-sm">Name</td>
+                        <td class="th-sm">FIR/Non FIR</td>
+                        <td class="th-sm">Supervision Officer</td>
+                        <td class="th-sm">Supervision Date</td>
+                        <td class="th-sm">Remarks</td>
+                        <td class="th-sm">Edit</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let accused of accuseds; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ accused.accusedName }}</td>
+                        <td>{{ accused.firNonFir }}</td>
+                        <td>{{ accused.supervisionOfficerName }}</td>
+                        <td>{{ accused.supervisionOfficerDate | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ accused.supervisionOfficerRemarks}}</td>
+                        <td>
+                          <button class="btn btn-warning btn-sm" (click)="initAccusedForm(accused)">
+                            <i class="fas fa-edit"></i> Edit
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span class="justify-content-center text-left" style="cursor: pointer" (click)="toggle2()">Case
+              Procedings</span>
+            <div *ngIf="!isCollapsed2" style="justify-content: flex-end; align-items: flex-end">
+              <i class="material-icons" style="cursor: pointer" (click)="toggle2()">add</i>
+            </div>
+            <div *ngIf="isCollapsed2" style="justify-content: flex-end; align-items: flex-end">
+              <i class="material-icons" style="cursor: pointer" (click)="toggle2()">remove</i>
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed2">
+          <div class="card-body">
+
+            <form [formGroup]="caseProceeding">
+              <input type="text" id="idBF" name="idBF" class="form-control" formControlName="idBF" hidden="hidden" />
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="supervisionDate" style="font-weight: bold">Supervision Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="supervisionDate" name="supervisionDate" formControlName="supervisionDate"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="supervisionNoteDate" style="font-weight: bold">Supervision Note Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="supervisionNoteDate" name="supervisionNoteDate"
+                        formControlName="supervisionNoteDate" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="supervisoryOfficerName" style="font-weight: bold">Supervisory Officer Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="supervisoryOfficerName" name="supervisoryOfficerName"
+                        formControlName="supervisoryOfficerName" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="supervisoryOfficerDesignation" style="font-weight: bold">Supervisory Officer
+                        Designation</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="supervisoryOfficerDesignation" name="supervisoryOfficerDesignation"
+                        formControlName="supervisoryOfficerDesignation" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="nameOfAccuseFoundTinSupervision" style="font-weight: bold">Accused Found in
+                        Supervision (Yes/No)</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="nameOfAccuseFoundTinSupervision" name="nameOfAccuseFoundTinSupervision"
+                        formControlName="nameOfAccuseFoundTinSupervision" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="specialReportIssueDate" style="font-weight: bold">Special Report Issue Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="specialReportIssueDate" name="specialReportIssueDate"
+                        formControlName="specialReportIssueDate" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="nameOfAccusedFoundTInSpecialReport" style="font-weight: bold">Accused Found in Special
+                        Report (Yes/No)</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="nameOfAccusedFoundTInSpecialReport"
+                        name="nameOfAccusedFoundTInSpecialReport" formControlName="nameOfAccusedFoundTInSpecialReport"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="progressReportDate" style="font-weight: bold">Progress Report Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="progressReportDate" name="progressReportDate"
+                        formControlName="progressReportDate" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="nameOfOfficerIssuingPR" style="font-weight: bold">Officer Issuing Progress
+                        Report</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="nameOfOfficerIssuingPR" name="nameOfOfficerIssuingPR"
+                        formControlName="nameOfOfficerIssuingPR" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="designationOfIssuingPR" style="font-weight: bold">Officer Designation (Progress
+                        Report)</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="designationOfIssuingPR" name="designationOfIssuingPR"
+                        formControlName="designationOfIssuingPR" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="lastReviewDate" style="font-weight: bold">Last Review Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="lastReviewDate" name="lastReviewDate" formControlName="lastReviewDate"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="nameOfOfficerOfLstReview" style="font-weight: bold">Officer of Last Review</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="nameOfOfficerOfLstReview" name="nameOfOfficerOfLstReview"
+                        formControlName="nameOfOfficerOfLstReview" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="designationOfOfficerOfLastReview" style="font-weight: bold">Designation of Officer
+                        Last Review</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="designationOfOfficerOfLastReview" name="designationOfOfficerOfLastReview"
+                        formControlName="designationOfOfficerOfLastReview" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="noOfLastCaseDiary" style="font-weight: bold">Last Case Diary Number</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="noOfLastCaseDiary" name="noOfLastCaseDiary"
+                        formControlName="noOfLastCaseDiary" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="dateOfLastCaseDiary" style="font-weight: bold">Last Case Diary Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="dateOfLastCaseDiary" name="dateOfLastCaseDiary"
+                        formControlName="dateOfLastCaseDiary" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="reviewNoteDate" style="font-weight: bold">Review Note Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="reviewNoteDate" name="reviewNoteDate" formControlName="reviewNoteDate"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="chargeSheetedFinalReportStatus" style="font-weight: bold">Chargesheet/Final Report
+                        Status</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="chargeSheetedFinalReportStatus" name="chargeSheetedFinalReportStatus"
+                        formControlName="chargeSheetedFinalReportStatus" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="remarks" style="font-weight: bold">Remarks</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="text" id="remarks" name="remarks" formControlName="remarks" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="button" class="btn btn-success" (click)="saveCaseProceeding()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="saveBackwardForward()"
+                >
+                  Save as Draft
+                </button>
+              </div> -->
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 
+              <div class="form-group">
+                <div class="row">
+
+                  <div style="display: flex; justify-content: center; align-items: center; margin: 29px 1px;">
+                    <u>
+                      <h2 style="font-weight: bolder;">
+                        Complainant Details
+                      </h2>
+                    </u>
+                  </div>
+
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="nameComplainant" style="font-weight: bold">Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="nameComplainant" name="nameComplainant" formControlName="nameComplainant"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comAge" style="font-weight: bold">age</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comAge" name="comAge" formControlName="comAge" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comGender" style="font-weight: bold">Gender</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select name="comGender" id="comGender" class="form-control" formControlName="comGender">
+                        <option value="null" selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Any Other">Any Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comMob" style="font-weight: bold">Mobile No</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comMob" name="comMob" formControlName="comMob" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comFatName" style="font-weight: bold">Father Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comFatName" name="comFatName" formControlName="comFatName"
+                        class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="comMotName" style="font-weight: bold">Mother Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input type="input" id="comMotName" name="comMotName" formControlName="comMotName"
+                        class="form-control" />
+                    </div>
+                  </div>
+                </div>
+              </div> -->

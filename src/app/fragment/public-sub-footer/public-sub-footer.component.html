@@ -1,0 +1,69 @@
+<div class="sub-footer main-color">
+  <div class="f-address">
+    <label>{{ "HOME.OUR_ADDRESS" | translate }}</label>
+    <p>
+      {{ districtDetails.fullName }}, <br />
+      {{ districtDetails.headAddress }}.
+    </p>
+    <!-- <br /> -->
+    <span>{{ districtDetails.contactNo }}</span>
+    <br />
+    <span>{{ districtDetails.email }}</span>
+  </div>
+  <div class="q-link">
+    <label>{{ "FOOTER.QUICK_LINK" | translate }}</label>
+    <ul>
+      <li>
+        <a routerLink="/newsEvent">{{ "FOOTER.NEWS_AND_EVENT" | translate }}</a>
+      </li>
+      <li>
+        <a routerLink="/pressRelease">{{
+          "FOOTER.PRESS_RELEASE" | translate
+          }}</a>
+      </li>
+      <li>
+        <a routerLink="/missingPerson">{{
+          "FOOTER.MISSING_PERSON" | translate
+          }}</a>
+      </li>
+      <li>
+        <a routerLink="/contact">{{ "CONTACT.CONTACT_US_SM" | translate }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="imp-link">
+    <label>{{ "FOOTER.IMPORTANT_LINKS" | translate }}</label>
+    <ul>
+      <li>
+        <a routerLink="/complaint">
+          {{ "FOOTER.ONLINE_COMPLAINT" | translate }}</a>
+      </li>
+      <li>
+        <a routerLink="/character">{{
+          "FOOTER.CHARACTER_APPLICATION" | translate
+          }}</a>
+      </li>
+      <li>
+        <a routerLink="/passport">{{ "FOOTER.PASSPORT" | translate }}</a>
+      </li>
+      <li>
+        <a routerLink="/feedback">{{ "FOOTER.FEEDBACK" | translate }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="down-btns" *ngIf="allowDownload">
+    <app-image-viewer [imageURL]="districtDetails.qrCode" [imgWidth]="'150px'" [imgHeight]="'150px'"></app-image-viewer>
+
+    <div class="d-btn">
+      <div>
+        <a href="{{ districtDetails.gplayLink }}" target="blank">
+          <img src="/assets/images/g-play-btn.png" alt="Google Play" class="g-play" /></a>
+      </div>
+      <label>OR</label>
+      <div>
+        <a href="{{ districtDetails.downloadLink }}" target="blank">
+          <img src="/assets/images/apk-btn.png" alt="Download Button" class="dwn-btn" /></a>
+      </div>
+    </div>
+  </div>
+</div>

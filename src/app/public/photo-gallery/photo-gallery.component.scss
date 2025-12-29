@@ -1,0 +1,53 @@
+@import "../../../style/disctrict/common.district.scss";
+
+.photo-gallary {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.isEvent:empty {
+  display: none !important;
+}
+.col-3 {
+  width: 24%;
+}
+
+.panel-images {
+  padding: 10px;
+  margin: 10px;
+}
+
+@media screen and (min-width: 1440px) {
+}
+
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 425px) {
+  .col-3 {
+    width: 100%;
+  }
+  .card {
+    width: 100%;
+  }
+}
+
+.selected {
+  background-color: $botton !important;
+  color: $white !important;
+  padding: 10px;
+}
+
+.non-selected {
+  background-color: $botton-hover !important;
+  color: $white !important;
+  padding: 10px;
+}

@@ -1,0 +1,38 @@
+.about-us {
+  width: 80%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+}
+.about-us .about-map {
+  width: 100%;
+  height: auto;
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-us .ab-text {
+  width: 100%;
+  height: auto;
+  flex: 50%;
+}
+.about-us .ab-text .text-line {
+  margin-left: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .about-us .about-map {
+    width: 100%;
+    height: auto;
+    flex: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .about-us .about-map iframe {
+    width: 100%;
+  }
+}/*# sourceMappingURL=about-us.component.css.map */

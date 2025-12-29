@@ -1,0 +1,144 @@
+<div class="login-container">
+  <div class="container">
+    <div
+      class="row d-flex justify-content-center align-content-center align-items-center"
+    >
+      <div class="col-sm-12 col-md-7 col-lg-5 col-lx-4">
+        <div class="login">
+          <img
+            src="/assets/images/avatar.svg"
+            alt="Avatar"
+            class="img-fluid"
+            style="width: 100%; height: 150px; margin: 50px 0"
+          />
+          <div class="title">
+            <h3 style="text-transform: uppercase">Welcome</h3>
+          </div>
+          <div class="sub-title text-muted">
+            <h6>Provide mobile to loging into leave dashboard</h6>
+          </div>
+          <div class="login-form-container">
+            <form
+              class="form needs-validation text-center login_form"
+              novalidate
+              [formGroup]="loginForm"
+              autocomplete="off"
+              novalidate="novalidate"
+              id="login_form"
+            >
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text"
+                      style="padding: 10px !important"
+                    >
+                      <i
+                        class="fi fi-phone primaryIcon"
+                        [ngClass]="{
+                          errorIcon: isControlHasErrors('email')
+                        }"
+                      ></i>
+                    </span>
+                  </div>
+                  <input
+                    type="number"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Mobile"
+                    formControlName="mobile"
+                    autocomplete="off"
+                    class="form-control"
+                    [ngClass]="{ invalidInput: isControlHasErrors('mobile') }"
+                    required
+                  />
+                </div>
+                <div
+                  *ngIf="isControlHasError('mobile', 'required')"
+                  class="invalid"
+                >
+                  <strong>Mobile is required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('mobile', 'minlength')"
+                  class="invalid"
+                >
+                  <strong>Minimum 6 character required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('mobile', 'maxlength')"
+                  class="invalid"
+                >
+                  <strong>Max length allowed 13</strong>
+                </div>
+              </div>
+              <div class="form-group" *ngIf="isOtp">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text"
+                      style="padding: 10px !important"
+                    >
+                      <i
+                        class="fi fi-key primaryIcon"
+                        [ngClass]="{
+                          errorIcon: isControlHasErrors('password')
+                        }"
+                        sty
+                      ></i>
+                    </span>
+                  </div>
+                  <input
+                    type="number"
+                    id="otp"
+                    name="otp"
+                    placeholder="Enter OTP"
+                    formControlName="otp"
+                    autocomplete="off"
+                    class="form-control"
+                    [ngClass]="{ invalidInput: isControlHasErrors('otp') }"
+                    required
+                    style="margin-bottom: 10px"
+                  />
+                </div>
+                <div
+                  *ngIf="isControlHasError('otp', 'required')"
+                  class="invalid"
+                >
+                  <strong>OTP is required</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('otp', 'minlength')"
+                  class="invalid"
+                >
+                  <strong>OTP Minimum length is 6</strong>
+                </div>
+                <div
+                  *ngIf="isControlHasError('otp', 'maxlength')"
+                  class="invalid"
+                >
+                  <strong>OTP Maximum length is 6</strong>
+                </div>
+              </div>
+              <button
+                id="login_signin_submit"
+                (click)="submit()"
+                class="login_signin_submit"
+                [disabled]="loading"
+              >
+                Login
+                <div
+                  class="spinner-border spinner-border-sm text-light align-middle"
+                  *ngIf="loading"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="public-main">
+  <app-public-super-header></app-public-super-header>
+  <app-public-header></app-public-header>
+  <app-public-header-menu></app-public-header-menu>
+  <div class="headlines" style="display: flex; justify-content: center;">
+    <div class="container">
+      <marquee class="headlines-outer" behavior="scroll" direction="left" style="width: 100% !important;">
+        <mark class="headlines-innner" style="width: 100% !important;">
+          {{ "HOME.WELCOME" | translate }}
+        </mark>
+      </marquee>
+    </div>
+  </div>
+  <div class="default" *ngIf="style == 'default'">
+    <app-public-banner></app-public-banner>
+    <app-public-headline [title]="'HOME.HEADLINE' | translate"></app-public-headline>
+  </div>
+  <div class="style3" *ngIf="style == 'style3'">
+    <div class="container">
+      <div class="headline-style3" [ngStyle]="{'display':url == '/home' ? 'block' : 'none' }">
+        <app-public-headline [title]="'HOME.PRESS_TITLE' | translate"></app-public-headline>
+      </div>
+      <div class="banner-style3" [ngStyle]="{'width':url == '/home' ? '100%' : '100%', 'text-align': 'center' }">
+        <app-public-banner></app-public-banner>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+  <app-public-sub-footer></app-public-sub-footer>
+  <app-public-footer></app-public-footer>
+</div>

@@ -1,0 +1,49 @@
+.banner-area {
+  width: 100%;
+  height: 400px !important;
+  overflow: hidden;
+}
+
+.banner-area-slide {
+  width: 100%;
+  height: 400px !important;
+}
+
+.active {
+  display: flex;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .active {
+    display: contents !important;
+  }
+  .banner-area {
+    height: 300px !important;
+  }
+  .banner-area-slide {
+    height: 300px !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .banner-area {
+    height: auto !important;
+  }
+  .banner-area-slide {
+    height: 300px !important;
+  }
+}
+.carousel-item {
+  display: block !important;
+  z-index: 1 !important;
+  position: absolute !important;
+  opacity: 0 !important;
+  transition: opacity 1.5s ease-in-out, visibility 1s !important;
+  visibility: hidden !important;
+}
+
+.carousel-item.active {
+  position: relative !important;
+  opacity: 1 !important;
+  transition: opacity 1.5s ease-in-out, visibility 1s !important;
+  visibility: visible !important;
+}/*# sourceMappingURL=public-banner.component.css.map */

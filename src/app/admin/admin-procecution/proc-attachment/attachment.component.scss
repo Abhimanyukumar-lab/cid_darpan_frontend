@@ -1,0 +1,18 @@
+.procecution{
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+hr.interactive {
+  border: none;
+  height: 2px;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+hr.interactive:hover {
+  background-color: #007bff; /* Change color on hover */
+}

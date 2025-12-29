@@ -1,0 +1,1212 @@
+<div class="viewContainer">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+    "
+  >
+    <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+      {{ "SR_NSR_CASE.TITLE" | translate }}
+    </div>
+    <button
+      class="dashboard-header btn btn-sm back-btn"
+      style="font-size: 30px"
+      (click)="goBack()"
+    >
+      &#215;
+      <!-- <i class="fa fa-arrow-left" aria-hidden="true"></i> -->
+    </button>
+  </div>
+
+
+
+  
+  <section class="table-sec">
+    <div class="container">
+      <div class="accordion" id="tableModule">
+        
+        <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span
+                class="justify-content-center text-left"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >SR/NSR Entry Details</span
+              >
+              <div
+                *ngIf="!isCollapsed"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle()"
+                  >add</i
+                >
+              </div>
+              <div
+                *ngIf="isCollapsed"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle()"
+                  >remove</i
+                >
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed">
+            <div
+              class="card-body d-flex justify-content-between aling-item-center"
+            >
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+
+                  <table
+                    id="basicDetailsTable"
+                    style="width: 100%"
+                    class="table table-striped table-bordered table-sm"
+                  >
+                    <tbody>
+                      <tr>
+                        <td style="font-weight: bold">SR / NSR</td>
+                        <td>{{ entry.srsNsrsType }}</td>
+                        <td style="font-weight: bold">SR No</td>
+                        <td>{{ entry.srNo }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Major Head</td>
+                        <td>{{ entry.cidCrimeCategory.nameOfCrimeCategory }}</td>
+                        <td style="font-weight: bold">Sub Major Head</td>
+                        <td>{{ entry.cidCrimeCategoryType.typeOfCrime }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Modus Operandi</td>
+                        <td>{{ entry.crimeModus.name }}</td>
+                        <td style="font-weight: bold">District</td>
+                        <td>{{ entry.district.districtName }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Sub Division</td>
+                        <td>{{ entry.subDivision.name }}</td>
+                        <td style="font-weight: bold">Circle</td>
+                        <td>{{ entry.circleInspector.circleName }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Police Station</td>
+                        <td>{{ entry.policeStation.stationName }}</td>
+                        <td style="font-weight: bold">FIR No</td>
+                        <td>{{ entry.firNo }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">FIR Date</td>
+                        <td>{{ entry.firDate | date: "dd/MM/yyyy" }}</td>
+                        <td style="font-weight: bold">Section</td>
+                        <td>{{ entry.section }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Place Of Occurrence</td>
+                        <td>{{ entry.placeOfOccurance }}</td>
+                        <td style="font-weight: bold">Date Time Of Occurrence</td>
+                        <td>{{ entry.date | date: "dd/MM/yyyy" }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Location</td>
+                        <td>{{ entry.location }}</td>
+                        <td style="font-weight: bold">E-Sakshye Video</td>
+                        <td>{{ entry.esakshya }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">IO Name</td>
+                        <td>{{ entry.ioName }}</td>
+                        <td style="font-weight: bold">Remarks</td>
+                        <td>{{ entry.remark }}</td>
+                      </tr>
+                      <!-- <tr>
+                        <td style="font-weight: bold">No Of Known Accused</td>
+                        <td>{{ entry.noOfKnownAccused }}</td>
+                        <td style="font-weight: bold">No Of Unknown Accused</td>
+                        <td>{{ entry.noOfUnnownAccused }}</td>
+                      </tr> -->
+                      <!-- <tr>
+                        <td style="font-weight: bold">SR No.</td>
+                        <td>{{ entry.srNo }}</td>
+                        <td style="font-weight: bold">Case Diary</td>
+                        <td>{{ entry.caseDairy }}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold">Chargesheet</td>
+                        <td>{{ entry.chargesheet }}</td>
+                        <td style="font-weight: bold">Chargesheet Date</td>
+                        <td>{{ entry.chargesheetDetails }}</td>
+                      </tr> -->
+                  
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accused -->
+        <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span
+                class="justify-content-center text-left"
+                style="cursor: pointer"
+                (click)="toggle1()"
+                >Accused Details</span
+              >
+              <div
+                *ngIf="!isCollapsed1"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle1()"
+                  >add</i
+                >
+              </div>
+              <div
+                *ngIf="isCollapsed1"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle1()"
+                  >remove</i
+                >
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed1">
+            <div
+              class="card-body d-flex justify-content-between aling-item-center"
+            >
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                
+                  <table id="cidAccusedData" style="width: 100%; overflow: auto"
+                    class="table table-striped table-bordered table-sm">
+                    <thead>
+                      <tr>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Id
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Age
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Gender
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          FIR / NON FIR
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Father/Husband Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Mother's Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Address
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Present Status
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Confessional Statement
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Chargesheet
+                        </td>
+                        <!-- <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Chargesheet Details
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Section Found True
+                        </td> -->
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Image
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let accused of accuseds">
+                        <td>{{ accused.id }}</td>
+                        <td>{{ accused.name }}</td>
+                        <td>{{ accused.age }}</td>
+                        <td>{{ accused.gender }}</td>
+                        <td>{{ accused.fir ? "FIR" : "NON-FIR" }}</td>
+                        <td>{{ accused.fatherName }}</td>
+                        <td>{{ accused.motherName }}</td>
+                        <td>{{ accused.address }}</td>
+                        <td>{{ accused.presentStatus }}</td>
+                        <td>
+                          <app-image-viewer imgWidth="80px" imgHeight="80px" [imageURL]="accused.confessionStatement"
+                            *ngIf="accused.confessionStatement"></app-image-viewer>
+                        </td>
+                        <td>{{ accused.chargesheet }}</td>
+                        <!-- <td>{{ accused.chargesheetDetails }}</td>
+                        <td>{{ accused.sectionFoundTrue }}</td> -->
+                        <td>
+                          <app-image-viewer imgWidth="80px" imgHeight="80px" [imageURL]="accused.personImage"
+                            *ngIf="accused.personImage"></app-image-viewer>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deceased -->
+        <!-- <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span
+                class="justify-content-center text-left"
+                style="cursor: pointer"
+                (click)="toggle2()"
+                >Deceased Details</span
+              >
+              <div
+                *ngIf="!isCollapsed2"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle2()"
+                  >add</i
+                >
+              </div>
+              <div
+                *ngIf="isCollapsed2"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle2()"
+                  >remove</i
+                >
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed2">
+            <div
+              class="card-body d-flex justify-content-between aling-item-center"
+            >
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                
+                  <table id="cidDeceasedData" style="width: 100%" class="table table-striped table-bordered table-sm">
+                    <thead>
+                      <tr>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Id
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Age
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Gender
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Father's Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Mother's Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Address
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let deceassed of deceasseds">
+                        <td>{{ deceassed.id }}</td>
+                        <td>{{ deceassed.name }}</td>
+                        <td>{{ deceassed.age }}</td>
+                        <td>{{ deceassed.gender }}</td>
+                        <td>{{ deceassed.fatherName }}</td>
+                        <td>{{ deceassed.motherName }}</td>
+                        <td>{{ deceassed.address }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        
+        <!-- Complainant/Victim/Witness -->
+        <!-- <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span
+                class="justify-content-center text-left"
+                style="cursor: pointer"
+                (click)="toggle3()"
+                >Complainant/Victim/Witness Details</span
+              >
+              <div
+                *ngIf="!isCollapsed3"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle3()"
+                  >add</i
+                >
+              </div>
+              <div
+                *ngIf="isCollapsed3"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle3()"
+                  >remove</i
+                >
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed3">
+            <div
+              class="card-body d-flex justify-content-between aling-item-center"
+            >
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                
+                  <table id="cidVictimData" style="width: 100%" class="table table-striped table-bordered table-sm">
+                    <thead>
+                      <tr>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Id
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Complaint/Victim/Witness
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Age
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Gender
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Father's / Mother's Name
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Victim Cast
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Address
+                        </td>
+                        <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                          Contact
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let victim of victims">
+                        <td>{{ victim.id }}</td>
+                        <td>{{ victim.cav }}</td>
+                        <td>{{ victim.name }}</td>
+                        <td>{{ victim.age }}</td>
+                        <td>{{ victim.gender }}</td>
+                        <td>{{ victim.fatherName }}</td>
+                        <td>{{ victim.motherName }}</td>
+                        <td>{{ victim.address }}</td>
+                        <td>{{ victim.contact }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+        <!-- Case Proceeding -->
+        <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span
+                class="justify-content-center text-left"
+                style="cursor: pointer"
+                (click)="toggle4()"
+                >Case Proceeding</span
+              >
+              <div
+                *ngIf="!isCollapsed4"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle4()"
+                  >add</i
+                >
+              </div>
+              <div
+                *ngIf="isCollapsed4"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle4()"
+                  >remove</i
+                >
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed4">
+            <div
+              class="card-body d-flex justify-content-between aling-item-center"
+            >
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                
+                  <div class="container">
+                    <div class="row p-3" style="font-size: 16px">
+                      
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Sr No.</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.srNo }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Case Diary</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.caseDairy }}</div>
+                        </div>
+                      </div> -->
+            
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Last Case Diary & No.</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.caseDairyNo }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Final Form (FF)</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.ff }}</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Current Case Status</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.currentCaseStatus }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Remarks</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.caseFinalHead }}
+                          </div>
+                        </div>
+                      </div>
+            
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.report1 }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report Date</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.report1Date }}</div>
+                        </div>
+                      </div> -->
+            
+                      <div class="col-sm-12 col-md-12 col-lg-12">
+                        <table id="cidAccusedData" style="width: 100%; overflow: auto"
+                          class="table table-striped table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Report
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Report Date
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Prepared By
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Remarks
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>{{ cidCrimeCaseProceeding?.report1 }}</td>
+                              <td>{{cidCrimeCaseProceeding?.report1Date}}</td>
+                              <td>{{cidCrimeCaseProceeding.reportPreparedBy}}</td>
+                              <td>{{cidCrimeCaseProceeding.reportRemarks}}</td>
+                            </tr>
+                            <ng-template ngFor let-report [ngForOf]="cidCrimeCaseProceeding?.reportHistory">
+                              <tr *ngIf="report.reportFor == 'Report'">
+                                <td>{{report.reportType}}</td>
+                                <td>{{report.reportDate}}</td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+            
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Supervision Note</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.sNote }}</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Supervision Note Date</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.sNoteDate }}</div>
+                          <-- <app-image-viewer [imageURL]="cidCrimeCaseProceeding?.postmortemFile" [imgWidth]="'200px'"
+                            [imgHeight]="'200px'" style="width: auto"></app-image-viewer> --
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Supervision Note By</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.sNoteBy }}</div>
+                        </div>
+                      </div> -->
+            
+                      <div class="col-sm-12 col-md-12 col-lg-12">
+                        <table id="cidAccusedData" style="width: 100%; overflow: auto"
+                          class="table table-striped table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Supervision Report
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Supervision Report Date
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Prepared By
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Remarks
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>{{ cidCrimeCaseProceeding?.sNote }}</td>
+                              <td>{{cidCrimeCaseProceeding?.sNoteDate}}</td>
+                              <td>{{cidCrimeCaseProceeding?.sNoteBy}}</td>
+                              <td>{{cidCrimeCaseProceeding.sNoteRemarks}}</td>
+                            </tr>
+                            <ng-template ngFor let-report [ngForOf]="cidCrimeCaseProceeding?.reportHistory">
+                              <tr *ngIf="report.reportFor.startsWith('Supervision Note')">
+                                <td>{{report.reportFor}}</td>
+                                <td>{{report.reportDate}}</td>
+                                <td>{{report.reportType}}</td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Progress Report</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.pr }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Progress Report Date</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.prDate }}
+                          </div>
+                        </div>
+                      </div> -->
+            
+                      <div class="col-sm-12 col-md-12 col-lg-12">
+                        <table id="cidAccusedData" style="width: 100%; overflow: auto"
+                          class="table table-striped table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Progress Report
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Progress Report Date
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Prepared By
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Remarks
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>{{ cidCrimeCaseProceeding?.pr }}</td>
+                              <td>{{cidCrimeCaseProceeding?.prDate}}</td>
+                              <td>{{ cidCrimeCaseProceeding?.prPreparedBy }}</td>
+                              <td>{{cidCrimeCaseProceeding?.prRemarks}}</td>
+                            </tr>
+                            <ng-template ngFor let-report [ngForOf]="cidCrimeCaseProceeding?.reportHistory">
+                              <tr *ngIf="report.reportFor == 'PR'">
+                                <td>{{report.reportType}}</td>
+                                <td>{{report.reportDate}}</td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+            
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Case Document Type</div>
+                          <div class="col-8">:
+                            {{ cidCrimeCaseProceeding?.caseDocumentType }}
+                          </div>
+                          <!-- <app-image-viewer [imageURL]="cidCrimeCaseProceeding?.forensicReportFile" [imgWidth]="'200px'"
+                            [imgHeight]="'200px'" style="width: auto"></app-image-viewer> --
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Case Document</div>
+                          <div class="col-8">:
+                            <app-image-viewer [imageURL]="cidCrimeCaseProceeding?.caseDocument" [imgWidth]="'200px'"
+                              [imgHeight]="'200px'" style="width: auto"></app-image-viewer>
+                          </div>
+                        </div>
+                      </div> -->
+            
+                      <div class="col-sm-12 col-md-12 col-lg-12">
+                        <table id="cidAccusedData" style="width: 100%; overflow: auto"
+                          class="table table-striped table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Case Document Type
+                              </td>
+                              <td class="th-sm bg-dark text-white" style="font-weight: bold">
+                                Case Document
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>{{ cidCrimeCaseProceeding?.caseDocumentType }}</td>
+                              <td><app-image-viewer [imageURL]="cidCrimeCaseProceeding?.caseDocument" [imgWidth]="'200px'"
+                                  [imgHeight]="'200px'" style="width: auto"></app-image-viewer></td>
+                            </tr>
+                            <ng-template ngFor let-report [ngForOf]="cidCrimeCaseProceeding?.reportHistory">
+                              <tr *ngIf="report.reportFor == 'Case Document'">
+                                <td>{{report.reportType}}</td>
+                                <td><app-image-viewer [imageURL]="report.reportDate" [imgWidth]="'200px'" [imgHeight]="'200px'"
+                                    style="width: auto"></app-image-viewer></td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Case Document</div>
+                          <div class="col-8">:
+                            <app-image-viewer [imageURL]="cidCrimeCaseProceeding?.caseDocument" [imgWidth]="'200px'"
+                              [imgHeight]="'200px'" style="width: auto"></app-image-viewer>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">PR</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.pr }}</div>
+                        </div>
+                      </div>
+            
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report 1</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.report1}}
+                            <span *ngFor="let report of cidCrimeCaseProceeding?.reportHistory">
+                              <span *ngIf="report.reportFor == 'Report1'">, {{report.reportType}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report 1 Date</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.report1Date }}
+            
+                            <span *ngFor="let report of cidCrimeCaseProceeding?.reportHistory">
+                              <span *ngIf="report.reportFor == 'Report1'">, {{report.reportDate}}</span>
+                            </span>
+            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report 2</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.report2 }}
+            
+                            <span *ngFor="let report of cidCrimeCaseProceeding?.reportHistory">
+                              <span *ngIf="report.reportFor == 'Report2'">, {{report.reportType}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report 2 Date</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.report2Date }}
+            
+                            <span *ngFor="let report of cidCrimeCaseProceeding?.reportHistory">
+                              <span *ngIf="report.reportFor == 'Report2'">, {{report.reportDate}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report 3/4/5</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.report345 }}
+            
+                            <span *ngFor="let report of cidCrimeCaseProceeding?.reportHistory">
+                              <span *ngIf="report.reportFor == 'Report3'">, {{report.reportType}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col-4 fw-bold">Report 3/4/5 Date</div>
+                          <div class="col-8">: {{ cidCrimeCaseProceeding?.report3Date }}
+            
+                            <span *ngFor="let report of cidCrimeCaseProceeding?.reportHistory">
+                              <span *ngIf="report.reportFor == 'Report3'">, {{report.reportDate}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Trail Details -->
+        <div class="card m-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0 d-flex">
+              <span
+                class="justify-content-center text-left"
+                style="cursor: pointer"
+                (click)="toggle5()"
+                >Trail Details</span
+              >
+              <div
+                *ngIf="!isCollapsed5"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle5()"
+                  >add</i
+                >
+              </div>
+              <div
+                *ngIf="isCollapsed5"
+                style="justify-content: flex-end; align-items: flex-end"
+              >
+                <i
+                  class="material-icons"
+                  style="cursor: pointer"
+                  (click)="toggle5()"
+                  >remove</i
+                >
+              </div>
+            </h5>
+          </div>
+
+          <div class="collapse show" *ngIf="isCollapsed5">
+            <div
+              class="card-body d-flex justify-content-between aling-item-center"
+            >
+              <div class="container-fluid">
+                <div class="row" style="width: 100%; overflow: auto">
+                
+                  <div class="container">
+                    <div class="row p-3" style="font-size: 16px">
+            
+            
+                      <form [formGroup]="TrailForm">
+                        <input
+                          type="text"
+                          id="id"
+                          name="id"
+                          class="form-control"
+                          formControlName="id"
+                          hidden="hidden"
+                        />
+            
+                        <div class="form-group">
+                          <div class="row">
+                            <!-- <div class="col-sm-12 my-2">
+                              <hr />
+                              <div style="font-weight: bold">
+                                <p>21. Criminal History</p>
+                              </div>
+                            </div> -->
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="courtType">Court Type</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <select name="courtType" id="courtType" class="form-control" formControlName="courtType">
+                                  <option disabled selected>Select Court Type</option>
+                                  <option value="Supreme Court">Supreme Court</option>
+                                  <option value="High Courts">High Courts</option>
+                                  <option value="District Courts">District Courts</option>
+                                  <option value="Civil Courts">Civil Courts</option>
+                                  <option value="Criminal Courts">Criminal Courts</option>
+                                  <option value="Revenue Courts">Revenue Courts</option>
+                                  <option value="Tribunals">Tribunals</option>
+                                  <option value="Special Courts">Special Courts</option>
+                                </select>
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="courtName">Court Name</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="text"
+                                  id="courtName"
+                                  name="courtName"
+                                  class="form-control"
+                                  formControlName="courtName"
+                                />
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="courtCaseNo">Case No.</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="text"
+                                  id="courtCaseNo"
+                                  name="courtCaseNo"
+                                  formControlName="courtCaseNo"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="trialStatus">Trial Status</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <!-- <select name="trialStatus" id="trialStatus" class="form-control">
+                                  <option disabled selected>Select Status</option>
+                                  <option value="Option 1">Option 1</option>
+                                  <option value="Option 2">Option 2</option>
+                                </select> -->
+                                <input
+                                  type="text"
+                                  id="trialStatus"
+                                  name="trialStatus"
+                                  formControlName="trialStatus"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+                            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="hearingDate">Hearing Date</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="date"
+                                  id="hearingDate"
+                                  name="hearingDate"
+                                  formControlName="hearingDate"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="hearingNextDate">Next Hearing Date</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="date"
+                                  id="hearingNextDate"
+                                  name="hearingNextDate"
+                                  formControlName="hearingNextDate"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="witnessPresent">Witness Present</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <select name="witnessPresent" id="witnessPresent" class="form-control" formControlName="witnessPresent">
+                                  <option disabled selected>Select Yes/No</option>
+                                  <option value="Yes">Yes</option>
+                                  <option value="No">No</option>
+                                </select>
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="complainantPresent">Complainant Present</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="text"
+                                  id="complainantPresent"
+                                  name="complainantPresent"
+                                  formControlName="complainantPresent"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="superVisedBy">Supervised By</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="text"
+                                  id="superVisedBy"
+                                  name="superVisedBy"
+                                  class="form-control"
+                                  formControlName="superVisedBy"
+                                />
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="remarks">Remarks</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="text"
+                                  id="remarks"
+                                  name="remarks"
+                                  class="form-control"
+                                  formControlName="remarks"
+                                />
+                              </div>
+                            </div>
+            
+                            <div
+                              class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                            >
+                              <div class="col-sm-4">
+                                <label for="document">Documents</label>
+                              </div>
+                              <div class="col-sm-8">
+                                <input
+                                  type="file"
+                                  id="document"
+                                  name="document"
+                                  class="form-control"
+                                  formControlName="document"
+                                  (change)="handleFileChange($event.target.files)" 
+                                />
+                              </div>
+                            </div>
+            
+                          </div>
+                        </div>
+            
+                        <div class="text-center">
+                          <button
+                            type="button"
+                            class="btn btn-success"
+                            (click)="saveTrail()"
+                          >
+                            Add On +
+                          </button>
+                        </div>
+                      </form>
+            
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                          <div class="table-panel">
+                            <table
+                              id="cidTrailData"
+                              class="table table-bordered table-sm"
+                              style="width: 100%"
+                            >
+                              <thead>
+                                <tr>
+                                  <td class="th-sm">Id</td>
+                                  <td class="th-sm">Court Type</td>
+                                  <td class="th-sm">Court Name</td>
+                                  <td class="th-sm">Case No.</td>
+                                  <td class="th-sm">Hearing Date</td>
+                                  <td class="th-sm">Next Hearing Date</td>
+                                  <td class="th-sm">Witness Present</td>
+                                  <td class="th-sm">Complainant Present</td>
+                                  <td class="th-sm">Document</td>
+                                  <td class="th-sm">Supervised By</td>
+                                  <td class="th-sm">Remarks</td>
+                                  <td class="th-sm">Edit</td>
+                                  <!-- <td class="th-sm">Delete</td> -->
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let trail of TrailList; let i = index">
+                                  <td>{{ i + 1 }}</td>
+                                  <td>{{ trail.courtType }}</td>
+                                  <td>{{ trail.courtName }}</td>
+                                  <td>{{ trail.courtCaseNo }}</td>
+                                  <td>{{ trail.hearingDate }}</td>
+                                  <td>{{ trail.hearingNextDate }}</td>
+                                  <td>{{ trail.witnessPresent }}</td>
+                                  <td>{{ trail.complainantPresent }}</td>
+                                  <td>
+                                    <app-image-viewer imgWidth="80px" imgHeight="80px" [imageURL]="trail.document"
+                                      *ngIf="trail.document"></app-image-viewer>
+                                  </td>
+                                  <td>{{ trail.superVisedBy }}</td>
+                                  <td>{{ trail.remarks }}</td>
+            
+                                  <td>
+                                    <button
+                                      class="btn btn-warning"
+                                      (click)="iniTrailForm(trail)"
+                                    >
+                                      Edit
+                                    </button>
+                                  </td>
+                                  <!-- <td>
+                                    <button
+                                      class="btn btn-success"
+                                      *ngIf="!deceassed.active"
+                                      (click)="activateCIDCrimeDataDeceased(deceassed.id)"
+                                    >
+                                      Activate
+                                    </button>
+                                    <button
+                                      class="btn btn-danger"
+                                      *ngIf="deceassed.active"
+                                      (click)="
+                                        deactivateCIDCrimeDataDeceased(deceassed.id)
+                                      "
+                                    >
+                                      Delete
+                                    </button>
+                                  </td> -->
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+            
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+</div>

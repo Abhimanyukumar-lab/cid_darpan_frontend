@@ -1,0 +1,470 @@
+<div
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  "
+>
+  <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+    Training Management System
+  </div>
+  <button
+    class="dashboard-header btn btn-sm back-btn"
+    style="font-size: 30px"
+    (click)="goBack()"
+  >
+    <!-- &#215; -->
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button>
+</div>
+
+<section class="table-sec">
+  <div class="container">
+    <div class="accordion" id="tableModule">
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle()"
+              >Trainee Details
+            </span>
+            <div
+              *ngIf="!isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed">
+          <div class="card-body">
+            <form [formGroup]="entryForm">
+              <input
+                type="text"
+                id="id"
+                name="id"
+                class="form-control"
+                formControlName="id"
+                hidden="hidden"
+              />
+
+              <div class="form-group">
+                <div class="row">
+
+                  <!-- Subdivision -->
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="subdivName" style="font-weight: bold">
+                        {{ "SUBDIVISION.SUBDIVISION_TITLE" | translate }}
+                      </label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        name="subdivName"
+                        id="subdivName"
+                        formControlName="cidSubDivisionId"
+                        autocomplete="off"
+                        class="form-control hindi hindiFont"
+                        [ngClass]="{ invalidInput: isControlHasErrors('cidSubDivisionId', entryForm) }"
+                        (change)="selectSubDivision()"
+                      >
+                        <option [ngValue]="null" disabled>Select Subdivision</option>
+                        <option *ngFor="let subdiv of subdivisionList" [ngValue]="subdiv.id">
+                          <span *ngIf="language == 'en'">{{ subdiv.name }}</span>
+                          <span *ngIf="language == 'hi'">{{ subdiv.nameHi }}</span>
+                        </option>
+                      </select>
+                      <div *ngIf="isControlHasError('cidSubDivisionId', 'required', entryForm)" class="invalid">
+                        <strong> Sub Division is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Circle -->
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="circleInspectorName" style="font-weight: bold">
+                        {{ "USER.CIRCLE_NAME" | translate }}
+                      </label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        name="circleInspectorName"
+                        id="circleInspectorName"
+                        formControlName="circleInspectorId"
+                        autocomplete="off"
+                        class="form-control hindi hindiFont"
+                        [ngClass]="{ invalidInput: isControlHasErrors('circleInspectorId', entryForm) }"
+                        (change)="selectCircle()"
+                      >
+                        <option [ngValue]="null" disabled>Select Circle</option>
+                        <option *ngFor="let circleInspector of selectedCircle" [ngValue]="circleInspector.id">
+                          <span *ngIf="language == 'en'">{{ circleInspector.circleName }}</span>
+                          <span *ngIf="language == 'hi'">{{ circleInspector.circleNameHi }}</span>
+                        </option>
+                      </select>
+                      <div *ngIf="isControlHasError('circleInspectorId', 'required', entryForm)" class="invalid">
+                        <strong> Circle is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Police Station -->
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="stationName" style="font-weight: bold">
+                        {{ "APPOINTMENT.SELECT_POLICE_STATION" | translate }}
+                      </label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        name="stationName"
+                        id="stationName"
+                        formControlName="cidPoliceStationId"
+                        autocomplete="off"
+                        class="form-control hindi hindiFont"
+                        [ngClass]="{ invalidInput: isControlHasErrors('cidPoliceStationId', entryForm) }"
+                        (change)="selectIoDes()"
+                      >
+                        <option [ngValue]="null" disabled>Select Police Station</option>
+                        <option *ngFor="let station of selectedStations" [ngValue]="station.id">
+                          <span *ngIf="language == 'en'">{{ station.stationName }}</span>
+                          <span *ngIf="language == 'hi'">{{ station.stationNameHi }}</span>
+                        </option>
+                      </select>
+                      <div *ngIf="isControlHasError('cidPoliceStationId', 'required', entryForm)" class="invalid">
+                        <strong> Police Station is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="prisonerName" style="font-weight: bold"
+                        > Name</label
+                      >
+                    </div>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        id="prisonerName"
+                        name="prisonerName"
+                        formControlName="prisonerName"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="fatherName" style="font-weight: bold"
+                        >Email ID</label
+                      >
+                    </div>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        id="fatherName"
+                        name="fatherName"
+                        formControlName="fatherName"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="gender" style="font-weight: bold"
+                        >Mobile No</label
+                      >
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        id="gender"
+                        name="gender"
+                        formControlName="gender"
+                        class="form-control"
+                      >
+                        <option value="null" selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2">
+                    <div class="col-sm-4">
+                      <label for="ioDesignation" style="font-weight: bold">IO Designation</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <select
+                        name="ioDesignation"
+                        id="ioDesignation"
+                        formControlName="ioDesignation"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('ioDesignation', entryForm)
+                        }"
+                      >
+                        <option value="null" disabled>Select Designation</option>
+                        <option *ngFor="let designation of designationList" [value]="designation.id">
+                          <span>{{ designation.designationName }}</span>
+                          <!-- <span *ngIf="language == 'hi'">{{ designation.designationNameHi }}</span> -->
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          isControlHasError('ioDesignation', 'required', entryForm)
+                        "
+                        class="invalid"
+                      >
+                        <strong> IO Designation is required</strong>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="age" style="font-weight: bold">Image</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input
+                        type="file"
+                        class="form-control"
+                        formControlName="document"
+                        id="document"
+                        name="document"
+                        (change)="handleFileChange($event.target.files)"
+                        accept="application/pdf"
+                        [ngClass]="{ invalidInput: isControlHasErrors('document',entryForm) }"
+                      />
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="saveBasicDetails()"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle3()"
+              >Training Type Details</span
+            >
+            <div
+              *ngIf="!isCollapsed3"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle3()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed3"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle3()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed3">
+          <div class="card-body">
+            
+            <form [formGroup]="runningStatusForm">
+              <input
+                type="text"
+                id="id"
+                name="id"
+                class="form-control"
+                formControlName="id"
+                hidden="hidden"
+              />
+
+              <div class="form-group">
+                <div class="row">
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="date">i. Date</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        class="form-control"
+                        formControlName="date"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="details">ii. Details</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <textarea
+                        id="details"
+                        name="details"
+                        class="form-control"
+                        formControlName="details"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="source">iii. Source</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        id="source"
+                        name="source"
+                        class="form-control"
+                        formControlName="source"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start align-items-center my-2"
+                  >
+                    <div class="col-sm-4">
+                      <label for="remarksRS">iv. Remarks</label>
+                    </div>
+                    <div class="col-sm-8">
+                      <textarea
+                        id="remarksRS"
+                        name="remarksRS"
+                        class="form-control"
+                        formControlName="remarksRS"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  (click)="saveRunningStatus()"
+                >
+                  Add On +
+                </button>
+              </div>
+            </form>
+
+            <div class="row mt-3">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="table-panel">
+                  <table
+                    id="RunningStatusTable"
+                    class="table table-striped table-bordered table-sm"
+                    style="width: 100%"
+                  >
+                    <thead>
+                      <tr>
+                        <td class="th-sm">Id</td>
+                        <td class="th-sm">Date</td>
+                        <td class="th-sm">Details</td>
+                        <td class="th-sm">Source</td>
+                        <td class="th-sm">Remarks</td>
+                        <td class="th-sm">Edit</td>
+                        <td class="th-sm">Delete</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let status of runningStatuses; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ status.date }}</td>
+                        <td>{{ status.details }}</td>
+                        <td>{{ status.source }}</td>
+                        <td>{{ status.remarks }}</td>
+                        <td>
+                          <button
+                            class="btn btn-warning"
+                            (click)="initRunningStatusForm(status)"
+                          >
+                            Edit
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            class="btn btn-danger"
+                            *ngIf="status.active"
+                            (click)="
+                              deactivateCIDCrimeDataRunningStatus(status.id)
+                            "
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

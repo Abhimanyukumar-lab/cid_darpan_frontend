@@ -1,0 +1,200 @@
+import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { ModelService } from 'src/app/common/popup/model.service';
+import { Permissions } from 'src/app/models/Permissions';
+import { ApiCallerService } from 'src/app/services/api-caller.service';
+import { GlobalFunctionsService } from 'src/app/services/global-functions.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
+import { RefreshTableAndForm, RefreshViewDataStop } from 'src/app/storage/actions/app.actions';
+import { AppConstants } from 'src/app/storage/localdata/AppConstants';
+@Component({
+  selector: 'app-view-missing-person',
+  templateUrl: './view-missing-person.component.html',
+  styleUrls: ['./view-missing-person.component.scss'],
+})
+export class ViewMissingPersonComponent implements OnInit, OnDestroy {
+  subscription: any;
+  baseUrl: string = AppConstants.backServer;
+  missingPerson: any;
+
+  changeStatusPath: string = AppConstants.MISSING_PERSON_MODULE.FETCH_VIEW_URL;
+  changeStatusDeleteCode: string;
+  changeStatusDeleteUrl: string;
+  changeStatusModule: string = 'MISSINGPERSON';
+  changeStatusId: number = null;
+
+  forwardDestinationPath: string =
+    AppConstants.MISSING_PERSON_MODULE.FETCH_VIEW_FORWARDURL;
+  forwardDestinationDeleteCode: string;
+  forwardDestinationDeleteUrl: string;
+  forwardDestinationModule: string = 'MISSINGPERSON';
+  forwardDestinationId: number = null;
+
+  smsSendingPath: string = AppConstants.MISSING_PERSON_MODULE.FETCH_SMS_URL;
+  smsSendingModule: string = 'MISSINGPERSON';
+  smsSendingId: number = null;
+
+  citizenReportSMS: string = 'missingperson';
+
+  // change status dropdown options
+  changeStatusForModule: string = 'MISSINGPERSON';
+  moduleStatus: string = null;
+
+  changeStatusSubmitURL: string;
+  assignToOfficerSubmitURL: string;
+  forwatdToDestinationSubmitURL: string;
+  smsSendingSubmitURL: string;
+
+  isComplete: boolean = false;
+  isPending: boolean = false;
+  permissions: Permissions = new Permissions();
+
+  view: boolean = false;
+  table: boolean = false;
+
+  constructor(
+    private _location: Location,
+    private localStorage: LocalstorageService,
+    private global: GlobalFunctionsService,
+    private router: Router,
+    private apiCaller: ApiCallerService,
+    private appStore: Store<{ app: any }>,
+    private modelService: ModelService
+  ) {
+    this.baseUrl = global.getSiteBackUrl() || AppConstants.backServer;
+
+    this.global.checkForUserPermission(this.router.url);
+
+    this.missingPerson = this.localStorage.getStoredValue('viewData');
+
+    this.fetchData();
+
+    this.changeStatusId = this.missingPerson.id;
+    this.forwardDestinationId = this.missingPerson.id;
+    this.smsSendingId = this.missingPerson.id;
+
+    this.changeStatusSubmitURL =
+      AppConstants.MISSING_PERSON_MODULE.CHANGE_STATUS_SUBMIT;
+    this.assignToOfficerSubmitURL =
+      AppConstants.MISSING_PERSON_MODULE.ASSIGN_TO_OFFICER_SUBMIT;
+    this.forwatdToDestinationSubmitURL =
+      AppConstants.MISSING_PERSON_MODULE.FORWARD_TO_DESTINATION_SUBMIT;
+    this.smsSendingSubmitURL =
+      AppConstants.MISSING_PERSON_MODULE.SMS_SENDING_SUBMIT;
+
+    this.changeStatusDeleteCode =
+      AppConstants.MISSING_PERSON_MODULE.DELETE_CHECK_STATUS_BUTTON;
+    this.changeStatusDeleteUrl =
+      AppConstants.MISSING_PERSON_MODULE.DETELE_CHECK_STATUS_URL;
+
+    this.forwardDestinationDeleteCode =
+      AppConstants.MISSING_PERSON_MODULE.DELETE_FORWARD_TO_BUTTON;
+    this.forwardDestinationDeleteUrl =
+      AppConstants.MISSING_PERSON_MODULE.DETELE_FORWARD_URL;
+
+
+    this.permissions.changeStatusForm = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.CHANGE_STATUS_FORM
+    );
+
+    this.permissions.asssignToOfficer = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.ASSIGN_TO_OFFICER_FORM
+    );
+
+    this.permissions.changeStatusList = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.CHANGE_STATUS_TABLE
+    );
+
+    this.permissions.forwardToDestinationList = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.FORWARD_TO_OFFICER_TABLE
+    );
+
+    this.permissions.forwardToDestination = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.FORWARD_TO_OFFICER_FORM
+    );
+
+    this.permissions.sendSMSToUser = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.SMS_TO_USER_FORM
+    );
+
+    this.permissions.sendSMSToUserList = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.SMS_TO_USER_TABLE
+    );
+
+    this.permissions.activeInactive = this.global.checkForUserButtonPermission(
+      AppConstants.MISSING_PERSON_MODULE.ACTIVE_BUTTON
+    );
+  }
+  ngOnDestroy(): void {
+    this.localStorage.destroyStoredValue('viewData');
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.appStore.pipe(select('app')).subscribe((data) => {
+      if (data.isViewDataRefresh) {
+        this.appStore.dispatch(new RefreshViewDataStop({}));
+        this.fetchData();
+      }
+
+      this.table = data.isTableRefresh;
+      this.view = data.isViewDataRefresh;
+    });
+  }
+
+  goBack() {
+    this._location.back();
+  }
+
+  fetchData = () => {
+    this.apiCaller
+      .apiPostCall(
+        AppConstants.MISSING_PERSON_MODULE.FETCH_VIEW_DATA,
+        { id: this.missingPerson.id },
+        true
+      )
+      .subscribe((data) => {
+        this.missingPerson = data.missingPersonDTO;
+
+        this.moduleStatus = this.missingPerson.status;
+
+        this.isComplete =
+          AppConstants.MISSING_PERSON_MODULE.COPM_CLOSED !=
+          this.missingPerson.status
+            ? AppConstants.MISSING_PERSON_MODULE.COPM_REJECT !=
+              this.missingPerson.status
+            : false;
+            
+        this.isPending = this.missingPerson.status == AppConstants.PENDING;
+      });
+  };
+
+  
+  openModal = (id: string) => {
+    this.modelService.open(id);
+  };
+
+  closeModal = (id: string) => {
+    this.modelService.close(id);
+  };
+
+  
+  acceptApp = (acceptReject: number, id: string) => {
+    this.apiCaller
+      .apiPostCall(
+        AppConstants.MISSING_PERSON_MODULE.SHO_HIDE_PUBLICE,
+        {
+          id: this.missingPerson.id,
+          agreeReject: acceptReject
+        },
+        true
+      )
+      .subscribe((data) => {
+        this.closeModal(id);
+        this.appStore.dispatch(new RefreshTableAndForm(true));
+        this.fetchData();
+      });
+  };
+}

@@ -1,0 +1,32 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "ABOUT_US.ABOUT_TITLE" | translate
+  }}</span>
+</div>
+<div class="about-us">
+  <div class="about-map">
+    <iframe
+      [src]="districtDetails.mapUrl | Safe"
+      width="75%"
+      height="450"
+      frameborder="0"
+      style="border: 0"
+      allowfullscreen="false"
+      aria-hidden="false"
+      tabindex="0"
+    ></iframe>
+  </div>
+  <div class="ab-text">
+    <h3>
+      <span
+        style="color: #185784; text-transform: uppercase; margin-left: 20px"
+        >{{ "ABOUT_US.ABOUT_HEADLINE" | translate: { name: name } }}</span
+      >
+    </h3>
+    <div class="text-line">
+      <div style="padding: 20px 0; white-space: pre-line; text-align: justify">
+        {{ districtDetails.aboutUs }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+<div class="template-edit">
+  <div class="dashboard-header">SMS Template</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="template-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="smsTemplateForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="smsTemplateForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="templateId" class="col-3 col-form-label"
+            >Template Id</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="templateId"
+              name="templateId"
+              placeholder="Enter Template Id"
+              formControlName="templateId"
+              autocomplete="off"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="templateName" class="col-3 col-form-label"
+            >Template Name</label
+          >
+          <div class="col-8">
+            <input
+              type="text"
+              id="templateName"
+              name="templateName"
+              placeholder="Enter Template Name"
+              formControlName="templateName"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('templateName')
+              }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('templateName', 'required')"
+            class="invalid"
+          >
+            <strong>Template Name is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row mb-2">
+          <label for="body" class="col-3 col-form-label">Body</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="body"
+              name="body"
+              placeholder="Enter Body"
+              formControlName="body"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('body') }"
+              required
+            />
+          </div>
+          <div *ngIf="isControlHasError('body', 'required')" class="invalid">
+            <strong>Body is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="template_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SMS_TEMP && ADD_URL && !SMS_TEMPLATE_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="template_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SMS_TEMP && EDIT_URL && SMS_TEMPLATE_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

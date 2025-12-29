@@ -1,0 +1,25 @@
+<div class="dead">
+  <div class="dashboard-header">{{"DEAD_PERSON.DEAD_TITLE" | translate}}</div>
+  <div class="button-panel">
+    <a
+      routerLink="{{ permissions.add_url }}"
+      class="btn btn-success m-2"
+      *ngIf="permissions.add && permissions.add_url"
+      >Add Dead Person</a
+    >
+  </div>
+
+  <div style="padding: 20px">
+    <app-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+      [permissions]="permissions"
+      [condition]="'reportedBy-OFFICER'"
+      [filterOptions]="filterOptions"
+      [isApiAvailable]="false"
+    >
+    </app-table-data>
+  </div>
+</div>

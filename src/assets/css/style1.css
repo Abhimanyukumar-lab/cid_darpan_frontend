@@ -1,0 +1,719 @@
+@import url("https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: Laila !important;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+:root {
+  --fontsize1: 14px;
+  --fontsize2: 16px;
+  --fontsize3: 18px;
+  --fontsize4: 22px;
+  --black1: #272b3a;
+  --black2: #000000;
+  --blue: #0d6efd;
+  --orange: #fc493e;
+  --blue-bg: #eef9fc;
+  --img-border: #878787;
+  --hoverBg: #ffe1df;
+  --ourTeamImg: 195px;
+}
+
+.english {
+  display: none;
+}
+.firstHeader {
+  background-color: var(--black1);
+}
+/* header css */
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0rem;
+  color: #fff;
+  align-items: center;
+  font-size: var(--fontsize1);
+}
+.contactDiv {
+  display: flex;
+  align-items: center;
+}
+.commonContact {
+  display: flex;
+  align-items: center;
+  margin-right: 2.5rem;
+}
+.socialMedia {
+  margin-right: 0 !important;
+}
+.commonTopIcons {
+  margin-right: 0.5rem;
+}
+.socialIcons:not(.socialIcons:last-child) {
+  margin-right: 0.5rem;
+}
+.flag {
+  margin: auto;
+  display: block;
+}
+.socialIcons {
+  height: 22px;
+  cursor: pointer;
+}
+.languageDiv {
+  position: relative;
+}
+.dropDiv {
+  position: absolute;
+  top: 130%;
+  color: var(--black2);
+  left: 34%;
+  background-color: var(--blue-bg);
+  border: 1px solid var(--orange);
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.1s ease-in;
+}
+.itemList {
+  padding: 0.5rem;
+  color: var(--black1);
+  cursor: pointer;
+  font-weight: 500;
+  width: 79px;
+}
+.itemList:hover {
+  text-decoration: underline;
+}
+.itemDivider {
+  width: 100%;
+  border-bottom: 1px solid var(--orange);
+}
+.langDrop {
+  background-color: var(--blue-bg);
+  width: 80px;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  cursor: pointer;
+}
+.activeLang {
+  height: 77px;
+  opacity: 1;
+  overflow: initial;
+}
+.dropName {
+  color: var(--black1);
+}
+.dropArrow {
+  margin: auto 0 auto auto;
+  display: block;
+}
+
+/* second header css */
+.seondHeader {
+  background-color: var(--blue-bg);
+}
+.container2 {
+  display: flex;
+  justify-content: space-between;
+}
+.logo {
+  height: 100px;
+  width: auto;
+}
+.officersDetails {
+  display: flex;
+}
+.officerImg1 {
+  /* background-image: url(../img/img1/R.S.Bhatti.jpg); */
+  height: 100px;
+  width: 100px;
+  border: 1px solid var(--img-border);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.officerImg2 {
+  /* background-image: url(../img/img1/Navin-Chandra-Jha.jpeg); */
+  height: 100px;
+  width: 100px;
+  border: 1px solid var(--img-border);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: 50%;
+}
+.officerImg3 {
+  /* background-image: url(../img/img1/Vinit-Kumar.jpeg); */
+  height: 100px;
+  width: 100px;
+  border: 1px solid var(--img-border);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.officersDetails {
+  font-size: var(--fontsize1);
+}
+.officer {
+  text-align: center;
+  width: 177px;
+}
+.officerImg1,
+.officerImg2,
+.officerImg3 {
+  margin: auto;
+  border-radius: 5px;
+}
+.officerName div:first-child,
+.officerName div:nth-child(2) {
+  font-weight: 600;
+}
+.officerName {
+  margin-top: 0.5rem;
+}
+
+/* navbar css */
+.navHead {
+  background-color: var(--black1);
+}
+.container3 {
+  padding: 0.8rem 0;
+  font-size: var(--fontsize2);
+  font-weight: 500;
+}
+.navList {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  gap: 1rem;
+  justify-content: center;
+}
+.navLink {
+  color: var(--black1);
+  text-decoration: none !important;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.navLink:hover {
+  color: var(--black1);
+  text-decoration: none !important;
+}
+.navItem {
+  background-color: var(--blue-bg);
+  padding: 0.3rem 0.8rem;
+  border-radius: 30px;
+  list-style: none;
+  position: relative;
+}
+.navItem:hover {
+  background-color: var(--orange);
+}
+.navItem:hover .navLink span {
+  color: #ffffff;
+}
+.navArrow {
+  margin: auto 0 auto 1rem;
+}
+.navDropdownParent {
+  position: absolute;
+  left: 0;
+  top: 130%;
+  display: none;
+  z-index: 1;
+}
+.navDropdownUl {
+  width: 240px;
+  border: 1px solid var(--orange);
+}
+.navDropdownLinks {
+  color: var(--black1) !important;
+  text-decoration: none;
+}
+.navDropdownList {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--orange);
+  background-color: var(--blue-bg);
+  list-style: none;
+}
+.navDropdownList:hover {
+  background-color: var(--hoverBg);
+}
+.navDropdownList:last-child {
+  border-bottom: none;
+}
+.dropActive {
+  display: block;
+}
+
+/* Hero Image css */
+.heroImg {
+  /* background-image: url(../img/img1/Hero-Image.jpg); */
+  height: 366px;
+  width: 100%;
+  padding: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+/* Headlines css */
+.decoratievLine {
+  width: 1.5rem;
+  border-bottom: 3px solid var(--orange);
+}
+.headlineText {
+  font-size: var(--fontsize4);
+  color: var(--black2);
+  font-weight: 600;
+  margin: 0 1rem;
+}
+.newsContent {
+  display: flex;
+  align-items: center;
+}
+.dotIcon {
+  height: 10px;
+  width: 10px;
+  background-color: #ffbf25;
+  border-radius: 100%;
+  margin-right: 0.5rem;
+}
+.newsline {
+  color: #ffffff;
+}
+.newsline:hover {
+  color: #ffffff;
+}
+.marqueeTag {
+  height: 40px;
+  white-space: nowrap;
+  width: max-content;
+}
+.marqueeParent {
+  overflow: hidden;
+  width: 100%;
+  background-color: var(--orange);
+  font-size: var(--fontsize2);
+}
+/* Our Services & Important Link css */
+.impLinksParent {
+  border: 1px solid var(--orange);
+  border-radius: 5px;
+}
+.impLinks {
+  font-size: var(--fontsize2);
+  height: 37.3rem;
+  overflow-y: scroll;
+}
+
+.impLinkList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0.8rem 1rem;
+  color: var(--black1);
+  text-decoration: none;
+  background-color: var(--blue-bg);
+  font-weight: 500;
+}
+.impLinkList:hover {
+  color: var(--black1);
+  background-color: var(--hoverBg);
+}
+.impLinkListParent:last-child {
+  border-bottom: none;
+}
+.impLinkListParent {
+  list-style: none;
+  border-bottom: 1px solid var(--orange);
+}
+
+.impLinksIcons {
+  margin-right: 1rem;
+}
+.impLinksHeading {
+  font-size: var(--fontsize4);
+  font-weight: 700;
+  list-style: none;
+  text-align: center;
+  background-color: var(--orange);
+  color: #ffffff;
+}
+.impLinkListParent a:last-child {
+  border-radius: 0 0 5px 5px;
+}
+.ourServicesHead {
+  padding: 1rem 0;
+  text-align: center;
+  color: #ffffff;
+  background-color: var(--orange);
+  font-size: var(--fontsize4);
+  font-weight: 700;
+}
+.ourServices {
+  border: 1px solid var(--orange);
+  height: 100%;
+  border-radius: 5px;
+  background-color: var(--blue-bg);
+}
+.servicesIcons {
+  margin: auto;
+  display: block;
+}
+.servicesTitle {
+  color: var(--black1);
+  font-weight: 500;
+  margin-top: 1rem;
+  text-align: center;
+}
+.servicesBox {
+  background-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  font-size: var(--fontsize3);
+  padding: 2rem;
+  width: 287px;
+  height: 166px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #ffffff;
+  transition: all 0.15s ease-in;
+  text-decoration: none;
+}
+.servicesBox:hover {
+  background-color: var(--hoverBg);
+  border: 1px solid var(--orange);
+  box-shadow: none;
+}
+/* Our Team CSS */
+.ourTeam {
+  font-size: var(--fontsize4);
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--orange);
+  text-align: center;
+}
+.teamInfo {
+  display: flex;
+  gap: 2rem;
+  font-size: var(--fontsize1);
+}
+.officersInfo {
+  background-color: var(--blue-bg);
+  border: 1px solid #878787;
+  border-radius: 5px;
+}
+.teamOfficerName div:first-child,
+.teamOfficerName div:nth-child(2) {
+  font-weight: 600;
+}
+.teamOfficerName * {
+  text-align: center;
+}
+.teamOfficerName {
+  padding: 0.5rem 0.5rem;
+}
+.teamOfficerImg1 {
+  /* background-image: url(../img/img1/Vinit-Kumar.jpeg); */
+  height: var(--ourTeamImg);
+  width: var(--ourTeamImg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+}
+.teamOfficerImg2 {
+  /* background-image: url(../img/img1/Rajesh-Kumar.jpg); */
+  height: var(--ourTeamImg);
+  width: var(--ourTeamImg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+  background-position: bottom;
+}
+.teamOfficerImg3 {
+  /* background-image: url(../img/img1/Saroj-Kumar-Sah.jpeg); */
+  height: var(--ourTeamImg);
+  width: var(--ourTeamImg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+}
+.teamOfficerImg4 {
+  /* background-image: url(../img/img1/Navjot-Seemi.jpeg); */
+  height: var(--ourTeamImg);
+  width: var(--ourTeamImg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+  background-position: center;
+}
+.teamOfficerImg5 {
+  /* background-image: url(../img/img1/Santosh-Kumar-Ray.jpeg); */
+  height: var(--ourTeamImg);
+  width: var(--ourTeamImg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+}
+.teamOfficerImg6 {
+  /* background-image: url(../img/img1/Shashibhushan-Singh.jpeg); */
+  height: var(--ourTeamImg);
+  width: var(--ourTeamImg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+  background-position: center;
+}
+
+/* About Rohtas Police & Press Release CSS */
+.aboutUs {
+  font-size: var(--fontsize4);
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--orange);
+  text-align: center;
+}
+.aboutInfo {
+  font-size: var(--fontsize1);
+  border: 1px solid var(--orange);
+  border-radius: 5px;
+  height: 35rem;
+  overflow-y: auto;
+}
+.pressInfo {
+  font-size: var(--fontsize1);
+  height: 35rem;
+  overflow-y: auto;
+}
+.pressNews {
+  display: flex;
+  align-items: baseline;
+}
+.pressIcon {
+  margin-right: 0.5rem;
+}
+.pressDivider {
+  width: 100%;
+  border-bottom: 1px solid #ffb5b0;
+  margin: 1rem 0;
+}
+.pressNewsLink {
+  text-decoration: none;
+}
+.pressNewsLink:hover {
+  text-decoration: underline;
+}
+
+/* Image Gallary CSS */
+.imgGallaryHeading {
+  font-size: var(--fontsize4);
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--orange);
+  text-align: center;
+}
+.gallaryImg {
+  height: 150px;
+  width: auto;
+}
+
+/* Footer CSS */
+.footer {
+  background-color: var(--black1);
+  color: #ffffff;
+  font-size: var(--fontsize1);
+}
+.footerSocialMedia {
+  margin-top: 0.5rem;
+}
+.footerSocialMediaIcons {
+  margin-right: 0.5rem;
+}
+.footerLocation {
+  margin-top: 0.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: auto;
+}
+.footerLocation:hover {
+  color: #ffffff;
+}
+
+.footerHeading {
+  font-size: var(--fontsize2);
+  font-weight: 600;
+}
+.footerContactIcons {
+  margin-right: 0.5rem;
+}
+.footerLinks {
+  margin-top: 0.5rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+.footerLinks:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+.footerQRCode {
+  height: 135px;
+  width: auto;
+}
+.footerStoreBtn {
+  height: 60px;
+  width: auto;
+}
+.footerContent {
+  display: flex;
+  gap: 8rem;
+}
+.footerContact {
+  display: flex;
+  flex-direction: column;
+}
+.footerAppInstalled {
+  font-size: var(--fontsize2);
+}
+.footerDivider {
+  width: 100%;
+  border-bottom: 1px solid #ffffff;
+  margin: 1rem 0;
+}
+.footerCopyrightLink {
+  color: #ffffff !important;
+}
+
+/* hamburger css */
+.hamburger {
+  height: 30px;
+  width: auto;
+  cursor: pointer;
+}
+.hamburgerMenu {
+  display: none;
+}
+/* media queries */
+@media screen and (max-width: 1350px) {
+  .footerContent {
+    gap: 3rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .activeNav1 {
+    width: 85% !important;
+    overflow-x: auto !important;
+    left: auto !important;
+  }
+  .topHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: auto !important;
+    /* padding-top: 3rem; */
+    padding: 0 0 0.5rem 0;
+  }
+  .contactDiv {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .flagDiv {
+    margin-bottom: 0.5rem;
+  }
+  .hamburgerMenu {
+    display: block;
+  }
+  .navHead {
+    position: fixed;
+    z-index: 2;
+    top: 0%;
+    left: -5%;
+    padding: 0 6px;
+    width: 0%;
+    overflow-x: hidden;
+    height: 100vh;
+    transition: all 0.1s ease-in;
+    border-right: 2px solid var(--orange);
+  }
+  .navItem {
+    width: 100%;
+    border-radius: 0;
+    padding: 0;
+  }
+  .navLink {
+    padding: 0.5rem 1rem;
+  }
+  .navDropdownUl {
+    width: 100%;
+    border: none;
+  }
+  .container3 {
+    padding: 8px 4px;
+    margin-top: 4rem;
+  }
+  .navDropdownParent {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+  .navList {
+    gap: 1rem;
+  }
+  .navDropdownList:first-child {
+    border-top: 1px solid var(--orange);
+  }
+  .navDropdownList:last-child {
+    border-bottom: 0;
+  }
+  .hamburger {
+    /* position: fixed;
+    z-index: 2;
+    background-color: var(--black1);
+    border-radius: 5px; */
+  }
+  .hamburgerMenu {
+    background-color: var(--black1);
+  }
+  .hamLabel {
+    /* position: fixed;
+    z-index: 3; */
+  }
+  .footerLocation {
+    display: flex;
+    align-items: center;
+  }
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    transition: all 0.15s ease-in;
+  }
+  .footerQRCode {
+    height: 100px;
+  }
+  .footerStoreBtn {
+    height: 50px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .topHeader {
+    max-width: none !important;
+  }
+}
+@media screen and (min-width: 468px) and (max-width: 767px) {
+  .officer {
+    width: 150px;
+  }
+}
+@media screen and (max-width: 467px) {
+  .officer {
+    width: 112px;
+  }
+  .container2 {
+    padding: 1.5rem 0 !important;
+  }
+}

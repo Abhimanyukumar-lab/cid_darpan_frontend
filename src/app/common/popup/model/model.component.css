@@ -1,0 +1,88 @@
+app-modal {
+  display: none;
+}
+app-modal .app-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: hidden;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+app-modal .app-modal .app-modal-body {
+  height: auto;
+  background: #fff;
+  margin: 40px;
+  overflow: auto;
+}
+app-modal .app-modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.75;
+  z-index: 900;
+}
+
+.high-box {
+  height: calc(100vh - 126px) !important;
+}
+
+.auto-box {
+  height: auto !important;
+}
+
+body.app-modal-open {
+  overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  .app-modal .sm-modal,
+  .app-modal .md-modal,
+  .app-modal .lg-modal,
+  .app-modal .lx-modal {
+    width: 100% !important;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  .app-modal .sm-modal,
+  .app-modal .md-modal {
+    width: 75% !important;
+  }
+  .app-modal .lg-modal,
+  .app-modal .lx-modal {
+    width: 100% !important;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  .app-modal .sm-modal,
+  .app-modal .md-modal {
+    width: 50% !important;
+  }
+  .app-modal .lg-modal,
+  .app-modal .lx-modal {
+    width: 100% !important;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .app-modal .sm-modal {
+    width: 30% !important;
+  }
+  .app-modal .md-modal {
+    width: 50% !important;
+  }
+  .app-modal .lg-modal {
+    width: 75% !important;
+  }
+  .app-modal .lx-modal {
+    width: 100% !important;
+  }
+}/*# sourceMappingURL=model.component.css.map */

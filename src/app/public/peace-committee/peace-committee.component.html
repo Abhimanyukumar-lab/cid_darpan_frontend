@@ -1,0 +1,41 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "PEACE.PEACE_TITLE" | translate
+  }}</span>
+</div>
+<table class="table">
+  <thead style="background-color: black">
+    <th style="width: 10%; color: white; padding: 15px">
+      {{ "FORMS.SL_NO" | translate }}
+    </th>
+    <th style="width: 35%; color: white; padding: 15px">
+      {{ "FORMS.TITLE" | translate }}
+    </th>
+    <th style="width: 50%; color: white; padding: 15px">
+      {{ "TRANSFER.TRANSFER_DESCRIPTION" | translate }}
+    </th>
+    <th style="width: 5%; color: white; padding: 15px">
+      {{ "FORMS.VIEW" | translate }}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let peace of peaceCommity">
+      <td>{{ peace.id }}</td>
+      <td>{{ peace.title }}</td>
+      <td>{{ peace.description }}</td>
+      <td>
+        <a
+          href="{{ baseUrl + peace.link }}"
+          target="blank"
+          class="btn btn-primary"
+          >View</a
+        >
+      </td>
+    </tr>
+    <tr *ngIf="peaceCommity && peaceCommity.length == 0">
+      <td colspan="4" style="text-align: center">
+        {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,65 @@
+
+<div class="default" *ngIf="style == 'default'">
+  <div class="super-header">
+    <div class="contact-details">
+      <i class="material-icons md-light">email</i>
+      <span>{{ districtDetails.email }}</span>
+    </div>
+    <div class="contact-details">
+      <i class="material-icons md-light">call</i>
+      <span>{{ districtDetails.contactNo }}</span>
+    </div>
+    <img src="/assets/images/flag.gif" alt="Indian Flag" class="flag" />
+    <div class="social-icon">
+      <a href="{{ districtDetails.fbLink }}" target="blank" *ngIf="districtDetails.fbLink">
+        <i class="material-icons md-light f-icon">facebook</i>
+      </a>
+      <a href="{{ districtDetails.twitterLink }}" target="blank" *ngIf="districtDetails.twitterLink">
+        <!-- <i class="fi fi-twitter f-icon"></i> -->
+        <i class="fa-brands fa-x-twitter" style="display: flex; justify-content: center; align-items: center; padding: 5px;"></i>
+
+      </a>
+      <a href="{{ districtDetails.youtubeLink }}" target="blank" *ngIf="districtDetails.youtubeLink">
+        <i class="fi fi-youtube-play f-icon"></i>
+      </a>
+    </div>
+    <div class="language">
+      <span (click)="doLangChange()" style="cursor: pointer; text-align: center">{{ otherLang }}</span>
+    </div>
+  </div>
+</div>
+<div class="style3" *ngIf="style == 'style3'">
+  <header class="header1 order-lg-1 order-2" style="padding: 10px;">
+    <div class="container">
+      <ul class="nav d-flex justify-content-between align-items-center">
+        <li class="nav-item flex-start d-flex align-items-center flex-wrap">
+          <div class="nav-link flag" aria-current="page" href="#"><img src="/assets/images/flag.gif" alt="indian-flag">
+          </div>
+          <div class="nav-link d-flex justify-content-between align-items-center">
+            <i class="material-icons md-light" style="padding: 10px;">call</i>
+            <span>{{ districtDetails.contactNo }}</span>
+          </div>
+          <div class="nav-link d-flex justify-content-between align-items-center">
+            <i class="material-icons md-light" style="padding: 10px;">email</i>
+            <span>{{ districtDetails.email}}</span>
+          </div>
+        </li>
+        <li class="nav-item d-flex justify-self-end social-media-icon align-items-center">
+          <a class="nav-link px-1" href="{{ districtDetails.fbLink }}" *ngIf="districtDetails.fbLink">
+            <i class="material-icons md-light f-icon">facebook</i>
+          </a>
+          <a class="nav-link px-1" href="{{ districtDetails.twitterLink }}" *ngIf="districtDetails.twitterLink">
+            <i class="fi fi-twitter f-icon"></i>
+          </a>
+          <a class="nav-link px-1" href="{{ districtDetails.youtubeLink }}" *ngIf="districtDetails.youtubeLink">
+            <i class="fi fi-youtube-play f-icon"></i>
+          </a>
+          <div class="nav-link">
+            <span (click)="doLangChange()" style="cursor: pointer; text-align: center">{{otherLang }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+</div>
+<div class="bar-color" style="height: 5px"></div>

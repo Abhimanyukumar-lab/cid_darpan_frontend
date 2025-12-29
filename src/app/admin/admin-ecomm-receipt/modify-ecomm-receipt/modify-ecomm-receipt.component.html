@@ -1,0 +1,372 @@
+<div class="ecom-edit">
+  <div class="dashboard-header">
+    {{ "ECOM_RECEIPT.ECOM_RECEIPT_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="supreme-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="ecommunicationReceiptForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="ecommunicationReceiptForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <div class="row mb-2" style="padding-bottom: 10px">
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ECOM_RECEIPT.SER_NO_DATE" | translate }}:</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="ecommNoDate"
+            placeholder="Eg.999999999,01/01/2021"
+            (keyup)="setDataRecipt($event.target.value)"
+            [ngClass]="{ invalidInput: isControlHasErrors('ecommNoDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('ecommNoDate', 'required')"
+            class="invalid"
+          >
+            <strong>Serial Number and Date is Required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "ECOM_RECEIPT.REC_NO" | translate }}:</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="reciptNo"
+            placeholder="{{ 'ECOM_RECEIPT.ENTR_REC_NO' | translate }}"
+            id="reciptNo"
+            [ngClass]="{ invalidInput: isControlHasErrors('reciptNo') }"
+          />
+          <div
+            *ngIf="isControlHasError('reciptNo', 'required')"
+            class="invalid"
+          >
+            <strong>Receipt Number is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ECOM_RECEIPT.FROM_WHO" | translate }}:</span
+          ><input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            formControlName="stationFrom"
+            placeholder="{{ 'ECOM_RECEIPT.FROM_WHO' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('stationFrom')
+            }"
+            (change)="focusOut($event, 'stationFrom')"
+            (focusout)="focusOut($event, 'stationFrom')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            formControlName="stationFrom"
+            placeholder="{{ 'ECOM_RECEIPT.FROM_WHO' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('stationFrom')
+            }"
+            (change)="focusOut($event, 'stationFrom')"
+            (focusout)="focusOut($event, 'stationFrom')"
+          />
+          <div
+            *ngIf="isControlHasError('stationFrom', 'required')"
+            class="invalid"
+          >
+            <strong>From whom received is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "ECOM_RECEIPT.DOC_NO" | translate }}:</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="ecommSrNo"
+            placeholder="{{ 'ECOM_RECEIPT.ENTR_DOC_NO' | translate }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('ecommSrNo') }"
+          />
+          <div
+            *ngIf="isControlHasError('ecommSrNo', 'required')"
+            class="invalid"
+          >
+            <strong>Letter Number is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "ECOM_RECEIPT.DATE" | translate }}:</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="ecommDate"
+            [ngClass]="{ invalidInput: isControlHasErrors('ecommDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('ecommDate', 'required')"
+            class="invalid"
+          >
+            <strong>Date is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ECOM_RECEIPT.SUBJECT" | translate }}:</span
+          >
+          <textarea
+            *ngIf="language == 'hi'"
+            class="form-control hindi hindiFont"
+            formControlName="ecommSubject"
+            id="ecommSubject"
+            placeholder="{{ 'ECOM_RECEIPT.ENTR_SUBJECT' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('ecommSubject')
+            }"
+            (change)="focusOut($event, 'ecommSubject')"
+            (focusout)="focusOut($event, 'ecommSubject')"
+          ></textarea>
+          <textarea
+            *ngIf="language == 'en'"
+            class="form-control"
+            formControlName="ecommSubject"
+            id="ecommSubject"
+            placeholder="{{ 'ECOM_RECEIPT.ENTR_SUBJECT' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('ecommSubject')
+            }"
+            (change)="focusOut($event, 'ecommSubject')"
+            (focusout)="focusOut($event, 'ecommSubject')"
+          ></textarea>
+          <div
+            *ngIf="isControlHasError('ecommSubject', 'required')"
+            class="invalid"
+          >
+            <strong>Subject is required</strong>
+          </div>
+        </div>
+        <!-- <div class="col-sm-4">
+          <span class="glob-span">Department :</span>
+          <select
+            name="assigndForName"
+            id="assigndForName"
+            formControlName="assigndFor"
+            autocomplete="off"
+            class="form-select"
+            [ngClass]="{ invalidInput: isControlHasErrors('assigndFor') }"
+            required
+          >
+            <option value="null" disabled>Select Department Name</option>
+            <option
+              *ngFor="let officer of officersList"
+              value="{{ officer.id }}"
+            >
+              {{ officer.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="isControlHasError('assigndFor', 'required')"
+            class="invalid"
+          >
+            <strong> Department is required</strong>
+          </div>
+        </div> -->
+      </div>
+      <div
+        class="row mb-2"
+        style="border-top: 1px dotted; padding-bottom: 10px"
+      >
+        <div>
+          <span class="glob-span">{{
+            "ECOM_RECEIPT.REC_MEMORIAL" | translate
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "ECOM_RECEIPT.NUMBER" | translate }}:</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="ecommreceviedNo"
+            maxlength="10"
+            (keypress)="numberOnly($event)"
+            [ngClass]="{ invalidInput: isControlHasErrors('ecommreceviedNo') }"
+          />
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "ECOM_RECEIPT.DATE" | translate }}:</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="ecommQueriesReceivedDate"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('ecommQueriesReceivedDate')
+            }"
+          />
+        </div>
+      </div>
+      <div
+        class="row mb-2"
+        style="border-top: 1px dotted; padding-bottom: 10px"
+      >
+        <div>
+          <span class="glob-span">{{
+            "ECOM_RECEIPT.TYPE_OF_EXC" | translate
+          }}</span>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "ECOM_RECEIPT.NUMBER" | translate }}:</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="ecommresolveNo"
+            (keypress)="numberOnly($event)"
+            [ngClass]="{ invalidInput: isControlHasErrors('ecommresolveNo') }"
+          />
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "ECOM_RECEIPT.DATE" | translate }}:</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="ecommResolvedDate"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('ecommResolvedDate')
+            }"
+          />
+        </div>
+      </div>
+      <div class="row mb-2" style="border-top: 1px dotted">
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ECOM_RECEIPT.REMARK" | translate }}:</span
+          >
+          <textarea
+            *ngIf="language == 'hi'"
+            class="form-control hindi hindiFont"
+            formControlName="ecommSummary"
+            id="ecommSummary"
+            placeholder="{{ 'ECOM_RECEIPT.ENTR_REMARK' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('ecommSummary')
+            }"
+            (change)="focusOut($event, 'ecommSummary')"
+            (focusout)="focusOut($event, 'ecommSummary')"
+          ></textarea>
+          <textarea
+            *ngIf="language == 'en'"
+            class="form-control"
+            formControlName="ecommSummary"
+            id="ecommSummary"
+            placeholder="{{ 'ECOM_RECEIPT.ENTR_REMARK' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('ecommSummary')
+            }"
+            (change)="focusOut($event, 'ecommSummary')"
+            (focusout)="focusOut($event, 'ecommSummary')"
+          ></textarea>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ECOM_RECEIPT.STATUS" | translate }}:</span
+          >
+          <select
+            name="ecommStatus"
+            formControlName="ecommStatus"
+            autocomplete="off"
+            class="form-select"
+            [ngClass]="{ invalidInput: isControlHasErrors('ecommStatus') }"
+            required
+          >
+            <option value="null" disabled>
+              {{ "ECOM_RECEIPT.SEL_STATUS" | translate }}
+            </option>
+            <option value="Processed">
+              {{ "ECOM_RECEIPT.PROCESSED" | translate }}
+            </option>
+            <option value="Waiting at Section">
+              {{ "ECOM_RECEIPT.WAITING" | translate }}
+            </option>
+          </select>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "ECOM_RECEIPT.ATTACH_DOC" | translate }}:</span
+          ><input
+            type="file"
+            class="form-control"
+            formControlName="ecommFill2"
+            id="ecommFill2"
+            name="ecommFill2"
+            accept="application/pdf,image/jpef, image/jpe,image/pjpeg"
+            [ngClass]="{ invalidInput: isControlHasErrors('ecommFill2') }"
+            (change)="handleItemImageChange($event.target.files)"
+          />
+        </div>
+      </div>
+
+      <div
+        class="
+          form-group
+          d-flex
+          flex-wrap
+          justify-content-center
+          align-items-center
+        "
+        style="margin-top: 5px"
+      >
+        <button
+          id="receipt_submit"
+          (click)="submit()"
+          class="btn btn-primary px-9 py-9"
+          [disabled]="loading"
+          *ngIf="ADD_ECOM_RECEIPT && ADD_URL && !ECOM_RECEIPT_PARAMS.ID"
+        >
+          Save
+          <div
+            class="spinner-border spinner-border-sm text-light align-middle"
+            *ngIf="loading"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </button>
+        <button
+          id="receipt_submit"
+          (click)="submit()"
+          class="btn btn-primary px-9 py-9"
+          [disabled]="loading"
+          *ngIf="EDIT_ECOM_RECEIPT && EDIT_URL && ECOM_RECEIPT_PARAMS.ID"
+        >
+          Save
+          <div
+            class="spinner-border spinner-border-sm text-light align-middle"
+            *ngIf="loading"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

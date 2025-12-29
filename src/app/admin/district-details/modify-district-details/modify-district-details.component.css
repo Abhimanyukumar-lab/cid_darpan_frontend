@@ -1,0 +1,16 @@
+.district-details-edit {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.district-details-edit .district-details-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=modify-district-details.component.css.map */

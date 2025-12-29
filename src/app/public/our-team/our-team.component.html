@@ -1,0 +1,70 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "OUR_TEAM.OUR_TEAM_TITLE" | translate
+  }}</span>
+</div>
+<section class="our-team">
+  <div class="container" style="display: flex; flex-wrap: wrap">
+    <div class="card" *ngFor="let ourtem of our_team">
+      <div class="box">
+        <div class="img-responsive" style="width: 100%; height: 250px">
+          <app-image-viewer
+            [imageURL]="ourtem.link"
+            [imgWidth]="'100%'"
+            [imgHeight]="'100%'"
+          ></app-image-viewer>
+        </div>
+        <p
+          *ngIf="language == 'en'"
+          class="officer-name"
+          style="font-size: 20px; color: black; line-height: 1.5"
+        >
+          {{ ourtem.title }}
+        </p>
+        <p
+          *ngIf="language == 'hi'"
+          class="officer-name"
+          style="font-size: 20px; color: black; line-height: 1.5"
+        >
+          {{ ourtem.titleHi }}
+        </p>
+        <p
+          class="officer-name"
+          style="font-size: 14px; color: black; line-height: 1.5"
+        >
+          {{ ourtem.designationName }}
+        </p>
+        <p
+          *ngIf="language == 'en'"
+          class="officer-about"
+          style="font-size: 16px; color: gray; line-height: 1.5"
+        >
+          {{ ourtem.description }}
+        </p>
+        <p
+          *ngIf="language == 'hi'"
+          class="officer-about"
+          style="font-size: 16px; color: gray; line-height: 1.5"
+        >
+          {{ ourtem.descriptionHi }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    style="
+      width: 100%;
+      height: 150px;
+      background-color: #ffffff;
+      color: red;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+    *ngIf="our_team && our_team.length == 0"
+  >
+    {{ "COMMON.NO_DATA_ADDED" | translate }}
+  </div>
+</section>

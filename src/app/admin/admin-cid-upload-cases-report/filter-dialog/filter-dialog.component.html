@@ -1,0 +1,71 @@
+<!-- <div class="dialog-container">
+  <div class="dialog-header">
+    <i class="material-icons">filter_list</i>
+    <h2>Download Report Filters</h2>
+    <button class="close-btn" (click)="close()">
+      <i class="material-icons">close</i>
+    </button>
+  </div>
+  
+  <div class="dialog-content">
+    <div *ngIf="isLoading && districts.length === 0" class="loading">
+      <i class="material-icons spin">refresh</i>
+      Loading filters...
+    </div>
+    
+    <div *ngIf="!isLoading || districts.length > 0">
+      <div class="filter-row">
+        <div class="filter-field">
+          <label for="srType">SR/NSR</label>
+          <select id="srType" [(ngModel)]="selectedSR" [disabled]="isLoading">
+            <option value="">Select SR/NSR</option>
+            <option *ngFor="let sr of srOptions" [value]="sr">{{ sr }}</option>
+          </select>
+        </div>
+        
+        <div class="filter-field">
+          <label for="district">District</label>
+          <select id="district" [(ngModel)]="selectedDistrict" [disabled]="isLoading">
+            <option value="">Select District</option>
+            <option *ngFor="let d of districts" [value]="d.districtName">
+              {{ d.districtName }}
+            </option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="filter-row">
+        <div class="filter-field">
+          <label for="subdivision">Subdivision</label>
+          <select id="subdivision" [(ngModel)]="selectedSubdivision" [disabled]="isLoading">
+            <option value="">Select Subdivision</option>
+            <option *ngFor="let s of subdivisions" [value]="s.name">
+              {{ s.name }}
+            </option>
+          </select>
+        </div>
+        
+        <div class="filter-field">
+          <label for="policeStation">Police Station</label>
+          <select id="policeStation" [(ngModel)]="selectedPoliceStation" [disabled]="isLoading">
+            <option value="">Select Police Station</option>
+            <option *ngFor="let ps of policeStations" [value]="ps.stationName">
+              {{ ps.stationName }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dialog-footer">
+    <button class="btn btn-secondary" (click)="close()" [disabled]="isLoading">
+      <i class="material-icons">cancel</i>Cancel
+    </button>
+    <button class="btn btn-primary" (click)="applyFilters()" [disabled]="isLoading">
+      <i class="material-icons">download</i>
+      <span *ngIf="!isLoading">Download Report</span>
+      <span *ngIf="isLoading">Downloading...</span>
+    </button>
+  </div>
+</div> -->

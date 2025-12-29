@@ -1,0 +1,209 @@
+<div class="district-details">
+  <div class="dashboard-header">
+    {{ "DISTRICT_DETAILS.DIST_DETAILS_TITLE" | translate }}
+  </div>
+  <div class="button-panel">
+    <a
+      routerLink="{{ permissions.add_url }}"
+      class="btn btn-success m-2"
+      *ngIf="!details && permissions.add && permissions.add_url"
+      >Add District Details</a
+    >
+    <button
+      class="btn btn-success m-2"
+      *ngIf="details && permissions.edit && permissions.edit_url"
+      (click)="goToEdit()"
+    >
+      Edit District Details
+    </button>
+  </div>
+
+  <div
+    style="
+      padding: 20px;
+      padding: 20px;
+      border: 1px solid;
+      box-shadow: 2px 5px #c7c1c1;
+      margin: 20px;
+    "
+    *ngIf="details"
+  >
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_NAME" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.fullName
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_ADDRESS" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.headAddress
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_MAP" | translate
+          }}</span>
+          <div>
+            <iframe
+              [src]="details.mapUrl | Safe"
+              width="100%"
+              height="250px"
+              frameborder="0"
+              style="border: 0"
+              allowfullscreen="false"
+              aria-hidden="false"
+              tabindex="0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_VISITOR_NO" | translate
+          }}</span>
+          <span class="glob-span">{{ details.visitorsNumber }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_EMAIL" | translate
+          }}</span>
+          <span class="glob-span">{{ details.email }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_CONTACT_NO" | translate
+          }}</span>
+          <span class="glob-span">{{ details.contactNo }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "CONTACT.MOBILE_NO" | translate }}</span>
+          <span class="glob-span">{{ details.mobileNo }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_FB_LINK" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.fbLink
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_YOUTUBE_LINK" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.youtubeLink
+          }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_TWIT_LINK" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.twitterLink
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_QR_CODE" | translate
+          }}</span>
+          <div>
+            <app-image-viewer [imageURL]="details.qrCode"></app-image-viewer>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_DOWNLOAD_LINK" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.downloadLink
+          }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_GPLAY_LINK" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.gplayLink
+          }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_DGP_IMAGE" | translate
+          }}</span>
+          <div>
+            <app-image-viewer [imageURL]="details.dgpImage"></app-image-viewer>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_DGP_NAME" | translate
+          }}</span>
+          <span class="glob-span">{{ details.dgpName }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_SP_IMAGE" | translate
+          }}</span>
+          <div>
+            <app-image-viewer [imageURL]="details.spImage"></app-image-viewer>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_SP_NAME" | translate
+          }}</span>
+          <span class="glob-span">{{ details.spName }}</span>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_LOGO" | translate
+          }}</span>
+          <div>
+            <app-image-viewer [imageURL]="details.logo"></app-image-viewer>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_ABOUT_US" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.aboutUs
+          }}</span>
+        </div>
+        <div class="col-sm-6">
+          <span class="glob-span">{{
+            "DISTRICT_DETAILS.DIST_ABOUT_SP" | translate
+          }}</span>
+          <span class="glob-span" style="word-break: break-all">{{
+            details.aboutSp
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

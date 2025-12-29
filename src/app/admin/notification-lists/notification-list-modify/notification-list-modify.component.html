@@ -1,0 +1,86 @@
+<div class="list-edit">
+  <div class="dashboard-header">{{ "LINKS.LINK_DETAILS" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="list-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="listsForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="listsForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="listName" class="col-3 col-form-label">List Name: </label>
+      <div class="col-9">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="listName"
+          name="listName"
+          placeholder="Enter List Name"
+          formControlName="listName"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{ invalidInput: isControlHasErrors('listName') }"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="listName"
+          name="listName"
+          placeholder="Enter List Name"
+          formControlName="listName"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('listName') }"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('listName', 'required')" class="invalid">
+        <strong>List Name is required</strong>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="links_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

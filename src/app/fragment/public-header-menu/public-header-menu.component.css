@@ -1,0 +1,79 @@
+.default .active-menu,
+.default .active {
+  background-color: #031b2e;
+  color: white !important;
+}
+.default .dropdown-item {
+  padding: 5px 10px;
+}
+.default a {
+  font-size: 17px;
+  color: #000000;
+  cursor: pointer;
+}
+.default .nav-item {
+  margin: 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 3px;
+}
+.default .nav-item:hover,
+.default .nav-link:hover,
+.default .nav-item:has(.show:hover) .nav-link {
+  background-color: #031b2e;
+  color: white !important;
+}
+.default .dropdown-item:hover {
+  background-color: #0c2d49;
+  color: white !important;
+}
+.default .nav-item > a {
+  padding: 10px !important;
+  color: #000000;
+}
+.default .menu {
+  background-color: #f5f5f5;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.style3 .active-menu,
+.style3 .active {
+  background-color: #031b2e;
+  color: white !important;
+}
+.style3 .dropdown-item {
+  padding: 5px 10px;
+}
+.style3 a {
+  font-size: 15px;
+  color: #000000;
+  cursor: pointer;
+}
+.style3 .nav-item {
+  background-color: #ffffff;
+  color: #000000;
+  margin: 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 3px;
+}
+.style3 .nav-item:hover,
+.style3 .nav-link:hover,
+.style3 .nav-item:has(.show:hover) .nav-link {
+  background-color: #031b2e;
+  color: white !important;
+}
+.style3 .dropdown-item:hover {
+  background-color: #0c2d49;
+  color: white !important;
+}
+.style3 .nav-item > a {
+  padding: 10px !important;
+}
+.style3 .menu {
+  background-color: #f5f5f5;
+  margin: 15px 0 0;
+  padding: 10px;
+}/*# sourceMappingURL=public-header-menu.component.css.map */

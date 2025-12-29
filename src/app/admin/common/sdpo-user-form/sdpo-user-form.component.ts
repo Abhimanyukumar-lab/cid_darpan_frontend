@@ -1,0 +1,276 @@
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
+import { LangModule } from 'src/app/models/LangModule';
+import { ApiCallerService } from 'src/app/services/api-caller.service';
+import { ToasterService } from 'src/app/services/toaster.service';
+import { TranslateService } from 'src/app/services/translate.service';
+import {
+  AppLoadderHide,
+  AppLoadderShow,
+  RefreshTableAndForm,
+  StopEditFormData,
+} from 'src/app/storage/actions/app.actions';
+import { AppConstants } from 'src/app/storage/localdata/AppConstants';
+
+@Component({
+  selector: 'app-sdpo-user-form',
+  templateUrl: './sdpo-user-form.component.html',
+  styleUrls: ['./sdpo-user-form.component.scss'],
+})
+export class SdpoUserFormComponent implements OnInit, OnChanges, OnDestroy {
+  subscription: any;
+
+  villageInput: boolean = false;
+
+  @Input('url')
+  url: string;
+
+  @Input('editUrl')
+  editUrl: string;
+
+  @Input('id')
+  id: number;
+
+  @Input('form')
+  form: UntypedFormGroup;
+
+  IMAGE: File = null;
+  sdpoUserForm: UntypedFormGroup;
+
+  language: string;
+  designationList: string;
+
+  SDPO_USER_PARAM = {
+    ID: null,
+    SDPO_ID: null,
+    NAME: null,
+    IMAGE: null,
+    EMAIL: null,
+    CONTACTNO: null,
+    MOBILENO: null,
+    VILLAGE: null,
+    DESIGNATIONID: null,
+    DESIGNATION: null,
+    PRIORITY: null,
+  };
+
+  loading: boolean = false;
+
+  sdpoId: any = null;
+
+  constructor(
+    private fb: UntypedFormBuilder,
+    private apiService: ApiCallerService,
+    private toaster: ToasterService,
+    private appStore: Store<{ app: any }>,
+    private authStore: Store<{ auth: any }>,
+    public langModule: LangModule,
+    private translate: TranslateService
+  ) {
+    this.subscription = this.appStore.pipe(select('app')).subscribe((data) => {
+      this.language = data.defaultLang;
+    });
+
+    this.subscription = this.authStore
+      .pipe(select('auth'))
+      .subscribe((data) => {
+        this.sdpoId = data.user.sdpoId;
+      });
+
+    this.apiService
+      .apiGetCall(AppConstants.DESIGNATION_MODULE.GET_DESGN_LIST, true)
+      .subscribe((data) => {
+        this.designationList = data.designationDTOs;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    if (this.id) {
+      this.SDPO_USER_PARAM.SDPO_ID = this.id;
+    } else {
+      this.SDPO_USER_PARAM.SDPO_ID = this.sdpoId;
+    }
+
+    this.form ? (this.sdpoUserForm = this.form) : this.initStationUserForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.id) {
+      this.SDPO_USER_PARAM.SDPO_ID = this.id;
+    } else {
+      this.SDPO_USER_PARAM.SDPO_ID = this.sdpoId;
+    }
+
+    this.form ? (this.sdpoUserForm = this.form) : this.initStationUserForm();
+  }
+
+  initStationUserForm = () => {
+    this.sdpoUserForm = this.fb.group({
+      id: [this.SDPO_USER_PARAM.ID],
+      sdpoId: [
+        this.SDPO_USER_PARAM.SDPO_ID,
+        Validators.compose([Validators.required]),
+      ],
+      name: [
+        this.SDPO_USER_PARAM.NAME,
+        Validators.compose([Validators.required]),
+      ],
+      image: [this.SDPO_USER_PARAM.IMAGE],
+      email: [this.SDPO_USER_PARAM.EMAIL],
+      mobileNo: [
+        this.SDPO_USER_PARAM.MOBILENO,
+        Validators.compose([Validators.required]),
+      ],
+      contactNo: [this.SDPO_USER_PARAM.CONTACTNO],
+      villageName: [this.SDPO_USER_PARAM.VILLAGE],
+      designationId: [this.SDPO_USER_PARAM.DESIGNATIONID],
+      priority: [
+        this.SDPO_USER_PARAM.PRIORITY,
+        Validators.compose([Validators.required]),
+      ],
+    });
+  };
+
+  submitForwardData = () => {
+    this.appStore.dispatch(new AppLoadderShow({}));
+    const controls = this.sdpoUserForm.controls;
+    if (this.sdpoUserForm.invalid && !this.sdpoUserForm.valid) {
+      Object.keys(controls).forEach((controlName) =>
+        controls[controlName].markAsTouched()
+      );
+      this.loading = false;
+      this.appStore.dispatch(new AppLoadderHide({}));
+      return;
+    }
+
+    this.loading = true;
+
+    var formData = new FormData();
+    if (this.sdpoUserForm.value['id'])
+      formData.append('id', this.sdpoUserForm.value['id']);
+    formData.append('name', this.sdpoUserForm.value['name']);
+    if (this.sdpoUserForm.value['email'])
+      formData.append('email', this.sdpoUserForm.value['email']);
+    formData.append('mobileNo', this.sdpoUserForm.value['mobileNo']);
+    if (this.sdpoUserForm.value['contactNo'])
+      formData.append('contactNo', this.sdpoUserForm.value['contactNo']);
+    if (this.sdpoUserForm.value['designationId'])
+      formData.append(
+        'designationId',
+        this.sdpoUserForm.value['designationId']
+      );
+    if (this.sdpoUserForm.value['villageName'])
+      formData.append('villageName', this.sdpoUserForm.value['villageName']);
+    formData.append('priority', this.sdpoUserForm.value['priority']);
+    formData.append('sdpoId', this.sdpoUserForm.value['sdpoId']);
+
+    if (this.IMAGE) {
+      formData.append('image', this.IMAGE, this.IMAGE.name);
+    }
+
+    if (this.sdpoUserForm.value['id'])
+      this.apiService
+        .apiFormDataPostCall(this.editUrl, formData, true)
+        .subscribe(
+          (data) => {
+            this.toaster.getToastMessage(
+              data.message,
+              'success',
+              3000,
+              'top-end'
+            );
+            this.loading = false;
+            this.sdpoUserForm.reset();
+            this.initStationUserForm();
+            this.appStore.dispatch(new RefreshTableAndForm(true));
+            this.appStore.dispatch(new StopEditFormData({}));
+          },
+          (error) => {
+            this.loading = false;
+            this.appStore.dispatch(new AppLoadderHide({}));
+          }
+        );
+    else
+      this.apiService.apiFormDataPostCall(this.url, formData, true).subscribe(
+        (data) => {
+          this.toaster.getToastMessage(
+            data.message,
+            'success',
+            3000,
+            'top-end'
+          );
+          this.loading = false;
+          this.sdpoUserForm.reset();
+          this.initStationUserForm();
+          this.appStore.dispatch(new RefreshTableAndForm(true));
+          this.appStore.dispatch(new StopEditFormData({}));
+        },
+        (error) => {
+          this.loading = false;
+          this.appStore.dispatch(new AppLoadderHide({}));
+        }
+      );
+  };
+
+  isControlHasError(controlName: string, validationType: string): boolean {
+    const control = this.sdpoUserForm.controls[controlName];
+    if (!control) {
+      return false;
+    }
+
+    const result =
+      control.hasError(validationType) && (control.dirty || control.touched);
+    return result;
+  }
+
+  isControlHasErrors(controlName: string): boolean {
+    const control = this.sdpoUserForm.controls[controlName];
+    if (!control) {
+      return false;
+    }
+
+    const result = control.errors && (control.dirty || control.touched);
+    return result;
+  }
+
+  numberOnly(event): boolean {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+  validAplpha(event) {
+    const charCode = event.which ? event.which : event.KeyCode;
+
+    if (
+      (charCode >= 65 && charCode <= 90) ||
+      (charCode >= 97 && charCode <= 122) ||
+      charCode == 32
+    ) {
+      return true;
+    } else return false;
+  }
+
+  handleFileChange = (file: FileList) => {
+    this.IMAGE = file.item(0);
+  };
+
+  focusOut = (event, name) => {
+    this.sdpoUserForm.patchValue({
+      [name]: event.target.value,
+    });
+  };
+}

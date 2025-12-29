@@ -1,0 +1,77 @@
+app-public-modal {
+  display: none;
+}
+app-public-modal .app-public-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+app-public-modal .app-public-modal .app-public-modal-body {
+  background: #fff;
+  margin: 40px;
+}
+app-public-modal .app-public-modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.75;
+  z-index: 900;
+}
+
+body.app-public-modal-open {
+  overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  app-public-modal .sm-modal,
+  app-public-modal .md-modal,
+  app-public-modal .lg-modal,
+  app-public-modal .lx-modal {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  app-public-modal .sm-modal,
+  app-public-modal .md-modal {
+    width: 75%;
+  }
+  app-public-modal .lg-modal,
+  app-public-modal .lx-modal {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  app-public-modal .sm-modal,
+  app-public-modal .md-modal {
+    width: 50%;
+  }
+  app-public-modal .lg-modal,
+  app-public-modal .lx-modal {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  app-public-modal .sm-modal {
+    width: 30%;
+  }
+  app-public-modal .md-modal {
+    width: 50%;
+  }
+  app-public-modal .lg-modal {
+    width: 75%;
+  }
+  app-public-modal .lx-modal {
+    width: 100%;
+  }
+}/*# sourceMappingURL=public-model.component.css.map */

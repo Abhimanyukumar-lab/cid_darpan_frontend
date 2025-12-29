@@ -1,0 +1,449 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+
+body {
+  font-family: "Noto Sans", sans-serif;
+}
+
+:root {
+  --dark-navy: #001253;
+  --blue: #3e6d9c;
+  --orange: #e14d2a;
+  --ligt-blue: #ecf0f5;
+  --black1: #000000;
+  --black2: #28282c;
+  --line-color: #cfcece;
+  --circle-color: #f6faff;
+  --black3: #4d4d4d;
+  --white: #ffffff;
+  --font24: 24px;
+  --font16: 16px;
+  --font14: 14px;
+  --font18: 18px;
+  --font20: 20px;
+  --font12: 12px;
+}
+
+#html1 {
+  display: none;
+}
+#html2 {
+  display: none;
+}
+.english,
+.englishText {
+  display: none;
+}
+
+.header1 {
+  background-color: var(--dark-navy);
+  font-size: var(--font14);
+  color: var(--white) !important;
+}
+.header1 .nav-link {
+  color: var(--white) !important;
+}
+.header1 .flag img {
+  height: 23px;
+}
+.header1 .call img,
+.mail .mail-img {
+  height: 15px;
+}
+.header .social-media-icon img {
+  height: 25px;
+}
+
+.logo-section .main-logo img {
+  height: 111px;
+}
+.logo-section .officers-sec {
+  margin-right: 30px;
+}
+.logo-section .officers-sec img {
+  height: 100px;
+  /* clip-path: inset(5% 20% 15% 10%) */
+}
+.logo-section .officers-sec .officer-name {
+  font-size: var(--font14);
+  font-weight: 600;
+}
+.logo-section .officers-sec .officer-designation {
+  font-size: var(--font12);
+  font-weight: 500;
+}
+.logo-section .officers-sec .officer-img1 {
+  /* background-image: url(../img/img3/R.S.Bhatti.jpg); */
+  height: 100px;
+  width: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+.logo-section .officers-sec .officer-img2 {
+  /* background-image: url(../img/img3/Navin\ Chandra\ Jha.jpeg); */
+  height: 100px;
+  width: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+.logo-section .officers-sec .officer-img3 {
+  /* background-image: url(../img/img3/Vinit\ Kumar.jpeg); */
+  height: 100px;
+  width: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+.main-nav-item .nav-link {
+  display: flex;
+  align-items: center;
+}
+.navbar {
+  background-color: var(--orange);
+  padding: 0.5rem 0.5rem;
+}
+.dropdown-toggle::after {
+  display: none !important;
+}
+.navbar .nav-link {
+  color: var(--dark-navy) !important;
+  background-color: var(--white);
+  margin: 0 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  font-size: var(--font16) !important;
+  font-weight: 500;
+}
+
+.navbar .active-nav .nav-link {
+  background-color: var(--dark-navy);
+  color: var(--white) !important;
+}
+
+.navbar .nav-link .nav-arrow {
+  margin-left: 0.5rem;
+}
+
+.importantLink-heading {
+  font-size: var(--font24);
+  font-weight: 900;
+  color: #fff;
+  background-color: var(--blue);
+}
+
+.importantLink {
+  background-color: var(--ligt-blue);
+  border-top: 1px solid var(--blue);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.importantLink img {
+  margin-right: 0.5rem;
+}
+
+.hero-img {
+  /* background-image: url(../img/img3/Hero\ Image.jpg); */
+  height: 366px;
+  background-position: right;
+  background-size: cover;
+}
+.marqueparent {
+  overflow: hidden;
+  height: 314px;
+  background-color: var(--ligt-blue);
+}
+.importantInfo {
+  background-color: var(--ligt-blue);
+  border-top: 1px solid var(--blue);
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  color: var(--black1) !important;
+  font-weight: 600;
+  justify-content: center;
+}
+
+.importantInfo a {
+  color: var(--black1) !important;
+  display: flex;
+  align-items: center;
+}
+.importantInfo a:hover {
+  color: var(--blue) !important;
+}
+
+.importantInfo img {
+  margin-right: 0.5rem;
+}
+
+.services-circle {
+  background-color: var(--ligt-blue);
+  padding: 2rem;
+  border-radius: 50%;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  height: 150px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-line {
+  border-top: 1px solid var(--line-color);
+  height: 1px;
+  width: 100%;
+}
+
+.service-name {
+  font-size: var(--font16);
+  color: var(--black1);
+  font-weight: 600;
+}
+
+.importantInfo-heading {
+  font-size: var(--font24);
+  color: var(--dark-navy);
+  text-align: center;
+  font-weight: 900;
+}
+
+.team-heading {
+  font-size: var(--font24);
+  color: var(--white);
+  background-color: var(--orange);
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.team-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.teamRow .team-box:nth-child(1) .team-img:first-child {
+  /* background-image: url(../img/img3/Vinit\ Kumar.jpeg); */
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.teamRow .team-box:nth-child(2) .team-img:first-child {
+  /* background-image: url(../img/img3/Rajesh\ Kumar.jpg); */
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.teamRow .team-box:nth-child(3) .team-img:first-child {
+  /* background-image: url(../img/img3/Saroj\ Kumar\ Sah.jpeg); */
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.teamRow .team-box:nth-child(4) .team-img:first-child {
+  /* background-image: url(../img/img3/Navjot\ Seemi.jpeg); */
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.teamRow .team-box:nth-child(5) .team-img:first-child {
+  /* background-image: url(../img/img3/Santosh\ Kumar\ Ray.jpeg); */
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.teamRow .team-box:nth-child(6) .team-img:first-child {
+  /* background-image: url(../img/img3/Shashibhushan\ Singh.jpeg); */
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+/* .team-img:first-child{
+    background-image: url(../img/Vinit\ Kumar.jpeg);
+    height: 150px;
+    width: 150px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+} */
+
+.team-name {
+  margin-top: 0.5rem;
+  font-size: var(--font18);
+  font-weight: 900;
+}
+
+.team-designation {
+  font-size: var(--font14);
+  font-weight: 500;
+}
+
+.police-info {
+  font-size: var(--font18);
+  font-weight: 500;
+}
+.aboutUs {
+  background-color: var(--orange);
+  font-size: var(--font24);
+  font-weight: 600;
+  color: var(--white);
+  text-align: center;
+  padding: 0.75rem 1rem;
+}
+
+.aboutInfo {
+  border: 1px solid var(--blue);
+  font-size: var(--font16);
+  color: var(--black1);
+}
+
+.pressBox {
+  background: var(--ligt-blue);
+}
+
+.pressRelease {
+  font-size: var(--font24);
+  color: var(--dark-navy);
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--blue);
+  font-weight: 600;
+}
+
+.pressNews {
+  display: flex;
+  align-items: flex-start;
+}
+
+.pressDivider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--blue);
+  margin: 0.75rem 0;
+  opacity: 0.2;
+}
+
+.pressIcon {
+  margin-right: 0.5rem;
+}
+
+.pressNewsLink {
+  color: var(--blue);
+  font-weight: 500;
+  font-size: var(--font16);
+}
+
+.gallaryImg {
+  height: 140px;
+}
+
+.imgGallaryHeading {
+  font-size: var(--font24);
+  text-align: center;
+  padding: 0.75rem 1rem;
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.footer {
+  background-color: var(--orange);
+}
+
+.footerContact {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1.5rem;
+}
+
+.footerHeading {
+  font-size: var(--font18);
+  font-weight: bold;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+  text-decoration: none !important;
+}
+
+.footerLocation,
+.footerLinks {
+  font-size: var(--font14);
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+
+.footerLocation img {
+  height: 15px;
+  margin-right: 0.5rem;
+}
+
+.footerStore {
+  color: var(--white);
+  font-size: var(--font20);
+  font-weight: 600;
+}
+
+.footerDivider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--white);
+  margin: 0.75rem 0;
+}
+
+.footerAppInstalled {
+  font-size: var(--font14);
+  font-weight: 500;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+.footerAppInstalled .totalApp {
+  font-size: var(--font16);
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+.footerCopyright {
+  font-size: var(--font14);
+  color: var(--black3);
+}
+
+@media screen and (max-width: 767px) {
+  .logo-section .officers-sec {
+    margin-right: 18px;
+  }
+}

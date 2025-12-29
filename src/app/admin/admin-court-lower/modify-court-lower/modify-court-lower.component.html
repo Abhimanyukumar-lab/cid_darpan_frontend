@@ -1,0 +1,529 @@
+<div class="court-edit">
+  <div class="dashboard-header">{{ "COURT.LOWER_COURT" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="supreme-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="lowerCourtForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="lowerCourtForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <div class="row mb-2">
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "PROCECUTION.SER_NO_DATE" | translate }} :</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="slnoDate"
+            placeholder="Eg.999999999,01/01/2021"
+            (keyup)="setDataRecipt($event.target.value)"
+            [ngClass]="{ invalidInput: isControlHasErrors('slnoDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('slnoDate', 'required')"
+            class="invalid"
+          >
+            <strong>slnoDate id Required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "CHARACTER.RECEIPT_NO" | translate }} :</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="reciptNo"
+            placeholder="{{ 'CHARACTER.SEL_RECEIPT_NO' | translate }}"
+            id="reciptNo"
+            [ngClass]="{ invalidInput: isControlHasErrors('reciptNo') }"
+            disabled="true"
+          />
+          <div
+            *ngIf="isControlHasError('reciptNo', 'required')"
+            class="invalid"
+          >
+            <strong>Receipt Number is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COURT.CWJTNO" | translate }} :</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="cwjcNO"
+            placeholder="{{ 'COURT.ENTR_CWJTNO' | translate }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('cwjcNO') }"
+          />
+          <div *ngIf="isControlHasError('cwjcNO', 'required')" class="invalid">
+            <strong>cwjc Number is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "RTI.GOT_FROM" | translate }} :</span
+          ><input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            formControlName="fromWhom"
+            placeholder="{{ 'RTI.ENTR_GOT_FROM' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{ invalidInput: isControlHasErrors('fromWhom') }"
+            (change)="focusOut($event, 'fromWhom')"
+            (focusout)="focusOut($event, 'fromWhom')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            formControlName="fromWhom"
+            placeholder="{{ 'RTI.ENTR_GOT_FROM' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{ invalidInput: isControlHasErrors('fromWhom') }"
+            (change)="focusOut($event, 'fromWhom')"
+            (focusout)="focusOut($event, 'fromWhom')"
+          />
+          <div
+            *ngIf="isControlHasError('fromWhom', 'required')"
+            class="invalid"
+          >
+            <strong>from Whom is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "COMMISSION.LETTER_NO" | translate }} :</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="noofLetter"
+            placeholder="{{ 'COMMISSION.ENTR_LETTER_NO' | translate }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('noofLetter') }"
+          />
+          <div
+            *ngIf="isControlHasError('noofLetter', 'required')"
+            class="invalid"
+          >
+            <strong>Letter Number is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "COMMISSION.LETTER_DATE" | translate }} :</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="letterDate"
+            max="{{ max | date: 'yyyy-MM-dd' }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('letterDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('letterDate', 'required')"
+            class="invalid"
+          >
+            <strong>Letter Date is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COMPLAINT.DEPT" | translate }} :</span>
+          <select
+            name="stationName"
+            id="stationName"
+            formControlName="stationId"
+            autocomplete="off"
+            class="form-select"
+            [ngClass]="{ invalidInput: isControlHasErrors('stationId') }"
+            required
+          >
+            <option value="null" disabled>
+              {{ "COMPLAINT.SEL_DEPT" | translate }}
+            </option>
+            <option
+              *ngFor="let officer of officersList"
+              value="{{ officer.id }}"
+            >
+              {{ officer.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="isControlHasError('stationId', 'required')"
+            class="invalid"
+          >
+            <strong> Department is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "COMPLAINT.OL_SUBJECT" | translate }}:</span
+          ><input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            formControlName="subject"
+            placeholder="{{ 'COMPLAINT.SUBJECT' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('subject')
+            }"
+            (change)="focusOut($event, 'subject')"
+            (focusout)="focusOut($event, 'subject')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            formControlName="subject"
+            placeholder="{{ 'COMPLAINT.SUBJECT' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('subject')
+            }"
+            (change)="focusOut($event, 'subject')"
+            (focusout)="focusOut($event, 'subject')"
+          />
+          <div *ngIf="isControlHasError('subject', 'required')" class="invalid">
+            <strong>Subject is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "APPOINTMENT.NAME" | translate }} :</span
+          ><input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            formControlName="applicantName"
+            placeholder="{{ 'APPOINTMENT.SELECT_APPLICANT_NAME' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('applicantName')
+            }"
+            (change)="focusOut($event, 'applicantName')"
+            (focusout)="focusOut($event, 'applicantName')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            formControlName="applicantName"
+            placeholder="{{ 'APPOINTMENT.SELECT_APPLICANT_NAME' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('applicantName')
+            }"
+            (change)="focusOut($event, 'applicantName')"
+            (focusout)="focusOut($event, 'applicantName')"
+          />
+          <div
+            *ngIf="isControlHasError('applicantName', 'required')"
+            class="invalid"
+          >
+            <strong>Applicant Name is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "CHARACTER.APPLIED_DATE" | translate }} :</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="appliedDate"
+            placeholder="{{ 'CHARACTER.SEL_APPLIED_DATE' | translate }}"
+            max="{{ max | date: 'yyyy-MM-dd' }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('appliedDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('appliedDate', 'required')"
+            class="invalid"
+          >
+            <strong>Applied Date is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COURT.GOV_ADV_NAME" | translate }} :</span
+          ><input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            formControlName="govtAdvocate"
+            placeholder="{{ 'COURT.ENTR_GOV_ADV_NAME' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('govtAdvocate')
+            }"
+            (change)="focusOut($event, 'govtAdvocate')"
+            (focusout)="focusOut($event, 'govtAdvocate')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            formControlName="govtAdvocate"
+            placeholder="{{ 'COURT.ENTR_GOV_ADV_NAME' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('govtAdvocate')
+            }"
+            (change)="focusOut($event, 'govtAdvocate')"
+            (focusout)="focusOut($event, 'govtAdvocate')"
+          />
+          <div
+            *ngIf="isControlHasError('govtAdvocate', 'required')"
+            class="invalid"
+          >
+            <strong>Government Advocate Name is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "COURT.GOV_ADV_MOBILE" | translate }} :</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="govtAdvocateMobile"
+            placeholder="{{ 'COURT.ENTR_GOV_ADV_MOBILE' | translate }}"
+            maxlength="10"
+            (keypress)="numberOnly($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('govtAdvocateMobile')
+            }"
+          />
+          <div
+            *ngIf="isControlHasError('govtAdvocateMobile', 'required')"
+            class="invalid"
+          >
+            <strong>Gov. Advocate Mobile No is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COURT.DATE_FILLING" | translate }} :</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="counterDate"
+            placeholder="{{ 'COURT.ENTR_DATE_FILLING' | translate }}"
+            max="{{ max | date: 'yyyy-MM-dd' }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('counterDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('counterDate', 'required')"
+            class="invalid"
+          >
+            <strong>Date of filing a counter letter is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "COURT.LAST_DATE_FILLING" | translate }} :</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="counterFillingLastdate"
+            placeholder="{{ 'COURT.ENTR_LAST_DATE_FILLING' | translate }}"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('counterFillingLastdate')
+            }"
+          />
+          <div
+            *ngIf="isControlHasError('counterFillingLastdate', 'required')"
+            class="invalid"
+          >
+            <strong>Last Date of filing a counter letter is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "POLICE_OFFICER.OFFICER_NAME" | translate }} :</span
+          ><input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            formControlName="officerName"
+            placeholder="{{ 'POLICE_OFFICER.ENT_OFFICER_NAME' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('officerName')
+            }"
+            (change)="focusOut($event, 'officerName')"
+            (focusout)="focusOut($event, 'officerName')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            formControlName="officerName"
+            placeholder="{{ 'POLICE_OFFICER.ENT_OFFICER_NAME' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('officerName')
+            }"
+            (change)="focusOut($event, 'officerName')"
+            (focusout)="focusOut($event, 'officerName')"
+          />
+          <div
+            *ngIf="isControlHasError('officerName', 'required')"
+            class="invalid"
+          >
+            <strong>Officer Name is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COURT.SENT_DATE" | translate }}:</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="sendingDate"
+            max="{{ max | date: 'yyyy-MM-dd' }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('sendingDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('sendingDate', 'required')"
+            class="invalid"
+          >
+            <strong>Date of sent is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <span class="glob-span"
+            >{{ "COURT.COURT_ORDER_DATE" | translate }} :</span
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="order"
+            placeholder="{{ 'COURT.ENTR_COURT_ORDER_DATE' | translate }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('order') }"
+          />
+          <div *ngIf="isControlHasError('order', 'required')" class="invalid">
+            <strong>Order of honorable court and Date is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COURT.ODRED_DATE" | translate }} :</span
+          ><input
+            type="date"
+            class="form-control"
+            formControlName="orderDate"
+            placeholder="{{ 'COURT.ENTR_ODRED_DATE' | translate }}"
+            max="{{ max | date: 'yyyy-MM-dd' }}"
+            [ngClass]="{ invalidInput: isControlHasErrors('orderDate') }"
+          />
+          <div
+            *ngIf="isControlHasError('orderDate', 'required')"
+            class="invalid"
+          >
+            <strong>Order Date of honorable court is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COURT.RATIO" | translate }} :</span
+          ><input
+            *ngIf="language == 'hi'"
+            type="text"
+            class="form-control hindi hindiFont"
+            formControlName="complianceStatus"
+            placeholder="{{ 'COURT.ENTR_RATIO' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('complianceStatus')
+            }"
+            (change)="focusOut($event, 'complianceStatus')"
+            (focusout)="focusOut($event, 'complianceStatus')"
+          />
+          <input
+            *ngIf="language == 'en'"
+            type="text"
+            class="form-control"
+            formControlName="complianceStatus"
+            placeholder="{{ 'COURT.ENTR_RATIO' | translate }}"
+            (keypress)="validAplpha($event)"
+            [ngClass]="{
+              invalidInput: isControlHasErrors('complianceStatus')
+            }"
+            (change)="focusOut($event, 'complianceStatus')"
+            (focusout)="focusOut($event, 'complianceStatus')"
+          />
+          <div
+            *ngIf="isControlHasError('complianceStatus', 'required')"
+            class="invalid"
+          >
+            <strong>Ratio condition is required</strong>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <span class="glob-span">{{ "COMPLAINT.DOCUMENT" | translate }}</span
+          ><input
+            type="file"
+            class="form-control"
+            formControlName="document"
+            id="document"
+            name="document"
+            accept="application/pdf"
+            [ngClass]="{ invalidInput: isControlHasErrors('document') }"
+          />
+        </div>
+      </div>
+
+      <div
+        class="
+          form-group
+          d-flex
+          flex-wrap
+          justify-content-center
+          align-items-center
+        "
+        style="margin-top: 5px"
+      >
+        <button
+          id="lower_submit"
+          (click)="submit()"
+          class="btn btn-primary px-9 py-9"
+          [disabled]="loading"
+          *ngIf="ADD_LOWER_COURT && ADD_URL && !LOWER_COURT_PARAMS.ID"
+        >
+          Save
+          <div
+            class="spinner-border spinner-border-sm text-light align-middle"
+            *ngIf="loading"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </button>
+        <button
+          id="lower_submit"
+          (click)="submit()"
+          class="btn btn-primary px-9 py-9"
+          [disabled]="loading"
+          *ngIf="EDIT_LOWER_COURT && EDIT_URL && LOWER_COURT_PARAMS.ID"
+        >
+          Save
+          <div
+            class="spinner-border spinner-border-sm text-light align-middle"
+            *ngIf="loading"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,978 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>Character Details</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="character.agreeReject == 0">
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel">
+          <h6 style="color: #d23939">
+            This Application Has been rejected ::
+            {{ character.rejectReacson }}
+            <span style="padding-right: 3px"></span> on Date:
+            {{ character.acceptRejectDate | date: "dd/MM/yyyy" }}
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container-fluid"
+    *ngIf="
+      permissions.view &&
+      character.agreeReject != 0 &&
+      character.agreeReject != 1
+    "
+  >
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel">
+          <span style="width: auto">What Do you want to do? </span>
+          <button class="btn btn-primary" (click)="openModal('appAcceptModal')">
+            Accept
+          </button>
+          <button class="btn btn-danger" (click)="openModal('appRejectModal')">
+            Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="character.agreeReject == 1">
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel-left">
+          <span style="width: auto"></span>
+          <button
+            *ngIf="
+              permissions.addForm && !character.stationMemoNo && isComplete
+            "
+            class="btn btn-primary"
+            (click)="goToOfficerFormPage()"
+          >
+            Add Form
+          </button>
+          <button
+            *ngIf="
+              permissions.editForm && character.stationMemoNo && isComplete
+            "
+            class="btn btn-primary"
+            (click)="goToOfficerEditFormPage()"
+          >
+            Edit Form
+          </button>
+          <button
+            *ngIf="permissions.viewForm"
+            class="btn btn-primary"
+            (click)="goToOfficerViewPage()"
+          >
+            View Form
+          </button>
+          <button
+            *ngIf="!isComplete && character.agreeReject == 1 && !isRejected"
+            class="btn btn-primary"
+            (click)="openModal('downloadCertificate')"
+          >
+            Download Certificate
+          </button>
+          <a
+            *ngIf="
+              !isComplete &&
+              character.signedCert &&
+              character.agreeReject == 1 &&
+              !isRejected
+            "
+            [href]="baseUrl + character.signedCert"
+            class="btn btn-primary"
+            target="_blank"
+          >
+            Download Signed Certificate
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <app-upload-cert
+      *ngIf="
+        permissions.uploadCertPermission &&
+        !isComplete &&
+        !character.signedCert &&
+        character.agreeReject == 1 &&
+        !isRejected
+      "
+      [url]="uploadCertSubmitURL"
+      [id]="uploadCertId"
+    >
+    </app-upload-cert>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>Character Details</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"> Id: </span>
+              </div>
+              <div class="col-8">{{ character.id }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.RECEIPT_NO" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.reciptNo }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.ACC_REJ_DATE" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">
+                {{ character.acceptRejectDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="character.stationMemoNo">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.STN_MEMO_NO" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.stationMemoNo }}</div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="character.addSoftNo">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.ADHI_SW_NO" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.addSoftNo }}</div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="character.districtMemoNo">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.DIST_MEMO_NO" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.districtMemoNo }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "APPOINTMENT.NAME" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.name }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.GENDER" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.gender }}</div>
+            </div>
+          </div>
+          <div
+            class="col-6"
+            *ngIf="
+              character.guardianRelation &&
+              (character.relationName == 'Guardian' ||
+                character.relationName == 'अभिभावक')
+            "
+          >
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.guardianRelation }}</div>
+            </div>
+          </div>
+          <div
+            class="col-6"
+            *ngIf="
+              character.fatherHusbandName &&
+              (character.relationName == 'S/O' ||
+                character.relationName == 'पिता')
+            "
+          >
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  <!-- {{ "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate }} -->
+                  {{ "CITIZEN_REPORT.FATHER_NAME" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.fatherHusbandName }}</div>
+            </div>
+          </div>
+
+          <div
+            class="col-6"
+            *ngIf="
+              character.fatherHusbandName &&
+              (character.relationName == 'D/O' ||
+                character.relationName == 'पति')
+            "
+          >
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  <!-- {{ "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate }} -->
+                  Father's Name:
+                </span>
+              </div>
+              <div class="col-8">{{ character.fatherHusbandName }}</div>
+            </div>
+          </div>
+          <div
+            class="col-6"
+            *ngIf="
+              character.fatherHusbandName &&
+              (character.relationName == 'W/O' ||
+                character.relationName == 'पति')
+            "
+          >
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  <!-- {{ "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate }} -->
+                  Husband's Name:
+                </span>
+              </div>
+              <div class="col-8">{{ character.fatherHusbandName }}</div>
+            </div>
+          </div>
+          <div
+            class="col-6"
+            *ngIf="
+              character.fatherHusbandName &&
+              (character.relationName == 'Mother' ||
+                character.relationName == 'माता')
+            "
+          >
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  <!-- {{ "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate }} -->
+                  Mother's Name:
+                </span>
+              </div>
+              <div class="col-8">{{ character.fatherHusbandName }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "SECTIONS.SEC_OFFICER_MOBILE" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.mobileno }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "PASSPORT.DATE_OF_BIRTH" | translate }}
+                </span>
+              </div>
+              <div class="col-8">
+                {{
+                  character.dob.indexOf("/") > 0
+                    ? character.dob
+                    : (character.dob | date: "dd/MM/yyyy")
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "POLICE_STATION.POLICE_STATION_TITLE" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.stationName }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.VILLAGE" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.villageLocality }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.POST_OFFICE" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.postOffice }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.WARD_NUMBER" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.wardNumber }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.PANCHAYAT" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.panchayat }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.STAY_DURATION" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">
+                {{ character.durationIn + " " + character.durationStay }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.MARITAL_STS" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.maritalStatus }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.TH_ADDHAR_NUMBER" | translate }}:
+                </span>
+              </div>
+              <div class="col-8">{{ character.aadharNumber }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">
+                  {{ "CHARACTER.PIN_CODE" | translate }}
+                </span>
+              </div>
+              <div class="col-8">{{ character.pinCode }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CHARACTER.ADHAR_IMG" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="character.adharCardFile"
+                    [imgWidth]="'200px'"
+                    [imgHeight]="'200px'"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "USER.USER_IMAGE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="character.userImage"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CHARACTER.SIGN_IMG" | translate }}:</span
+                >
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="character.signImage"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-8">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CHARACTER.TH_APPLICANT_TYPE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ character.type }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div *ngIf="character.type == 'Job' || character.type == 'Placement'">
+            <div class="row">
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.addressProof && character.addressProof != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.ADD_PROOF_TYPE" | translate }}:</span
+                    >
+                  </div>
+                  <div class="col-6">{{ character.addressProof }}</div>
+                </div>
+              </div>
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.addressProofImage &&
+                  character.addressProofImage != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.ADD_PROOF_TYPE_DOC" | translate }}:</span
+                    >
+                  </div>
+                  <div class="col-6">
+                    <div style="width: 200px; height: fit-content">
+                      <app-image-viewer
+                        [imageURL]="character.addressProofImage"
+                      >
+                      </app-image-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="character.type == 'Job' || character.type == 'Placement'">
+            <div class="row">
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.identityProof && character.identityProof != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.ID_PROOF_TYPE" | translate }}:</span
+                    >
+                  </div>
+                  <div class="col-6">{{ character.identityProof }}</div>
+                </div>
+              </div>
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.identityProofImage &&
+                  character.identityProofImage != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.ID_PROOF_TYPE_DOC" | translate }}:</span
+                    >
+                  </div>
+                  <div class="col-6">
+                    <div style="width: 200px; height: fit-content">
+                      <app-image-viewer
+                        [imageURL]="character.identityProofImage"
+                      >
+                      </app-image-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div *ngIf="character.type != 'Job' && character.type != 'Placement'">
+            <div class="row">
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.otherProofOther &&
+                  character.otherProofOther != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.OTHER_PROOF_TYPE" | translate }} :</span
+                    >
+                  </div>
+                  <div class="col-6">{{ character.otherProofOther }}</div>
+                </div>
+              </div>
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.otherProofOtherImage &&
+                  character.otherProofOtherImage != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.OTHER_PROOF_TYPE" | translate }} :</span
+                    >
+                  </div>
+                  <div class="col-6">
+                    <div style="width: 200px; height: fit-content">
+                      <app-image-viewer
+                        [imageURL]="character.otherProofOtherImage"
+                      >
+                      </app-image-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div *ngIf="character.type != 'Job' && character.type != 'Placement'">
+            <div class="row">
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.addressProofOther &&
+                  character.addressProofOther != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.OTH_ADD_PROOF_TYPE" | translate }} :</span
+                    >
+                  </div>
+                  <div class="col-6">{{ character.addressProofOther }}</div>
+                </div>
+              </div>
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.addressProofOtherImage &&
+                  character.addressProofOtherImage != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{
+                        "CHARACTER.OTH_ADD_PROOF_TYPE_DOC" | translate
+                      }}
+                      :</span
+                    >
+                  </div>
+                  <div class="col-6">
+                    <div style="width: 200px; height: fit-content">
+                      <app-image-viewer
+                        [imageURL]="character.addressProofOtherImage"
+                      >
+                      </app-image-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="character.type != 'Job' && character.type != 'Placement'">
+            <div class="row">
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.identityProofOther &&
+                  character.identityProofOther != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.OTH_ID_PROOF_TYPE" | translate }} :</span
+                    >
+                  </div>
+                  <div class="col-6">{{ character.identityProofOther }}</div>
+                </div>
+              </div>
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.identityProofOtherImage &&
+                  character.identityProofOtherImage != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{
+                        "CHARACTER.OTH_ID_PROOF_TYPE_DOC" | translate
+                      }}
+                      :</span
+                    >
+                  </div>
+                  <div class="col-6">
+                    <div style="width: 200px; height: fit-content">
+                      <app-image-viewer
+                        [imageURL]="character.identityProofOtherImage"
+                      >
+                      </app-image-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="character.type != 'Job' && character.type != 'Placement'">
+            <div class="row">
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.otherProofOther &&
+                  character.otherProofOther != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.OTHER_PROOF_TYPE" | translate }} :</span
+                    >
+                  </div>
+                  <div class="col-6">{{ character.otherProofOther }}</div>
+                </div>
+              </div>
+              <div
+                class="col-sm-12 col-md-6 col-6 p-2"
+                *ngIf="
+                  character.otherProofOtherImage &&
+                  character.otherProofOtherImage != 'null'
+                "
+              >
+                <div class="row">
+                  <div class="col-6">
+                    <span style="font-weight: 500"
+                      >{{ "CHARACTER.OTHER_PROOF_TYPE" | translate }} :</span
+                    >
+                  </div>
+                  <div class="col-6">
+                    <div style="width: 200px; height: fit-content">
+                      <app-image-viewer
+                        [imageURL]="character.otherProofOtherImage"
+                      >
+                      </app-image-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-change-status-form
+    *ngIf="
+      permissions.changeStatusForm && isComplete && character.agreeReject == 1
+    "
+    [url]="changeStatusSubmitURL"
+    [id]="changeStatusId"
+    [extraInputLabel]="changeStatusExtraInputLabel"
+    [extraInputPlaceholder]="changeStatusExtraInputPlaceholder"
+    [extraInputName]="changeStatusExtraInputName"
+    [extraInputFormControl]="changeStatusExtraInputFormControl"
+    [changeStatusForModule]="changeStatusForModule"
+    [moduleStatus]="characterModuleStatus"
+    [otherInput]="character.stationMemoNo"
+  ></app-change-status-form>
+
+  <app-assign-to-officer-form
+    *ngIf="
+      permissions.asssignToOfficer &&
+      isComplete &&
+      !isPending &&
+      character.agreeReject == 1
+    "
+    [url]="assignToOfficerSubmitURL"
+    [id]="changeStatusId"
+    [assignForModule]="changeStatusModule"
+  ></app-assign-to-officer-form>
+
+  <app-change-status
+    *ngIf="permissions.changeStatusList"
+    [changeStatusPath]="changeStatusPath"
+    [deleteButtonCode]="changeStatusDeleteCode"
+    [deleteButtonUrl]="changeStatusDeleteUrl"
+    [changeStatusModule]="changeStatusModule"
+    [changeStatusId]="changeStatusId"
+  ></app-change-status>
+
+  <app-forward-to-destination-form
+    *ngIf="
+      permissions.forwardToDestination &&
+      isComplete &&
+      !isPending &&
+      character.agreeReject == 1
+    "
+    [url]="forwatdToDestinationSubmitURL"
+    [id]="changeStatusId"
+    [extraInputLabel]="forwardExtraInputLabel"
+    [extraInputPlaceholder]="forwardExtraInputPlaceholder"
+    [extraInputName]="forwardExtraInputName"
+    [extraInputFormControl]="forwardExtraInputFormControl"
+    [extranInputConditions]="forwardExtranInputConditions"
+  >
+  </app-forward-to-destination-form>
+
+  <app-forward-to-destination
+    *ngIf="permissions.forwardToDestinationList"
+    [forwardDestinationPath]="forwardDestinationPath"
+    [deleteButtonCode]="forwardDestinationDeleteCode"
+    [deleteButtonUrl]="forwardDestinationDeleteUrl"
+    [forwardDestinationModule]="forwardDestinationModule"
+    [forwardDestinationId]="forwardDestinationId"
+  >
+  </app-forward-to-destination>
+
+  <app-sms-sending-form
+    *ngIf="
+      permissions.sendSMSToUser &&
+      isComplete &&
+      !isPending &&
+      character.agreeReject == 1
+    "
+    [url]="smsSendingSubmitURL"
+    [id]="smsSendingId"
+    [departmentName]="characterSMS"
+  >
+  </app-sms-sending-form>
+
+  <app-sms-sending
+    *ngIf="permissions.sendSMSToUserList"
+    [smsSendingPath]="smsSendingPath"
+    [smsSendingModule]="smsSendingModule"
+    [smsSendingId]="smsSendingId"
+    [deparment]="characterSMS"
+  >
+  </app-sms-sending>
+</div>
+
+<app-modal id="appAcceptModal">
+  <form>
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <label for="receiptNo">
+          {{ "CHARACTER.RECEIPT_NO" | translate }} :
+        </label>
+        <input
+          type="text"
+          id="receiptNo"
+          placeholder="{{ 'CHARACTER.SEL_RECEIPT_NO' | translate }}"
+          (keypress)="numberOnly($event)"
+          class="form-control"
+          [formControl]="receiptNo"
+          required
+        />
+      </div>
+
+      <div class="col-sm-12 col-md-12">
+        <span class="glob-span">{{ "COMPLAINT.SEL_STATUS" | translate }}</span>
+        <select
+          name="status"
+          id="status"
+          [formControl]="status"
+          autocomplete="off"
+          class="form-select"
+          required
+        >
+          <option value="null" disabled selected>
+            {{ "CHARACTER.SEL_COMP_STATUS" | translate }}
+          </option>
+          <option value="Character Assign">
+            {{ "CHARACTER.ASSIGNED" | translate }}
+          </option>
+        </select>
+        <div *ngIf="!status" style="color: red">Please Select Status</div>
+      </div>
+
+      <div class="col-sm-12 col-md-12">
+        <span class="glob-span">{{
+          "CITIZEN_REPORT.DESCRIPTION" | translate
+        }}</span>
+        <textarea
+          name="discription"
+          class="form-control hindi"
+          [formControl]="discription"
+          id="discription"
+          placeholder="{{ 'TRANSFER.ENTER_TRANSFER_DESCRIPTION' | translate }}"
+          [ngClass]="{ hindiFont: language == 'hi' }"
+          required
+        ></textarea>
+        <div *ngIf="!discription" style="color: red">
+          Please enter discription
+        </div>
+      </div>
+    </div>
+
+    <div class="acceptModal">
+      <span style="width: auto"
+        >Are you sure to accept character application?</span
+      >
+      <button class="btn btn-primary" (click)="acceptApp(1, 'appAcceptModal')">
+        Accept
+      </button>
+      <button class="btn btn-secondary" (click)="closeModal('appAcceptModal')">
+        Close
+      </button>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal id="appRejectModal" class="lg-modal">
+  <form>
+    <div class="acceptModal">
+      <label for="rejectReacson"> Message : </label>
+      <textarea
+        *ngIf="language == 'hi'"
+        name="rejectReacson"
+        id="rejectReacson"
+        class="form-control hindi hindiFont"
+        [formControl]="rejectReacson"
+        (change)="focusOut($event, 'name')"
+        (focusout)="focusOut($event, 'name')"
+        required
+      ></textarea>
+      <textarea
+        *ngIf="language == 'en'"
+        name="rejectReacson"
+        id="rejectReacson"
+        class="form-control"
+        [formControl]="rejectReacson"
+        required
+      ></textarea>
+    </div>
+
+    <div class="acceptModal">
+      <span style="width: auto"
+        >Are you sure to reject character application?</span
+      >
+      <button
+        type="submit"
+        class="btn btn-danger"
+        (click)="acceptApp(0, 'appRejectModal')"
+      >
+        Reject
+      </button>
+      <button class="btn btn-secondary" (click)="closeModal('appRejectModal')">
+        Close
+      </button>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal
+  id="downloadCertificate"
+  [className]="'md-modal high-box'"
+  *ngIf="!isComplete && character.agreeReject == 1"
+>
+  <app-character-download [id]="character.id"></app-character-download
+></app-modal>

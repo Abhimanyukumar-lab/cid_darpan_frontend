@@ -1,0 +1,16 @@
+.permission-edit {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.permission-edit .permission-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=modify-permission.component.css.map */

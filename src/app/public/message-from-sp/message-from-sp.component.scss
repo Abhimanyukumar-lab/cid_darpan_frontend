@@ -1,0 +1,31 @@
+.SP-MESSAGE {
+  width: 80%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  background-color: #ffffff;
+  .ab-text {
+    width: 100%;
+    height: auto;
+    flex: 60%;
+  }
+  .ab-img {
+    .about-map {
+      width: 100%;
+      height: auto;
+      flex: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .sp-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

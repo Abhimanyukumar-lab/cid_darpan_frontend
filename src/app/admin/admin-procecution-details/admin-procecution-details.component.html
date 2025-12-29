@@ -1,0 +1,163 @@
+<div class="card m-3">
+  <div class="card-header h5 text-white bg-secondary">
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <span>{{ "PROCECUTION.PROC_DETAILS" | translate }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body d-flex justify-content-between aling-item-center">
+    <div class="container">
+      <div class="row">
+        <form
+          class="form needs-validation text-center container"
+          novalidate
+          [formGroup]="procecutionForm"
+          autocomplete="off"
+          novalidate="novalidate"
+          id="procecutionForm"
+        >
+          <input name="id" formControlName="id" style="display: none" />
+          <div class="row mb-2">
+            <div class="col-sm-12 col-md-6">
+              <span class="glob-span"
+                >{{ "MISSING_PERSON.PERSON_NAME" | translate }}:</span
+              >
+              <input
+                *ngIf="language == 'hi'"
+                type="text"
+                id="personName"
+                name="personName"
+                (keypress)="validAplpha($event)"
+                placeholder="{{
+                  'MISSING_PERSON.ENTR_PERSON_NAME' | translate
+                }}"
+                formControlName="personName"
+                autocomplete="off"
+                class="form-control hindi hindiFont"
+                [ngClass]="{
+                  invalidInput: isControlHasErrors('personName')
+                }"
+                (change)="focusOut($event, 'personName')"
+                (focusout)="focusOut($event, 'personName')"
+                required
+              />
+              <input
+                *ngIf="language == 'en'"
+                type="text"
+                id="personName"
+                name="personName"
+                (keypress)="validAplpha($event)"
+                placeholder="{{
+                  'MISSING_PERSON.ENTR_PERSON_NAME' | translate
+                }}"
+                formControlName="personName"
+                autocomplete="off"
+                class="form-control"
+                [ngClass]="{
+                  invalidInput: isControlHasErrors('personName')
+                }"
+                (change)="focusOut($event, 'personName')"
+                (focusout)="focusOut($event, 'personName')"
+                required
+              />
+              <div
+                *ngIf="isControlHasError('personName', 'required')"
+                class="invalid"
+              >
+                <strong>Person Name is required</strong>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 mb-1">
+              <span class="glob-span"
+                >{{ "CITIZEN_REPORT.SELECT_TYPE" | translate }}:</span
+              >
+              <select
+                name="type"
+                id="type"
+                formControlName="type"
+                (change)="doCheckType($event.target)"
+                autocomplete="off"
+                class="form-select"
+                required
+              >
+                <option value="null" disabled>
+                  {{ "CITIZEN_REPORT.SELECT_TYPE" | translate }}
+                </option>
+                <option value="Present">
+                  {{ "GR_SECTION.PRESENT" | translate }}
+                </option>
+                <option value="Absent">
+                  {{ "GR_SECTION.ABSENT" | translate }}
+                </option>
+                <option value="Accused">
+                  {{ "GR_SECTION.ACCUSED" | translate }}
+                </option>
+                <option value="Witness">
+                  {{ "GR_SECTION.WITNESS" | translate }}
+                </option>
+              </select>
+              <div
+                *ngIf="isControlHasError('type', 'required')"
+                class="invalid"
+              >
+                <strong>Type is required</strong>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 mb-1" *ngIf="showYesNo">
+              <span class="glob-span"
+                >{{ "GR_SECTION.ACCUSED_IN" | translate }}:</span
+              >
+              <select
+                name="accuseIn"
+                id="accuseIn"
+                formControlName="accuseIn"
+                autocomplete="off"
+                class="form-select"
+              >
+                <option value="null" disabled>
+                  {{ "GR_SECTION.ACCUSED_IN_TYPE" | translate }}
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div
+              class="
+                form-group
+                d-flex
+                justify-content-center
+                align-items-center
+              "
+              style="margin-top: 5px"
+            >
+              <button
+                (click)="submitForwardData()"
+                class="btn btn-primary w-25"
+                [disabled]="loading"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-procecution-details-table
+  [procecutionPath]="procecutionPath"
+  [deleteButtonCode]="procecutionDeleteCode"
+  [deleteButtonUrl]="procecutionDeleteUrl"
+  [procecutionModule]="procecutionModule"
+  [procecutionId]="procecutionId"
+>
+</app-procecution-details-table>
+
+<div
+  class="form-group d-flex justify-content-center align-items-center"
+  style="margin-top: 5px"
+>
+  <a [routerLink]="backUrl" class="btn btn-primary w-25"> Finish </a>
+</div>

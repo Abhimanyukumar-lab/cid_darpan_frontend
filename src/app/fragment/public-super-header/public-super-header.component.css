@@ -1,0 +1,70 @@
+.default .super-header {
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  color: white;
+  position: relative;
+  background-color: #031b2e;
+}
+.default .super-header .contact-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.default .super-header .contact-details i {
+  padding: 5px;
+}
+.default .super-header .flag {
+  width: 60px;
+  display: flex;
+  justify-content: center;
+}
+.default .super-header .social-icon {
+  display: flex;
+  justify-content: center;
+}
+.default .super-header .social-icon .f-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.default .super-header .language {
+  justify-content: center;
+}
+@media screen and (max-width: 1000px) {
+  .default .super-header {
+    flex-direction: column;
+  }
+}
+
+.style3 .header1 {
+  background-color: #031b2e;
+  font-size: var(--font14);
+  color: #ffffff !important;
+}
+.style3 .header1 .nav-link {
+  color: #ffffff !important;
+}
+.style3 .header1 .flag img {
+  height: 23px;
+}
+.style3 .header1 .call img,
+.style3 .mail .mail-img {
+  height: 15px;
+}
+
+.bar-color {
+  background-color: #f10101;
+}
+
+a {
+  display: flex;
+  color: #ffffff;
+  text-decoration: none;
+}/*# sourceMappingURL=public-super-header.component.css.map */

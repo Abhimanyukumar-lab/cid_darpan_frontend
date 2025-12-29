@@ -1,0 +1,95 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "HOME.SUCCESSION_LIST" | translate
+  }}</span>
+</div>
+<section class="our-team">
+  <div class="container">
+    <div class="card" *ngFor="let succession of successionList">
+      <div class="box">
+        <div class="img-responsive" style="width: 100%; height: auto">
+          <app-image-viewer
+            [imageURL]="succession.link"
+            [imgWidth]="'100%'"
+            [imgHeight]="'250px'"
+          ></app-image-viewer>
+        </div>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="
+            font-size: 20px;
+            margin-bottom: 1px;
+            color: black;
+            line-height: 1.5;
+          "
+        >
+          {{ succession.titleHi }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="
+            font-size: 20px;
+            margin-bottom: 1px;
+            color: black;
+            line-height: 1.5;
+          "
+        >
+          {{ succession.title }}
+        </p>
+        <!-- <p
+          style="
+            font-size: 17px;
+            font-weight: 400;
+            text-align: center;
+            color: #f3cf02 !important;
+          "
+        >
+          ( {{ succession.description }} )
+        </p> -->
+        <p
+          style="
+            font-size: 17px;
+            font-weight: 400;
+            text-align: center;
+            color: #f3cf02 !important;
+          "
+        >
+          {{ succession.designationName }}
+        </p>
+        <label
+          class="officer-about"
+          style="
+            font-size: 16px;
+            font-weight: 500;
+            color: rgb(0, 0, 0);
+            line-height: 1.5;
+          "
+        >
+          {{ succession.date | date: "dd/MM/yyyy" }} -
+          {{
+            succession.newDate != "Till Date"
+              ? (succession.newDate | date: "dd/MM/yyyy")
+              : "Till Date"
+          }}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div
+    style="
+      width: 100%;
+      height: 150px;
+      background-color: #ffffff;
+      color: red;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+    *ngIf="successionList && successionList.length == 0"
+  >
+    {{ "COMMON.NO_DATA_ADDED" | translate }}
+  </div>
+</section>

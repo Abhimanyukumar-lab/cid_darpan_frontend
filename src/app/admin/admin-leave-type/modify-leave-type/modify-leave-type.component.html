@@ -1,0 +1,183 @@
+<div class="leave-edit">
+  <div class="dashboard-header">
+    {{ "LEAVE_TYPE.LEAVE_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="leave-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="leaveTypeForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="leaveTypeForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="leaveType" class="col-3 col-form-label">{{
+        "LEAVE_TYPE.LEAVE_TITLE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="leaveType"
+          name="leaveType"
+          placeholder="{{ 'LEAVE_TYPE.ENTR_LEAVE_TITLE' | translate }}"
+          formControlName="leaveType"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('leaveType')
+          }"
+          (change)="focusOut($event, 'leaveType')"
+          (focusout)="focusOut($event, 'leaveType')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="leaveType"
+          name="leaveType"
+          placeholder="{{ 'LEAVE_TYPE.ENTR_LEAVE_TITLE' | translate }}"
+          formControlName="leaveType"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('leaveType')
+          }"
+          (change)="focusOut($event, 'leaveType')"
+          (focusout)="focusOut($event, 'leaveType')"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('leaveType', 'required')" class="invalid">
+        <strong>Leave Type is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('leaveType', 'minlength')" class="invalid">
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div *ngIf="isControlHasError('leaveType', 'maxlength')" class="invalid">
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="leaveCode" class="col-3 col-form-label">{{
+        "LEAVE_TYPE.LEAVE_CODE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="text"
+          id="leaveCode"
+          name="leaveCode"
+          placeholder="{{ 'LEAVE_TYPE.ENTR_LEAVE_CODE' | translate }}"
+          formControlName="leaveCode"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('leaveCode')
+          }"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('leaveCode', 'required')" class="invalid">
+        <strong>Leave Code is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('leaveCode', 'minlength')" class="invalid">
+        <strong>Minimum 2 character required</strong>
+      </div>
+      <div *ngIf="isControlHasError('leaveCode', 'maxlength')" class="invalid">
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="allowedLeave" class="col-3 col-form-label">{{
+        "LEAVE_TYPE.ALLOWED_LEAVE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="text"
+          id="allowedLeave"
+          name="allowedLeave"
+          placeholder="{{ 'LEAVE_TYPE.ENTR_ALLOWED_LEAVE' | translate }}"
+          formControlName="allowedLeave"
+          (keypress)="numberOnly($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('allowedLeave'),
+            hindi: langModule.language == 'hi'
+          }"
+          required
+        />
+      </div>
+
+      <div
+        *ngIf="isControlHasError('allowedLeave', 'required')"
+        class="invalid"
+      >
+        <strong>Allowed Leave Number is required</strong>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="imageGallery_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_LEAVE_TYPE && ADD_URL && !LEAVE_TYPE_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="imageGallery_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_LEAVE_TYPE && EDIT_URL && LEAVE_TYPE_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

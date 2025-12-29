@@ -1,0 +1,248 @@
+<!-- <div style="width: 98%;height: 100vh;display: flex;flex-wrap: wrap;justify-content: center;align-items: center;">
+    <div style="width:50%;height: 100%;display: flex;flex-direction: column;font-weight: bold;">
+        <span class="glob-span header-txt" style="justify-content: center" *ngIf="isOurTeam">
+            {{ "HOME.OUR_TEAM" | translate }}</span>
+        <span class="glob-span header-txt" style="justify-content: center" *ngIf="isBestOurTeam">
+            {{ "HOME.BEST_OUR_TEAM" | translate }}</span>
+
+        <div *ngIf="ourTeam.length > 0" style="flex: 1">
+            <ngx-slick-carousel class="carousel" style="height: 100%;" #slickModal="slick-carousel"
+                [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let team of ourTeam; let i = index" class="slide"
+                    style="width: 100%; height: 93vh; margin: 10px;border: 1px solid black;border-radius: 5px; position: relative;display: flex;flex-direction: column;box-sizing: border-box;background-color: gray">
+                    <div style="width: 50px; height: 50px;position: absolute;top: 2px; left: 2px;">
+                        <img src="/assets/images/1st.jpg" alt="1st" width="100%" height="50px" *ngIf="i == 0" />
+                        <img src="/assets/images/2nd.jpg" alt="1st" width="100%" height="50px"
+                            style="background-color: transparent;" *ngIf="i == 1" />
+                        <img src="/assets/images/3rd.jpg" alt="1st" width="100%" height="50px"
+                            style="background-color: transparent;" *ngIf="i == 2" />
+                    </div>
+                    <img src="{{ baseUrl + team.link }}" style="width: 100%; height: 92%;">
+                    <div
+                        style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;padding: 10px 0;display: flex;flex-direction: column;">
+                        <span *ngIf="currrentLang=='en'">{{team.title}}</span><span
+                            *ngIf="currrentLang=='hi'">{{team.titleHi}}</span>
+                        <span *ngIf="currrentLang=='en'">{{team.designationName}}</span><span
+                            *ngIf="currrentLang=='hi'">{{team.designationNameHi}}</span>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+        </div>
+    </div>
+
+    <div style="width:50%;height: 100%;display: flex;flex-direction: column;font-weight: bold;">
+        <span class="glob-span header-txt" style="justify-content: center">
+            {{ "MOST_WANTED.TITLE_HOME" | translate }}</span>
+
+        <div *ngIf="ourTeam.length > 0" style="flex: 1">
+            <ngx-slick-carousel class="carousel" style="height: 100%;" #slickModal="slick-carousel"
+                [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let wanted of mostWanted; let i = index" class="slide"
+                    style="width: 100%; height: 93vh; margin: 10px;border: 1px solid black;border-radius: 5px; position: relative;display: flex;flex-direction: column;box-sizing: border-box;background-color: gray">
+                    <img src="{{ baseUrl + wanted.link }}" style="width: 100%; height: 92%;">
+                    <div
+                        style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;padding: 10px 0;display: flex;flex-direction: column;">
+                        <span *ngIf="currrentLang=='en'">{{wanted.title}}</span><span
+                            *ngIf="currrentLang=='hi'">{{wanted.titleHi}}</span>
+                        <span *ngIf="currrentLang=='en'">{{wanted.designationName}}</span><span
+                            *ngIf="currrentLang=='hi'">{{wanted.designationNameHi}}</span>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+        </div>
+    </div>
+
+</div> -->
+
+<div style="width: 100vw;height: 100vh;overflow: hidden;">
+
+    <div class="headlines">
+        <div class="container">
+            <ng-marquee class="headlines-outer" speed="drowsy" [stopOnHover]="true">
+                <mark class="headlines-innner">&#8226;</mark>
+                <mark *ngFor="let headline of headlines" class="headlines-innner"><a href="{{ headline.link }}"
+                        target="blank" style="text-decoration: none; color: #ffffff"><span style="font-size: 42px;">{{
+                            headline.title }} </span>
+                        <img src="/assets/images/arrow.svg" alt="Arrow" />
+                    </a>
+                </mark>
+                <mark class="headlines-innner">&#8226;</mark>
+            </ng-marquee>
+        </div>
+    </div>
+
+    <div style="width:100%;">
+        <!-- Most wanted -->
+        <!-- <div>
+        <div class="row">
+            <div class="col-sm-12 sub-header-title">
+                <span class="glob-span header-txt" style="justify-content: center">
+                    {{ "MOST_WANTED.TITLE_HOME" | translate }}</span>
+            </div>
+        </div>
+        <div class="row" style="display: flex; justify-content: center" *ngIf="mostWanted.length > 0">
+            <-- <ng-image-slider #nav [images]="imageObjectMostWanted" [infinite]="true" [autoSlide]="1"
+                [imageSize]="{width: '300px', height: 200}" slideImage="1" [imagePopup]="true" [showArrow]="false"
+                [animationSpeed]="4"></ng-image-slider> --
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let wanted of mostWanted" class="slide"
+                    style="width: 450px; margin: 10px;border: 1px solid black;border-radius: 5px;">
+                    <img src="{{ baseUrl + wanted.link }}" width="100%" height="150">
+                    <div
+                        style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;">
+                        <span *ngIf="currrentLang=='en'">{{wanted.title}}</span><span
+                            *ngIf="currrentLang=='hi'">{{wanted.titleHi}}</span>
+                    </div>
+                    <div
+                        style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;">
+                        <span *ngIf="currrentLang=='en'">{{wanted.description}}</span><span
+                            *ngIf="currrentLang=='hi'">{{wanted.descriptionHi}}</span>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+        </div>
+        <div class=" col-sm-12 text-center" *ngIf="mostWanted && mostWanted.length == 0"
+            style="color: #a22121; padding: 0 0 20px 0">
+            No Most Wanted Found!
+        </div>
+    </div> -->
+
+        <!-- Important Achievement -->
+        <!-- <div>
+        <div class="row">
+            <div class="col-sm-12 sub-header-title">
+                <span class="glob-span header-txt" style="justify-content: center">
+                    {{ "IMPORTANT_ACHIEVEMENT.TITLE_HOME" | translate }}</span>
+            </div>
+        </div>
+        <div class="row" style="display: flex; justify-content: center" *ngIf="importantAchievement.length > 0">
+            <-- <ng-image-slider #nav [images]="imageObjectMostWanted" [infinite]="true" [autoSlide]="1"
+                          [imageSize]="{width: '300px', height: 200}" slideImage="1" [imagePopup]="true" [showArrow]="false"
+                          [animationSpeed]="4"></ng-image-slider> --
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let wanted of importantAchievement" class="slide"
+                    style="width: 450px; margin: 10px;border: 1px solid black;border-radius: 5px;">
+                    <img src="{{ baseUrl + wanted.link }}" width="100%" height="150">
+                    <div
+                        style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;">
+                        <span *ngIf="currrentLang=='en'">{{wanted.title}}</span><span
+                            *ngIf="currrentLang=='hi'">{{wanted.titleHi}}</span>
+                    </div>
+                    <div
+                        style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;">
+                        <span *ngIf="currrentLang=='en'">{{wanted.description}}</span><span
+                            *ngIf="currrentLang=='hi'">{{wanted.descriptionHi}}</span>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+        </div>
+        <div class=" col-sm-12 text-center" *ngIf="importantAchievement && importantAchievement.length == 0"
+            style="color: #a22121; padding: 0 0 20px 0">
+            No Most Wanted Found!
+        </div>
+    </div> -->
+
+        <!-- Our Team -->
+        <!-- <div>
+        <div class="row">
+            <div class="col-sm-12 sub-header-title">
+                <span class="glob-span header-txt" style="justify-content: center" *ngIf="isOurTeam">
+                    {{ "HOME.OUR_TEAM" | translate }}</span>
+                <span class="glob-span header-txt" style="justify-content: center" *ngIf="isBestOurTeam">
+                    {{ "HOME.BEST_OUR_TEAM" | translate }}</span>
+            </div>
+        </div>
+        <div class="row" style="display: flex; justify-content: center" *ngIf="ourTeam.length > 0">
+            <div class="marquee-wrapper">
+                <div class="container">
+                    <-- <ng-image-slider #nav [images]="imageObjectOurTeam" [infinite]="true" [autoSlide]="1"
+                    [imageSize]="{width: '300px', height: 200}" slideImage="1" [imagePopup]="true" [showArrow]="false"
+                    [animationSpeed]="4"></ng-image-slider> --
+
+                    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                        <div ngxSlickItem *ngFor="let team of ourTeam; let i = index" class="slide"
+                            style="width: 450px; margin: 10px;border: 1px solid black;border-radius: 5px; position: relative;">
+                            <-- <div style="width: 50px; height: 50px;position: absolute;top: 2px; left: 2px;">
+                                <img src="/assets/images/1st.jpg" alt="1st" width="100%" height="50px" *ngIf="i == 0" />
+                                <img src="/assets/images/2nd.jpg" alt="1st" width="100%" height="50px"
+                                    style="background-color: transparent;" *ngIf="i == 1" />
+                                <img src="/assets/images/3rd.jpg" alt="1st" width="100%" height="50px"
+                                    style="background-color: transparent;" *ngIf="i == 2" />
+                            </div> --
+                            <img src="{{ baseUrl + team.link }}" width="100%" height="150">
+                            <div
+                                style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;">
+                                <span *ngIf="currrentLang=='en'">{{team.title}}</span><span
+                                    *ngIf="currrentLang=='hi'">{{team.titleHi}}</span>
+                            </div>
+                            <div
+                                style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;">
+                                <span *ngIf="currrentLang=='en'">{{team.designationName}}</span><span
+                                    *ngIf="currrentLang=='hi'">{{team.designationNameHi}}</span>
+                            </div>
+                        </div>
+                    </ngx-slick-carousel>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-center" *ngIf="ourTeam && ourTeam.length == 0"
+            style="color: #a22121; padding: 0 0 20px 0">
+            No Images In Our Team!
+        </div>
+    </div> -->
+
+        <div class="row" style="display: flex; justify-content: center" *ngIf="allData.length > 0">
+            <!-- <ng-image-slider #nav [images]="imageObjectMostWanted" [infinite]="true" [autoSlide]="1"
+            [imageSize]="{width: '300px', height: 200}" slideImage="1" [imagePopup]="true" [showArrow]="false"
+            [animationSpeed]="4"></ng-image-slider> -->
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let data of allData" class="slide"
+                    style="width: 100%; height: auto; margin: 10px;border: 1px solid black;border-radius: 5px;">
+
+                    <div class="row" *ngIf="data.type == 'BEST_OUR_TEAM'">
+                        <div class="col-sm-12 sub-header-title" style="padding-top: 0; padding-bottom: 0;">
+                            <span class="glob-span header-txt" style="justify-content: center;font-size: 56px;"
+                                *ngIf="isOurTeam">
+                                {{ "HOME.OUR_TEAM" | translate }}</span>
+                            <span class="glob-span header-txt" style="justify-content: center;font-size: 56px;"
+                                *ngIf="isBestOurTeam">
+                                {{ "HOME.BEST_OUR_TEAM" | translate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="data.type == 'MOST_WANTED'">
+                        <div class="col-sm-12 sub-header-title" style="padding-top: 0; padding-bottom: 0;">
+                            <span class="glob-span header-txt" style="justify-content: center;font-size: 56px;">
+                                {{ "MOST_WANTED.TITLE_HOME" | translate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="data.type == 'IMPORTANT_ACHIEVEMENT'">
+                        <div class="col-sm-12 sub-header-title" style="padding-top: 0; padding-bottom: 0;">
+                            <span class="glob-span header-txt" style="justify-content: center;font-size: 56px;">
+                                {{ "IMPORTANT_ACHIEVEMENT.TITLE_HOME" | translate }}</span>
+                        </div>
+                    </div>
+
+                    <img src="{{ baseUrl + data.link }}" width="100%" height="720px">
+
+                    <div
+                        style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;">
+                        <span *ngIf="currrentLang=='en'" style="font-size: 48px;">{{data.title}}</span><span
+                            *ngIf="currrentLang=='hi'" style="font-size: 48px;">{{data.titleHi}}</span>
+                    </div>
+                    <div style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;"
+                        *ngIf="data.type != 'BEST_OUR_TEAM'">
+                        <span *ngIf="currrentLang=='en'" style="font-size: 48px;">{{data.description}}</span><span
+                            *ngIf="currrentLang=='hi'" style="font-size: 48px;">{{data.descriptionHi}}</span>
+                    </div>
+                    <div style="width: 100%;text-align: center;font-weight: 500;font-size: 16px;background-color: gray;color: white;"
+                        *ngIf="data.type == 'BEST_OUR_TEAM'">
+                        <span *ngIf="currrentLang=='en'" style="font-size: 48px;">{{data.designationName}}</span><span
+                            *ngIf="currrentLang=='hi'" style="font-size: 48px;">{{data.designationNameHi}}</span>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+        </div>
+    </div>
+</div>

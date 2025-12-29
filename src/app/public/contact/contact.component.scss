@@ -1,0 +1,231 @@
+.main-contact {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 50px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  .address-area {
+    width: 50%;
+    margin: 10px;
+    .contact-details {
+      width: 100%;
+      min-height: 350px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      background-color: rgb(255, 255, 255);
+      border-radius: 20px;
+      border: 1px solid;
+
+      span {
+        padding: 5px;
+      }
+      .btn-div {
+        width: 100%;
+        padding-top: 20px;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        a,
+        button {
+          text-decoration: none;
+          font-weight: 700;
+        }
+        a:hover {
+          border: 0px;
+          color: rgb(255, 255, 255);
+          background-color: rgb(69, 26, 224);
+          box-shadow: 0 4px 8px 0 rgba(57, 56, 61, 0.548),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          transition: ease-in-out 0.2s;
+        }
+      }
+      .contacts {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .map-area {
+    width: 100%;
+    margin: 10px;
+    .map-div {
+      width: 100%;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      background-color: rgb(255, 255, 255);
+      border-radius: 20px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      span {
+        padding: 5px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .main-contact {
+    width: 100%;
+    padding: 10px;
+    .address-area {
+      width: 60%;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      .contact-details {
+        width: 100%;
+        .btn-div {
+          width: 100%;
+          flex-direction: row;
+          align-content: center;
+          align-items: center;
+          justify-content: center;
+          a {
+            width: 40%;
+          }
+          a:hover {
+            border: 0px;
+          }
+        }
+      }
+    }
+    .map-area {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+  .main-contact {
+    width: 100%;
+    padding: 10px;
+    .address-area {
+      width: 60%;
+      display: flex;
+      .contact-details {
+        width: 100%;
+        .btn-div {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          justify-content: center;
+          align-items: center;
+          a {
+            width: 40%;
+          }
+          a:hover {
+            border: 0px;
+          }
+        }
+      }
+    }
+    .map-area {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .main-contact {
+    width: 100%;
+    padding: 10px;
+    .address-area {
+      width: 60%;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      .contact-details {
+        width: 100%;
+        .btn-div {
+          width: 100%;
+          flex-direction: row;
+          align-content: center;
+          align-items: center;
+          justify-content: center;
+          a {
+            width: 40%;
+          }
+          a:hover {
+            border: 0px;
+          }
+        }
+      }
+    }
+    .map-area {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .main-contact {
+    width: 100%;
+    padding: 10px;
+    .address-area {
+      width: 60%;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      .contact-details {
+        width: 100%;
+        .btn-div {
+          width: 100%;
+          flex-direction: row;
+          align-content: center;
+          align-items: center;
+          justify-content: center;
+          a {
+            width: 40%;
+          }
+          a:hover {
+            border: 0px;
+          }
+        }
+      }
+    }
+    .map-area {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-contact {
+    width: 100%;
+    padding: 10px;
+    .address-area {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      .contact-details {
+        width: 100%;
+        text-align: center;
+        .btn-div {
+          width: 100%;
+          padding: 0;
+          margin: 0;
+          a {
+            width: 100%;
+            padding: 0;
+          }
+          a:hover {
+            border: 0px;
+          }
+        }
+      }
+    }
+    .map-area {
+      width: 100%;
+    }
+  }
+}

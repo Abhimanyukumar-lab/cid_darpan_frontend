@@ -1,0 +1,255 @@
+<div class="notifys-edit">
+  <div class="dashboard-header">Notification User Details</div>
+</div>
+<div class="notifys-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="notificationUserForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="notificationUserForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-12">
+        <span class="glob-span">Station Users :</span>
+
+        <!-- <ng-multiselect-dropdown
+          class="ngDropDown"
+          [data]="officersList"
+          name="userName"
+          formControlName="userName"
+          [settings]="dropdownSettings"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+          (onDeSelect)="onDeSelect($event)"
+          (onDeSelectAll)="onDeSelectAll($event)"
+          (onGroupSelect)="onGroupSelect($event)"
+          (onGroupDeSelect)="onGroupDeSelect($event)"
+        >
+        </ng-multiselect-dropdown> -->
+
+        <angular2-multiselect
+        style="border: 1px;"
+          class="ngDropDown"
+          [data]="officersList"
+          name="userName"
+          formControlName="userName"
+          [settings]="dropdownSettings"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+          (onDeSelect)="onDeSelect($event)"
+          (onDeSelectAll)="onDeSelectAll($event)"
+          (onGroupSelect)="onGroupSelect($event)"
+          (onGroupDeSelect)="onGroupDeSelect($event)"
+        >
+        </angular2-multiselect>
+      </div>
+
+      <div class="col-sm-12 col-md-12 text-center">
+        <span
+          style="
+            text-align: center;
+            margin: auto;
+            font-size: medium;
+            font-weight: bold;
+          "
+          >OR</span
+        >
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <span class="glob-span">User name :</span>
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="name"
+          name="name"
+          (keypress)="validAplpha($event)"
+          placeholder="Enter User Name"
+          formControlName="name"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }"
+          (change)="focusOut($event, 'name')"
+          (focusout)="focusOut($event, 'name')"
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="name"
+          name="name"
+          (keypress)="validAplpha($event)"
+          placeholder="Enter User Name"
+          formControlName="name"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }"
+          (change)="focusOut($event, 'name')"
+          (focusout)="focusOut($event, 'name')"
+        />
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <span class="glob-span">Designation :</span>
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="userDesignation"
+          name="userDesignation"
+          (keypress)="validAplpha($event)"
+          placeholder="Enter User Designation"
+          formControlName="userDesignation"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('userDesignation')
+          }"
+          (change)="focusOut($event, 'userDesignation')"
+          (focusout)="focusOut($event, 'userDesignation')"
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="userDesignation"
+          name="userDesignation"
+          (keypress)="validAplpha($event)"
+          placeholder="Enter User Designation"
+          formControlName="userDesignation"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('userDesignation')
+          }"
+          (change)="focusOut($event, 'userDesignation')"
+          (focusout)="focusOut($event, 'userDesignation')"
+        />
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <span class="glob-span">Village Name :</span>
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="villageName"
+          name="villageName"
+          (keypress)="validAplpha($event)"
+          placeholder="Enter User Village"
+          formControlName="villageName"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('villageName')
+          }"
+          (change)="focusOut($event, 'villageName')"
+          (focusout)="focusOut($event, 'villageName')"
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="villageName"
+          name="villageName"
+          (keypress)="validAplpha($event)"
+          placeholder="Enter User Village"
+          formControlName="villageName"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('villageName')
+          }"
+          (change)="focusOut($event, 'villageName')"
+          (focusout)="focusOut($event, 'villageName')"
+        />
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <span class="glob-span">Mobile Number 1 :</span>
+        <input
+          type="text"
+          id="userMobile1"
+          name="userMobile1"
+          maxlength="13"
+          (keypress)="numberOnly($event)"
+          placeholder="Enter User Mobile number 1"
+          formControlName="userMobile1"
+          autocomplete="off"
+          class="form-control"
+        />
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <span class="glob-span">Mobile Number 2 :</span>
+        <input
+          type="text"
+          id="userMobile2"
+          name="userMobile2"
+          maxlength="13"
+          (keypress)="numberOnly($event)"
+          placeholder="Enter User Mobile number 2"
+          formControlName="userMobile2"
+          autocomplete="off"
+          class="form-control"
+        />
+      </div>
+
+      <div
+        class="form-group d-flex justify-content-center align-items-center"
+        style="margin-top: 5px"
+      >
+        <button
+          type="submit"
+          (click)="adduserToList()"
+          class="btn btn-primary w-25"
+          [disabled]="loading"
+        >
+          Add users To List
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="notifys-form">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Village Name</th>
+        <th scope="col">User Designation</th>
+        <th scope="col">User Mobile</th>
+        <th scope="col">User Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of selectedItems">
+        <td>{{ item.name }}</td>
+        <td>{{ item.villageName }}</td>
+        <td>{{ item.userDesignation }}</td>
+        <td>{{ item.userMobile1 }}</td>
+        <td>{{ item.userMobile2 }}</td>
+      </tr>
+
+      <tr *ngIf="selectedItems.length == 0">
+        <td colspan="5" style="text-align: center">NO USER ADDED</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div
+  class="form-group d-flex justify-content-center align-items-center"
+  style="margin-top: 5px"
+>
+  <button
+    (click)="submit()"
+    class="btn btn-primary w-25"
+    [disabled]="loading"
+    *ngIf="selectedItems.length > 0"
+  >
+    Finish
+  </button>
+</div>

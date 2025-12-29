@@ -1,0 +1,85 @@
+<div class="viewContainer">
+    <div class="card m-3 mt-0">
+        <div class="card-body d-flex justify-content-between aling-item-center dashboard-header">
+            <h5>Asset Supplier Details</h5>
+            <i class="material-icons" style="font-weight: bold; cursor: pointer" (click)="goBack()" placement="bottom"
+                ngbTooltip="Close">close</i>
+        </div>
+    </div>
+
+    <div class="card m-3">
+        <div class="card-header h5 text-white bg-secondary">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <span>Supplier Details</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body d-flex justify-content-between aling-item-center">
+            <div class="container">
+                <div class="row p-3" style="font-size: 16px">
+
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <span style="font-weight: 500">Supplier Name :</span>
+                            </div>
+                            <div class="col-6">{{ assetSupplier.supplierName }}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <span style="font-weight: 500">Supplier Address :</span>
+                            </div>
+                            <div class="col-6">{{ assetSupplier.supplierAddress }}</div>
+                        </div>
+                    </div>
+                    <div class="col-6" *ngIf="assetSupplier.supplierEmail">
+                        <div class="row">
+                            <div class="col-6">
+                                <span style="font-weight: 500">Supplier Email :</span>
+                            </div>
+                            <div class="col-6">{{ assetSupplier.supplierEmail }}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <span style="font-weight: 500">Supplier Mobile Number :</span>
+                            </div>
+                            <div class="col-6">{{ assetSupplier.supplierMobileNo }}</div>
+                        </div>
+                    </div>
+                    <div class="col-6" *ngIf="assetSupplier.supplierContactNo">
+                        <div class="row">
+                            <div class="col-6">
+                                <span style="font-weight: 500">Supplier Contact Number :</span>
+                            </div>
+                            <div class="col-6">{{ assetSupplier.supplierContactNo }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-panel" style="border: none;padding: 0 5px;">
+        <a
+          routerLink="{{ permissions.add_url }}"
+          class="btn btn-success m-2"
+          *ngIf="permissions.add && permissions.add_url"
+          >Add Product</a
+        >
+      </div>
+
+    <app-suppliers-products-table [supplierProductsPath]="supplierProductsPath"
+        [supplierProductsDeactivate]="supplierProductsDeactivate"
+        [supplierProductsDeactivateUrl]="supplierProductsDeactivateUrl"
+        [supplierProductsActivate]="supplierProductsActivate"
+        [supplierProductsActivateUrl]="supplierProductsActivateUrl" [supplierProductsEdit]="supplierProductsEdit"
+        [supplierProductsEditUrl]="supplierProductsEditUrl" [supplierProductsId]="supplierProductsId">
+    </app-suppliers-products-table>
+
+</div>

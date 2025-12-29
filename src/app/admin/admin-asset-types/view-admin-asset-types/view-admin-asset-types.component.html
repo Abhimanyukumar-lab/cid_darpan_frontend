@@ -1,0 +1,57 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>{{ "ASSET_TYPES.ASSET_TYPES_TITLE" | translate }}</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "ASSET_TYPES.ASSET_TYPES_DETAILS" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "ASSET_TYPES.ASSET_TYPE_NAME" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ assetType.assetsName }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container-fluid">
+        <div class="row p-3" style="font-size: 16px">
+          <app-admin-asset-product [id]="assetType.id"></app-admin-asset-product>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

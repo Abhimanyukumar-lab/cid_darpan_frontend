@@ -1,0 +1,76 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "PHOTO_GALLERY.PHOTO_GALLERY_TITLE" | translate
+  }}</span>
+</div>
+
+<div class="photo-gallary">
+  <div class="container" *ngIf="imageGallery && imageGallery.length > 0">
+    <div class="row px-2 py-2 my-2 border-bottom">
+      <button
+        class="col-1 btn mx-2 my-2"
+        [ngClass]="{
+          selected: selected == 'See All',
+          'non-selected': selected != 'See All'
+        }"
+        (click)="changePhoto('See All')"
+      >
+        See All
+      </button>
+      <button
+        *ngFor="let event of eventList"
+        class="col-2 btn mx-2 my-2"
+        [ngClass]="{
+          selected: selected == event,
+          'non-selected': selected != event
+        }"
+        (click)="changePhoto(event)"
+      >
+        {{ event }}
+      </button>
+    </div>
+
+    <div class="row border-bottom">
+      <div
+        *ngFor="let image of imageGallery"
+        class="col-3 d-flex isEvent panel-images text-center"
+      >
+        <div
+          class="card text-white bg-dark col-12"
+          *ngIf="image.releasedBy == selected || selected == 'See All'"
+        >
+          <app-image-viewer
+            [imageURL]="image.link"
+            [imgWidth]="'100%'"
+            [imgHeight]="'175px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+          <div
+            class="card-body"
+            style="font-size: 18px; font-style: oblique; font-weight: bold"
+          >
+            {{ image.title }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="imageGallery && imageGallery.length == 0">
+    <div
+      style="
+        width: 100%;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        background-color: white;
+        color: red;
+      "
+    >
+      {{ "COMMON.NO_DATA" | translate }}
+    </div>
+  </div>
+</div>

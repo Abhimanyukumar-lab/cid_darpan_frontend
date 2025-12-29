@@ -1,0 +1,182 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      ">
+      <h5>{{ "GFPO.TITLE" | translate }}</h5>
+      <i class="material-icons" style="font-weight: bold; cursor: pointer" (click)="goBack()" placement="bottom"
+        ngbTooltip="Close">close</i>
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "GFPO.TITLE" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "COMPLAINT.COMP_NUMBER" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.id }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "GFPO.EMPLOYEE_ID" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.employeeId }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "GFPO.NAME" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.name }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "GFPO.MOBILENO" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.mobileNo }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "GFPO.EMAIL" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">
+                {{ grievanceFemalePoliceOfficial.email }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "GFPO.DESCRIPTION" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.description }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "GFPO.CURRENT_POSTING" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.currentPosting }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "GFPO.CURRENT_EMPLOYEE_STATUS" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.currentEmployeeStatus }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{ "CHARACTER.APPLIED_DATE" | translate }}:</span>
+              </div>
+              <div class="col-8">
+                {{ grievanceFemalePoliceOfficial.createdDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "COMPLAINT.COMP_DETAIL" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ grievanceFemalePoliceOfficial.complaintComment }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "COMPLAINT.DOCUMENT" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content; padding-bottom: 10px;">
+                  <app-image-viewer [imageURL]="grievanceFemalePoliceOfficial.complaintImage"></app-image-viewer>
+                </div>
+                <a target="_self" *ngIf="grievanceFemalePoliceOfficial.complaintImage"
+                  style="border: 1px solid gray; padding: 5px 10px; background: skyblue;color:white;margin-top: 5px;text-decoration: none;"
+                  [href]="baseUrl + '/api/public/downloadFile/' + grievanceFemalePoliceOfficial.complaintImage.toString().split('/')[grievanceFemalePoliceOfficial.complaintImage.toString().split('/').length - 1]">
+                  Download
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-change-status-form *ngIf="permissions.changeStatusForm && isComplete" [url]="changeStatusSubmitURL"
+    [id]="changeStatusId" [changeStatusForModule]="changeStatusForModule"
+    [moduleStatus]="characterModuleStatus"></app-change-status-form>
+
+  <app-assign-to-officer-form *ngIf="permissions.asssignToOfficer && isComplete && !isPending"
+    [url]="assignToOfficerSubmitURL" [id]="changeStatusId"
+    [assignForModule]="changeStatusModule"></app-assign-to-officer-form>
+
+  <app-change-status *ngIf="permissions.changeStatusList" [changeStatusPath]="changeStatusPath"
+    [deleteButtonCode]="changeStatusDeleteCode" [deleteButtonUrl]="changeStatusDeleteUrl"
+    [changeStatusModule]="changeStatusModule" [changeStatusId]="changeStatusId"></app-change-status>
+
+  <app-forward-to-destination-form *ngIf="permissions.forwardToDestination && isComplete && !isPending"
+    [url]="forwatdToDestinationSubmitURL" [id]="changeStatusId">
+  </app-forward-to-destination-form>
+
+  <app-forward-to-destination *ngIf="permissions.forwardToDestinationList"
+    [forwardDestinationPath]="forwardDestinationPath" [deleteButtonCode]="forwardDestinationDeleteCode"
+    [deleteButtonUrl]="forwardDestinationDeleteUrl" [forwardDestinationModule]="forwardDestinationModule"
+    [forwardDestinationId]="forwardDestinationId">
+  </app-forward-to-destination>
+
+  <app-sms-sending-form *ngIf="permissions.sendSMSToUser && isComplete && !isPending" [url]="smsSendingSubmitURL"
+    [id]="smsSendingId" [departmentName]="grievanceFemalePoliceOfficialSMS">
+  </app-sms-sending-form>
+
+  <app-sms-sending *ngIf="permissions.sendSMSToUserList" [smsSendingPath]="smsSendingPath"
+    [smsSendingModule]="smsSendingModule" [smsSendingId]="smsSendingId"
+    [deparment]="grievanceFemalePoliceOfficialSMS"></app-sms-sending>
+</div>

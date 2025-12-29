@@ -1,0 +1,39 @@
+.photo-gallary {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.isEvent:empty {
+  display: none !important;
+}
+
+.col-3 {
+  width: 24%;
+}
+
+.panel-images {
+  padding: 10px;
+  margin: 10px;
+}
+
+@media screen and (max-width: 425px) {
+  .col-3 {
+    width: 100%;
+  }
+  .card {
+    width: 100%;
+  }
+}
+.selected {
+  background-color: #262809 !important;
+  color: #ffffff !important;
+  padding: 10px;
+}
+
+.non-selected {
+  background-color: #31330e !important;
+  color: #ffffff !important;
+  padding: 10px;
+}/*# sourceMappingURL=photo-gallery.component.css.map */

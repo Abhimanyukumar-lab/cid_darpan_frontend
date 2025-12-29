@@ -1,0 +1,51 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "POSTING.POSTING_TITLE" | translate
+  }}</span>
+</div>
+<table class="table">
+  <thead style="background-color: black">
+    <th style="width: 15%; color: white; padding: 15px">
+      {{ "FORMS.SL_NO" | translate }}
+    </th>
+    <th style="width: 30%; color: white; padding: 15px">
+      {{ "FORMS.TITLE" | translate }}
+    </th>
+    <th style="width: 30%; color: white; padding: 15px">
+      {{ "PRESS_RELEASE.RELEASE_BY" | translate }}
+    </th>
+    <th style="width: 20%; color: white; padding: 15px">
+      {{ "FORMS.DATE" | translate }}
+    </th>
+    <th style="width: 5%; color: white; padding: 15px">
+      {{ "FORMS.VIEW" | translate }}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let posting of postingList">
+      <td>{{ posting.id }}</td>
+      <td>{{ posting.title }}</td>
+      <td>{{ posting.releasedBy }}</td>
+      <td>
+        {{
+          posting.date.indexOf("/") > 0
+            ? posting.date
+            : (posting.date | date: "dd/MM/yyyy")
+        }}
+      </td>
+      <td>
+        <a
+          href="{{ baseUrl + posting.link }}"
+          target="blank"
+          class="btn btn-primary"
+          >view</a
+        >
+      </td>
+    </tr>
+    <tr *ngIf="postingList && postingList.length == 0">
+      <td colspan="4" style="text-align: center">
+        {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+      </td>
+    </tr>
+  </tbody>
+</table>

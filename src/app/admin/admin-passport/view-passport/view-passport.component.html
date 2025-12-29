@@ -1,0 +1,198 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>{{ "PASSPORT.PASS_DETAILS" | translate }}</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "PASSPORT.PASS_DETAILS" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">Id: </span>
+              </div>
+              <div class="col-6">{{ passport.id }}</div>
+            </div>
+          </div>
+          </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.NAME" | translate
+                }}:</span>
+              </div>
+              <div class="col-6">{{ passport.name }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "PASSPORT.APPLI_NUM" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ passport.applicationId }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "CONTACT.MOBILE_NO" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ passport.mobileNo }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500"
+                  >{{ "CHARACTER.CREATED_DATE" | translate }}:</span
+                >
+              </div>
+              <div class="col-6">
+                {{ passport.createdDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "POLICE_STATION.STATION_NAME" | translate
+                }}:</span>
+              </div>
+              <div class="col-6">{{ passport.stationName }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "PASSPORT.DATE_OF_BIRTH" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ passport.dob | date: "dd/MM/yyyy" }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "PASSPORT.COMMENTS" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ passport.comments }}</div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="passport.email">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "DISTRICT_DETAILS.DIST_EMAIL" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ passport.email }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "PASSPORT.PASS_TYPE" | translate
+                }}</span>
+              </div>
+              <div class="col-6">{{ passport.passportType }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-change-status-form
+    *ngIf="permissions.changeStatusForm && isComplete"
+    [url]="changeStatusSubmitURL"
+    [id]="changeStatusId"
+    [changeStatusForModule]="changeStatusForModule"
+    [moduleStatus]="passportModuleStatus"
+  ></app-change-status-form>
+
+  <app-assign-to-officer-form
+    *ngIf="permissions.asssignToOfficer && isComplete && !isPending"
+    [url]="assignToOfficerSubmitURL"
+    [id]="changeStatusId"
+    [assignForModule]="changeStatusModule"
+  ></app-assign-to-officer-form>
+
+  <app-change-status
+    *ngIf="permissions.changeStatusList"
+    [changeStatusPath]="changeStatusPath"
+    [deleteButtonCode]="changeStatusDeleteCode"
+    [deleteButtonUrl]="changeStatusDeleteUrl"
+    [changeStatusModule]="changeStatusModule"
+    [changeStatusId]="changeStatusId"
+  ></app-change-status>
+
+  <app-forward-to-destination-form
+    *ngIf="permissions.forwardToDestination && isComplete && !isPending"
+    [url]="forwatdToDestinationSubmitURL"
+    [id]="changeStatusId"
+  >
+  </app-forward-to-destination-form>
+
+  <app-forward-to-destination
+    *ngIf="permissions.forwardToDestinationList"
+    [forwardDestinationPath]="forwardDestinationPath"
+    [deleteButtonCode]="forwardDestinationDeleteCode"
+    [deleteButtonUrl]="forwardDestinationDeleteUrl"
+    [forwardDestinationModule]="forwardDestinationModule"
+    [forwardDestinationId]="forwardDestinationId"
+  >
+  </app-forward-to-destination>
+
+  <app-sms-sending-form
+    *ngIf="permissions.sendSMSToUser && isComplete && !isPending"
+    [url]="smsSendingSubmitURL"
+    [id]="smsSendingId"
+    [departmentName]="passportSMS"
+  >
+  </app-sms-sending-form>
+
+  <app-sms-sending
+    *ngIf="permissions.sendSMSToUserList"
+    [smsSendingPath]="smsSendingPath"
+    [smsSendingModule]="smsSendingModule"
+    [smsSendingId]="smsSendingId"
+    [deparment]="passportSMS"
+  ></app-sms-sending>
+</div>

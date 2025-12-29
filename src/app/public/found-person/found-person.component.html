@@ -1,0 +1,96 @@
+<div class="col-sm-12 header-title">
+  <span class="glob-span header-txt">{{
+    "HOME.FOUND_PERSON" | translate
+    }}</span>
+</div>
+<div class="found-person">
+  <div class="col-sm-12 status-btn float-left" style="padding-bottom: 25px">
+    <button routerLink="/missingPerson" class="submit-btn btn-custome" style="padding: 10px 20px">
+      {{ "MISSING_PERSON.MISSING_TITLE" | translate }}
+    </button>
+    <button routerLink="/foundPerson" class="submit-btn btn-custome" style="padding: 10px 20px">
+      {{ "FOUND_PERSON.FOUND_TITLE" | translate }}
+    </button>
+    <button routerLink="/deadPerson" class="submit-btn btn-custome" style="padding: 10px 20px">
+      {{ "DEAD_PERSON.DEAD_TITLE" | translate }}
+    </button>
+  </div>
+</div>
+
+<section class="found-area">
+  <div class="container">
+    <div class="card" *ngFor="let found of foundPerson">
+      <div class="box">
+        <app-image-viewer [imageURL]="found.missingImage" [imgWidth]="'100%'" [imgHeight]="'230px'"></app-image-viewer>
+        <p class="officer-name">{{ found.missingName }}</p>
+        <p class="officer-about">{{ found.dateOfMissing }}</p>
+        <p class="officer-about">{{ found.missingArea }}</p>
+
+        <button class="submit-btn btn-custome" style="width:100%; margin: 0 auto"
+          (click)="openModal('missingPersonModal', found)">
+          Mode Details
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-modal id="missingPersonModal" [className]="'md-modal'">
+  <div style="width: 100%;padding: 10px;position: relative;">
+    <button (click)="closeModal('missingPersonModal')"
+      style="background: transparent;color: black !important;position: absolute;top: 0;right: 0;">
+      X
+    </button>
+    <h5>Found Person Detail</h5>
+    <div class="container-fluid" *ngIf="found">
+      <div class="row">
+        <div class="col-sm-12 col-md-3">
+          <app-image-viewer [imageURL]="found.missingImage" [imgWidth]="'200px'"
+            [imgHeight]="'300px'"></app-image-viewer>
+        </div>
+        <div class="col-sm-12 col-md-9">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td style="font-weight: bold">Name</td>
+                <td>{{ found.missingName }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Missing Date</td>
+                <td>{{ found.dateOfMissing }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Missing Area</td>
+                <td>{{ found.missingArea }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Gender</td>
+                <td>{{ found.missingGender }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Age</td>
+                <td>{{ found.missingAge }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Height</td>
+                <td>{{ found.missingHieght }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Color</td>
+                <td>{{ found.missingColor }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Identity</td>
+                <td>{{ found.missingSign }}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold">Wearing Clothes</td>
+                <td>{{ found.wearnigClooth }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-modal>

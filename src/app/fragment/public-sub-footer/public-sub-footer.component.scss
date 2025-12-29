@@ -1,0 +1,243 @@
+@import "../../../style/disctrict/common.district.scss";
+
+.sub-footer {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  color: white;
+  position: relative;
+  .f-address {
+    width: 20%;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    label {
+      font-weight: 700;
+      font-size: 18px;
+    }
+  }
+  .q-link {
+    // margin-top: 50px;
+    width: 20%;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    label {
+      font-weight: 700;
+      font-size: 18px;
+    }
+    ul {
+      padding-left: 0px !important;
+      li {
+        list-style: none;
+        a {
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .imp-link {
+    // margin-top: 50px;
+    width: 20%;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    label {
+      font-weight: 700;
+      font-size: 18px;
+    }
+    ul {
+      padding-left: 0px !important;
+      li {
+        list-style: none;
+        a {
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .down-btns {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    .qr-code {
+      width: 45%;
+      padding: 10px;
+    }
+    .d-btn {
+      width: 60%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .g-play {
+        width: 90%;
+      }
+      label {
+        font-weight: 700;
+        padding: 0;
+      }
+      .dwn-btn {
+        width: 90%;
+      }
+    }
+  }
+}
+
+.main-color {
+  background-color: $footer;
+}
+
+@media screen and (min-width: 2000px) {
+  .sub-footer {
+    width: 100%;
+    .f-address {
+      width: 20%;
+    }
+    .q-link {
+      width: 20%;
+    }
+    .imp-link {
+      width: 20%;
+    }
+    .down-btns {
+      width: 20%;
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+  .sub-footer {
+    width: 100%;
+    .f-address {
+      width: 20%;
+    }
+    .q-link {
+      width: 20%;
+    }
+    .imp-link {
+      width: 20%;
+    }
+    .down-btns {
+      width: 20%;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .sub-footer {
+    width: 100%;
+    .f-address {
+      width: 20%;
+    }
+    .q-link {
+      width: 20%;
+    }
+    .imp-link {
+      width: 20%;
+    }
+    .down-btns {
+      width: 20%;
+      .qr-code {
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .sub-footer {
+    width: 100%;
+    .f-address {
+      width: 20%;
+    }
+    .q-link {
+      text-decoration: none;
+      width: 20%;
+    }
+    .imp-link {
+      text-decoration: none;
+      width: 20%;
+    }
+    .down-btns {
+      width: 20%;
+      .qr-code {
+        width: 50%;
+        padding: 0;
+      }
+      .d-btn {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .g-play {
+          width: 100%;
+        }
+        label {
+          font-weight: 500;
+        }
+        .dwn-btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sub-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .f-address {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      font-size: 22px;
+    }
+    .q-link {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      font-size: 22px;
+      text-decoration: none;
+    }
+    .imp-link {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      font-size: 22px;
+      text-decoration: none;
+    }
+    .down-btns {
+      width: 100%;
+      flex-direction: column;
+      .qr-code {
+        width: 100%;
+        padding: 20px;
+      }
+      .d-btn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .g-play {
+          width: 100%;
+        }
+        label {
+          font-size: 18px;
+        }
+        .dwn-btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

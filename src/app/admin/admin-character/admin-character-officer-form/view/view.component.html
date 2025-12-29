@@ -1,0 +1,574 @@
+<div class="char-form-edit">
+  <div class="dashboard-header">Character Officer Form</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="container">
+  <div class="viewContainer" id="viewCharacterForm" style="padding: 10px">
+    <div
+      style="
+        width: 100%;
+        height: 1100px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 0;
+      "
+    >
+      <div>
+        <div class="row">
+          <div class="d-flex justify-content-between aling-item-center">
+            <div class="col-12">
+              <h3 style="text-align: center; font-weight: bold">
+                {{ "CHAR_FORM.CHAR_CERTI_TITLE_1" | translate }}
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="d-flex justify-content-between aling-item-center">
+            <div class="col-12">
+              <h4 style="text-align: center; font-weight: bold">
+                {{ "CHAR_FORM.CHAR_CERTI_TITLE_2" | translate }}
+                {{ "HOME.CHAR_DISTRICT_POLICE" | translate }}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "APPOINTMENT.NAME" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.name }}</div>
+            </div>
+          </div>
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.GENDER" | translate }}
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.gender }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1" *ngIf="charFormData?.guardianRelation">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.guardianRelation }}</div>
+            </div>
+          </div>
+          <div class="col-6 my-1" *ngIf="charFormData?.guardianRelation">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.FATHER_MOTHER_GUARDIAN_NAME" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.fatherHusbandName }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "SECTIONS.SEC_OFFICER_MOBILE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.mobileno }}</div>
+            </div>
+          </div>
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "PASSPORT.DATE_OF_BIRTH" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">
+                {{ charFormData?.dob | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "POLICE_STATION.POLICE_STATION_TITLE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.stationName }}</div>
+            </div>
+          </div>
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.VILLAGE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.villageLocality }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.POST_OFFICE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.postOffice }}</div>
+            </div>
+          </div>
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.WARD_NUMBER" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.wardNumber }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.PANCHAYAT" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.panchayat }}</div>
+            </div>
+          </div>
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.STAY_DURATION" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">
+                {{
+                  charFormData?.durationIn + " " + charFormData?.durationStay
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.MARITAL_STS" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.maritalStatus }}</div>
+            </div>
+          </div>
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.TH_ADDHAR_NUMBER" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.aadharNumber }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold">
+                  {{ "CHARACTER.PIN_CODE" | translate }}
+                </span>
+              </div>
+              <div class="col-6">{{ charFormData?.pinCode }}</div>
+            </div>
+          </div>
+
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold"
+                  >{{ "CHARACTER.ADHAR_IMG" | translate }}:</span
+                >
+              </div>
+              <div class="col-5">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="charFormData?.adharCardFile"
+                    [imgWidth]="'200px'"
+                    [imgHeight]="'225px'"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold"
+                  >{{ "USER.USER_IMAGE" | translate }} :</span
+                >
+              </div>
+              <div class="col-5">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="charFormData?.userImage"
+                    [imgWidth]="'200px'"
+                    [imgHeight]="'225px'"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 my-1">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: bold"
+                  >{{ "CHARACTER.SIGN_IMG" | translate }}:</span
+                >
+              </div>
+              <div class="col-5">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="charFormData?.signImage"
+                    [imgWidth]="'200px'"
+                    [imgHeight]="'225px'"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div
+      style="
+        width: 100%;
+        height: 1100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 10px;
+      "
+    >
+      <div>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex justify-content-center aling-item-center">
+              <h3 style="font-weight: bold">
+                {{ "CHAR_FORM.CHAR_CERTI_TITLE_1" | translate }}
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex justify-content-center aling-item-center">
+              <h4 style="font-weight: bold">
+                {{ "CHAR_FORM.CHAR_CERTI_TITLE_2" | translate }}
+                {{ "HOME.CHAR_DISTRICT_POLICE" | translate }}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p style="font-size: 18px">
+            {{ "CHARACTER.ADHI_SW_NO" | translate }}:
+            <span style="font-weight: bold">{{ addSoftNo }}</span>
+          </p>
+        </div>
+        <div class="col-6 d-flex justify-content-end aling-item-center">
+          <p style="font-size: 18px">
+            {{ "FORMS.DATE" | translate }}:
+            <span style="font-weight: bold">{{
+              characterDate | date: "dd/MM/yyyy"
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="d-flex justify-content-between aling-item-center">
+          <div class="col-12">
+            <p style="font-size: 18px" *ngIf="language == 'en'">
+              <strong
+                >{{ charFormData?.initialsName }} {{ charFormData?.name }}
+                {{ charFormData?.relationName }}
+                {{
+                  charFormData?.guardianRelation
+                    ? charFormData?.guardianRelation
+                    : ""
+                }}
+                {{ charFormData?.fatherHusbandName }}
+              </strong>
+              Address-Village/Street
+              <strong>{{ charFormData?.villageLocality }}</strong>
+              P.O.
+              <strong>{{ charFormData?.postOffice }}</strong> Station
+              <strong>{{ charFormData?.stationName }}</strong> District-{{
+                "HOME.DISTRICT" | translate
+              }},
+              Applicant has applied an application to obtain character
+              certificate for <strong>{{ charFormData?.type }}</strong
+              >. The Photograph of the applicant sent for the clear examination
+              report. Application form is attached for verification below the
+              following points:
+            </p>
+            <p style="font-size: 18px" *ngIf="language == 'hi'">
+              <strong
+                >{{ charFormData?.initialsName }} {{ charFormData?.name }}
+                {{ charFormData?.relationName }}
+                {{
+                  charFormData?.guardianRelation
+                    ? charFormData?.guardianRelation
+                    : ""
+                }}
+                {{ charFormData?.fatherHusbandName }}
+              </strong>
+              पता-ग्राम/मुहल्ला
+              <strong>{{ charFormData?.villageLocality }}</strong>
+              पो
+              <strong>{{ charFormData?.postOffice }}</strong> पुलिस थाना
+              <strong>{{ charFormData?.stationName }}</strong> जिला-{{
+                "HOME.DISTRICT" | translate
+              }}
+              में इस कार्यालय में यह पता अंकित करते हुए चरित्र प्रमाण-पत्र
+              <strong>{{ charFormData?.type }}</strong> कार्य के लिये आवेदन दिया
+              गया है। आप निम्र बिंदुओं पर स्पष्ट जाँच प्रतिवेदन विहित प्रपत्र
+              में भेजे आवेदक का फोटो ग्राफ संलग्न है।
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.STATION_MEMO_NO" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">{{ stationMemoNo }}</div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.APPLI_NAME" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question1 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.GUARDIAN_NAME" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question2 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.APP_ADDRESS" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question3 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.STAY_COUNT" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question4 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.CRIM_RECORD" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question5 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.OTHER_ENRIES" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question6 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.CURR_STATUS" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question7 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.APPLI_IMAGES_STATUS" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question8 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.CHAR_CERTI_USE" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question9 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.OTHER_COMMENT" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question10 }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.INSP_NAME_DESIGN" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question12 }}
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-sm-12 m-2">
+          <div class="row">
+            <div class="col-6">
+              <span style="font-weight: bold; font-size: 16px">
+                {{ "CHAR_FORM.INSP_NAME_DESIGN" | translate }} :
+              </span>
+            </div>
+            <div class="col-6" style="font-size: 16px">
+              {{ characterForm.question12 }}
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <br />
+      <br />
+      <div class="row">
+        <div class="col-6" style="font-size: 14px">
+          <p>{{ "CHARACTER.VIEW_TITLE" | translate }}</p>
+          <p>{{ "CHARACTER.VIEW_NAME" | translate }}</p>
+          <p>{{ "CHARACTER.VIEW_DESIGNATION" | translate }}</p>
+        </div>
+        <div
+          class="col-6"
+          style="
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 14px;
+          "
+        >
+          <p>{{ "CHARACTER.VIEW_SIGNATURE" | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="width: 100%; text-align: center; padding: 0 0 20px">
+  <button class="btn btn-primary" style="margin: auto" (click)="openPDF()">
+    Print
+  </button>
+</div>

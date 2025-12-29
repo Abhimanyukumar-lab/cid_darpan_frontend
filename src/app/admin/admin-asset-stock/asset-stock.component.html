@@ -1,0 +1,19 @@
+<div class="assetDetails">
+  <div class="dashboard-header">
+    {{ "ASSET_DETAILS.ASSET_DETAILS_TITLE" | translate }}
+  </div>
+</div>
+
+<div class="container-fluid mt-1">
+  <div class="button-panel mb-1">
+    <a
+      routerLink="{{ permissions.add_url }}"
+      class="btn btn-success m-2"
+      *ngIf="permissions.add && permissions.add_url"
+      >Allocate Asset</a
+    >
+  </div>
+  <div style="padding: 20px">
+    <app-admin-asset-details></app-admin-asset-details>
+  </div>
+</div>

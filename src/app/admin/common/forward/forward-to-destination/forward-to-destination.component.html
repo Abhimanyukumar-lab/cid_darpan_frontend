@@ -1,0 +1,25 @@
+<div class="card m-3">
+  <div class="card-header h5 text-white bg-secondary">
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <span>{{ "COMPLAINT.MARK_DESTI" | translate }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body d-flex justify-content-between aling-item-center">
+    <div class="container-fluid">
+      <div class="row">
+        <app-table-data
+          [rows]="forwardDestinationRows"
+          [page]="forwardDestinationPage"
+          [columns]="forwardDestinationColumns"
+          [path]="forwardDestinationPath"
+          [permissions]="forwardDestinationPermissions"
+          [condition]="'reciptNo-updatedDate'"
+          [isApiAvailable]="false"
+        >
+        </app-table-data>
+      </div>
+    </div>
+  </div>
+</div>

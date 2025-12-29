@@ -1,0 +1,16 @@
+.template-edit {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.template-edit .template-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=modify-sms-template.component.css.map */

@@ -1,0 +1,272 @@
+<div class="transfer-modify">
+  <div class="dashboard-header">Add Transfer Data</div>
+  <button
+    class="btn btn-sm"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div
+  style="
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+  "
+  *ngIf="permissions.download_cert"
+>
+  <button class="btn btn-success" (click)="downloadSample()">
+    Download Sample
+  </button>
+</div>
+
+<div class="image-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="transferForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="imageGallery_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="title" class="col-3 col-form-label">{{
+        "FORMS.TITLE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="{{ 'FORMS.ENTER_TITLE' | translate }}"
+          formControlName="name"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }"
+          (change)="focusOut($event, 'name')"
+          (focusout)="focusOut($event, 'name')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="{{ 'FORMS.ENTER_TITLE' | translate }}"
+          formControlName="name"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }"
+          (change)="focusOut($event, 'name')"
+          (focusout)="focusOut($event, 'name')"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+        <strong>Name is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('name', 'minlength')" class="invalid">
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div *ngIf="isControlHasError('name', 'maxlength')" class="invalid">
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="transferSource" class="col-3 col-form-label">{{
+        "FORMS.ATTACH_FILE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="file"
+          id="transferSource"
+          name="transferSource"
+          placeholder="Attach File"
+          accept=".xlsx"
+          (change)="handleFileChange($event.target.files)"
+          formControlName="transferSource"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('transferSource') }"
+        />
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="imageGallery_submit"
+        (click)="openModal('viewResourceFile')"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>
+
+<app-modal
+  id="viewResourceFile"
+  [className]="'md-modal high-box'"
+  [closeOnClick]="false"
+>
+  <div
+    style="
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    "
+  >
+    <div>
+      <h4>Transfer File Details</h4>
+      <hr />
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Resource Name</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Current Posting</th>
+              <th scope="col">Last Posting</th>
+              <th scope="col">Mobile Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let resources of TRANSFER_PARAMS.RESOURCE_LIST;
+                index as i
+              "
+            >
+              <th scope="row">{{ i + 1 }}</th>
+
+              <td>{{ resources["Resource Name"] }}</td>
+              <td>{{ resources["Designation"] }}</td>
+              <td>{{ resources["Current Posting"] }}</td>
+              <td>{{ resources["Last Posting"] }}</td>
+              <td>{{ resources["Mobile Number"] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <hr />
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        "
+      >
+        <button
+          (click)="openAndcloseModal('viewResourceFile', 'viewLocationFile')"
+          class="btn btn-primary px-9 py-9"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</app-modal>
+
+<app-modal
+  id="viewLocationFile"
+  [className]="'md-modal high-box'"
+  [closeOnClick]="false"
+>
+  <div
+    style="
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    "
+  >
+    <div>
+      <h4>Transfer File Details</h4>
+      <hr />
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name Of Location</th>
+              <th scope="col">No Of Resource Required</th>
+              <th scope="col">Transfer Timing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let resources of TRANSFER_PARAMS.LOCATION_LIST;
+                index as i
+              "
+            >
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ resources["Name Of Location"] }}</td>
+              <td>{{ resources["No Of Resource Required"] }}</td>
+              <td>{{ resources["Transfer Timing"] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <hr />
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        "
+      >
+        <button
+          (click)="closeModal('viewLocationFile')"
+          class="btn btn-primary px-9 py-9"
+        >
+          Finish
+        </button>
+      </div>
+    </div>
+  </div>
+</app-modal>

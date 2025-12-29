@@ -1,0 +1,494 @@
+<div class="char-form-edit">
+  <div class="dashboard-header">Character Officer Form</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="char-form-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="characterOfficerForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="characterOfficerForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.STATION_MEMO_NO" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="stationMemoNumber"
+              (keypress)="numberOnly($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('stationMemoNumber')
+              }"
+            />
+            <div
+              *ngIf="isControlHasError('stationMemoNumber', 'Required')"
+              class="invalid"
+            >
+              <strong>Station Memo Number is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.APPLI_NAME" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question1"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question1')
+              }"
+              (change)="focusOut($event, 'question1')"
+              (focusout)="focusOut($event, 'question1')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question1"
+              (keypress)="validAplpha($event)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question1')
+              }"
+              (change)="focusOut($event, 'question1')"
+              (focusout)="focusOut($event, 'question1')"
+            />
+            <div
+              *ngIf="isControlHasError('question1', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.GUARDIAN_NAME" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question2"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question2')
+              }"
+              (change)="focusOut($event, 'question2')"
+              (focusout)="focusOut($event, 'question2')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question2"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question2')
+              }"
+              (change)="focusOut($event, 'question2')"
+              (focusout)="focusOut($event, 'question2')"
+            />
+            <div
+              *ngIf="isControlHasError('question2', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.APP_ADDRESS" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question3"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question3')
+              }"
+              (change)="focusOut($event, 'question3')"
+              (focusout)="focusOut($event, 'question3')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question3"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question3')
+              }"
+              (change)="focusOut($event, 'question3')"
+              (focusout)="focusOut($event, 'question3')"
+            />
+            <div
+              *ngIf="isControlHasError('question3', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.STAY_COUNT" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="question4"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question4')
+              }"
+            />
+            <div
+              *ngIf="isControlHasError('question4', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.CRIM_RECORD" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question5"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question5')
+              }"
+              (change)="focusOut($event, 'question5')"
+              (focusout)="focusOut($event, 'question5')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question5"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question5')
+              }"
+              (change)="focusOut($event, 'question5')"
+              (focusout)="focusOut($event, 'question5')"
+            />
+            <div
+              *ngIf="isControlHasError('question5', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.OTHER_ENRIES" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question6"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question6')
+              }"
+              (change)="focusOut($event, 'question6')"
+              (focusout)="focusOut($event, 'question6')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question6"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question6')
+              }"
+              (change)="focusOut($event, 'question6')"
+              (focusout)="focusOut($event, 'question6')"
+            />
+            <div
+              *ngIf="isControlHasError('question6', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.CURR_STATUS" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question7"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question7')
+              }"
+              (change)="focusOut($event, 'question7')"
+              (focusout)="focusOut($event, 'question7')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question7"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question7')
+              }"
+              (change)="focusOut($event, 'question7')"
+              (focusout)="focusOut($event, 'question7')"
+            />
+            <div
+              *ngIf="isControlHasError('question7', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.APPLI_IMAGES_STATUS" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question8"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question8')
+              }"
+              (change)="focusOut($event, 'question8')"
+              (focusout)="focusOut($event, 'question8')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question8"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question8')
+              }"
+              (change)="focusOut($event, 'question8')"
+              (focusout)="focusOut($event, 'question8')"
+            />
+            <div
+              *ngIf="isControlHasError('question8', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.CHAR_CERTI_USE" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question9"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question9')
+              }"
+              (change)="focusOut($event, 'question9')"
+              (focusout)="focusOut($event, 'question9')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question9"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question9')
+              }"
+              (change)="focusOut($event, 'question9')"
+              (focusout)="focusOut($event, 'question9')"
+            />
+            <div
+              *ngIf="isControlHasError('question9', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.OTHER_COMMENT" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question10"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question10')
+              }"
+              (change)="focusOut($event, 'question10')"
+              (focusout)="focusOut($event, 'question10')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question10"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question10')
+              }"
+              (change)="focusOut($event, 'question10')"
+              (focusout)="focusOut($event, 'question10')"
+            />
+            <div
+              *ngIf="isControlHasError('question10', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-4">
+            <span class="glob-span"
+              >{{ "CHAR_FORM.INSP_NAME_DESIGN" | translate }} :
+            </span>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="question12"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question12')
+              }"
+              (change)="focusOut($event, 'question12')"
+              (focusout)="focusOut($event, 'question12')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="question12"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('question12')
+              }"
+              (change)="focusOut($event, 'question12')"
+              (focusout)="focusOut($event, 'question12')"
+            />
+            <div
+              *ngIf="isControlHasError('question12', 'Required')"
+              class="invalid"
+            >
+              <strong>Answer is Required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+      style="margin-top: 5px"
+    >
+      <button
+        id="characterForm_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

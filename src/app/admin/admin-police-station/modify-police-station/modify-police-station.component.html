@@ -1,0 +1,682 @@
+<div
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  "
+>
+  <div class="dashboard-header"  style="flex-grow: 1; text-align: center">
+    {{ "POLICE_STATION.STATION_DETAILS" | translate }}
+  </div>
+  <button
+    class="dashboard-header btn btn-sm back-btn"
+    style="font-size: 30px"
+    (click)="goBack()"
+  >
+    <!-- &#215; -->
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button>
+</div>
+
+<section class="table-sec">
+  <div class="container">
+    <div class="accordion" id="tableModule">
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle()"
+              >
+              {{ "POLICE_STATION.STATION_DETAILS" | translate }}
+            </span>
+            <div
+              *ngIf="!isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed">
+          <div class="card-body">
+            
+  
+            <form
+              class="form needs-validation text-center container"
+              novalidate
+              [formGroup]="stationForm"
+              autocomplete="off"
+              novalidate="novalidate"
+              id="station_form"
+            >
+              <input id="id" name="id" formControlName="id" style="display: none" />
+              <div class="row">
+                <p style="font-size: 18px; font-weight: 600">
+                  {{ "POLICE_STATION.STATION_DETAILS" | translate }}
+                </p>
+              </div>
+              <div class="row">
+                
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="rangeId" style="font-weight: bold" class="col-3 col-form-label">
+                      {{ "RANGE.RANGE_TITLE" | translate }}
+                    </label>
+                    <div class="col-8">
+                      <select
+                        name="rangeId"
+                        id="rangeId"
+                        formControlName="rangeId"
+                        autocomplete="off"
+                        class="form-select"
+                        (change)="selectRange()"
+                        [ngClass]="{invalidInput: isControlHasErrors('rangeId')}"
+                        required
+                      >
+                      <option value="null" disabled>
+                        Select Range
+                      </option>
+                      <option
+                        *ngFor="let range of RangeList"
+                        value="{{ range.id }}"
+                      >
+                        <span *ngIf="language == 'en'">{{range.rangeName}}</span>
+                        <span *ngIf="language == 'hi'">{{range.rangeNameHi}}</span>
+                      </option>
+                    </select>
+                    </div>
+                  
+                    <div *ngIf="isControlHasError('rangeId', 'required')" class="invalid">
+                      <strong>Range is required</strong>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="districtId" style="font-weight: bold" class="col-3 col-form-label">
+                      {{ "APPOINTMENT.DISTRICT" | translate }}
+                    </label>
+                    <div class="col-8">
+                      <select
+                        name="districtId"
+                        id="districtId"
+                        formControlName="districtId"
+                        autocomplete="off"
+                        class="form-select"
+                        (change)="selectDistrict()"
+                        [ngClass]="{invalidInput: isControlHasErrors('districtId')}"
+                        required
+                      >
+                      <option value="null" disabled>
+                        Select Range
+                      </option>
+                      <option
+                        *ngFor="let range of selectedDistrict"
+                        value="{{ range.id }}"
+                      >
+                        <span *ngIf="language == 'en'">{{range.districtName}}</span>
+                        <span *ngIf="language == 'hi'">{{range.districtNameHi}}</span>
+                      </option>
+                    </select>
+                    </div>
+                  
+                    <div *ngIf="isControlHasError('districtId', 'required')" class="invalid">
+                      <strong>District is required</strong>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="row mb-2">
+                    <label for="subdivisionName" class="col-3 col-form-label">{{
+                      "SUBDIVISION.SEL_SUBDIV" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <select
+                        name="subdivisionName"
+                        id="subdivisionName"
+                        formControlName="subdivisionId"
+                        autocomplete="off"
+                        class="form-select"
+                        (change)="selectSubDivision()"
+                        [ngClass]="{ invalidInput: isControlHasErrors('subdivisionId') }"
+                        required
+                      >
+                        <option [ngValue]="null" disabled>
+                          {{ "SUBDIVISION.SEL_SUBDIV" | translate }}
+                        </option>
+                        <option
+                          *ngFor="let subdivision of selectedSubDivisoin"
+                          [ngValue]="subdivision.id"
+                        >
+                          <span *ngIf="language == 'hi'"> {{ subdivision.nameHi }}</span>
+                          <span *ngIf="language == 'en'"> {{ subdivision.name }}</span>
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="isControlHasError('subdivisionId', 'required')"
+                    class="invalid"
+                  >
+                    <strong>subdivision is required</strong>
+                  </div>
+                </div>
+
+                
+                <div class="col-md-6">
+                  <div class="row mb-2">
+                    <label for="circleName" class="col-3 col-form-label">{{
+                      "CIRCLE_INSPECTOR.SEL_CIRCLE_INSPECTOR" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <select
+                        name="circleName"
+                        id="circleName"
+                        formControlName="circleId"
+                        autocomplete="off"
+                        class="form-select"
+                        [ngClass]="{ invalidInput: isControlHasErrors('circleId') }"
+                        required
+                      >
+                        <option [ngValue]="null" disabled>
+                          {{ "CIRCLE_INSPECTOR.SEL_CIRCLE_INSPECTOR" | translate }}
+                        </option>
+                        <option *ngFor="let circle of selectedCircle" [ngValue]="circle.id">
+                          <span *ngIf="language == 'hi'">{{ circle.circleNameHi }}</span>
+                          <span *ngIf="language == 'en'">{{ circle.circleName }}</span>
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div *ngIf="isControlHasError('circleId', 'required')" class="invalid">
+                    <strong>circle is required</strong>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationName" class="col-3 col-form-label"
+                      >{{ "POLICE_STATION.STATION_NAME" | translate }}(English)</label
+                    >
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationName"
+                        name="stationName"
+                        (keypress)="validAplpha($event)"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_NAME' | translate
+                        }}"
+                        formControlName="stationName"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationName')
+                        }"
+                        required
+                      />
+                    </div>
+
+                    <div
+                      *ngIf="isControlHasError('stationName', 'required')"
+                      class="invalid"
+                    >
+                      <strong>Station Name is required</strong>
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationName', 'minlength')"
+                      class="invalid"
+                    >
+                      <strong>Minimum 3 character required</strong>
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationName', 'maxlength')"
+                      class="invalid"
+                    >
+                      <strong>Max length allowed 320</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationNameHi" class="col-3 col-form-label"
+                      >{{ "POLICE_STATION.STATION_NAME" | translate }}(Hindi)</label
+                    >
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationNameHi"
+                        name="stationNameHi"
+                        (keypress)="validAplpha($event)"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_NAME' | translate
+                        }}"
+                        formControlName="stationNameHi"
+                        autocomplete="off"
+                        class="form-control hindi hindiFont"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationNameHi')
+                        }"
+                        (change)="focusOut($event, 'stationNameHi')"
+                        (focusout)="focusOut($event, 'stationNameHi')"
+                        required
+                      />
+                    </div>
+
+                    <div
+                      *ngIf="isControlHasError('stationNameHi', 'required')"
+                      class="invalid"
+                    >
+                      <strong>Station Name is required</strong>
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationNameHi', 'minlength')"
+                      class="invalid"
+                    >
+                      <strong>Minimum 3 character required</strong>
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationNameHi', 'maxlength')"
+                      class="invalid"
+                    >
+                      <strong>Max length allowed 320</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationNo" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_NUMBER" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationNo"
+                        name="stationNo"
+                        (keypress)="numberOnly($event)"
+                        minlength="10"
+                        maxlength="13"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_NUMBER' | translate
+                        }}"
+                        formControlName="stationNo"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{ invalidInput: isControlHasErrors('stationNo') }"
+                        required
+                      />
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationNo', 'required')"
+                      class="invalid"
+                    >
+                      <strong>Mobile Number is required</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationEmail" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_EMAIL" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="email"
+                        id="stationEmail"
+                        name="stationEmail"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_EMAIL' | translate
+                        }}"
+                        formControlName="stationEmail"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{ invalidInput: isControlHasErrors('stationEmail') }"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationUrl" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_URL" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="url"
+                        id="stationUrl"
+                        name="stationUrl"
+                        placeholder="{{ 'POLICE_STATION.ENTER_STATION_URL' | translate }}"
+                        formControlName="stationUrl"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{ invalidInput: isControlHasErrors('stationUrl') }"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="linkSource" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_IMAGE" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="file"
+                        id="linkSource"
+                        name="linkSource"
+                        accept="image/jpg,image/gif,image/jpeg"
+                        (change)="handleFileChange($event.target.files)"
+                        formControlName="linkSource"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{ invalidInput: isControlHasErrors('linkSource') }"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationDesc" class="col-3 col-form-label">{{
+                      "POLICE_STATION.AREA_COVERED" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationDesc"
+                        name="stationDesc"
+                        placeholder="{{ 'POLICE_STATION.ENTR_AREA_COVERED' | translate }}"
+                        formControlName="stationDesc"
+                        autocomplete="off"
+                        class="form-control hindi"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationDesc'),
+                          hindiFont: langModule.language == 'hi'
+                        }"
+                        (change)="focusOut($event, 'stationDesc')"
+                        (focusout)="focusOut($event, 'stationDesc')"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationAddress" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_ADDRESS" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <textarea
+                        *ngIf="language == 'hi'"
+                        type="text"
+                        id="stationAddress"
+                        name="stationAddress"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_ADDRESS' | translate
+                        }}"
+                        formControlName="stationAddress"
+                        autocomplete="off"
+                        class="form-textarea hindi hindiFont"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationAddress')
+                        }"
+                        (change)="focusOut($event, 'stationAddress')"
+                        (focusout)="focusOut($event, 'stationAddress')"
+                        required
+                      ></textarea>
+                      <textarea
+                        *ngIf="language == 'en'"
+                        type="text"
+                        id="stationAddress"
+                        name="stationAddress"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_ADDRESS' | translate
+                        }}"
+                        formControlName="stationAddress"
+                        autocomplete="off"
+                        class="form-textarea"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationAddress')
+                        }"
+                        (change)="focusOut($event, 'stationAddress')"
+                        (focusout)="focusOut($event, 'stationAddress')"
+                        required
+                      ></textarea>
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationAddress', 'required')"
+                      class="invalid"
+                    >
+                      <strong>Station Address is required</strong>
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationAddress', 'minlength')"
+                      class="invalid"
+                    >
+                      <strong>Minimum 3 character required</strong>
+                    </div>
+                  </div>
+                </div> -->
+                
+                <!-- <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationPriority" class="col-3 col-form-label">{{
+                      "FORMS.PRIORITY" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="number"
+                        id="stationPriority"
+                        name="stationPriority"
+                        min="1"
+                        (keypress)="numberOnly($event)"
+                        placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+                        formControlName="stationPriority"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationPriority')
+                        }"
+                        required
+                      />
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationPriority', 'required')"
+                      class="invalid"
+                    >
+                      <strong>Priority is required</strong>
+                    </div>
+                    <div
+                      *ngIf="isControlHasError('stationPriority', 'minlength')"
+                      class="invalid"
+                    >
+                      <strong>Priority Minimum length is 1</strong>
+                    </div>
+                  </div>
+                </div> -->
+
+              </div>
+              <!-- <div class="row">
+                <p style="font-size: 18px; font-weight: 600">
+                  {{ "POLICE_STATION.EMERG_CONTACTS" | translate }}
+                </p>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationHelpline" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_HELPLINE" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationHelpline"
+                        name="stationHelpline"
+                        (keypress)="numberOnly($event)"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_HELPLINE' | translate
+                        }}"
+                        maxlength="13"
+                        formControlName="stationHelpline"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationHelpline')
+                        }"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationMedical" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_MEDICAL" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationMedical"
+                        name="stationMedical"
+                        (keypress)="numberOnly($event)"
+                        maxlength="13"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_MEDICAL' | translate
+                        }}"
+                        formControlName="stationMedical"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{ invalidInput: isControlHasErrors('stationMedical') }"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationAmbulane" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_AMBULANCE" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationAmbulane"
+                        name="stationAmbulane"
+                        (keypress)="numberOnly($event)"
+                        maxlength="13"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_AMBULANCE' | translate
+                        }}"
+                        formControlName="stationAmbulane"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationAmbulane')
+                        }"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="row mb-2">
+                    <label for="stationFireBrigade" class="col-3 col-form-label">{{
+                      "POLICE_STATION.STATION_FIRE_BRIGADE" | translate
+                    }}</label>
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        id="stationFireBrigade"
+                        name="stationFireBrigade"
+                        (keypress)="numberOnly($event)"
+                        placeholder="{{
+                          'POLICE_STATION.ENTER_STATION_FIRE_BRIGADE' | translate
+                        }}"
+                        maxlength="13"
+                        formControlName="stationFireBrigade"
+                        autocomplete="off"
+                        class="form-control"
+                        [ngClass]="{
+                          invalidInput: isControlHasErrors('stationFireBrigade')
+                        }"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div
+                class="
+                  form-group
+                  d-flex
+                  flex-wrap
+                  justify-content-center
+                  align-items-center
+                "
+              >
+                <button
+                  id="station_submit"
+                  (click)="submit()"
+                  class="btn btn-primary px-9 py-9"
+                  [disabled]="loading"
+                  *ngIf="ADD_POLICE_STATION && ADD_URL && !POLICE_STATION_PARAMS.ID"
+                >
+                  Save
+                  <div
+                    class="spinner-border spinner-border-sm text-light align-middle"
+                    *ngIf="loading"
+                    role="status"
+                  >
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </button>
+                <button
+                  id="station_submit"
+                  (click)="submit()"
+                  class="btn btn-primary px-9 py-9"
+                  [disabled]="loading"
+                  *ngIf="EDIT_POLICE_STATION && EDIT_URL && POLICE_STATION_PARAMS.ID"
+                >
+                  Save
+                  <div
+                    class="spinner-border spinner-border-sm text-light align-middle"
+                    *ngIf="loading"
+                    role="status"
+                  >
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  

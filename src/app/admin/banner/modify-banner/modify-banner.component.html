@@ -1,0 +1,192 @@
+<div class="banner-edit">
+  <div class="dashboard-header">{{ "BANNER.BANNER_DETAILS" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="banner-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="bannerForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="banner_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="name" class="col-3 col-form-label">{{
+        "FORMS.NAME" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+          formControlName="name"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }"
+          (change)="focusOut($event, 'name')"
+          (focusout)="focusOut($event, 'name')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+          formControlName="name"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }"
+          (change)="focusOut($event, 'name')"
+          (focusout)="focusOut($event, 'name')"
+          required
+        />
+      </div>
+
+      <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+        <strong>Name is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('name', 'minlength')" class="invalid">
+        <strong>Minimum 3 character required</strong>
+      </div>
+      <div *ngIf="isControlHasError('name', 'maxlength')" class="invalid">
+        <strong>Max length allowed 320</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="url" class="col-3 col-form-label">{{
+        "FORMS.ATTACH_FILE" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="file"
+          id="url"
+          name="url"
+          placeholder="Attach File"
+          (change)="handleFileChange($event.target.files)"
+          formControlName="url"
+          autocomplete="off"
+          class="form-control"
+          accept="image/x-png,image/gif,image/jpeg"
+          [ngClass]="{ invalidInput: isControlHasErrors('url') }"
+          required
+        />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="type" class="col-3 col-form-label">{{
+        "BANNER.TYPE" | translate
+      }}</label>
+      <div class="col-9">
+        <select
+          name="type"
+          id="type"
+          formControlName="type"
+          autocomplete="off"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('type') }"
+          required
+        >
+          <option value="null" disabled selected>
+            {{ "BANNER.BAN_TYPE" | translate }}
+          </option>
+          <option value="Fixed">Fixed</option>
+          <option value="Floting">Flotting</option>
+        </select>
+      </div>
+      <div *ngIf="isControlHasError('type', 'required')" class="invalid">
+        <strong>Type is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="priority" class="col-3 col-form-label">{{
+        "FORMS.PRIORITY" | translate
+      }}</label>
+      <div class="col-9">
+        <input
+          type="number"
+          id="priority"
+          min="1"
+          (keypress)="numberOnly($event)"
+          name="priority"
+          placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+          formControlName="priority"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('priority') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('priority', 'required')" class="invalid">
+        <strong>Type is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('priority', 'minlength')" class="invalid">
+        <strong>Priority Minimum length is 1</strong>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="banner_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_BANNER && ADD_URL && !BANNER_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="banner_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_BANNER && EDIT_URL && BANNER_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

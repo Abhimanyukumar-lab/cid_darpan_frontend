@@ -1,0 +1,39 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{ "ACTS.ACTS_TITLE" | translate }}</span>
+</div>
+<table class="table">
+  <thead style="background-color: black">
+    <th style="width: 10%; color: white; padding: 15px">
+      {{ "FORMS.SL_NO" | translate }}
+    </th>
+    <th style="width: 20%; color: white; padding: 15px">
+      {{ "FORMS.NAME" | translate }}
+    </th>
+    <th style="width: 55%; color: white; padding: 15px">
+      {{ "FORMS.DESCRIPTION" | translate }}
+    </th>
+    <th style="width: 15%; color: white; padding: 15px">
+      {{ "FORMS.VIEW" | translate }}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let act of acts">
+      <td>{{ act.id }}</td>
+      <td>{{ act.title }}</td>
+      <td>{{ act.description }}</td>
+      <td>
+        <a
+          href="{{ baseUrl + act.link }}"
+          target="blank"
+          class="btn btn-primary"
+          >view</a
+        >
+      </td>
+    </tr>
+    <tr *ngIf="acts && acts.length == 0">
+      <td colspan="4" style="text-align: center">
+        {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+      </td>
+    </tr>
+  </tbody>
+</table>

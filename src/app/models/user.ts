@@ -1,0 +1,46 @@
+export class User {
+  isAuthenticated: boolean = false;
+  user: {
+    active: boolean;
+    contactNo: string;
+    createdBy: number;
+    createdDate: string;
+    districtId: number;
+    districtName: string;
+    email: string;
+    endDate: string;
+    filled: boolean;
+    firstName: string;
+    fullName: string;
+    id: number;
+    isFirst: boolean;
+    joiningDate: string;
+    lastName: string;
+    menus: any[];
+    mobileNO: string;
+    numberCirlce: number;
+    numberOp: number;
+    numberPs: number;
+    numberSubdivision: number;
+    permissions: any[];
+    rangeId: number;
+    rangeName: number;
+    roleId: number;
+    roleName: string;
+    stateId: number;
+    stationId: number;
+    sectionId: number;
+    dspId: number;
+    sdpoId: number;
+    circleInspectorId: number;
+    subdivisionId: number;
+    stateName: string;
+    sidebarMenu: any[];
+    token: string;
+    tokenValidity: string;
+    updatedBy: number;
+    updatedDate: string;
+    userImage: string;
+    verified: boolean;
+  };
+}

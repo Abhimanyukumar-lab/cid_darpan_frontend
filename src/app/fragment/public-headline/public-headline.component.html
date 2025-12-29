@@ -1,0 +1,44 @@
+<div class="default" *ngIf="style == 'default'">
+  <div class="headlines">
+    <div class="container">
+      <label>{{title}}: </label>
+
+      <ng-marquee class="headlines-outer" speed="drowsy" [stopOnHover]="true">
+        <mark class="headlines-innner">&#8226;</mark>
+        <mark *ngFor="let headline of headlines" class="headlines-innner"><a href="{{ headline.link }}" target="blank"
+            style="text-decoration: none; color: #ffffff"><span>{{ headline.title }} </span>
+            <img src="/assets/images/arrow.svg" alt="Arrow" />
+          </a>
+        </mark>
+        <mark class="headlines-innner">&#8226;</mark>
+      </ng-marquee>
+    </div>
+  </div>
+</div>
+
+<div class="style3" *ngIf="style == 'style3'">
+  <div class="headlines">
+    <div class="container" style="display: flex;flex-direction: column;justify-content: start; align-items: start;">
+
+      <label style="padding-bottom: 10px;">{{title}} : </label>
+
+      <marquee scrollamount="2" behavior="scroll" direction="up" style="height: 100% !important"
+        onmouseover="this.stop();" onmouseout="this.start();">
+        <div *ngFor="let headline of headlines" class="headlines-innner"
+          style="padding: 10px 0;border-bottom: 1px solid black;"><a href="{{ headline.link }}" target="blank"
+            class="headline-click" style="text-decoration: none;color: black;"> &#8226;
+            <span>{{ headline.title }} </span>
+            <img src="/assets/images/arrow.svg" alt="Arrow" />
+          </a>
+        </div>
+        <div *ngFor="let headline of headlines" class="headlines-innner"
+          style="padding: 10px 0;border-bottom: 1px solid black;"><a href="{{ headline.link }}" target="blank"
+            class="headline-click" style="text-decoration: none;color: black;"> &#8226;
+            <span>{{ headline.title }} </span>
+            <img src="/assets/images/arrow.svg" alt="Arrow" />
+          </a>
+        </div>
+      </marquee>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{ "HOME.LOST_FOUND" | translate }}</span>
+</div>
+<div class="lost-found-area">
+  <div class="col-sm-12 status-btn float-left" style="padding-bottom: 25px">
+    <!-- <button routerLink="/lostFound" class="submit-btn btn-custome">
+      Lost/Found/Stolen
+    </button> -->
+    <button routerLink="/citizenReport" class="submit-btn btn-custome">
+      Citizen Report
+    </button>
+    <!-- <button class="submit-btn l-btn" (click)="statusPopup()">Check Status</button> -->
+  </div>
+  <div class="container">
+    <div
+      class="row card"
+      style="flex-direction: row; padding: 10px; margin-bottom: 10px"
+    >
+      <div class="col-sm-6">
+        <span>{{ "CITIZEN_REPORT.SELECT_TYPE" | translate }} : </span>
+        <select class="form-select" [(ngModel)]="type" (change)="printData()">
+          <option value="null" selected>
+            {{ "CITIZEN_REPORT.SELECT_REPORT_TYPE" | translate }}
+          </option>
+          <option value="Lost">
+            {{ "CITIZEN_REPORT.LOST" | translate }}
+          </option>
+          <option value="Found">
+            {{ "CITIZEN_REPORT.FOUND" | translate }}
+          </option>
+          <option value="Stolen">
+            {{ "CITIZEN_REPORT.STOLEN" | translate }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <span>{{ "CITIZEN_REPORT.REPORT_FOR" | translate }} : </span>
+        <select
+          class="form-select"
+          [(ngModel)]="reportFor"
+          (change)="printData()"
+        >
+          <option value="null" selected>
+            {{ "CITIZEN_REPORT.SELECT_REPORT_FOR" | translate }}
+          </option>
+          <option value="Mobile">
+            {{ "CITIZEN_REPORT.MOBILE" | translate }}
+          </option>
+          <option value="Vehicle">
+            {{ "CITIZEN_REPORT.VEHICLE" | translate }}
+          </option>
+          <option value="Other">
+            {{ "CITIZEN_REPORT.OTHER" | translate }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <section class="reports">
+    <div class="container">
+      <div id="dataList" *ngFor="let reports of citizenReports">
+        <div
+          class="card"
+          *ngIf="
+            (type &&
+              reportFor &&
+              reports.reportType == type &&
+              reports.modelType == reportFor) ||
+            (type &&
+              !reportFor &&
+              reportFor == null &&
+              reports.reportType == type) ||
+            (reportFor &&
+              !type &&
+              type == null &&
+              reports.modelType == reportFor) ||
+            (!type && !reportFor) ||
+            (type == null && reportFor == null)
+          "
+        >
+          <div class="box">
+            <!-- <app-image-viewer [imageURL]="reports.lostImage"></app-image-viewer> -->
+            <div class="team-img">
+              <app-image-viewer
+                [imageURL]="reports.lostImage"
+                [imgWidth]="'100%'"
+                [imgHeight]="'200px'"
+                class="card-img-top"
+              >
+              </app-image-viewer>
+            </div>
+            <p class="officer-name" style="margin-top: 2px">
+              <span> Report For : {{ reports.modelType }}</span>
+            </p>
+            <p
+              class="officer-name"
+              *ngIf="
+                reports.modelType == 'Other' || reports.modelType == 'अन्य'
+              "
+            >
+              <span> Item Name : {{ reports.otherInfoName }}</span>
+            </p>
+            <p
+              class="officer-name"
+              *ngIf="
+                reports.modelType == 'Mobile' || reports.modelType == 'मोबाइल'
+              "
+            >
+              <span> Model Name : {{ reports.modelName }}</span>
+            </p>
+            <p
+              class="officer-name"
+              *ngIf="
+                reports.modelType == 'Vehicle' || reports.modelType == 'वाहन'
+              "
+            >
+              <span> Registration No : {{ reports.modelName }}</span>
+            </p>
+            <p
+              class="officer-name"
+              *ngIf="
+                reports.modelType != 'Other' || reports.modelType != 'अन्य'
+              "
+            >
+              <span> Color : {{ reports.modelColor }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="count == 0">NO DATA INSIDE</div>
+    </div>
+  </section>
+</div>

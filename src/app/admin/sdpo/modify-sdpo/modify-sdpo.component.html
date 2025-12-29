@@ -1,0 +1,363 @@
+<div class="sdpo-edit">
+  <div class="dashboard-header">{{ "SDPO.SDPO_DETAILS" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="sdpo-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="sdpoForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="sdpo_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row">
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headName" class="col-3 col-form-label">{{
+            "FORMS.NAME" | translate
+          }} (English)</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="headName"
+              name="headName"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'SDPO.ENTER_SEC_SDPO_NAME' | translate }}"
+              formControlName="headName"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('headName')
+              }"
+              (change)="focusOut($event, 'headName')"
+              (focusout)="focusOut($event, 'headName')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('headName', 'required')"
+            class="invalid"
+          >
+            <strong>Officer Name is required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('headName', 'minlength')"
+            class="invalid"
+          >
+            <strong>Minimum 3 character required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('headName', 'maxlength')"
+            class="invalid"
+          >
+            <strong>Max length allowed 320</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headNameHi" class="col-3 col-form-label">{{
+            "FORMS.NAME" | translate
+          }} (Hindi)</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="headNameHi"
+              name="headNameHi"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'SDPO.ENTER_SEC_SDPO_NAME' | translate }}"
+              formControlName="headNameHi"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('headNameHi')
+              }"
+              (change)="focusOut($event, 'headNameHi')"
+              (focusout)="focusOut($event, 'headNameHi')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('headNameHi', 'required')"
+            class="invalid"
+          >
+            <strong>Officer Name is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="dspName" class="col-3 col-form-label">{{
+            "DSP.DSP_TITLE" | translate
+          }}</label>
+          <div class="col-8">
+            <select
+              name="dspName"
+              id="dspName"
+              formControlName="dspId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('dspId') }"
+            >
+              <option value="null" disabled>
+                {{ "DSP.SEL_DSP" | translate }}
+              </option>
+              <option *ngFor="let dsps of dspList" value="{{ dsps.id }}">
+                {{ dsps.dspName }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="joiningDate" class="col-3 col-form-label">{{
+            "DSP.JOIN_DATE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="date"
+              id="joiningDate"
+              name="joiningDate"
+              (keypress)="validAplpha($event)"
+              max="{{ max | date: 'yyyy-MM-dd' }}"
+              formControlName="joiningDate"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('joiningDate') }"
+              required
+            />
+          </div>
+          <div
+            *ngIf="isControlHasError('joiningDate', 'required')"
+            class="invalid"
+          >
+            <strong>Joining Date is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headEmail" class="col-3 col-form-label">{{
+            "SDPO.SEC_SDPO_EMAIL" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="email"
+              id="headEmail"
+              name="headEmail"
+              placeholder="{{ 'SDPO.ENTER_SEC_SDPO_EMAIL' | translate }}"
+              formControlName="headEmail"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('headEmail') }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headMobile" class="col-3 col-form-label">{{
+            "SDPO.SEC_SDPO_MOBILE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="headMobile"
+              name="headMobile"
+              maxlength="13"
+              (keypress)="numberOnly($event)"
+              placeholder="{{ 'SDPO.ENTER_SEC_SDPO_MOBILE' | translate }}"
+              formControlName="headMobile"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('headMobile') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('headMobile', 'required')"
+            class="invalid"
+          >
+            <strong>Mobile Number is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headContact" class="col-3 col-form-label">{{
+            "SDPO.SEC_SDPO_MOBILE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="text"
+              id="headContact"
+              name="headContact"
+              maxlength="13"
+              (keypress)="numberOnly($event)"
+              placeholder="{{ 'SDPO.ENTER_SEC_SDPO_MOBILE' | translate }}"
+              formControlName="headContact"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('headContact') }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="headImageSource" class="col-3 col-form-label">{{
+            "FORMS.ATTACH_FILE" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="file"
+              id="headImageSource"
+              name="headImageSource"
+              placeholder="Attach File"
+              (change)="handleFileChange($event.target.files)"
+              formControlName="headImageSource"
+              autocomplete="off"
+              class="form-control"
+              accept="image/jpg,image/gif,image/jpeg"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('headImageSource')
+              }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="designationName" class="col-3 col-form-label">{{
+            "HELPLINE.DESIGNATION" | translate
+          }}</label>
+          <div class="col-8">
+            <select
+              name="designationName"
+              id="designationName"
+              formControlName="designationId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('designationId') }"
+              required
+            >
+              <option value="null" disabled>Select Designation</option>
+              <option
+                *ngFor="let designation of designationList"
+                value="{{ designation.id }}"
+              >
+                <span *ngIf="language == 'en'">{{
+                  designation.designationName
+                }}</span>
+                <span *ngIf="language == 'hi'">{{
+                  designation.designationNameHi
+                }}</span>
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="isControlHasError('designationId', 'required')"
+            class="invalid"
+          >
+            <strong>Address is required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="priority" class="col-3 col-form-label">{{
+            "FORMS.PRIORITY" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              type="number"
+              id="priority"
+              name="priority"
+              min="1"
+              (keypress)="numberOnly($event)"
+              placeholder="{{ 'FORMS.ENTER_PRIORITY' | translate }}"
+              formControlName="priority"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('priority') }"
+              required
+            />
+          </div>
+          <div
+            *ngIf="isControlHasError('priority', 'required')"
+            class="invalid"
+          >
+            <strong>Priority is required</strong>
+          </div>
+          <div
+            *ngIf="isControlHasError('priority', 'minlength')"
+            class="invalid"
+          >
+            <strong>Priority Minimum length is 1</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="sdpo_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SDPO && ADD_URL && !SDPO_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="sdpo_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SDPO && EDIT_URL && SDPO_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

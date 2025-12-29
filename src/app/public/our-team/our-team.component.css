@@ -1,0 +1,60 @@
+.our-team {
+  width: 100%;
+  height: auto;
+  background-color: #f0f0f0;
+}
+.our-team .container {
+  margin: auto;
+  position: relative;
+}
+.our-team .container .card {
+  width: 23%;
+  margin: 5px;
+  float: left;
+}
+.our-team .container .card .box {
+  text-align: center;
+}
+.our-team .container .card .box .team-img {
+  width: 100%;
+  border: 1px solid #000000;
+  min-height: 200px;
+  max-height: 200px;
+}
+.our-team .container .card .box .officer-name {
+  font-size: 17px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 5px !important;
+}
+.our-team .container .card .box .officer-about {
+  text-align: center;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1440px) {
+  .our-team {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+  .our-team {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .our-team {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .our-team {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .our-team .container .card {
+    width: 100%;
+  }
+}/*# sourceMappingURL=our-team.component.css.map */

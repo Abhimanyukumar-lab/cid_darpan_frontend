@@ -1,0 +1,233 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>{{ "ASSET_PRODUCT.PRODUCT_TITLE" | translate }}</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "ASSET_PRODUCT.PRODUCT_DETAILS" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.SEL_SUPPLIER" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.supplierName }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.SEL_ASSET_TYPE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.assetTypeName }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_NAME" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.productName }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_PRICE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.productPrice }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_QUANTITY" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.productQuantity }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_TOTAL_PRICE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.totalPrice }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_ORDER_BY" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.orderedBy }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_ORDER_DATE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">
+                {{ assetProduct.orderedDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_REQUEST_BY" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.requiredBy }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_DESCRIPTION" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">{{ assetProduct.decription }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "CITIZEN_REPORT.INVOICE" | translate }}
+                </span>
+              </div>
+              <div class="col-6">
+                <app-image-viewer
+                  [imageURL]="assetProduct.invoice"
+                  [imgWidth]="'80px'"
+                  [imgHeight]="'80px'"
+                ></app-image-viewer>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_PURCHASE_DATE" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">
+                {{ assetProduct.purchaseDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.PROD_AMC" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">
+                {{ assetProduct.amcStatus }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row p-3"
+          style="font-size: 16px"
+          *ngIf="assetProduct.amcStatus == 'Yes'"
+        >
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.AMC_START" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">
+                {{
+                  assetProduct.suppliersProductsAmcDTO.amcStartDate
+                    | date: "dd/MM/yyyy"
+                }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">
+                  {{ "ASSET_PRODUCT.AMC_END" | translate }}:
+                </span>
+              </div>
+              <div class="col-6">
+                {{
+                  assetProduct.suppliersProductsAmcDTO.amcEndDate
+                    | date: "dd/MM/yyyy"
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

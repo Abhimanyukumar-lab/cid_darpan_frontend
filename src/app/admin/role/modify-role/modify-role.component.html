@@ -1,0 +1,93 @@
+<div class="role-modify">
+  <div class="dashboard-header">Role Details</div>
+  <button
+    class="btn btn-sm"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<form
+  class="form needs-validation text-center"
+  novalidate
+  [formGroup]="roleForm"
+  autocomplete="off"
+  novalidate="novalidate"
+  id="role_form"
+>
+  <div class="container">
+    <input id="id" name="id" formControlName="roleId" style="display: none" />
+
+    <div class="row mb-2">
+      <label for="name" class="col-sm-2 col-form-label">Role Name : </label>
+      <div class="col-10">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Role Name"
+          formControlName="name"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('name')
+          }"
+          required
+        />
+        <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+          <strong>Role Name is required</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      form-group
+      d-flex
+      flex-wrap
+      justify-content-center
+      align-items-center
+    "
+  >
+    <button
+      id="role_submit"
+      (click)="submit()"
+      class="btn btn-primary px-9 py-9"
+      [disabled]="loading"
+      *ngIf="ADD_ROLE && ADD_URL && !ROLE_PARAMS.ROLE_ID"
+    >
+      Add Role
+      <div
+        class="spinner-border spinner-border-sm text-light align-middle"
+        *ngIf="loading"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button>
+    <button
+      id="role_submit"
+      (click)="submit()"
+      class="btn btn-primary px-9 py-9"
+      [disabled]="loading"
+      *ngIf="EDIT_ROLE && EDIT_URL && ROLE_PARAMS.ROLE_ID"
+    >
+      Edit Role
+      <div
+        class="spinner-border spinner-border-sm text-light align-middle"
+        *ngIf="loading"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button>
+  </div>
+</form>

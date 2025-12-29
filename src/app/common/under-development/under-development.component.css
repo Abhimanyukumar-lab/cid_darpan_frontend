@@ -1,0 +1,23 @@
+.under-Dev {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #1a84ad;
+  text-align: center;
+  color: #fff;
+}
+.under-Dev .h1 {
+  font-size: 22px;
+  font-weight: 600;
+}
+.under-Dev .h3 {
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.under-Dev button {
+  margin: 10px;
+}/*# sourceMappingURL=under-development.component.css.map */

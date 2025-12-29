@@ -1,0 +1,30 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "PRESS_RELEASE.PRESS_RELEASE_TITLE" | translate
+    }}</span>
+</div>
+<table class="table">
+  <thead style="background-color: black">
+    <th style="width: 10%; color: white; padding: 15px">{{ "FORMS.SL_NO" | translate }}</th>
+    <th style="width: 10%; color: white; padding: 15px">{{ "FORMS.DATE" | translate }}</th>
+    <th style="width: 15%; color: white; padding: 15px">{{ "PRESS_RELEASE.RELEASE_BY" | translate }}</th>
+    <th style="width: 55%; color: white; padding: 15px">{{ "FORMS.TITLE" | translate }}</th>
+    <th style="width: 10%; color: white; padding: 15px">{{ "FORMS.VIEW" | translate }}</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let press of pressRelease">
+      <td>{{ press.id }}</td>
+      <td>{{ press.date }}</td>
+      <td>{{ press.releasedBy }}</td>
+      <td>{{ press.title }}</td>
+      <td>
+        <button (click)="goToDetails(press)" class="btn btn-primary">view</button>
+      </td>
+    </tr>
+    <tr *ngIf="pressRelease && pressRelease.length == 0">
+      <td colspan="5" style="text-align: center">
+        {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+      </td>
+    </tr>
+  </tbody>
+</table>

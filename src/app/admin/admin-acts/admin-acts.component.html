@@ -1,0 +1,24 @@
+<div class="acts">
+  <div class="dashboard-header">{{ "ACTS.ACT_DOWNLOAD" | translate }}</div>
+  <div class="button-panel">
+    <a
+      routerLink="{{ permissions.add_url }}"
+      class="btn btn-success m-2"
+      *ngIf="permissions.add && permissions.add_url"
+      >{{ "ACTS.ADD_ACT" | translate }}</a
+    >
+  </div>
+
+  <div style="padding: 20px">
+    <app-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+      [permissions]="permissions"
+      [filterOptions]="filterOptions"
+      [isApiAvailable]="false"
+    >
+    </app-table-data>
+  </div>
+</div>

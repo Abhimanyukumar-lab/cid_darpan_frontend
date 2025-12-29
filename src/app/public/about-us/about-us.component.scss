@@ -1,0 +1,52 @@
+.about-us {
+  width: 80%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  .about-map {
+    width: 100%;
+    height: auto;
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ab-text {
+    width: 100%;
+    height: auto;
+    flex: 50%;
+    .text-line {
+      margin-left: 15px;
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+}
+
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 768px) {
+  .about-us {
+    .about-map {
+      width: 100%;
+      height: auto;
+      flex: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      iframe {
+        width: 100%;
+      }
+    }
+  }
+}

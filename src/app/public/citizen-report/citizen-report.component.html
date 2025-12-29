@@ -1,0 +1,1044 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "CITIZEN_REPORT.CITIZEN_REPORT_TITLE" | translate
+  }}</span>
+</div>
+<div class="citizen-report">
+  <div class="citizen-form">
+    <div class="col-sm-12 status-btn float-left">
+      <button routerLink="/lostFound" class="submit-btn btn-custome">
+        Lost/Found/Stolen
+      </button>
+      <button
+        class="submit-btn btn-custome"
+        (click)="openModal('citizenReportCheckStatusModal')"
+      >
+        Check Status
+      </button>
+    </div>
+
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+      *ngIf="isCompleted"
+    >
+      <h6 *ngIf="currrentLang == 'en'">{{ REPORT_MSG_EN }}</h6>
+      <h6 *ngIf="currrentLang == 'hi'">{{ REPORT_MSG_HI }}</h6>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        (click)="isCompleted = false"
+      ></button>
+    </div>
+
+    <div
+      class="divide-line"
+      style="margin-bottom: 20px; margin-top: 10px"
+    ></div>
+    <form
+      class="form needs-validation text-center"
+      novalidate
+      [formGroup]="citizenForm"
+      autocomplete="off"
+      novalidate="novalidate"
+      id="public_citizenReport"
+    >
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12 sub-header-title" style="margin: 0">
+            <span class="glob-span header-txt">{{
+              "CITIZEN_REPORT.ITEM_INFO" | translate
+            }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "APPOINTMENT.POLICE_STATION" | translate
+            }}</span>
+            <select
+              name="policeStationName"
+              id="policeStationName"
+              formControlName="policeStationId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('policeStationId')
+              }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_POLICE_STATION" | translate }}
+              </option>
+              <option
+                *ngFor="let station of stationList"
+                value="{{ station.id }}"
+              >
+                <span *ngIf="currrentLang == 'en'">{{
+                  station.stationName
+                }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  station.stationNameHi
+                }}</span>
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('policeStationId', 'required')"
+              class="invalid"
+            >
+              <strong> Police Station is required</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.REPORT_TYPE" | translate
+            }}</span
+            ><select
+              name="reportType"
+              class="form-select"
+              formControlName="reportType"
+              (change)="doCheckReportType($event.target)"
+              [ngClass]="{ invalidInput: isControlHasErrors('reportType') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "CITIZEN_REPORT.SELECT_REPORT_TYPE" | translate }}
+              </option>
+              <option value="Lost">
+                {{ "CITIZEN_REPORT.LOST" | translate }}
+              </option>
+              <option value="Found">
+                {{ "CITIZEN_REPORT.FOUND" | translate }}
+              </option>
+              <option value="Stolen">
+                {{ "CITIZEN_REPORT.STOLEN" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('reportType', 'required')"
+              class="invalid"
+            >
+              <strong>Select Report Type</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="!isFor && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.REPORT_FOR" | translate
+            }}</span
+            ><select
+              name="reportFor"
+              class="form-select"
+              formControlName="reportFor"
+              (change)="doCheckReportFor($event.target)"
+              [ngClass]="{ invalidInput: isControlHasErrors('reportFor') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "CITIZEN_REPORT.SELECT_REPORT_FOR" | translate }}
+              </option>
+              <option value="Mobile">
+                {{ "CITIZEN_REPORT.MOBILE" | translate }}
+              </option>
+              <option value="Vehicle">
+                {{ "CITIZEN_REPORT.VEHICLE" | translate }}
+              </option>
+              <option value="Other">
+                {{ "CITIZEN_REPORT.OTHER" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('reportFor', 'required')"
+              class="invalid"
+            >
+              <strong>Select Report For</strong>
+            </div>
+          </div>
+
+          <div
+            *ngIf="!isStolen"
+            class="col-sm-4"
+            [ngStyle]="{ display: isLostArea ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.LOST_AREA" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="area"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_LOST_AREA' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('area')
+              }"
+              (change)="focusOut($event, 'area')"
+              (focusout)="focusOut($event, 'area')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="area"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_LOST_AREA' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('area')
+              }"
+              (change)="focusOut($event, 'area')"
+              (focusout)="focusOut($event, 'area')"
+            />
+          </div>
+          <div
+            *ngIf="!isStolen"
+            class="col-sm-4"
+            [ngStyle]="{ display: isFoundArea ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.FOUND_AREA" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="area"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_FOUND_AREA' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('area')
+              }"
+              (change)="focusOut($event, 'area')"
+              (focusout)="focusOut($event, 'area')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="area"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_FOUND_AREA' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('area')
+              }"
+              (change)="focusOut($event, 'area')"
+              (focusout)="focusOut($event, 'area')"
+            />
+          </div>
+          <div class="col-sm-4" *ngIf="isForVehicle && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.VEHICLE_TYPE" | translate
+            }}</span>
+            <select
+              name="vehicleType"
+              (change)="doCheckVehicleType($event.target)"
+              class="form-select"
+              formControlName="vehicleType"
+              [ngClass]="{ invalidInput: isControlHasErrors('vehicleType') }"
+            >
+              <option value="null" disabled>
+                {{ "CITIZEN_REPORT.SEL_VEHICLE_TYPE" | translate }}
+              </option>
+              <option value="{{ 'CITIZEN_REPORT.2-WHEELER' | translate }}">
+                {{ "CITIZEN_REPORT.2-WHEELER" | translate }}
+              </option>
+              <option value="{{ 'CITIZEN_REPORT.3-WHEELER' | translate }}">
+                {{ "CITIZEN_REPORT.3-WHEELER" | translate }}
+              </option>
+              <option value="{{ 'CITIZEN_REPORT.4-WHEELER' | translate }}">
+                {{ "CITIZEN_REPORT.4-WHEELER" | translate }}
+              </option>
+              <option value="{{ 'CITIZEN_REPORT.OTHER' | translate }}">
+                {{ "CITIZEN_REPORT.OTHER" | translate }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="!isStolen"
+            class="col-sm-4"
+            [ngStyle]="{ display: isForVehicle ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.REGISTRATION_NO" | translate
+            }}</span
+            ><input
+              type="text"
+              class="form-control hindi"
+              formControlName="regNumber"
+              maxlength="10"
+              placeholder="{{
+                'CITIZEN_REPORT.SEL_REGISTRATION_NO' | translate
+              }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('regNumber') }"
+            />
+            <div
+              *ngIf="isControlHasError('regNumber', 'Minimum')"
+              class="invalid"
+            >
+              <strong>Minimum 10 Number</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isForMobile && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.MODEL_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="modelName"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_MODEL_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('modelName')
+              }"
+              (change)="focusOut($event, 'modelName')"
+              (focusout)="focusOut($event, 'modelName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="modelName"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_MODEL_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('modelName')
+              }"
+              (change)="focusOut($event, 'modelName')"
+              (focusout)="focusOut($event, 'modelName')"
+            />
+          </div>
+          <div class="col-sm-4" *ngIf="isForMobile && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.IMEI_NO" | translate
+            }}</span
+            ><input
+              type="text"
+              class="form-control"
+              formControlName="imeiNumber"
+              (keypress)="numberOnly($event)"
+              maxlength="16"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_IMEI_NO' | translate }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('imeiNumber') }"
+            />
+            <div
+              *ngIf="isControlHasError('imeiNumber', 'Minimum')"
+              class="invalid"
+            >
+              <strong>Minimum 16 Number</strong>
+            </div>
+          </div>
+
+          <div class="col-sm-4" *ngIf="isForVehicle && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.CHASSIS_NO" | translate
+            }}</span
+            ><input
+              type="text"
+              class="form-control"
+              formControlName="chassisNumber"
+              maxlength="17"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_CHASSIS_NO' | translate }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('chassisNumber') }"
+            />
+            <div
+              *ngIf="isControlHasError('chassisNumber', 'Minimum')"
+              class="invalid"
+            >
+              <strong>Minimum 17 Number</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isForVehicle && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.ENGINE_NO" | translate
+            }}</span
+            ><input
+              type="text"
+              class="form-control"
+              formControlName="engineNo"
+              maxlength="12"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_ENGINE_NO' | translate }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('engineNo') }"
+            />
+            <div
+              *ngIf="isControlHasError('engineNo', 'Minimum')"
+              class="invalid"
+            >
+              <strong>Minimum 12 Number</strong>
+            </div>
+          </div>
+          <div
+            *ngIf="!isStolen"
+            class="col-sm-4"
+            [ngStyle]="{ display: isColor ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.COLOR" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="color"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_COLOR' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('color')
+              }"
+              (change)="focusOut($event, 'color')"
+              (focusout)="focusOut($event, 'color')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="color"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_COLOR' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('color')
+              }"
+              (change)="focusOut($event, 'color')"
+              (focusout)="focusOut($event, 'color')"
+            />
+          </div>
+          <div class="col-sm-4" *ngIf="!isIncidentDate && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.INCIDENT_DATE" | translate
+            }}</span
+            ><input
+              type="date"
+              class="form-control"
+              formControlName="incidentDate"
+              (keypress)="validAplpha($event)"
+              max="{{ max | date: 'yyyy-MM-dd' }}"
+              [ngClass]="{ invalidInput: isControlHasErrors('incidentDate') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('incidentDate', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Incident Date</strong>
+            </div>
+          </div>
+
+          <div class="col-sm-4" *ngIf="!isInvoice && !isStolen">
+            <span class="glob-span"
+              >{{ "CITIZEN_REPORT.INVOICE" | translate
+              }}<span style="color: red; font-size: 13px"
+                >(*max size: 2MB)</span
+              ></span
+            >
+            <input
+              type="file"
+              id="invoiceSource"
+              name="invoiceSource"
+              placeholder="Attach File"
+              (change)="handleInvoiceChange($event.target.files)"
+              formControlName="invoiceSource"
+              autocomplete="off"
+              class="form-control hindi"
+              required
+            />
+
+            <!-- [ngClass]="{ invalidInput: isControlHasErrors('invoiceSource') }" -->
+
+            <div
+              *ngIf="isControlHasError('itemImageSource', 'required')"
+              class="invalid"
+            >
+              <strong>Select Item Invoice</strong>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="!isItemImage && !isStolen">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.ITEM_IMAGE" | translate
+            }}</span>
+            <input
+              type="file"
+              class="form-control"
+              id="itemImageSource"
+              name="itemImageSource"
+              formControlName="itemImageSource"
+              (change)="handleItemImageChange($event.target.files)"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('itemImageSource')
+              }"
+            />
+          </div>
+          <div
+            *ngIf="!isStolen"
+            class="col-sm-4"
+            [ngStyle]="{ display: isForOther ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.ITEM_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="itemName"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_ITEM_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('itemName')
+              }"
+              (change)="focusOut($event, 'itemName')"
+              (focusout)="focusOut($event, 'itemName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="itemName"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_ITEM_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('itemName')
+              }"
+              (change)="focusOut($event, 'itemName')"
+              (focusout)="focusOut($event, 'itemName')"
+            />
+          </div>
+          <div
+            *ngIf="!isStolen"
+            class="col-sm-4"
+            [ngStyle]="{ display: idOtherVehicle ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.VEHICLE_NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="vehicleName"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_VEHICLE_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('vehicleName')
+              }"
+              (change)="focusOut($event, 'vehicleName')"
+              (focusout)="focusOut($event, 'vehicleName')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="vehicleName"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_VEHICLE_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('vehicleName')
+              }"
+              (change)="focusOut($event, 'vehicleName')"
+              (focusout)="focusOut($event, 'vehicleName')"
+            />
+          </div>
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isDescription ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.DESCRIPTION" | translate
+            }}</span
+            ><textarea
+              *ngIf="currrentLang == 'hi'"
+              class="form-control hindi hindiFont"
+              formControlName="description"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_DESCRIPTION' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('description')
+              }"
+              (change)="focusOut($event, 'description')"
+              (focusout)="focusOut($event, 'description')"
+            ></textarea>
+            <textarea
+              *ngIf="currrentLang == 'en'"
+              class="form-control"
+              formControlName="description"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_DESCRIPTION' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('description')
+              }"
+              (change)="focusOut($event, 'description')"
+              (focusout)="focusOut($event, 'description')"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!isPersonal && !isStolen">
+          <div class="col-sm-12 sub-header-title">
+            <span class="glob-span header-txt">{{
+              "CITIZEN_REPORT.PAERSONAL_INFO" | translate
+            }}</span>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{
+              "CITIZEN_REPORT.NAME" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              class="form-control hindi hindiFont"
+              formControlName="name"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }"
+              (change)="focusOut($event, 'name')"
+              (focusout)="focusOut($event, 'name')"
+              required
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              class="form-control"
+              formControlName="name"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'APPOINTMENT.ENTER_NAME' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('name')
+              }"
+              (change)="focusOut($event, 'name')"
+              (focusout)="focusOut($event, 'name')"
+              required
+            />
+            <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+              <strong>Enter Your Name</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CONTACT.MOBILE_NO" | translate }}</span
+            ><input
+              type="text"
+              class="form-control"
+              formControlName="mobileNo"
+              (keypress)="numberOnly($event)"
+              placeholder="{{ 'CONTACT.SEL_MOBILE_NO' | translate }}"
+              maxlength="10"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }"
+              required
+            />
+            <div
+              *ngIf="isControlHasError('mobileNo', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Mobile Number</strong>
+            </div>
+            <div
+              *ngIf="isControlHasError('mobileNo', 'Minimum')"
+              class="invalid"
+            >
+              <strong>Minimum 10 Number</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CONTACT.EMAIL" | translate }}</span
+            ><input
+              type="email"
+              id="email"
+              placeholder="eg. abc@gmail.com"
+              name="email"
+              formControlName="email"
+              class="form-control hindi"
+              [ngClass]="{ invalidInput: isControlHasErrors('email') }"
+            />
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "CONTACT.ADDRESS" | translate }}</span
+            ><textarea
+              *ngIf="currrentLang == 'en'"
+              class="form-control"
+              formControlName="address"
+              placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('address')
+              }"
+              (change)="focusOut($event, 'address')"
+              (focusout)="focusOut($event, 'address')"
+              required
+            ></textarea>
+            <textarea
+              *ngIf="currrentLang == 'hi'"
+              class="form-control hindi hindiFont"
+              formControlName="address"
+              placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('address')
+              }"
+              (change)="focusOut($event, 'address')"
+              (focusout)="focusOut($event, 'address')"
+              required
+            ></textarea>
+            <div
+              *ngIf="isControlHasError('address', 'required')"
+              class="invalid"
+            >
+              <strong>Enter Your Address</strong>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span class="glob-span">{{ "HOME.YOUR_DIST" | translate }}:</span>
+            <select
+              name="districtName"
+              id="districtName"
+              placeholder="Enter District"
+              formControlName="districtId"
+              (change)="doCheckDistrict($event.target)"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('districtId') }"
+              required
+            >
+              <option value="null" disabled>
+                {{ "APPOINTMENT.SELECT_DISTRICT" | translate }}
+              </option>
+              <option
+                *ngFor="let district of districtList"
+                value="{{ district.id }}"
+              >
+                <span *ngIf="currrentLang == 'en'">{{
+                  district.districtName
+                }}</span>
+                <span *ngIf="currrentLang == 'hi'">{{
+                  district.districtNameHi
+                }}</span>
+              </option>
+            </select>
+            <div
+              *ngIf="isControlHasError('districtId', 'required')"
+              class="invalid"
+            >
+              <strong>Select District</strong>
+            </div>
+          </div>
+          <div
+            class="col-sm-4"
+            [ngStyle]="{ display: isOtherDistrict ? 'block' : 'none' }"
+          >
+            <span class="glob-span">{{
+              "APPOINTMENT.OTHER_DIST" | translate
+            }}</span
+            ><input
+              *ngIf="currrentLang == 'hi'"
+              type="text"
+              id="otherDistrict"
+              name="otherDistrict"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'APPOINTMENT.ENTER_DISTRICT' | translate }}"
+              formControlName="otherDistrict"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('otherDistrict')
+              }"
+              (change)="focusOut($event, 'otherDistrict')"
+              (focusout)="focusOut($event, 'otherDistrict')"
+            />
+            <input
+              *ngIf="currrentLang == 'en'"
+              type="text"
+              id="otherDistrict"
+              name="otherDistrict"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'APPOINTMENT.ENTER_DISTRICT' | translate }}"
+              formControlName="otherDistrict"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('otherDistrict')
+              }"
+              (change)="focusOut($event, 'otherDistrict')"
+              (focusout)="focusOut($event, 'otherDistrict')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="divide-line"></div>
+
+      <div class="row" *ngIf="isStolen" style="padding-top: 10px">
+        <div class="col-sm-12">
+          <span
+            style="
+              justify-content: center;
+              text-align: center;
+              align-items: center;
+              color: red;
+              width: auto;
+              font-size: 17px;
+              display: flex;
+            "
+            class="header-txt"
+            >{{ "CITIZEN_REPORT.STOLEN_MSG" | translate }}</span
+          >
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!isStolen">
+        <div class="col-sm-12 status-bar">
+          <button
+            *ngIf="!isSubmit"
+            class="submit-btn btn-custome"
+            (click)="submit()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Check Status Form -->
+
+<app-modal
+  id="citizenReportCheckStatusModal"
+  [className]="'lg-modal'"
+  [closeOnClick]="false"
+>
+  <div class="checkStatusModal">
+    <div *ngIf="errorMsg">
+      <ngb-alert [type]="alertType" [dismissible]="false">
+        <span style="width: 100%">
+          {{ errorMsg }}
+        </span>
+      </ngb-alert>
+    </div>
+
+    <form [formGroup]="citizenReportCheckStatusGroup">
+      <div class="container-fluid">
+        <div
+          class="row"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div class="col-sm-12 col-md-6 py-2">
+            <div class="form-group row">
+              <label
+                for="reportType"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >{{ "CITIZEN_REPORT.REPORT_TYPE" | translate }}
+              </label>
+              <div class="col-sm-12 col-md-6">
+                <select
+                  id="reportType"
+                  name="reportType"
+                  class="form-select"
+                  formControlName="reportType"
+                  required
+                >
+                  <option value="null" disabled>
+                    {{ "CITIZEN_REPORT.SELECT_REPORT_TYPE" | translate }}
+                  </option>
+                  <option value="Lost">Lost</option>
+                  <option value="Found">Found</option>
+                  <option value="Stolen">Stolen</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 py-2">
+            <div class="form-group row">
+              <label
+                for="reportfor"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >{{ "CITIZEN_REPORT.REPORT_FOR" | translate }}</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <select
+                  id="reportfor"
+                  name="reportfor"
+                  class="form-select"
+                  (change)="reportForSelected($event.target)"
+                  formControlName="reportfor"
+                  required
+                >
+                  <option value="null" disabled>
+                    {{ "CITIZEN_REPORT.SELECT_REPORT_FOR" | translate }}
+                  </option>
+                  <option value="Mobile">Mobile</option>
+                  <option value="Vehicle">Vehicle</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-6 py-2" *ngIf="iscsForMobile">
+            <div class="form-group row">
+              <label
+                for="forValue"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >{{ "CITIZEN_REPORT.IMEI_NO" | translate }}</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="forValue"
+                  formControlName="forValue"
+                  (keypress)="numberOnly($event)"
+                  maxlength="16"
+                  placeholder="{{ 'CITIZEN_REPORT.SEL_IMEI_NO' | translate }}"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 py-2" *ngIf="iscsForVehicle">
+            <div class="form-group row">
+              <label
+                for="forValue"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >{{ "CITIZEN_REPORT.CHASSIS_NO" | translate }}</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  type="text"
+                  id="forValue"
+                  class="form-control"
+                  formControlName="forValue"
+                  maxlength="17"
+                  placeholder="{{
+                    'CITIZEN_REPORT.SEL_CHASSIS_NO' | translate
+                  }}"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-6 py-2">
+            <div class="form-group row">
+              <label
+                for="id"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >{{ "HOME.CITIZEN_ID" | translate }} :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="id"
+                  name="id"
+                  type="text"
+                  class="form-control hindi"
+                  formControlName="id"
+                  placeholder="eg.0001/2021"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-6 py-2">
+            <div class="form-group row">
+              <label
+                for="mobile"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >{{ "APPOINTMENT.MOBILE" | translate }} :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="mobile"
+                  name="mobile"
+                  type="text"
+                  class="form-control hindi"
+                  formControlName="mobile"
+                  placeholder="eg.95xxxxxxxx"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-3 py-2" *ngIf="isOtp">
+            <div class="form-group row">
+              <label
+                for="otp"
+                class="col-sm-12 col-md-6"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+                >Enter OTP :</label
+              >
+              <div class="col-sm-12 col-md-6">
+                <input
+                  id="otp"
+                  name="otp"
+                  type="text"
+                  class="form-control hindi"
+                  formControlName="otp"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-sm-12 col-md-12 py-2"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <button
+              class="submit-btn btn-custome"
+              (click)="isOtp ? submitOTPData() : submitData()"
+            >
+              Submit
+            </button>
+            <button
+              class="submit-btn btn-custome"
+              (click)="closeModal('citizenReportCheckStatusModal')"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="showData">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td style="font-weight: bold">Citizen Id</td>
+            <td>{{ srNo }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Name</td>
+            <td>{{ name }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Applied Date</td>
+            <td>{{ appliedDate | date: "dd/MM/yyyy" }}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold">Status</td>
+            <td>{{ dataStatus }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-modal>

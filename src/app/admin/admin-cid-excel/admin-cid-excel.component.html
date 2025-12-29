@@ -1,0 +1,271 @@
+<div class="container mt-5 p-4 shadow-lg rounded-4 bg-white">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center">
+      <i class="bi bi-display fs-2 text-primary me-3"></i>
+      <h4 class="fw-bold text-gradient mb-0">Excel Details</h4>
+    </div>
+    <button class="btn btn-dark" (click)="downloadSample()">
+      <i class="fa fa-download"></i> Download Sample
+    </button>
+  </div>
+
+  <form [formGroup]="cidExcelForm" class="container p-4 border rounded bg-light shadow">
+    <div class="row g-3">
+
+      <!-- SR/NSR Dropdown -->
+      <div class="col-md-6">
+        <label for="firType" class="form-label">SR/NSR</label>
+        <select
+          id="firType"
+          formControlName="firType"
+          class="form-control"
+          placeholder="Select"
+         
+        >
+          <option value="null" disabled selected>Select</option>
+          <option value="SR">SR</option>
+          <option value="NSR">NSR</option>
+        </select>
+      </div>
+
+      <!-- District Dropdown -->
+      <div class="col-md-6">
+        <label for="districtId" class="form-label">District</label>
+        <select
+          id="districtId"
+          formControlName="districtId"
+          class="form-control" 
+          placeholder="Select District"
+         
+        >
+          <option value="null" disabled selected >Select District</option>
+          <option value="1">Araria</option>
+          <option value="2">Nalanda</option>
+          <option value="3">Arwal</option>
+          <option value="4">Sheohar</option>
+          <option value="5">Darbhanga</option>
+          <option value="6">Gaya</option>
+          <option value="7">Kishanganj</option>
+          <option value="8">Purnea</option>
+          <option value="9">Katihar</option>
+          <option value="10">Saharsa</option>
+          <option value="11">Supaul</option>
+          <option value="12">Madhepura</option>
+          <option value="13">Madhubani</option>
+          <option value="14">Samastipur</option>
+          <option value="15">Bettiah</option>
+          <option value="16">Motihari</option>
+          <option value="17">Bagaha</option>
+          <option value="18">Saran</option>
+          <option value="19">Siwan</option>
+          <option value="20">Gopalganj</option>
+          <option value="21">Muzaffarpur</option>
+          <option value="22">Sitamarhi</option>
+          <option value="23">Vaishali</option>
+          <option value="24">Rohtas</option>
+          <option value="25">Bhojpur</option>
+          <option value="26">Kaimur</option>
+          <option value="27">Buxar</option>
+          <option value="28">Nawada</option>
+          <option value="29">Aurangabad</option>
+          <option value="30">Jehanabad</option>
+          <option value="31">Bhagalpur</option>
+          <option value="32">Banka</option>
+          <option value="33">Naugachhia</option>
+          <option value="34">Munger</option>
+          <option value="35">Jamui</option>
+          <option value="36">Lakhisarai</option>
+          <option value="37">Sheikhpura</option>
+          <option value="38">Begusarai</option>
+          <option value="39">Khagaria</option>
+          <option value="40">Patna Central</option>
+          <option value="41">Patna East</option>
+          <option value="42">Patna West</option>
+          <option value="43">Patna Rural</option>
+          <option value="44">Patna Traffic</option>
+          <option value="45">Rail Patna</option>
+          <option value="46">SRP Muzaffarpur</option>
+          <option value="47">SRP Jamalpur</option>
+          <option value="48">SRP Katihar</option>
+        </select>
+      </div>
+
+
+      
+      <!-- File Upload -->
+      <div class="col-md-6">
+        <label for="docImage" class="form-label">Document Image</label>
+
+        <input type="file" name="file" accept=".xlsx, .xls"  class="form-control" formControlName="firDoc"
+        (change)="handleFileChange($event.target.files)"/>
+         
+      </div>
+
+
+      <!-- Submit Button -->
+      <div class="col-md-12 text-center mt-4">
+       <button type="submit" class="btn btn-primary px-5" (click)="uploadExcelData()">
+          <i class="fa fa-upload"></i> Upload
+        Submit
+        </button>
+      </div>
+
+    </div>
+  </form>
+
+  <!-- Table and Controls -->
+  <h5 class="fw-bold text-purple mt-5">List of Cases</h5>
+
+  <!-- <div class="row mb-2">
+    <div class="col-md-2">
+      <label>Show</label>
+      <select class="form-select form-select-sm">
+        <option>10</option>
+        <option>25</option>
+      </select>
+    </div>
+    <div class="col-md-4 offset-md-6">
+      <input class="form-control" placeholder="Search...">
+    </div>
+  </div> -->
+
+  <!-- <div class="table-responsive">
+    <table class="table table-hover table-bordered rounded-3 overflow-hidden shadow-sm">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Sr. No</th>
+          <th>District</th>
+          <th>Police Station</th>
+          <th>Major Head</th>
+          <th>Sub-Major Head</th>
+          <th>Case No</th>
+          <th>Section</th>
+          <th>Accused</th>
+          <th>Complainant</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr>
+          <td>1</td>
+          <td>Araria</td>
+          <td>Harnaut</td>
+          <td>Murder</td>
+          <td>Land Dispute</td>
+          <td>123</td>
+          <td>302</td>
+          <td>Pappu</td>
+          <td>Suman</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Araria</td>
+          <td>Mahila PS</td>
+          <td>Murder</td>
+          <td>Personal Enmity</td>
+          <td>456</td>
+          <td>360</td>
+          <td>Raju, Golden, Suraj</td>
+          <td>Guddu</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+  <!-- Pagination -->
+  <!-- <div class="d-flex justify-content-end mt-3">
+    <nav>
+      <ul class="pagination">
+        <li class="page-item disabled"><a class="page-link">Previous</a></li>
+        <li class="page-item active"><a class="page-link">1</a></li>
+        <li class="page-item"><a class="page-link">Next</a></li>
+      </ul>
+    </nav>
+  </div> -->
+</div>
+
+
+<!-- -------------table----------- -->
+<!-- <table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Category</th>
+      <th>Type</th>
+      <th>Police Station</th>
+      <th>IO Name</th>
+      <th>Case No</th>
+      <th>Complainant</th>
+      <th>Accused</th>
+      <th>Report Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let caseItem of rows">
+      <td>{{ caseItem.id }}</td>
+      <td>{{ caseItem.cidCrimeCategoryName }}</td>
+      <td>{{ caseItem.cidCrimeCategoryTypeName }}</td>
+      <td>{{ caseItem.policestationName }}</td>
+      <td>{{ caseItem.ioName }}</td>
+      <td>{{ caseItem.caseNo }}</td>
+      <td>{{ caseItem.nameComplainant }}</td>
+      <td>{{ caseItem.accusedName }}</td>
+      <td>{{ caseItem.reportDate | date: 'dd-MM-yyyy' }}</td>
+    </tr>
+  </tbody>
+</table> -->
+
+
+
+  <!-- <div style="padding: 20px">
+    <app-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+     
+    [isApiAvailable]="false"
+    >
+    </app-table-data>
+  </div> -->
+
+  <!-- [permissions]="permissions" -->
+
+  <mat-card>
+
+  <div class="header-controls" style="display: flex; justify-content: start; align-items: center; gap: 20px; margin-bottom: 15px;">
+    
+     <!-- <mat-form-field appearance="outline" style="min-width: 150px; margin-right: 10px;">
+        <mat-label>Items per page</mat-label>
+        <mat-select [(value)]="pageSize" (selectionChange)="onPageSizeChange($event)">
+          <mat-option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+    <mat-form-field appearance="outline" style="width: 150px;">
+      <mat-label>🔍</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search..." />
+    </mat-form-field>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+
+      <ng-container *ngFor="let column of allColumns" [matColumnDef]="column.key">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.label }}</th>
+        <td mat-cell *matCellDef="let element">{{ element[column.key] }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator 
+                 [length]="data.length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="onPageChange($event)"
+                 showFirstLastButtons>
+  </mat-paginator>
+
+</mat-card>

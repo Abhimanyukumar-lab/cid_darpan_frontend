@@ -1,0 +1,16 @@
+<div class="images">
+  <div class="dashboard-header">
+    {{"LEAVE.LEAVE_DASHBOARD" | translate}}
+  </div>
+
+  <div style="padding: 20px">
+    <app-resource-table-data
+      [rows]="rows"
+      [page]="page"
+      [columns]="columns"
+      [path]="path"
+      [permissions]="permissions"
+    >
+    </app-resource-table-data>
+  </div>
+</div>

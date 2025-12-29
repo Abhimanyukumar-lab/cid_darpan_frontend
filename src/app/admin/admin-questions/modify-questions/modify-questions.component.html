@@ -1,0 +1,271 @@
+<div class="question-edit">
+  <div class="dashboard-header">
+    {{ "QUESTION.QUESTION_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="question-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="questionForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="questionForm"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row">
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="questionName" class="col-3 col-form-label">{{
+            "QUESTION.QUESTION_NAME" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="questionName"
+              name="questionName"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_NAME' | translate }}"
+              formControlName="questionName"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('questionName')
+              }"
+              (change)="focusOut($event, 'questionName')"
+              (focusout)="focusOut($event, 'questionName')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="questionName"
+              name="questionName"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_NAME' | translate }}"
+              formControlName="questionName"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('questionName')
+              }"
+              (change)="focusOut($event, 'questionName')"
+              (focusout)="focusOut($event, 'questionName')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('questionName', 'required')"
+            class="invalid"
+          >
+            <strong>Question Name is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="answer1Title" class="col-3 col-form-label">{{
+            "QUESTION.QUESTION_ANSWER" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="answer1Title"
+              name="answer1Title"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_ANSWER' | translate }}"
+              formControlName="answer1Title"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('answer1Title')
+              }"
+              (change)="focusOut($event, 'answer1Title')"
+              (focusout)="focusOut($event, 'answer1Title')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="answer1Title"
+              name="answer1Title"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_ANSWER' | translate }}"
+              formControlName="answer1Title"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('answer1Title')
+              }"
+              (change)="focusOut($event, 'answer1Title')"
+              (focusout)="focusOut($event, 'answer1Title')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('answer1Title', 'required')"
+            class="invalid"
+          >
+            <strong>Answer Name is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="answer2Title" class="col-3 col-form-label">{{
+            "QUESTION.QUESTION_ANSWER" | translate
+          }}</label>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="answer2Title"
+              name="answer2Title"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_ANSWER' | translate }}"
+              formControlName="answer2Title"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('answer2Title')
+              }"
+              (change)="focusOut($event, 'answer2Title')"
+              (focusout)="focusOut($event, 'answer2Title')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="answer2Title"
+              name="answer2Title"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_ANSWER' | translate }}"
+              formControlName="answer2Title"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('answer2Title')
+              }"
+              (change)="focusOut($event, 'answer2Title')"
+              (focusout)="focusOut($event, 'answer2Title')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('answer2Title', 'required')"
+            class="invalid"
+          >
+            <strong>Answer Name is required</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row mb-2">
+          <label for="answer3Title" class="col-3 col-form-label"
+            >{{ "QUESTION.QUESTION_ANSWER" | translate }}
+          </label>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="answer3Title"
+              name="answer3Title"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_ANSWER' | translate }}"
+              formControlName="answer3Title"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('answer3Title')
+              }"
+              (change)="focusOut($event, 'answer3Title')"
+              (focusout)="focusOut($event, 'answer3Title')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="answer3Title"
+              name="answer3Title"
+              placeholder="{{ 'QUESTION.ENTER_QUESTION_ANSWER' | translate }}"
+              formControlName="answer3Title"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('answer3Title')
+              }"
+              (change)="focusOut($event, 'answer3Title')"
+              (focusout)="focusOut($event, 'answer3Title')"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('answer3Title', 'required')"
+            class="invalid"
+          >
+            <strong>Answer Name is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="question_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_QUESTION && ADD_URL && !QUESTION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="question_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_QUESTION && EDIT_URL && QUESTION_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

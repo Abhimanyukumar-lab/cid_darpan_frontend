@@ -1,0 +1,266 @@
+<div
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  "
+>
+  <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+    Major Head Form
+  </div>
+  <button
+    class="dashboard-header btn btn-sm back-btn"
+    style="font-size: 30px"
+    (click)="goBack()"
+  >
+    <!-- &#215; -->
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button>
+</div>
+
+<section class="table-sec">
+  <div class="container">
+    <div class="accordion" id="tableModule">
+      <div class="card m-3">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0 d-flex">
+            <span
+              class="justify-content-center text-left"
+              style="cursor: pointer"
+              (click)="toggle()"
+              >Major Head Form
+            </span>
+            <div
+              *ngIf="!isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >add</i
+              >
+            </div>
+            <div
+              *ngIf="isCollapsed"
+              style="justify-content: flex-end; align-items: flex-end"
+            >
+              <i
+                class="material-icons"
+                style="cursor: pointer"
+                (click)="toggle()"
+                >remove</i
+              >
+            </div>
+          </h5>
+        </div>
+
+        <div class="collapse show" *ngIf="isCollapsed">
+          <div class="card-body">
+            <form class="form needs-validation container" novalidate [formGroup]="entryForm" autocomplete="off"
+              novalidate="novalidate" id="menu_form">
+              <div class="col-sm-12">
+                <div class="row">
+                  <input id="id" name="id" formControlName="id" style="display: none" />
+                  <div class="col-sm-12 d-flex">
+                    <label for="cidCrimeCategoryId" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_MAJOR_HEAD.TITLE" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <select id="cidCrimeCategoryId" name="cidCrimeCategoryId" formControlName="cidCrimeCategoryId"
+                        class="form-control hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('cidCrimeCategoryId')
+                        }" required>
+                        <option value="null" disabled>
+                          {{ "SR_NSR_CASE_MAJOR_HEAD.SELECT" | translate }}
+                        </option>
+                        <option *ngFor="let majorHead of majorHeads" [value]="majorHead.id">
+                          <span *ngIf="language == 'en'">{{ majorHead.nameOfCrimeCategory }}</span>
+                          <span *ngIf="language == 'hi'">{{ majorHead.nameOfCrimeCategoryHi }}</span>
+                        </option>
+                      </select>
+
+                      <div *ngIf="isControlHasError('cidCrimeCategoryId', 'required')" class="invalid">
+                        <strong> Major Head Name is required</strong>
+                      </div>
+                      <!-- (keypress)="validAplpha($event)" -->
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="typeOfCrime" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.TITLE" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <input type="text" id="typeOfCrime" name="typeOfCrime"
+                        placeholder="{{ 'SR_NSR_CASE_SUB_MAJOR_HEAD.TITLE' | translate }}" formControlName="typeOfCrime"
+                        autocomplete="off" class="form-control" [ngClass]="{
+                          invalidInput: isControlHasErrors('typeOfCrime')
+                        }" required />
+                      <!-- (keypress)="validAplpha($event)" -->
+
+                      <div *ngIf="isControlHasError('typeOfCrime', 'required')" class="invalid">
+                        <strong>Sub Major Head Name is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="typeOfCrimeHi" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.TITLE" | translate
+                      }}(Hi)</label>
+                    <div class="col-9 py-2">
+                      <input type="text" id="typeOfCrimeHi" name="typeOfCrimeHi"
+                        placeholder="{{ 'SR_NSR_CASE_SUB_MAJOR_HEAD.TITLE' | translate }}" formControlName="typeOfCrimeHi"
+                        autocomplete="off" class="form-control hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('typeOfCrimeHi')
+                        }" required (keypress)="validAplpha($event)" (change)="focusOut($event, 'typeOfCrimeHi')"
+                        (focusout)="focusOut($event, 'typeOfCrimeHi')" />
+                      <!-- (keypress)="validAplpha($event)" -->
+                    </div>
+
+                    <div *ngIf="isControlHasError('typeOfCrimeHi', 'required')" class="invalid">
+                      <strong> Sub Major Head Name Hi is required</strong>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="allowAccused" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_ACCUSED" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <input type="checkbox" id="allowAccused" name="allowAccused" placeholder="{{
+                          'SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_ACCUSED' | translate
+                        }}" formControlName="allowAccused" autocomplete="off" class="hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('allowAccused')
+                        }" />
+                      <!-- (keypress)="validAplpha($event)" -->
+
+                      <div *ngIf="isControlHasError('allowAccused', 'required')" class="invalid">
+                        <strong>Allow Accused is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="allowDeceased" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_DECEASED" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <input type="checkbox" id="allowDeceased" name="allowDeceased" placeholder="{{
+                          'SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_DECEASED' | translate
+                        }}" formControlName="allowDeceased" autocomplete="off" class="hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('allowDeceased')
+                        }" />
+                      <!-- (keypress)="validAplpha($event)" -->
+
+                      <div *ngIf="isControlHasError('allowDeceased', 'required')" class="invalid">
+                        <strong>Allow Deceased is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="allowVictim" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_VICTIM" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <input type="checkbox" id="allowVictim" name="allowVictim" placeholder="{{
+                          'SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_VICTIM' | translate
+                        }}" formControlName="allowVictim" autocomplete="off" class="hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('allowVictim')
+                        }" />
+                      <!-- (keypress)="validAplpha($event)" -->
+
+                      <div *ngIf="isControlHasError('allowVictim', 'required')" class="invalid">
+                        <strong>Allow Victim is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="allowCashCollection" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_CASH_COLLECTION" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <input type="checkbox" id="allowCashCollection" name="allowCashCollection" placeholder="{{
+                          'SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_CASH_COLLECTION' | translate
+                        }}" formControlName="allowCashCollection" autocomplete="off" class="hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('allowCashCollection')
+                        }" />
+                      <!-- (keypress)="validAplpha($event)" -->
+
+                      <div *ngIf="isControlHasError('allowCashCollection', 'required')" class="invalid">
+                        <strong>Allow Cash Collection is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="allowLootedItems" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_LOOTED_ITEMS" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <input type="checkbox" id="allowLootedItems" name="allowLootedItems" placeholder="{{
+                          'SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_LOOTED_ITEMS' | translate
+                        }}" formControlName="allowLootedItems" autocomplete="off" class="hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('allowLootedItems')
+                        }" />
+                      <!-- (keypress)="validAplpha($event)" -->
+
+                      <div *ngIf="isControlHasError('allowLootedItems', 'required')" class="invalid">
+                        <strong>Allow Looted Items is required</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 d-flex">
+                    <label for="allowOtherEvidence" class="col-3 col-form-label">{{
+                      "SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_OTHER_EVIDENCE" | translate
+                      }}</label>
+                    <div class="col-9 py-2">
+                      <input type="checkbox" id="allowOtherEvidence" name="allowOtherEvidence" placeholder="{{
+                          'SR_NSR_CASE_SUB_MAJOR_HEAD.ALLOW_OTHER_EVIDENCE' | translate
+                        }}" formControlName="allowOtherEvidence" autocomplete="off" class="hindi hindiFont" [ngClass]="{
+                          invalidInput: isControlHasErrors('allowOtherEvidence')
+                        }" />
+                      <!-- (keypress)="validAplpha($event)" -->
+
+                      <div *ngIf="isControlHasError('allowOtherEvidence', 'required')" class="invalid">
+                        <strong>Allow Other Evidence is required</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br />
+
+              <div class="form-group d-flex flex-wrap justify-content-center align-items-center">
+                <button id="menu_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+                  *ngIf="ADD_ENTRY && ADD_URL && !ENTRY_PARAMS.ID">
+                  Add Entry
+                  <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </button>
+                <button id="menu_submit" (click)="submit()" class="btn btn-primary px-9 py-9" [disabled]="loading"
+                  *ngIf="EDIT_ENTRY && EDIT_URL && ENTRY_PARAMS.ID">
+                  Edit Entry
+                  <div class="spinner-border spinner-border-sm text-light align-middle" *ngIf="loading" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+

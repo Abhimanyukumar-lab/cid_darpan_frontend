@@ -1,0 +1,143 @@
+<div class="system-edit">
+  <div class="dashboard-header">System Configuration Details</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="system-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="systemConfigForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="systemConfig_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <label for="data" class="col-3 col-form-label">Data</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="data"
+          name="data"
+          placeholder="Enter Data"
+          formControlName="data"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('data') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('data', 'required')" class="invalid">
+        <strong>Data is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="value" class="col-3 col-form-label">Value</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="value"
+          name="value"
+          placeholder="Enter Value"
+          formControlName="value"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('value') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('value', 'required')" class="invalid">
+        <strong>value is required</strong>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="type" class="col-3 col-form-label">Type</label>
+      <div class="col-9">
+        <select
+          id="type"
+          name="type"
+          formControlName="type"
+          autocomplete="off"
+          class="form-select"
+        >
+          <option value="null" disabled>Select Type</option>
+          <option value="system_config">System Config</option>
+          <option value="sms_config">SMS Config</option>
+          <option value="table_config">Table Config</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="module" class="col-3 col-form-label">Module</label>
+      <div class="col-9">
+        <input
+          type="text"
+          id="module"
+          name="module"
+          placeholder="Enter Module"
+          formControlName="module"
+          autocomplete="off"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="systemConfig_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_SYS_CONFIG && ADD_URL && !SYS_CONFIG_PARAMS.ID"
+      >
+        Add System Configuration
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="systemConfig_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_SYS_CONFIG && EDIT_URL && SYS_CONFIG_PARAMS.ID"
+      >
+        Edit System Configuration
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

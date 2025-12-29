@@ -1,0 +1,342 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      ">
+      <h5>{{ "APPOINTMENT.APPO_DETAILS" | translate }}</h5>
+      <i class="material-icons" style="font-weight: bold; cursor: pointer" (click)="goBack()" placement="bottom"
+        ngbTooltip="Close">close</i>
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="appointment.agreeReject == 0 && appointment.leaveManagerComment">
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel">
+          <h5 style="color: #d23939">
+            This Application Has been rejected ::
+            {{ appointment.leaveManagerComment }} on Date:
+            {{ appointment.acceptRejectDate | date: "dd/MM/yyyy" }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="permissions.view && appointment.agreeReject == 1 && isComplete">
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel">
+          <span style="width: auto">What Do you want to do? </span>
+          <button class="btn btn-primary" (click)="openModal('appResheduleModal')">
+            Reschedule
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="
+      permissions.view &&
+      appointment.agreeReject != 0 &&
+      appointment.agreeReject != 1 &&
+      appointment.status != 'UNVERIFIED'
+    ">
+    <div class="row">
+      <div class="col-12">
+        <div class="card control-panel">
+          <span style="width: auto">What Do you want to do? </span>
+          <button class="btn btn-primary" (click)="openModal('appAcceptModal')">
+            Accept
+          </button>
+          <button class="btn btn-danger" (click)="openModal('appRejectModal')">
+            Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "CITIZEN_REPORT.PAERSONAL_INFO" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">Id :</span>
+              </div>
+              <div class="col-6">{{ appointment.id }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{ "APPOINTMENT.APPOINT_ID" | translate }}:</span>
+              </div>
+              <div class="col-6">{{ appointment.srNo }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{ "APPOINTMENT.NAME" | translate }}:</span>
+              </div>
+              <div class="col-6">{{ appointment.name }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "CONTACT.MOBILE_NO" | translate
+                  }}</span>
+              </div>
+              <div class="col-6">{{ appointment.mobileNo }}</div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="appointment.stationId">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.POLICE_STATION" | translate
+                  }}</span>
+              </div>
+              <div class="col-6">{{ appointment.stationName }}</div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="!appointment.stationId">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.POLICE_STATION" | translate
+                  }}</span>
+              </div>
+              <div class="col-6">{{ appointment.otherStationName }}</div>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="!appointment.districtName">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.DISTRICT" | translate
+                  }}</span>
+              </div>
+              <div class="col-6">{{ appointment.otherDistrict }}</div>
+            </div>
+          </div>
+
+          <div class="col-6" *ngIf="appointment.districtName">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.DISTRICT" | translate
+                  }}</span>
+              </div>
+              <div class="col-6">{{ appointment.districtName }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.MEETING_DATE" | translate
+                  }}</span>
+              </div>
+              <div class="col-6">
+                {{ appointment.appDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{ "CHARACTER.APPLIED_DATE" | translate }}:</span>
+              </div>
+              <div class="col-6">
+                {{ appointment.createdDate | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{ "APPOINTMENT.APPO_SHIFT" | translate }}:</span>
+              </div>
+              <div class="col-6">{{ appointment.shift }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.MEETING_PURPOSE" | translate
+                  }}</span>
+              </div>
+              <div class="col-6">{{ appointment.purpose }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">{{ "CONTACT.ADDRESS" | translate }}:</span>
+              </div>
+              <div class="col-6">{{ appointment.address }}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">
+                <span style="font-weight: 500">Document:</span>
+              </div>
+              <div class="col-6"><app-image-viewer [imageURL]="appointment.document"></app-image-viewer></div>
+            </div>
+          </div>
+
+          <div class="col-6" *ngIf="appointment.visitorsId">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500">{{
+                  "APPOINTMENT.VISITOT_ID" | translate
+                  }}</span>
+              </div>
+              <div class="col-8">{{ appointment.visitorsId }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-appointment-history *ngIf="appHistoryPermission" [appHistoryPath]="appHistoryPath"
+    [appointmentId]="appointment.id"></app-appointment-history>
+
+  <app-change-status-form *ngIf="
+      permissions.changeStatusForm && appointment.agreeReject == 1 && isComplete
+    " [url]="changeStatusSubmitURL" [id]="changeStatusId" [extraInputLabel]="changeStatusExtraInputLabel"
+    [extraInputPlaceholder]="changeStatusExtraInputPlaceholder" [extraInputName]="changeStatusExtraInputName"
+    [extraInputFormControl]="changeStatusExtraInputFormControl" [changeStatusForModule]="changeStatusForModule"
+    [moduleStatus]="moduleStatus"></app-change-status-form>
+
+  <!-- <app-assign-to-officer-form
+    *ngIf="
+      permissions.asssignToOfficer &&
+      appointment.agreeReject == 1 &&
+      isComplete &&
+      !isPending && !isAccepted
+    "
+    [url]="assignToOfficerSubmitURL"
+    [id]="changeStatusId"
+  ></app-assign-to-officer-form> -->
+
+  <app-change-status *ngIf="permissions.changeStatusList" [changeStatusPath]="changeStatusPath"
+    [deleteButtonCode]="changeStatusDeleteCode" [deleteButtonUrl]="changeStatusDeleteUrl"
+    [changeStatusModule]="changeStatusModule" [changeStatusId]="changeStatusId"></app-change-status>
+
+  <app-sms-sending-form *ngIf="
+      permissions.sendSMSToUser &&
+      appointment.agreeReject == 1 &&
+      isComplete &&
+      !isPending &&
+      !isAccepted
+    " [url]="smsSendingSubmitURL" [id]="smsSendingId" [departmentName]="complaintSMS">
+  </app-sms-sending-form>
+
+  <app-sms-sending *ngIf="permissions.sendSMSToUserList" [smsSendingPath]="smsSendingPath"
+    [smsSendingModule]="smsSendingModule" [smsSendingId]="smsSendingId" [deparment]="complaintSMS"></app-sms-sending>
+</div>
+
+<app-modal id="appAcceptModal">
+  <div class="acceptModal">
+    <span style="width: auto">Are you sure to accept appointment application?</span>
+    <button class="btn btn-primary" (click)="acceptApp(1, 'appAcceptModal')">
+      Accept
+    </button>
+    <button class="btn btn-secondary" (click)="closeModal('appAcceptModal')">
+      Close
+    </button>
+  </div>
+</app-modal>
+
+<app-modal id="appRejectModal" class="lg-modal">
+  <form>
+    <div class="acceptModal">
+      <label for="discription"> Message : </label>
+      <textarea *ngIf="language == 'en'" name="discription" id="discription" class="form-control"
+        [formControl]="discription" required></textarea>
+      <textarea *ngIf="language == 'hi'" name="discription" id="discription" class="form-control hindi hindiFont"
+        [formControl]="discription" (change)="focusOut($event, 'name')" (focusout)="focusOut($event, 'name')"
+        required></textarea>
+    </div>
+
+    <div class="acceptModal">
+      <span style="width: auto">Are you sure to reject appointment application?</span>
+      <button type="submit" class="btn btn-danger" (click)="acceptApp(0, 'appRejectModal')">
+        Reject
+      </button>
+      <button class="btn btn-secondary" (click)="closeModal('appRejectModal')">
+        Close
+      </button>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal id="appResheduleModal">
+  <div class="acceptModal" style="justify-content: flex-start">
+    <label for="appDate" style="width: 50%">{{
+      "APPOINTMENT.MEETING_DATE" | translate
+      }}</label>
+    <input type="date" id="appDate" min="{{ min | date: 'yyyy-MM-dd' }}" (keypress)="validAplpha($event)"
+      (change)="doCkeckTodayDate()" name="appDate" [formControl]="appDate" class="form-control" required
+      style="width: 50%" />
+  </div>
+  <div class="acceptModal" style="justify-content: flex-start">
+    <label for="shift" style="width: 50%">{{
+      "APPOINTMENT.VISITING_SLOT" | translate
+      }}</label>
+    <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" class="btn-style"></ngb-timepicker>
+  </div>
+  <div class="acceptModal">
+    <label for="discription"> Message:</label>
+    <textarea *ngIf="language == 'en'" name="discription" id="discription" class="form-control"
+      [formControl]="discription" required></textarea>
+    <textarea *ngIf="language == 'hi'" name="discription" id="discription" class="form-control hindi hindiFont"
+      [formControl]="discription" (change)="focusOut($event, 'name')" (focusout)="focusOut($event, 'name')"
+      required></textarea>
+    <!-- <textarea
+      name="discription"
+      id="discription"
+      class="form-control"
+      [formControl]="discription"
+      required
+    ></textarea> -->
+  </div>
+  <div class="acceptModal">
+    <span style="width: auto">Are you sure to Reschedule appointment application?</span>
+    <button class="btn btn-primary" (click)="rescheduleApp('appResheduleModal')">
+      Reschedule
+    </button>
+    <button class="btn btn-secondary" (click)="closeModal('appResheduleModal')">
+      Close
+    </button>
+  </div>
+</app-modal>

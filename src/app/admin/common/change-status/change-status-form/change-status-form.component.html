@@ -1,0 +1,223 @@
+<div class="card m-3">
+  <div class="card-header h5 text-white bg-secondary">
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <span>{{ "COMPLAINT.CHANGE_STATUS" | translate }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body d-flex justify-content-between aling-item-center">
+    <div class="container">
+      <div class="row">
+        <form class="form needs-validation text-center container" novalidate [formGroup]="changeStatusForm"
+          autocomplete="off" novalidate="novalidate" id="changeStatusForm">
+          <input name="id" formControlName="id" style="display: none" />
+          <div class="row mb-2">
+            <div class="col-sm-12 col-md-6">
+              <span class="glob-span">{{
+                "COMPLAINT.SEL_STATUS" | translate
+                }}</span>
+              <select name="status" formControlName="status" autocomplete="off" class="form-select"
+                (change)="changeStatusDropDownChange()" required>
+                <option value="null" disabled selected>
+                  {{ "COMPLAINT.SEL_COMP_STATUS" | translate }}
+                </option>
+                <option *ngIf="
+                    (changeStatusForModule == 'COMPLAINT' || 
+                    changeStatusForModule == 'COMPLAINT_GPO' || 
+                    changeStatusForModule == 'COMPLAINT_GFPO' ||
+                      changeStatusForModule == 'VISITORS' ||
+                      changeStatusForModule == 'CITIZENREPORT' ||
+                      changeStatusForModule == 'MISSINGPERSON' ||
+                      changeStatusForModule == 'FOUNDPERSON' ||
+                      changeStatusForModule == 'DEADPERSON' ||
+                      changeStatusForModule == 'LEAVE' ||
+                      changeStatusForModule == 'RTI' ||
+                      changeStatusForModule == 'COURT' ||
+                      changeStatusForModule == 'COMMOSSION') &&
+                    (moduleStatus == 'PENDING' || moduleStatus == 'ACCEPTED')
+                  " value="Complaint Assign">
+                  {{ "COMPLAINT.ASSIGNED" | translate }}
+                </option>
+                <option *ngIf="
+                    (changeStatusForModule == 'COMPLAINT' ||changeStatusForModule == 'COMPLAINT_GPO' || changeStatusForModule == 'COMPLAINT_GFPO' ||
+                      changeStatusForModule == 'VISITORS' ||
+                      changeStatusForModule == 'CITIZENREPORT' ||
+                      changeStatusForModule == 'MISSINGPERSON' ||
+                      changeStatusForModule == 'FOUNDPERSON' ||
+                      changeStatusForModule == 'DEADPERSON' ||
+                      changeStatusForModule == 'LEAVE' ||
+                      changeStatusForModule == 'RTI' ||
+                      changeStatusForModule == 'COURT' ||
+                      changeStatusForModule == 'COMMOSSION') &&
+                    (moduleStatus == 'Complaint Assign' ||
+                      moduleStatus == 'PENDING' ||
+                      moduleStatus == 'Complaint Assigned to Officer' ||
+                      moduleStatus == 'ACCEPTED')
+                  " value="Complaint Rejected">
+                  {{ "COMPLAINT.REJECTED" | translate }}
+                </option>
+                <option *ngIf="
+                    (changeStatusForModule == 'COMPLAINT' ||changeStatusForModule == 'COMPLAINT_GPO' || changeStatusForModule == 'COMPLAINT_GFPO' ||
+                      changeStatusForModule == 'VISITORS' ||
+                      changeStatusForModule == 'CITIZENREPORT' ||
+                      changeStatusForModule == 'MISSINGPERSON' ||
+                      changeStatusForModule == 'FOUNDPERSON' ||
+                      changeStatusForModule == 'DEADPERSON' ||
+                      changeStatusForModule == 'LEAVE' ||
+                      changeStatusForModule == 'RTI' ||
+                      changeStatusForModule == 'COURT' ||
+                      changeStatusForModule == 'COMMOSSION') &&
+                    (moduleStatus == 'Complaint Assign' ||
+                      moduleStatus == 'Complaint Assigned to Officer')
+                  " value="Complaint Closed">
+                  {{ "COMPLAINT.CLOSED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'PASSPORT' &&
+                    moduleStatus == 'PENDING'
+                  " value="Passport Assign">
+                  {{ "PASSPORT.ASSIGNED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'PASSPORT' &&
+                    (moduleStatus == 'Complaint Assign' ||
+                      moduleStatus == 'Passport Assign' ||
+                      moduleStatus == 'PENDING' ||
+                      moduleStatus == 'Complaint Assigned to Officer')
+                  " value="Passport Rejected">
+                  {{ "PASSPORT.REJECTED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'PASSPORT' &&
+                    (moduleStatus == 'Complaint Assign' ||
+                      moduleStatus == 'Passport Assign' ||
+                      moduleStatus == 'Complaint Assigned to Officer')
+                  " value="Passport Closed">
+                  {{ "PASSPORT.CLOSED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'CHARACTER' &&
+                    moduleStatus == 'PENDING'
+                  " value="Character Assign">
+                  {{ "CHARACTER.ASSIGNED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'CHARACTER' &&
+                    (moduleStatus == 'Character Assign' ||
+                      moduleStatus == 'PENDING' ||
+                      moduleStatus == 'Character Assigned to Officer')
+                  " value="Character Rejected">
+                  {{ "CHARACTER.REJECTED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'CHARACTER' &&
+                    (moduleStatus == 'Character Assign' ||
+                      moduleStatus == 'Character Assigned to Officer')
+                  " value="Character Completed">
+                  {{ "CHARACTER.COMPLETED" | translate }}
+                </option>
+                <option *ngIf="changeStatusForModule == 'APPOINTMENT'" value="Appointment Cancelled">
+                  {{ "APPOINTMENT.CANCELE" | translate }}
+                </option>
+                <option *ngIf="changeStatusForModule == 'APPOINTMENT'" value="Appointment Completed">
+                  {{ "APPOINTMENT.COMPLETED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'RECEIPT' ||
+                    changeStatusForModule == 'DISPATCH'
+                  " value="Processed">
+                  {{ "ECOM_RECEIPT.PROCESSED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'RECEIPT' ||
+                    changeStatusForModule == 'DISPATCH'
+                  " value="Waiting at Department">
+                  {{ "ECOM_RECEIPT.WAITING" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'PROCECUTION' ||
+                    changeStatusForModule == 'GRSECTION' ||
+                    changeStatusForModule == 'COURT'
+                  " value="Processed">
+                  {{ "PROCECUTION.PROCESSED" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'PROCECUTION' ||
+                    changeStatusForModule == 'GRSECTION' ||
+                    changeStatusForModule == 'COURT'
+                  " value="Waiting at Department">
+                  {{ "PROCECUTION.WAITING" | translate }}
+                </option>
+                <option *ngIf="
+                    changeStatusForModule == 'PROCECUTION' ||
+                    changeStatusForModule == 'GRSECTION' ||
+                    changeStatusForModule == 'COURT'
+                  " value="Sent To Court">
+                  {{ "PROCECUTION.COURT" | translate }}
+                </option>
+              </select>
+              <div *ngIf="isControlHasError('status', 'required')" class="invalid">
+                <strong>Status is required</strong>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6" *ngIf="isVisitorId">
+              <span class="glob-span">Visitor Id status: </span>
+              <select (change)="changeStatusDropDownChange()" name="visitorStatus" [formControl]="visitorStatus"
+                autocomplete="off" class="form-select">
+                <option value="null" disabled selected>
+                  Select Visitor Id Status
+                </option>
+                <option value="Available">Available</option>
+                <option value="Unavailable">Unavailable</option>
+              </select>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <span class="glob-span">{{
+                "CITIZEN_REPORT.DESCRIPTION" | translate
+                }}</span>
+              <textarea *ngIf="language == 'hi'" name="description" class="form-control hindi hindiFont"
+                formControlName="description" [ngClass]="{
+                  invalidInput: isControlHasErrors('description')
+                }" (change)="focusOut($event, 'description')" (focusout)="focusOut($event, 'description')" placeholder="{{
+                  'TRANSFER.ENTER_TRANSFER_DESCRIPTION' | translate
+                }}" required></textarea><textarea *ngIf="language == 'en'" name="description" class="form-control"
+                formControlName="description" [ngClass]="{
+                  invalidInput: isControlHasErrors('description')
+                }" (change)="focusOut($event, 'description')" (focusout)="focusOut($event, 'description')" placeholder="{{
+                  'TRANSFER.ENTER_TRANSFER_DESCRIPTION' | translate
+                }}" required></textarea>
+              <div *ngIf="isControlHasError('description', 'required')" class="invalid">
+                <strong>Description is required</strong>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6" *ngIf="extraInput">
+              <span class="glob-span">{{ extraInputLabel | translate }}</span>
+              <input type="number" [name]="extraInputName" class="form-control" [formControlName]="extraInputName"
+                [ngClass]="{
+                  invalidInput: isControlHasErrors(extraInputName)
+                }" placeholder="{{ extraInputPlaceholder | translate }}" />
+              <div *ngIf="isControlHasError(extraInputName, 'required')" class="invalid">
+                <strong>{{ extraInputLabel.replace(":", "") }} is required</strong>
+              </div>
+            </div>
+
+            <div class="
+                form-group
+                d-flex
+                justify-content-center
+                align-items-center
+              " style="margin-top: 5px">
+              <button (click)="submitChangeStatus()" class="btn btn-primary w-25" [disabled]="loading">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+.viewContainer {
+  width: 100%;
+  min-height: 100%;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+.rti {
+  width: 100%;
+  height: auto;
+  background-color: dodgerblue;
+  color: #ffffff;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+}
+.control-panel * {
+  margin: 0 5px;
+}
+
+.acceptModal {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.acceptModal * {
+  margin: 0 5px;
+}/*# sourceMappingURL=view-rti.component.css.map */

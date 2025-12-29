@@ -1,0 +1,329 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "HOME.POLICE_STATION" | translate
+    }}</span>
+</div>
+
+<section class="sdpo-area">
+  <div class="container" style="flex-wrap: wrap">
+    <div class="row mb-2">
+      <div class="col-md-6 col-sm-12 col-4 lable-area d-flex">
+        <label class="col-md-3 col-lg-6 col-sm-6 lable-name col-form-label">{{ "SUBDIVISION.SEL_SUBDIV" | translate }}
+          :</label>
+        <select name="subDiv" id="subDiv" [(ngModel)]="subDiv" autocomplete="off"
+          class="form-select col-md-3 col-lg-6 col-sm-6" (change)="filterData()">
+          <option disabled selected value="null">
+            {{ "SUBDIVISION.SEL_SUBDIV" | translate }}
+          </option>
+          <option *ngFor="let subdiv of subdivisionTemp" value="{{ subdiv.id }}">
+            <span *ngIf="currrentLang == 'en'">{{ subdiv.name }}</span>
+            <span *ngIf="currrentLang == 'hi'">{{ subdiv.nameHi }}</span>
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="dsp-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 sub-header-title" style="margin: 0">
+        <span class="glob-span header-txt">{{
+          "POLICE_STATION.DSP_HEADER" | translate
+        }}</span>
+      </div>
+    </div>
+    <div class="card" *ngFor="let dsps of dsp">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer
+            [imageURL]="dsps.dspImage"
+            [imgWidth]="'100%'"
+            [imgHeight]="'250px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span">{{ "FORMS.NAME" | translate }} :</span>
+          {{ dsps.dspNameHi }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span">{{ "FORMS.NAME" | translate }} :</span>
+          {{ dsps.dspName }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "DESIGNATION.TH_DESIG" | translate }}
+          </span>
+          {{ dsps.designationName }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "DESIGNATION.TH_DESIG" | translate }}
+          </span>
+          {{ dsps.designationNameHi }}
+        </p>
+        <p
+          class="officer-about"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span">{{ "CONTACT.MOBILE_NO" | translate }} </span
+          >{{ dsps.dspMobile }}
+        </p>
+        <p
+          class="officer-about"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span">{{ "CONTACT.MOBILE_NO" | translate }} </span
+          >{{ dsps.dspContact }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sdpo-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 sub-header-title" style="margin: 0">
+        <span class="glob-span header-txt">{{
+          "POLICE_STATION.SDPO_HEADER" | translate
+        }}</span>
+      </div>
+    </div>
+    <div class="card" *ngFor="let sdpolist of sdpo">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer
+            [imageURL]="sdpolist.headImage"
+            [imgWidth]="'100%'"
+            [imgHeight]="'250px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span">{{ "FORMS.NAME" | translate }} :</span>
+          {{ sdpolist.headName }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span">{{ "FORMS.NAME" | translate }} :</span>
+          {{ sdpolist.headNameHi }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "DESIGNATION.TH_DESIG" | translate }}
+          </span>
+          {{ sdpolist.designationName }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "DESIGNATION.TH_DESIG" | translate }}
+          </span>
+          {{ sdpolist.designationNameHi }}
+        </p>
+        <p
+          class="officer-about"
+          *ngIf="sdpolist.headMobile"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} 1:
+          </span>
+          {{ sdpolist.headMobile }}
+        </p>
+        <p
+          class="officer-about"
+          *ngIf="sdpolist.headContact"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} 2: </span
+          >{{ sdpolist.headContact }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="circle-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 sub-header-title" style="margin: 0">
+        <span class="glob-span header-txt">{{
+          "CIRCLE_INSPECTOR.CIRCLE_INSPECTOR_DT" | translate
+        }}</span>
+      </div>
+    </div>
+    <div class="card" *ngFor="let cis of circleInspector">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer
+            [imageURL]="cis.circleImage"
+            [imgWidth]="'100%'"
+            [imgHeight]="'250px'"
+            class="card-img-top"
+          >
+          </app-image-viewer>
+        </div>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "POLICE_STATION.CI_DESG" | translate }} :</span
+          >
+          {{ cis.circleOfficerName }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "POLICE_STATION.CI_DESG" | translate }} :</span
+          >
+          {{ cis.circleOfficerNameHi }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "DESIGNATION.TH_DESIG" | translate }}
+          </span>
+          {{ cis.designationName }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "DESIGNATION.TH_DESIG" | translate }}
+          </span>
+          {{ cis.designationNameHi }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'en'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "POLICE_STATION.CIRCLE" | translate }} :</span
+          >
+          {{ cis.circleName }}
+        </p>
+        <p
+          *ngIf="currrentLang == 'hi'"
+          class="officer-name"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "POLICE_STATION.CIRCLE" | translate }} :</span
+          >
+          {{ cis.circleNameHi }}
+        </p>
+        <p
+          class="officer-about"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} 1: </span
+          >{{ cis.circleMobile }}
+        </p>
+        <p
+          class="officer-about"
+          style="margin-bottom: 1px !important; text-align: left"
+        >
+          <span class="glop-span"
+            >{{ "CONTACT.MOBILE_NUMBER" | translate }} 2: </span
+          >{{ cis.circleContact }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="station-area">
+  <div class="container">
+    <!-- <div class="row">
+      <div class="col-sm-4 sub-header-title" style="margin: 0">
+        <span class="glob-span header-txt">{{
+          "POLICE_STATION.POLICE_LIST" | translate
+          }}</span>
+      </div>
+    </div> -->
+    <div class="card" *ngFor="let station of policeStation">
+      <div class="box">
+        <div class="team-img">
+          <app-image-viewer [imageURL]="station.stationImag" [imgWidth]="'100%'" [imgHeight]="'250px'"
+            class="card-img-top">
+          </app-image-viewer>
+        </div>
+        <p class="officer-name">
+          <span class="glop-span">{{ "APPOINTMENT.POLICE_STATION" | translate }}
+          </span>
+          <span *ngIf="currrentLang == 'en'">{{ station.stationName }}</span>
+          <span *ngIf="currrentLang == 'hi'">{{ station.stationNameHi }}</span>
+        </p>
+        <p class="officer-about">
+          <span class="glop-span">{{ "CONTACT.CONTACT_NO" | translate }} : </span>{{ station.stationNo }}
+        </p>
+        <p class="officer-about">
+          <span class="glop-span">{{ "CONTACT.EMAIL" | translate }} : </span>{{ station.stationEmail }}
+        </p>
+        <p class="officer-about">
+          <span class="glop-span">{{ "CONTACT.ADDRESS" | translate }} : </span>{{ station.stationAddress }}
+        </p>
+        <div style="
+            display: flex;
+            border-radius: 10px;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+          ">
+          <button class="submit-btn btn-custome" style="margin: auto" (click)="goToPage(station.id)">
+            More
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

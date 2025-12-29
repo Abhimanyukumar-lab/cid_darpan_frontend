@@ -1,0 +1,249 @@
+<div class="viewContainer">
+  <div class="card m-3 mt-0">
+    <div
+      class="
+        card-body
+        d-flex
+        justify-content-between
+        aling-item-center
+        dashboard-header
+      "
+    >
+      <h5>{{ "POLICE_STATION.STATION_DETAILS" | translate }}</h5>
+      <i
+        class="material-icons"
+        style="font-weight: bold; cursor: pointer"
+        (click)="goBack()"
+        placement="bottom"
+        ngbTooltip="Close"
+        >close</i
+      >
+    </div>
+  </div>
+
+  <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <span>{{ "POLICE_STATION.STATION_DETAILS" | translate }}</span>
+            <i
+              class="material-icons m-1"
+              style="cursor: pointer; color: #ffffff"
+              placement="top"
+              ngbTooltip="Edit Detail"
+              (click)="editInfo()"
+              *ngIf="permissions.edit"
+            >
+              mode
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_NAME" | translate }}(English)
+                  :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationName }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_NAME" | translate }}(Hindi)
+                  :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationNameHi }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "CIRCLE_INSPECTOR.SEC_CI_NAME" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.circleName }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_NUMBER" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationNo }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_EMAIL" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationEmail }}</div>
+            </div>
+          </div>
+          <!-- <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.AREA_COVERED" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationDesc }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_ADDRESS" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationAddress }}</div>
+            </div>
+          </div> -->
+        </div>
+        <!-- <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_URL" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content">
+                  <iframe
+                    [src]="policeStation?.stationUrl | Safe"
+                    width="100%"
+                    height="250px"
+                    frameborder="0"
+                    style="border: 0"
+                    allowfullscreen="false"
+                    aria-hidden="false"
+                    tabindex="0"
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_IMAGE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">
+                <div style="width: 200px; height: fit-content">
+                  <app-image-viewer
+                    [imageURL]="policeStation?.stationImag"
+                  ></app-image-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="card m-3">
+    <div class="card-header h5 text-white bg-secondary">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>{{ "POLICE_STATION.EMERG_CONTACTS" | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body d-flex justify-content-between aling-item-center">
+      <div class="container">
+        <div class="row p-3" style="font-size: 16px">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_HELPLINE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationHelpline }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_MEDICAL" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationMedical }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{ "POLICE_STATION.STATION_AMBULANCE" | translate }} :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationAmbulane }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-4">
+                <span style="font-weight: 500"
+                  >{{
+                    "POLICE_STATION.STATION_FIRE_BRIGADE" | translate
+                  }}
+                  :</span
+                >
+              </div>
+              <div class="col-8">{{ policeStation?.stationFireBrigade }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <app-station-user-form *ngIf="permissions.stationUserList"
+    [url]="stationUserSubmitURL"
+    [editUrl]="stationUserEditURL"
+    [id]="stationUserId"
+    [form]="stationUserForm"
+  >
+  </app-station-user-form>
+
+  <app-station-user
+    [stationUserPath]="stationUserPath"
+    [stationUserDeleteCode]="stationUserDeleteCode"
+    [stationUserEditCurrentFormCode]="stationUserEditCurrentFormCode"
+    [stationUserDeleteUrl]="stationUserDeleteUrl"
+    [stationUserId]="stationUserId"
+    [form]="stationUserForm"
+    (formOut)="getUpdatedForm($event)"
+  >
+  </app-station-user>
+</div>

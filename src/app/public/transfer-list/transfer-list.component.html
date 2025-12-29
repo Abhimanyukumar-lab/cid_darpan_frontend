@@ -1,0 +1,38 @@
+<div class="header-title">
+  <span class="glob-span header-txt">{{
+    "TRANSFER.TRANSFER_TITLE" | translate
+  }}</span>
+</div>
+<table class="table">
+  <thead style="background-color: black">
+    <th style="width: 10%; color: white; padding: 15px">
+      {{ "FORMS.SL_NO" | translate }}
+    </th>
+    <th style="width: 20%; color: white; padding: 15px">
+      {{ "TRANSFER.TRANSFER_NAME" | translate }}
+    </th>
+    <th style="width: 15%; color: white; padding: 15px">
+      {{ "TRANSFER.TRANSFER_BY" | translate }}
+    </th>
+    <th style="width: 15%; color: white; padding: 15px">
+      {{ "TRANSFER.TRANSFER_DATE" | translate }}
+    </th>
+    <th style="width: 20%; color: white; padding: 15px">
+      {{ "TRANSFER.TRANSFER_DESCRIPTION" | translate }}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trans of transfer">
+      <td>{{ trans.id }}</td>
+      <td>{{ trans.title }}</td>
+      <td>{{ trans.releasedBy }}</td>
+      <td>{{ trans.date }}</td>
+      <td>{{ trans.description }}</td>
+    </tr>
+    <tr *ngIf="transfer && transfer.length == 0">
+      <td colspan="5" style="text-align: center">
+        {{ "COMMON.NO_DATA_IN_TABLE" | translate }}
+      </td>
+    </tr>
+  </tbody>
+</table>

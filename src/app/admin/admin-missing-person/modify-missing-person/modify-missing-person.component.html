@@ -1,0 +1,902 @@
+<div class="missing-edit">
+  <div class="dashboard-header">
+    {{ "MISSING_PERSON.MISSING_DETAILS" | translate }}
+  </div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="missing-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="missingPersonForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="missingPerson_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingName" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_NAME" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="missingName"
+              name="missingName"
+              placeholder="{{ 'MISSING_PERSON.ENTR_PERSON_NAME' | translate }}"
+              formControlName="missingName"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingName')
+              }"
+              (change)="focusOut($event, 'missingName')"
+              (focusout)="focusOut($event, 'missingName')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="missingName"
+              name="missingName"
+              placeholder="{{ 'MISSING_PERSON.ENTR_PERSON_NAME' | translate }}"
+              formControlName="missingName"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingName')
+              }"
+              (change)="focusOut($event, 'missingName')"
+              (focusout)="focusOut($event, 'missingName')"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingName', 'required')"
+          class="invalid"
+        >
+          <strong>Name is required</strong>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingName', 'minlength')"
+          class="invalid"
+        >
+          <strong>Minimum 3 character required</strong>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingName', 'maxlength')"
+          class="invalid"
+        >
+          <strong>Max length allowed 320</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="stationName" class="col-form-label">{{
+              "POLICE_STATION.STATION_NAME" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <select
+              name="stationName"
+              id="stationName"
+              formControlName="stationId"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('stationId') }"
+              required
+            >
+              <option [ngValue]="null" disabled>
+                {{ "APPOINTMENT.SELECT_POLICE_STATION" | translate }}
+              </option>
+              <option
+                *ngFor="let station of stationList"
+                [ngValue]="station.id"
+              >
+                <span *ngIf="language == 'en'">{{ station.stationName }}</span>
+                <span *ngIf="language == 'hi'">{{
+                  station.stationNameHi
+                }}</span>
+              </option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="isControlHasError('stationId', 'required')" class="invalid">
+          <strong>Police Station is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingGender" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_GENDER" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <select
+              name="missingGender"
+              id="missingGender"
+              formControlName="missingGender"
+              autocomplete="off"
+              class="form-select"
+              [ngClass]="{ invalidInput: isControlHasErrors('missingGender') }"
+              required
+            >
+              <option [ngValue]="null" disabled selecter>
+                {{ "MISSING_PERSON.ENTR_PERSON_GENDER" | translate }}
+              </option>
+              <option
+                *ngFor="let gender of genderList"
+                [ngValue]="gender.optionNameEn"
+              >
+                {{ gender.optionNameEn }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingGender', 'required')"
+          class="invalid"
+        >
+          <strong>Person Gender is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingAge" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_AGE" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="number"
+              id="missingAge"
+              name="missingAge"
+              min="1"
+              placeholder="{{ 'MISSING_PERSON.ENTR_PERSON_AGE' | translate }}"
+              formControlName="missingAge"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('missingAge') }"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingAge', 'required')"
+          class="invalid"
+        >
+          <strong>Age is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingDate" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_DOB" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="date"
+              id="missingDate"
+              name="missingDate"
+              max="{{ max | date: 'yyyy-MM-dd' }}"
+              formControlName="missingDate"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('missingDate') }"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingDate', 'required')"
+          class="invalid"
+        >
+          <strong>Birth Date is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingHieght" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_HEIGHT" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="number"
+              id="missingHieght"
+              name="missingHieght"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_PERSON_HEIGHT' | translate
+              }}"
+              formControlName="missingHieght"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('missingHieght') }"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingHieght', 'required')"
+          class="invalid"
+        >
+          <strong>Height is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingColor" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_COLOR" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="missingColor"
+              name="missingColor"
+              placeholder="{{ 'MISSING_PERSON.ENTR_PERSON_COLOR' | translate }}"
+              formControlName="missingColor"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingColor')
+              }"
+              (change)="focusOut($event, 'missingColor')"
+              (focusout)="focusOut($event, 'missingColor')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="missingColor"
+              name="missingColor"
+              placeholder="{{ 'MISSING_PERSON.ENTR_PERSON_COLOR' | translate }}"
+              formControlName="missingColor"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingColor')
+              }"
+              (change)="focusOut($event, 'missingColor')"
+              (focusout)="focusOut($event, 'missingColor')"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingColor', 'required')"
+          class="invalid"
+        >
+          <strong>Person Color is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingSign" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_IDENTITY" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="missingSign"
+              name="missingSign"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_PERSON_IDENTITY' | translate
+              }}"
+              formControlName="missingSign"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingSign')
+              }"
+              (change)="focusOut($event, 'missingSign')"
+              (focusout)="focusOut($event, 'missingSign')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="missingSign"
+              name="missingSign"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_PERSON_IDENTITY' | translate
+              }}"
+              formControlName="missingSign"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingSign')
+              }"
+              (change)="focusOut($event, 'missingSign')"
+              (focusout)="focusOut($event, 'missingSign')"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingSign', 'required')"
+          class="invalid"
+        >
+          <strong>Person Identity is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingArea" class="col-form-label">{{
+              "MISSING_PERSON.MISSING_AREA" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="missingArea"
+              name="missingArea"
+              placeholder="{{ 'MISSING_PERSON.ENTR_MISSING_AREA' | translate }}"
+              formControlName="missingArea"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingArea')
+              }"
+              (change)="focusOut($event, 'missingArea')"
+              (focusout)="focusOut($event, 'missingArea')"
+              required
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="missingArea"
+              name="missingArea"
+              placeholder="{{ 'MISSING_PERSON.ENTR_MISSING_AREA' | translate }}"
+              formControlName="missingArea"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('missingArea')
+              }"
+              (change)="focusOut($event, 'missingArea')"
+              (focusout)="focusOut($event, 'missingArea')"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('missingArea', 'required')"
+          class="invalid"
+        >
+          <strong>Missing Area is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="missingImage" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_IMAGE" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="file"
+              id="missingImage"
+              name="missingImage"
+              accept="image/jpef, image/jpe,image/pjpeg,image/png"
+              formControlName="missingImage"
+              (change)="handleFileChange($event.target.files)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('missingImage') }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="fatherName" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_FATHER" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="fatherName"
+              name="fatherName"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_FATHER_NAME' | translate }}"
+              formControlName="fatherName"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherName')
+              }"
+              (change)="focusOut($event, 'fatherName')"
+              (focusout)="focusOut($event, 'fatherName')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="fatherName"
+              name="fatherName"
+              (keypress)="validAplpha($event)"
+              placeholder="{{ 'CITIZEN_REPORT.SEL_FATHER_NAME' | translate }}"
+              formControlName="fatherName"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('fatherName')
+              }"
+              (change)="focusOut($event, 'fatherName')"
+              (focusout)="focusOut($event, 'fatherName')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="motherName" class="col-form-label">{{
+              "MISSING_PERSON.PERSON_MOTHER" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="motherName"
+              name="motherName"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_PERSON_MOTHER' | translate
+              }}"
+              formControlName="motherName"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('motherName'),
+                hindiFont: language == 'hi'
+              }"
+              (change)="focusOut($event, 'motherName')"
+              (focusout)="focusOut($event, 'motherName')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="motherName"
+              name="motherName"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_PERSON_MOTHER' | translate
+              }}"
+              formControlName="motherName"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('motherName')
+              }"
+              (change)="focusOut($event, 'motherName')"
+              (focusout)="focusOut($event, 'motherName')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="wearnigClooth" class="col-form-label">{{
+              "MISSING_PERSON.WEARING_CLOTHS" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="wearnigClooth"
+              name="wearnigClooth"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_WEARING_CLOTHS' | translate
+              }}"
+              formControlName="wearnigClooth"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('wearnigClooth')
+              }"
+              (change)="focusOut($event, 'wearnigClooth')"
+              (focusout)="focusOut($event, 'wearnigClooth')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="wearnigClooth"
+              name="wearnigClooth"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_WEARING_CLOTHS' | translate
+              }}"
+              formControlName="wearnigClooth"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('wearnigClooth')
+              }"
+              (change)="focusOut($event, 'wearnigClooth')"
+              (focusout)="focusOut($event, 'wearnigClooth')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="nationality" class="col-form-label">{{
+              "MISSING_PERSON.NATIONALITY" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="nationality"
+              name="nationality"
+              placeholder="{{ 'MISSING_PERSON.ENTR_NATIONALITY' | translate }}"
+              formControlName="nationality"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('nationality')
+              }"
+              (change)="focusOut($event, 'nationality')"
+              (focusout)="focusOut($event, 'nationality')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="nationality"
+              name="nationality"
+              placeholder="{{ 'MISSING_PERSON.ENTR_NATIONALITY' | translate }}"
+              formControlName="nationality"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('nationality')
+              }"
+              (change)="focusOut($event, 'nationality')"
+              (focusout)="focusOut($event, 'nationality')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="dateOfMissing" class="col-form-label">{{
+              "MISSING_PERSON.MISSING_DATE" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="date"
+              id="dateOfMissing"
+              name="dateOfMissing"
+              max="{{ max | date: 'yyyy-MM-dd' }}"
+              placeholder="{{ 'MISSING_PERSON.ENTR_MISSING_DATE' | translate }}"
+              formControlName="dateOfMissing"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('dateOfMissing') }"
+              required
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="isControlHasError('dateOfMissing', 'required')"
+          class="invalid"
+        >
+          <strong>Missing Date is required</strong>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="firnoDate" class="col-form-label">{{
+              "MISSING_PERSON.MISSING_FIR_NO" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              id="firnoDate"
+              name="firnoDate"
+              placeholder="eg. 001,01/12/2020"
+              formControlName="firnoDate"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('firnoDate') }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="mobileNo" class="col-form-label">{{
+              "SECTIONS.SEC_OFFICER_MOBILE" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              type="text"
+              id="mobileNo"
+              name="mobileNo"
+              maxlength="10"
+              placeholder="{{
+                'SECTIONS.ENTER_SEC_OFFICER_MOBILE' | translate
+              }}"
+              formControlName="mobileNo"
+              (keypress)="numberOnly($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="address" class="col-form-label">{{
+              "FORMS.FORM_ADDRESS" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="address"
+              name="address"
+              placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}"
+              formControlName="address"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('address')
+              }"
+              (change)="focusOut($event, 'address')"
+              (focusout)="focusOut($event, 'address')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="address"
+              name="address"
+              placeholder="{{ 'CONTACT.SEL_ADDRESS' | translate }}"
+              formControlName="address"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('address')
+              }"
+              (change)="focusOut($event, 'address')"
+              (focusout)="focusOut($event, 'address')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="religion" class="col-form-label">{{
+              "MISSING_PERSON.RELIGION" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="religion"
+              name="religion"
+              placeholder="{{ 'MISSING_PERSON.RELIGION' | translate }}"
+              formControlName="religion"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('religion')
+              }"
+              (change)="focusOut($event, 'religion')"
+              (focusout)="focusOut($event, 'religion')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="religion"
+              name="religion"
+              placeholder="{{ 'MISSING_PERSON.RELIGION' | translate }}"
+              formControlName="religion"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('religion')
+              }"
+              (change)="focusOut($event, 'religion')"
+              (focusout)="focusOut($event, 'religion')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="sectionFirLoged" class="col-form-label">{{
+              "MISSING_PERSON.MISSING_SECTION_LODGED" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="sectionFirLoged"
+              name="sectionFirLoged"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_SECTION_LODGED' | translate
+              }}"
+              formControlName="sectionFirLoged"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('sectionFirLoged')
+              }"
+              (change)="focusOut($event, 'sectionFirLoged')"
+              (focusout)="focusOut($event, 'sectionFirLoged')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="sectionFirLoged"
+              name="sectionFirLoged"
+              placeholder="{{
+                'MISSING_PERSON.ENTR_SECTION_LODGED' | translate
+              }}"
+              formControlName="sectionFirLoged"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('sectionFirLoged')
+              }"
+              (change)="focusOut($event, 'sectionFirLoged')"
+              (focusout)="focusOut($event, 'sectionFirLoged')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row mb-2">
+          <div class="col-4">
+            <label for="language" class="col-form-label">{{
+              "MISSING_PERSON.LANGUAGE" | translate
+            }}</label>
+          </div>
+          <div class="col-8">
+            <input
+              *ngIf="language == 'hi'"
+              type="text"
+              id="language"
+              name="language"
+              placeholder="{{ 'MISSING_PERSON.ENTR_LANGUAGE' | translate }}"
+              formControlName="language"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('language')
+              }"
+              (change)="focusOut($event, 'language')"
+              (focusout)="focusOut($event, 'language')"
+            />
+            <input
+              *ngIf="language == 'en'"
+              type="text"
+              id="language"
+              name="language"
+              placeholder="{{ 'MISSING_PERSON.ENTR_LANGUAGE' | translate }}"
+              formControlName="language"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control"
+              [ngClass]="{
+                invalidInput: isControlHasErrors('language')
+              }"
+              (change)="focusOut($event, 'language')"
+              (focusout)="focusOut($event, 'language')"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="missingPerson_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_MISSING_PERSON && ADD_URL && !MISSING_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="missingPerson_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_MISSING_PERSON && EDIT_URL && MISSING_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

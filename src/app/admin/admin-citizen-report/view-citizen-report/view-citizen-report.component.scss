@@ -1,0 +1,51 @@
+.viewContainer {
+  width: 100%;
+  min-height: 100%;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+.citizen {
+  width: 100%;
+  height: auto;
+
+  background-color: dodgerblue;
+  color: #ffffff;
+
+  padding: 0 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-panel-left {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  flex-direction: row;
+  padding: 10px;
+
+  * {
+    margin: 0 5px;
+  }
+}
+
+.acceptModal {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  * {
+    margin: 0 5px;
+  }
+}
+
+.app-modal .sm-modal {
+    width: 80% !important;
+    padding: 20px;
+  }
+
+ .app-modal .app-modal-body{
+    height: auto !important;
+  }

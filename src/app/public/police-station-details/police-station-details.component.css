@@ -1,0 +1,145 @@
+.back-btn {
+  width: 10%;
+  height: auto;
+  padding-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.back-btn button {
+  width: 100%;
+  padding: 5px;
+  background-color: rgb(4, 84, 175);
+  color: bisque;
+}
+
+.stn-name {
+  margin-left: 160px;
+}
+.stn-name .underline {
+  padding-bottom: 10px;
+  background-image: linear-gradient(120deg, #8fd3f4 0%, #8fd3f4 100%);
+  background-repeat: no-repeat;
+  background-size: 3em 0.2em;
+  background-position: 45% 100%;
+  transition: background-size 0.25s ease-in;
+}
+.stn-name .underline:hover {
+  background-size: 3em 0.2em;
+}
+
+.sho-area {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+  display: flex;
+}
+.sho-area .container {
+  margin: auto;
+  position: relative;
+}
+.sho-area .container .card {
+  width: 25%;
+  margin: 5px;
+  min-height: 320px;
+  max-height: 320px !important;
+  float: left;
+  padding: 0px 10px;
+}
+.sho-area .container .card .box {
+  padding: 10px;
+  height: 100%;
+  margin: 0 0 10px;
+  text-align: center;
+}
+.sho-area .container .card .box .team-img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 170px;
+  max-height: 170px;
+}
+.sho-area .container .card .box .officer-name {
+  padding-top: 5px;
+  font-size: 17px;
+  font-weight: 500;
+  text-align: center;
+}
+.sho-area .container .card .box .officer-about {
+  text-align: center;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .sho-area {
+    width: 100%;
+    height: auto;
+  }
+  .sho-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .sho-area .container .card {
+    width: 30%;
+    margin: 5px !important;
+  }
+  .sho-area .container .card .team-img {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 425px) {
+  .back-btn {
+    width: 100%;
+    padding-right: 10px;
+  }
+  .back-btn button {
+    width: 100%;
+    margin: 5px;
+  }
+  .stn-name {
+    margin-left: 0px !important;
+  }
+  .sho-area {
+    width: 100%;
+    height: auto;
+  }
+  .sho-area .container {
+    margin: auto;
+    position: relative;
+  }
+  .sho-area .container .card {
+    width: 100%;
+    margin: 5px 0px !important;
+  }
+  .sho-area .container .card .team-img {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+}
+.table-sec {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+  display: flex;
+}
+.table-sec .btn:active,
+.table-sec .btn:focus,
+.table-sec .btn.active {
+  background-image: none;
+  outline: 0;
+  box-shadow: none;
+}
+.table-sec .table {
+  width: 100%;
+  border-collapse: collapse;
+}/*# sourceMappingURL=police-station-details.component.css.map */

@@ -1,0 +1,440 @@
+<div class="default" *ngIf="style == 'default'">
+  <nav class="navbar navbar-expand-lg menu">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+        style="margin: 10px 0 10px auto; outline: none !important">
+        <i class="material-icons">reorder</i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" *ngIf="publicPages.HOME_MENU == true">
+            <a class="nav-link" routerLinkActive="active-menu" routerLink="/home">{{ "HOME.HOMES" | translate }}</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.ABOUT_US_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="aboutUSDropDown" role="button" data-bs-toggle="dropdown"
+              [class]="{
+              active:
+                isCurrentURL == '/aboutUs' ||
+                isCurrentURL == '/messageFromSp' ||
+                isCurrentURL == '/ourTeam' ||
+                isCurrentURL == '/successionList'
+            }" aria-expanded="false">{{ "ABOUT_US.ABOUT_TITLE" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="aboutUSDropDown">
+              <li *ngIf="publicPages.ABOUT_US == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/aboutUs">{{ "ABOUT_US.ABOUT_TITLE"
+                  |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.MSG_FROM_SP == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/messageFromSp">{{ "HOME.MESSAGE_SP"
+                  |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.OUR_TEAM == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/ourTeam">{{ "HOME.OUR_TEAM" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.SUCCESSION_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/successionList">{{
+                  "HOME.SUCCESSION_LIST" | translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.CITIZEN_SERVICES_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="citizenServiceDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false" [class]="{
+              active:
+                isCurrentURL == '/appointment' ||
+                isCurrentURL == '/policeStation' ||
+                isCurrentURL == '/complaint' ||
+                isCurrentURL == '/gpo-complaint' ||
+                isCurrentURL == '/gfpo-complaint' ||
+                isCurrentURL == '/character' ||
+                isCurrentURL == '/passport' ||
+                isCurrentURL == '/lostFound' ||
+                isCurrentURL == '/citizenReport' ||
+                isCurrentURL == '/missingPerson' ||
+                isCurrentURL == '/foundPerson' ||
+                isCurrentURL == '/deadPerson' ||
+                isCurrentURL == '/feedback'
+            }">{{ "HOME.CITIZEN_SERVICES" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="citizenServiceDropdown">
+              <li *ngIf="publicPages.GET_APPOINTMENT_WITH_SP == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/appointment">{{
+                  "HOME.APPOINTMENT_SP"
+                  | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.POLICE_STATIONS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/policeStation">{{
+                  "HOME.POLICE_STATION" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ONLINE_COMPLAINT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/complaint">{{
+                  "COMPLAINT.COMPLAINT_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ONLINE_GPO_COMPLAINT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/gpo-complaint">{{
+                  "GPO.TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ONLINE_GFPO_COMPLAINT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/gfpo-complaint">{{
+                  "GFPO.TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.APPLY_CHARACTER == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/character">{{ "HOME.CHARACTER" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PASSPORT_VERIFICATION == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/passport">{{ "HOME.PASSPORT" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.REPORT_LOST_FOUND == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/citizenReport">{{ "HOME.LOST_FOUND"
+                  |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.MISSING_FOUND_DEAD == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/missingPerson">{{
+                  "HOME.MISSING_FOUND" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.FEEDBACK == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/feedback">{{ "HOME.FEEDBACK" |
+                  translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" *ngIf="publicPages.HELPLINE_NO == true">
+            <a class="nav-link" routerLinkActive="active-menu" routerLink="/helpLine">{{ "CONTACT.HELPLINE_NO" |
+              translate
+              }}</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.NOTIFICATION_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false" [class]="{
+              active:
+                isCurrentURL == '/postingList' ||
+                isCurrentURL == '/transferList' ||
+                isCurrentURL == '/announcement' ||
+                isCurrentURL == '/criminalList' ||
+                isCurrentURL == '/peaceCommity'
+            }">{{ "HOME.NITIFICATION" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="notificationDropdown">
+              <li *ngIf="publicPages.POSTING_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/postingList">{{
+                  "POSTING.POSTING_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.TRANSFER_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/transferList">{{
+                  "TRANSFER.TRANSFER_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ANNOUNCEMENT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/announcement">{{
+                  "HOME.ANNOUNCEMENT"
+                  | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.CRIMINCAL_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/criminalList">{{
+                  "CRIMINAL.CRIMINAL_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PEACE_COMMITEE == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/peaceCommity">{{
+                  "PEACE.PEACE_TITLE"
+                  | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.HOLYDAY_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/holydayList">{{
+                  "HOLYDAY.HOLYDAY_TITLE"
+                  | translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.DOWNLOAD_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="downloadDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false" [class]="{
+              active:
+                isCurrentURL == '/forms' ||
+                isCurrentURL == '/acts' ||
+                isCurrentURL == '/rules'
+            }">
+              {{ "HOME.DOWNLOAD" | translate }}</a>
+            <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+              <li *ngIf="publicPages.FORMS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/forms">{{ "FORMS.FORMS_TITLE" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ACTS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/acts">{{ "ACTS.ACTS_TITLE" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.RULES == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/rules">{{ "RULES.RULES_TITLE" |
+                  translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.MEDIA == true">
+            <a class="nav-link dropdown-toggle" href="#" id="mediaDropDown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false" [class]="{
+              active:
+                isCurrentURL == '/newsEvent' ||
+                isCurrentURL == '/photoGallery' ||
+                isCurrentURL == '/pressRelease' ||
+                isCurrentURL == '/videoGallery'
+            }">{{ "HOME.MEDIA" | translate }}</a>
+            <ul class="dropdown-menu" aria-labelledby="mediaDropDown">
+              <li *ngIf="publicPages.NEWS_AND_EVENTS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/newsEvent">{{
+                  "NEWSEVENTS.NEWSEVENTS_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PHOTO_GALLERY == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/photoGallery">{{
+                  "PHOTO_GALLERY.PHOTO_GALLERY_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PRESS_RELEASE == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/pressRelease">{{
+                  "PRESS_RELEASE.PRESS_RELEASE_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.VIDEO_GALLERY == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/videoGallery">{{
+                  "VIDEO_GALLERY.VIDEO_GALLERY_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.IMPORTANT_LINKS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/importantPlaces">{{
+                  "HOME.IMP_PLACE"
+                  | translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" *ngIf="publicPages.CONTACT_US == true">
+            <a class="nav-link" routerLinkActive="active-menu" routerLink="/contact">{{ "CONTACT.CONTACT_US" | translate
+              }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="style3" *ngIf="style == 'style3'">
+  <nav class="navbar navbar-expand-lg menu">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+        style="margin: 10px 0 10px auto; outline: none !important">
+        <i class="material-icons">reorder</i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" *ngIf="publicPages.HOME_MENU == true">
+            <a class="nav-link" routerLinkActive="active-menu" routerLink="/home">{{ "HOME.HOMES" | translate }}</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.ABOUT_US_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="aboutUSDropDown" role="button" data-bs-toggle="dropdown"
+              [class]="{
+                        active:
+                          isCurrentURL == '/aboutUs' ||
+                          isCurrentURL == '/messageFromSp' ||
+                          isCurrentURL == '/ourTeam' ||
+                          isCurrentURL == '/successionList'
+                      }" aria-expanded="false">{{ "ABOUT_US.ABOUT_TITLE" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="aboutUSDropDown">
+              <li *ngIf="publicPages.ABOUT_US == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/aboutUs">{{ "ABOUT_US.ABOUT_TITLE"
+                  |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.MSG_FROM_SP == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/messageFromSp">{{ "HOME.MESSAGE_SP"
+                  |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.OUR_TEAM == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/ourTeam">{{ "HOME.OUR_TEAM" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.SUCCESSION_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/successionList">{{
+                  "HOME.SUCCESSION_LIST" | translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.CITIZEN_SERVICES_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="citizenServiceDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false" [class]="{
+                        active:
+                          isCurrentURL == '/appointment' ||
+                          isCurrentURL == '/policeStation' ||
+                          isCurrentURL == '/complaint' ||
+                          isCurrentURL == '/gpo-complaint' ||
+                          isCurrentURL == '/gfpo-complaint' ||
+                          isCurrentURL == '/character' ||
+                          isCurrentURL == '/passport' ||
+                          isCurrentURL == '/lostFound' ||
+                          isCurrentURL == '/citizenReport' ||
+                          isCurrentURL == '/missingPerson' ||
+                          isCurrentURL == '/foundPerson' ||
+                          isCurrentURL == '/deadPerson' ||
+                          isCurrentURL == '/feedback'
+                      }">{{ "HOME.CITIZEN_SERVICES" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="citizenServiceDropdown">
+              <li *ngIf="publicPages.GET_APPOINTMENT_WITH_SP == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/appointment">{{
+                  "HOME.APPOINTMENT_SP"
+                  | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.POLICE_STATIONS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/policeStation">{{
+                  "HOME.POLICE_STATION" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ONLINE_COMPLAINT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/complaint">{{
+                  "COMPLAINT.COMPLAINT_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ONLINE_GPO_COMPLAINT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/gpo-complaint">{{
+                  "GPO.TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ONLINE_GFPO_COMPLAINT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/gfpo-complaint">{{
+                  "GFPO.TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.APPLY_CHARACTER == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/character">{{ "HOME.CHARACTER" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PASSPORT_VERIFICATION == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/passport">{{ "HOME.PASSPORT" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.REPORT_LOST_FOUND == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/citizenReport">{{ "HOME.LOST_FOUND"
+                  |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.MISSING_FOUND_DEAD == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/missingPerson">{{
+                  "HOME.MISSING_FOUND" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.FEEDBACK == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/feedback">{{ "HOME.FEEDBACK" |
+                  translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" *ngIf="publicPages.HELPLINE_NO == true">
+            <a class="nav-link" routerLinkActive="active-menu" routerLink="/helpLine">{{ "CONTACT.HELPLINE_NO" |
+              translate
+              }}</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.NOTIFICATION_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false" [class]="{
+                        active:
+                          isCurrentURL == '/postingList' ||
+                          isCurrentURL == '/transferList' ||
+                          isCurrentURL == '/announcement' ||
+                          isCurrentURL == '/criminalList' ||
+                          isCurrentURL == '/peaceCommity'
+                      }">{{ "HOME.NITIFICATION" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="notificationDropdown">
+              <li *ngIf="publicPages.POSTING_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/postingList">{{
+                  "POSTING.POSTING_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.TRANSFER_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/transferList">{{
+                  "TRANSFER.TRANSFER_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ANNOUNCEMENT == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/announcement">{{
+                  "HOME.ANNOUNCEMENT"
+                  | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.CRIMINCAL_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/criminalList">{{
+                  "CRIMINAL.CRIMINAL_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PEACE_COMMITEE == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/peaceCommity">{{
+                  "PEACE.PEACE_TITLE"
+                  | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.HOLYDAY_LIST == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/holydayList">{{
+                  "HOLYDAY.HOLYDAY_TITLE"
+                  | translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.DOWNLOAD_MENU == true">
+            <a class="nav-link dropdown-toggle" href="#" id="downloadDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false" [class]="{
+                        active:
+                          isCurrentURL == '/forms' ||
+                          isCurrentURL == '/acts' ||
+                          isCurrentURL == '/rules'
+                      }">
+              {{ "HOME.DOWNLOAD" | translate }}</a>
+            <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+              <li *ngIf="publicPages.FORMS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/forms">{{ "FORMS.FORMS_TITLE" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.ACTS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/acts">{{ "ACTS.ACTS_TITLE" |
+                  translate }}</a>
+              </li>
+              <li *ngIf="publicPages.RULES == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/rules">{{ "RULES.RULES_TITLE" |
+                  translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="publicPages.MEDIA == true">
+            <a class="nav-link dropdown-toggle" href="#" id="mediaDropDown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false" [class]="{
+                        active:
+                          isCurrentURL == '/newsEvent' ||
+                          isCurrentURL == '/photoGallery' ||
+                          isCurrentURL == '/pressRelease' ||
+                          isCurrentURL == '/videoGallery'
+                      }">{{ "HOME.MEDIA" | translate }}</a>
+            <ul class="dropdown-menu" aria-labelledby="mediaDropDown">
+              <li *ngIf="publicPages.NEWS_AND_EVENTS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/newsEvent">{{
+                  "NEWSEVENTS.NEWSEVENTS_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PHOTO_GALLERY == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/photoGallery">{{
+                  "PHOTO_GALLERY.PHOTO_GALLERY_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.PRESS_RELEASE == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/pressRelease">{{
+                  "PRESS_RELEASE.PRESS_RELEASE_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.VIDEO_GALLERY == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/videoGallery">{{
+                  "VIDEO_GALLERY.VIDEO_GALLERY_TITLE" | translate }}</a>
+              </li>
+              <li *ngIf="publicPages.IMPORTANT_LINKS == true">
+                <a class="dropdown-item" routerLinkActive="active-menu" routerLink="/importantPlaces">{{
+                  "HOME.IMP_PLACE"
+                  | translate }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" *ngIf="publicPages.CONTACT_US == true">
+            <a class="nav-link" routerLinkActive="active-menu" routerLink="/contact">{{ "CONTACT.CONTACT_US" | translate
+              }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

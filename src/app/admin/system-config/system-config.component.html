@@ -1,0 +1,61 @@
+<div class="system">
+  <div class="dashboard-header">System Configuration And Module</div>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>System Configuration</a>
+      <ng-template ngbNavContent>
+        <div class="permission-info">
+          <div class="button-panel">
+            <a
+              routerLink="{{ permissions.add_url }}"
+              class="btn btn-success m-2"
+              *ngIf="permissions.add && permissions.add_url"
+              >Add System Configuration</a
+            >
+          </div>
+
+          <div style="padding: 20px">
+            <app-table-data
+              [rows]="rows"
+              [page]="page"
+              [columns]="columns"
+              [path]="path"
+              [permissions]="permissions"
+              [filterOptions]="filterOptionsConfig"
+              [isApiAvailable]="false"
+            >
+            </app-table-data>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>System Modules</a>
+      <ng-template ngbNavContent>
+        <div class="permission-info">
+          <div class="button-panel">
+            <a
+              routerLink="{{ permissionsModule.add_url }}"
+              class="btn btn-success m-2"
+              *ngIf="permissionsModule.add && permissionsModule.add_url"
+              >Add System Module</a
+            >
+          </div>
+
+          <div style="padding: 20px">
+            <app-table-data
+              [rows]="rowsModule"
+              [page]="pageModule"
+              [columns]="columnsModule"
+              [path]="pathModule"
+              [permissions]="permissionsModule"
+              [filterOptions]="filterOptions"
+            >
+            </app-table-data>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</div>

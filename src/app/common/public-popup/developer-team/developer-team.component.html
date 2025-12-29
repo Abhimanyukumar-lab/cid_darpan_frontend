@@ -1,0 +1,69 @@
+<div class="container py-5">
+
+  <!-- Profile Section -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-8 text-center">
+      <img src="https://avatars.githubusercontent.com/u/9919?v=4"
+           alt="Abhimanyu Kumar"
+           class="rounded-circle border border-3 border-primary mb-3"
+           style="width:150px;height:150px;object-fit:cover;">
+      <h2 class="fw-bold">Abhimanyu Kumar</h2>
+      <h5 class="text-muted">Fullstack Java Developer</h5>
+      <div class="mt-3">
+        <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-ID" target="_blank" class="btn btn-primary me-2">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://github.com/YOUR-GITHUB-ID" target="_blank" class="btn btn-dark">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Stack Section -->
+  <div class="row text-center mb-5">
+    <h3 class="mb-4 fw-bold">Tech Stack</h3>
+    <div class="col-6 col-md-3 mb-4" *ngFor="let tech of techStack">
+      <div class="tech-card shadow-sm p-3 rounded animate__animated animate__fadeInUp">
+        <i [class]="tech.icon + ' fa-3x mb-2'"></i>
+        <h6 class="fw-bold">{{ tech.name }}</h6>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects Section -->
+  <div class="row mb-5">
+    <h3 class="mb-4 text-center fw-bold">Projects</h3>
+    <div class="col-md-6 mb-4" *ngFor="let project of projects">
+      <div class="card shadow-lg h-100 animate__animated animate__zoomIn">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{ project.title }}</h5>
+          <p class="card-text text-muted">{{ project.description }}</p>
+          <p class="small text-primary fw-bold">Tech: {{ project.tech }}</p>
+          <a *ngIf="project.link" [href]="project.link" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About / Details Section -->
+  <div class="row">
+    <h3 class="mb-4 text-center fw-bold">About Me</h3>
+    <div class="col-md-10 mx-auto">
+      <div class="card shadow border-0 p-4 animate__animated animate__fadeIn">
+        <p>
+          I am <b>Abhimanyu Kumar</b>, a passionate <b>Fullstack Java Developer</b> with expertise in
+          building scalable applications using Spring Boot, Angular, and modern web technologies.
+          I enjoy solving real-world problems, collaborating in agile teams, and learning new technologies.
+        </p>
+        <ul>
+          <li><b>Experience:</b> 3+ years in fullstack development</li>
+          <li><b>Specialized In:</b> Java, Spring Boot, Angular, MySQL, REST APIs</li>
+          <li><b>Interest:</b> Cloud computing, system design, and open-source contributions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

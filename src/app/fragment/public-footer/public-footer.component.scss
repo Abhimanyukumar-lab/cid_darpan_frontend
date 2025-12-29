@@ -1,0 +1,122 @@
+@import "../../../style/disctrict/common.district.scss";
+
+.main-footer {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: white;
+  background-color: $super-footer !important;
+  .f-copyright {
+    font-size: 14px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  .social-icon {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    .f-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+    }
+  }
+}
+
+a {
+  display: flex;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.info-color {
+  background-color: #458efc;
+}
+
+.footer-info {
+  padding: 2px;
+  background-color: #fff;
+  color: $super-footer;
+  border: 1px solid $super-footer;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 1440px) {
+  .main-footer {
+    width: 100%;
+    .f-copyright {
+      width: 80%;
+      text-align: center;
+    }
+    .social-icon {
+      width: 50%;
+      padding: 0px;
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 2000px) {
+  .main-footer {
+    width: 100%;
+    .f-copyright {
+      width: 50%;
+      text-align: center;
+    }
+    .social-icon {
+      width: 50%;
+      padding: 0px;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .main-footer {
+    width: 100%;
+    .f-copyright {
+      width: 70%;
+      text-align: center;
+    }
+    .social-icon {
+      width: 50%;
+      padding: 0px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .main-footer {
+    width: 100%;
+    .f-copyright {
+      width: 70%;
+      padding: 0;
+      text-align: center;
+    }
+    .social-icon {
+      width: 30%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .f-copyright {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+    .social-icon {
+      width: 10%;
+    }
+  }
+}

@@ -1,0 +1,304 @@
+<div class="menu-edit">
+  <div class="dashboard-header">Police Officer</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+<div class="menu-form">
+  <form
+    class="form needs-validation container"
+    novalidate
+    [formGroup]="entryForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="menu_form"
+  >
+    <div class="col-sm-12">
+      <div class="row">
+        <input id="id" name="id" formControlName="id" style="display: none" />
+        <div class="col-sm-4">
+          <label for="brassNo" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.BRASS_NO" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="brassNo"
+              name="brassNo"
+              placeholder="{{ 'POLICE_OFFICER_M.BRASS_NO' | translate }}"
+              formControlName="brassNo"
+              (keypress)="numberOnly($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('brassNo') }"
+              required
+            />
+            <!-- (keypress)="validAplpha($event)" -->
+          </div>
+
+          <div *ngIf="isControlHasError('brassNo', 'required')" class="invalid">
+            <strong> Brass No is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="desig" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.DESIGNATION" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="desig"
+              name="desig"
+              placeholder="{{ 'POLICE_OFFICER_M.DESIGNATION' | translate }}"
+              formControlName="desig"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('desig') }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('desig', 'required')" class="invalid">
+            <strong> Designation is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="name" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.NAME" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="{{ 'POLICE_OFFICER_M.NAME' | translate }}"
+              formControlName="name"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('name') }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('name', 'required')" class="invalid">
+            <strong> Name is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="mobileNo" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.MOBILENO" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="mobileNo"
+              (keypress)="numberOnly($event)"
+              name="mobileNo"
+              placeholder="{{ 'POLICE_OFFICER_M.MOBILENO' | translate }}"
+              formControlName="mobileNo"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('mobileNo', 'required')"
+            class="invalid"
+          >
+            <strong>Mobile No is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="dob" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.DOB" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              placeholder="{{ 'POLICE_OFFICER_M.DOB' | translate }}"
+              formControlName="dob"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('dob') }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('dob', 'required')" class="invalid">
+            <strong>Date of birth is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="doj" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.DOJ" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="date"
+              id="doj"
+              name="doj"
+              placeholder="{{ 'POLICE_OFFICER_M.DOJ' | translate }}"
+              formControlName="doj"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('doj') }"
+              required
+            />
+          </div>
+
+          <div *ngIf="isControlHasError('doj', 'required')" class="invalid">
+            <strong>Date of joining is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="homeDist" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.HOME_DIST" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="homeDist"
+              name="homeDist"
+              placeholder="{{ 'POLICE_OFFICER_M.HOME_DIST' | translate }}"
+              formControlName="homeDist"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('homeDist') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('homeDist', 'required')"
+            class="invalid"
+          >
+            <strong>Home District is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="placeOfPosting" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.POP" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="placeOfPosting"
+              name="placeOfPosting"
+              placeholder="{{ 'POLICE_OFFICER_M.POP' | translate }}"
+              formControlName="placeOfPosting"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('placeOfPosting') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('placeOfPosting', 'required')"
+            class="invalid"
+          >
+            <strong> Place Of Posting is required</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="natureOfDuty" class="col-12 col-form-label">{{
+            "POLICE_OFFICER_M.NOD" | translate
+          }}</label>
+          <div class="col-9">
+            <input
+              type="text"
+              id="natureOfDuty"
+              name="natureOfDuty"
+              placeholder="{{ 'POLICE_OFFICER_M.NOD' | translate }}"
+              formControlName="natureOfDuty"
+              (keypress)="validAplpha($event)"
+              autocomplete="off"
+              class="form-control hindi hindiFont"
+              [ngClass]="{ invalidInput: isControlHasErrors('natureOfDuty') }"
+              required
+            />
+          </div>
+
+          <div
+            *ngIf="isControlHasError('natureOfDuty', 'required')"
+            class="invalid"
+          >
+            <strong> Nature Of Duty is required</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div
+      class="form-group d-flex flex-wrap justify-content-center align-items-center"
+    >
+      <button
+        id="menu_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_ENTRY && ADD_URL && !ENTRY_PARAMS.ID"
+      >
+        Add Officer
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="menu_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_ENTRY && EDIT_URL && ENTRY_PARAMS.ID"
+      >
+        Edit Officer
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

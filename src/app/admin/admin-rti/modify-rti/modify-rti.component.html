@@ -1,0 +1,326 @@
+<div class="rti-edit">
+  <div class="dashboard-header">{{ "RTI.RTI_DETAILS" | translate }}</div>
+  <button
+    class="btn btn-sm back-btn"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+    (click)="goBack()"
+  >
+    &#215;
+  </button>
+</div>
+
+<div class="rti-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="rtiForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="rtiform"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+
+    <div class="row mb-2">
+      <div class="col-sm-4">
+        <span class="glob-span"
+          >{{ "PROCECUTION.SER_NO_DATE" | translate }} :</span
+        ><input
+          type="text"
+          class="form-control"
+          formControlName="rtoRequestMobNo"
+          placeholder="Eg.999999999,01/01/2021"
+          (keyup)="setDataRecipt($event.target.value)"
+          [ngClass]="{ invalidInput: isControlHasErrors('rtoRequestMobNo') }"
+        />
+        <div
+          *ngIf="isControlHasError('rtoRequestMobNo', 'required')"
+          class="invalid"
+        >
+          <strong>Serial Number and Date is Required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "RTI.GOT_FROM" | translate }} :</span
+        ><input
+          *ngIf="language == 'hi'"
+          type="text"
+          class="form-control hindi hindiFont"
+          formControlName="rtoRequestAddress"
+          placeholder="{{ 'RTI.ENTR_GOT_FROM' | translate }}"
+          id="rtoRequestAddress"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoRequestAddress')
+          }"
+          (change)="focusOut($event, 'rtoRequestAddress')"
+          (focusout)="focusOut($event, 'rtoRequestAddress')"
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          class="form-control"
+          formControlName="rtoRequestAddress"
+          placeholder="{{ 'RTI.ENTR_GOT_FROM' | translate }}"
+          id="rtoRequestAddress"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoRequestAddress')
+          }"
+          (change)="focusOut($event, 'rtoRequestAddress')"
+          (focusout)="focusOut($event, 'rtoRequestAddress')"
+        />
+        <div
+          *ngIf="isControlHasError('rtoRequestAddress', 'required')"
+          class="invalid"
+        >
+          <strong>From where is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "RTI.NAME_OR_ADD" | translate }} :</span
+        ><input
+          *ngIf="language == 'hi'"
+          type="text"
+          class="form-control hindi hindiFont"
+          formControlName="rtoRequestname"
+          placeholder="{{ 'RTI.ENTR_NAME_OR_ADD' | translate }}"
+          id="rtoRequestname"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoRequestname')
+          }"
+          (change)="focusOut($event, 'rtoRequestname')"
+          (focusout)="focusOut($event, 'rtoRequestname')"
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          class="form-control"
+          formControlName="rtoRequestname"
+          placeholder="{{ 'RTI.ENTR_NAME_OR_ADD' | translate }}"
+          id="rtoRequestname"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoRequestname')
+          }"
+          (change)="focusOut($event, 'rtoRequestname')"
+          (focusout)="focusOut($event, 'rtoRequestname')"
+        />
+        <div
+          *ngIf="isControlHasError('rtoRequestname', 'required')"
+          class="invalid"
+        >
+          <strong>Name and address of the applicant is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "RTI.RTI_SUBJECT" | translate }} :</span
+        ><input
+          *ngIf="language == 'hi'"
+          type="text"
+          class="form-control hindi hindiFont"
+          formControlName="rtoSubject"
+          placeholder="{{ 'RTI.ENTR_RTI_SUBJECT' | translate }}"
+          id="rtoSubject"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoSubject')
+          }"
+          (change)="focusOut($event, 'rtoSubject')"
+          (focusout)="focusOut($event, 'rtoSubject')"
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          class="form-control"
+          formControlName="rtoSubject"
+          placeholder="{{ 'RTI.ENTR_RTI_SUBJECT' | translate }}"
+          id="rtoSubject"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoSubject')
+          }"
+          (change)="focusOut($event, 'rtoSubject')"
+          (focusout)="focusOut($event, 'rtoSubject')"
+        />
+        <div
+          *ngIf="isControlHasError('rtoSubject', 'required')"
+          class="invalid"
+        >
+          <strong>Request Subject is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "ECOM_RECEIPT.DEPT" | translate }} :</span>
+        <ng-multiselect-dropdown
+          class="ngDropDown"
+          [placeholder]="'Select Department'"
+          [data]="officersList"
+          name="destinations"
+          [(ngModel)]="selectedOfficerId"
+          [ngModelOptions]="{ standalone: true }"
+          [settings]="dropdownOfficerSettings"
+          (onSelect)="onItemSelect($event)"
+          aria-required="true"
+          required
+        >
+        </ng-multiselect-dropdown>
+        <div *ngIf="isControlHasError('sectionId', 'required')" class="invalid">
+          <strong>Branch is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span"
+          >{{ "RTI.REC_LETTER_NAME_DATE" | translate }} :</span
+        ><input
+          type="text"
+          class="form-control"
+          formControlName="rtoReceiveNo"
+          placeholder="{{ 'RTI.ENTR_REC_LETTER_NAME_DATE' | translate }}"
+          id="rtoReceiveNo"
+          [ngClass]="{ invalidInput: isControlHasErrors('rtoReceiveNo') }"
+          d
+        />
+        <div
+          *ngIf="isControlHasError('rtoReceiveNo', 'required')"
+          class="invalid"
+        >
+          <strong
+            >Received Letter from confidential branch & Date is required</strong
+          >
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "RTI.DISPOSAL_DATE" | translate }} :</span
+        ><input
+          type="date"
+          class="form-control"
+          formControlName="rtoResolveDate"
+          placeholder="{{ 'RTI.ENTR_DISPOSAL_DATE' | translate }}"
+          id="rtoResolveDate"
+          [ngClass]="{ invalidInput: isControlHasErrors('rtoResolveDate') }"
+        />
+        <div
+          *ngIf="isControlHasError('rtoResolveDate', 'required')"
+          class="invalid"
+        >
+          <strong>Disposal target date is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "RTI.EXC_DATE_BOOK" | translate }} :</span
+        ><input
+          type="text"
+          class="form-control"
+          formControlName="rtoResolveNo"
+          placeholder="{{ 'RTI.ENTR_EXC_DATE_BOOK' | translate }}"
+          id="rtoResolveNo"
+          [ngClass]="{ invalidInput: isControlHasErrors('rtoResolveNo') }"
+        />
+        <div
+          *ngIf="isControlHasError('rtoResolveNo', 'required')"
+          class="invalid"
+        >
+          <strong>Execution date and knowledge book is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "RTI.CONVICTION" | translate }} :</span
+        ><input
+          *ngIf="language == 'hi'"
+          type="text"
+          class="form-control hindi hindiFont"
+          formControlName="rtoRemark"
+          placeholder="{{ 'RTI.ENTR_CONVICTION' | translate }}"
+          id="rtoRemark"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoRemark')
+          }"
+          (change)="focusOut($event, 'rtoRemark')"
+          (focusout)="focusOut($event, 'rtoRemark')"
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          class="form-control"
+          formControlName="rtoRemark"
+          placeholder="{{ 'RTI.ENTR_CONVICTION' | translate }}"
+          id="rtoRemark"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('rtoRemark')
+          }"
+          (change)="focusOut($event, 'rtoRemark')"
+          (focusout)="focusOut($event, 'rtoRemark')"
+        />
+        <div *ngIf="isControlHasError('rtoRemark', 'required')" class="invalid">
+          <strong>Remark is required</strong>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <span class="glob-span">{{ "COMPLAINT.DOCUMENT" | translate }}</span
+        ><input
+          type="file"
+          id="ef1"
+          name="ef1"
+          (change)="handleFileChange($event.target.files)"
+          formControlName="ef1"
+          accept="application/pdf"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('ef1') }"
+        />
+      </div>
+    </div>
+
+    <div
+      class="
+        form-group
+        d-flex
+        flex-wrap
+        justify-content-center
+        align-items-center
+      "
+    >
+      <button
+        id="rti_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_RTI && ADD_URL && !RTI_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="rti_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_RTI && EDIT_URL && RTI_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

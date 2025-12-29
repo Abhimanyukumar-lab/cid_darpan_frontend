@@ -1,0 +1,546 @@
+<div
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  "
+>
+  <div class="dashboard-header" style="flex-grow: 1; text-align: center">
+    {{ "USER.USER_DETAILS" | translate }}
+  </div>
+  <button
+    class="dashboard-header btn btn-sm back-btn"
+    style="font-size: 30px"
+    (click)="goBack()"
+  >
+    <!-- &#215; -->
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button>
+</div>
+
+<div class="user-form">
+  <form
+    class="form needs-validation text-center container"
+    novalidate
+    [formGroup]="userForm"
+    autocomplete="off"
+    novalidate="novalidate"
+    id="user_form"
+  >
+    <input id="id" name="id" formControlName="id" style="display: none" />
+    <div class="row mb-2">
+      <label for="name" class="col-3 col-form-label">{{
+        "USER.ROLE_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+          name="roleName"
+          id="roleName"
+          formControlName="roleId"
+          (change)="doUserRoleSelected($event.target)"
+          autocomplete="off"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('roleId') }"
+          required
+        >
+          <option [ngValue]="null" disabled>
+            {{ "USER.SEL_USER_ROLE" | translate }}
+          </option>
+          <option *ngFor="let role of roleList" [ngValue]="role.id">
+            {{ role.roleName }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Range Selection -->
+<div class="row mb-2" *ngIf="isRangeShow">
+  <label for="rangeName" class="col-3 col-form-label">
+    {{ "APPOINTMENT.SELECT_RANGE" | translate }}
+  </label>
+  <div class="col-8">
+    <select
+      name="rangeName"
+      id="rangeName"
+      placeholder="Select Range"
+      formControlName="rangeId"
+      autocomplete="off"
+      (change)="selectDistrict('range')"
+      class="form-select"
+      [ngClass]="{ 'invalidInput': isControlHasErrors('rangeId') }"
+    >
+      <option [ngValue]="null" disabled>Select Range</option>
+      <option *ngFor="let r of rangeList" [ngValue]="r.id">
+        <span *ngIf="language == 'en'">{{ r.rangeName }}</span>
+        <span *ngIf="language == 'hi'">{{ r.rangeNameHi }}</span>
+      </option>
+    </select>
+  </div>
+</div>
+
+<!-- District Selection (dependent on range) -->
+<div class="row mb-2" *ngIf="isDistrictShow">
+  <label for="districtName" class="col-3 col-form-label">
+    {{ "APPOINTMENT.SELECT_DISTRICT" | translate }}
+  </label>
+  <div class="col-8">
+    <select
+      name="districtName"
+      id="districtName"
+      placeholder="Select District"
+      formControlName="districtId"
+      autocomplete="off"
+      (change)="doDistrictSelected($event.target)"
+      class="form-select"
+      [ngClass]="{ 'invalidInput': isControlHasErrors('districtId') }"
+      (change)="selectDistrict('district')"
+      [disabled]="!userForm.get('rangeId')?.value"
+    >
+      <option [ngValue]="null" disabled>Select District</option>
+      <option *ngFor="let d of filteredDistricts" [ngValue]="d.id">
+        <span *ngIf="language == 'en'">{{ d.districtName }}</span>
+        <span *ngIf="language == 'hi'">{{ d.districtNameHi }}</span>
+      </option>
+    </select>
+  </div>
+</div>
+
+ 
+
+    
+    <!-- <div class="row mb-2" *ngIf="isDistrictShow">
+      <label for="name" class="col-3 col-form-label">{{
+        "APPOINTMENT.SELECT_DISTRICT" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+          name="districtName"
+          id="districtName"
+          placeholder="Select District"
+          formControlName="districtId"
+          autocomplete="off"
+          (change)="doDistrictSelected($event.target)"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('districtId') }"
+          (change)="selectDistrict()"
+        >
+    <option [ngValue]="null" disabled>Select District</option>
+          <option *ngFor="let d of districtList" [ngValue]="d.id">
+            
+            <span *ngIf="language == 'en'">{{ d.districtName }}</span>
+            <span *ngIf="language == 'hi'">{{ d.districtNameHi }}</span>
+          </option>
+        </select>
+      </div>
+    
+ 
+    </div> -->
+
+    <div class="row mb-2" *ngIf="isSectionShow">
+      <label for="name" class="col-3 col-form-label">{{
+        "USER.SECTION_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+          name="sectionName"
+          id="sectionName"
+          placeholder="Select Section"
+          formControlName="sectionId"
+          autocomplete="off"
+          class="form-select"
+          (change)="doSectionSelected($event.target)"
+          [ngClass]="{ invalidInput: isControlHasErrors('sectionId') }"
+        >
+          <option [ngValue]="null" disabled>Select Section</option>
+          <option *ngFor="let section of sectionList" [ngValue]="section.id">
+            <span *ngIf="language == 'en'">{{ section.headName }}</span>
+            <span *ngIf="language == 'hi'">{{ section.headTitle }}</span>
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-2" *ngIf="isDSPShow">
+      <label for="name" class="col-3 col-form-label">DSP</label>
+      <div class="col-8">
+        <select
+          name="dspName"
+          id="dspName"
+          placeholder="Select DSP"
+          formControlName="dspId"
+          (change)="doDspSelected($event.target)"
+          autocomplete="off"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('dspId') }"
+        >
+          <option [ngValue]="null" disabled>Select DSP</option>
+          <option *ngFor="let dsp of dspList" [ngValue]="dsp.id">
+            <span *ngIf="language == 'en'">{{ dsp.dspName }}</span>
+            <span *ngIf="language == 'hi'">{{ dsp.dspNameHi }}</span>
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- <div class="row mb-2" *ngIf="isSDPOShow">
+      <label for="name" class="col-3 col-form-label">{{
+        "USER.SDPO_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+          name="sdpoName"
+          id="sdpoName"
+          placeholder="Select SDPO Name"
+          formControlName="sdpoId"
+          autocomplete="off"
+          class="form-select"
+          (change)="doSDPOSelected($event.target)"
+          [ngClass]="{ invalidInput: isControlHasErrors('sdpoId') }"
+        >
+          <option [ngValue]="null" disabled>Select SDPO</option>
+          <option *ngFor="let sdpo of sdpoList" [ngValue]="sdpo.id">
+            <span *ngIf="language == 'en'">{{ sdpo.headName }}</span>
+            <span *ngIf="language == 'hi'">{{ sdpo.headNameHi }}</span>
+          </option>
+        </select>
+      </div>
+    </div> -->
+
+    <div class="row mb-2" *ngIf="isSDPOShow">
+      <label for="subdivName" class="col-3 col-form-label">{{
+        "SUBDIVISION.SUBDIVISION_TITLE" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+          name="subdivName"
+          id="subdivName"
+          formControlName="subdivId"
+          autocomplete="off"
+          class="form-select"
+          (change)="doSDPOSelected($event.target)"
+          [ngClass]="{ invalidInput: isControlHasErrors('subdivId') }"
+        >
+          <option [ngValue]="null" disabled>Select Subdivision</option>
+          <option *ngFor="let subdiv of selectedSubDivisoin" [ngValue]="subdiv.id">
+            <span *ngIf="language == 'en'">{{ subdiv.name }}</span>
+            <span *ngIf="language == 'hi'">{{ subdiv.nameHi }}</span>
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-2" *ngIf="isCircleListShow">
+      <label for="name" class="col-3 col-form-label">{{
+        "USER.CIRCLE_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+          name="circleInspectorName"
+          id="circleInspectorName"
+          placeholder="Select Circle "
+          formControlName="circleInspectorId"
+          autocomplete="off"
+          class="form-select"
+          (change)="doCircleSelected($event.target)"
+          [ngClass]="{ invalidInput: isControlHasErrors('circleInspectorId') }"
+        >
+          <option [ngValue]="null" disabled>Select Circle</option>
+          <option
+            *ngFor="let circleInspector of selectedCircle"
+            [ngValue]="circleInspector.id"
+          >
+            <span *ngIf="language == 'en'">{{
+              circleInspector.circleName
+            }}</span>
+            <span *ngIf="language == 'hi'">{{
+              circleInspector.circleNameHi
+            }}</span>
+            <!-- {{ circleInspector.circleName }} -->
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-2" *ngIf="isStationList">
+      <label for="name" class="col-3 col-form-label">{{
+        "APPOINTMENT.SELECT_POLICE_STATION" | translate
+      }}</label>
+      <div class="col-8">
+        <select
+          name="stationName"
+          id="stationName"
+          placeholder="Select Police Station"
+          formControlName="stationId"
+          autocomplete="off"
+          (change)="doPoliceSelected($event.target)"
+          class="form-select"
+          [ngClass]="{ invalidInput: isControlHasErrors('stationId') }"
+        >
+          <option [ngValue]="null" disabled>Select Police Station</option>
+          <option *ngFor="let station of selectedStations" [ngValue]="station.id">
+            <!-- {{ station.stationName }} -->
+            <span *ngIf="language == 'en'">{{ station.stationName }}</span>
+            <span *ngIf="language == 'hi'">{{ station.stationNameHi }}</span>
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="row mb-2">
+      <label for="firstName" class="col-3 col-form-label">{{
+        "USER.FIRST_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="firstName"
+          name="firstName"
+          placeholder="{{ 'USER.ENTER_FIRST_NAME' | translate }}"
+          formControlName="firstName"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('firstName')
+          }"
+          (change)="focusOut($event, 'firstName')"
+          (focusout)="focusOut($event, 'firstName')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="firstName"
+          name="firstName"
+          placeholder="{{ 'USER.ENTER_FIRST_NAME' | translate }}"
+          formControlName="firstName"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('firstName')
+          }"
+          (change)="focusOut($event, 'firstName')"
+          (focusout)="focusOut($event, 'firstName')"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('firstName', 'required')" class="invalid">
+        <strong>First Name is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="lastName" class="col-3 col-form-label">{{
+        "USER.LAST_NAME" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          *ngIf="language == 'hi'"
+          type="text"
+          id="lastName"
+          name="lastName"
+          placeholder="{{ 'USER.ENTER_LAST_NAME' | translate }}"
+          formControlName="lastName"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control hindi hindiFont"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('lastName')
+          }"
+          (change)="focusOut($event, 'lastName')"
+          (focusout)="focusOut($event, 'lastName')"
+          required
+        />
+        <input
+          *ngIf="language == 'en'"
+          type="text"
+          id="lastName"
+          name="lastName"
+          placeholder="{{ 'USER.ENTER_LAST_NAME' | translate }}"
+          formControlName="lastName"
+          (keypress)="validAplpha($event)"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{
+            invalidInput: isControlHasErrors('lastName')
+          }"
+          (change)="focusOut($event, 'lastName')"
+          (focusout)="focusOut($event, 'lastName')"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('lastName', 'required')" class="invalid">
+        <strong>Last Name is required</strong>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="email" class="col-3 col-form-label">{{
+        "USER.USER_ID" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="{{ 'USER.ENTR_USER_ID' | translate }}"
+          formControlName="email"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('email') }"
+        />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="password" class="col-3 col-form-label">{{
+        "USER.PASSWORD" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          formControlName="password"
+          placeholder="{{ 'USER.ENTER_PASSWORD' | translate }}"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('password') }"
+        />
+      </div>
+      <div class="col-1 input-group-append">
+        <span
+          class="input-group-text svg-icon svg-primary svg-icon-2x"
+          [inlineSVG]="'assets/images/Hidden.svg'"
+          (click)="showPass()"
+          *ngIf="passwordIcon == 'VISIBLE'"
+          [ngClass]="{
+            'svg-danger': isControlHasErrors('password')
+          }"
+        >
+        </span>
+        <span
+          class="input-group-text svg svg-primary svg-icon-2x"
+          (click)="showPass()"
+          *ngIf="passwordIcon == 'HIDDEN'"
+          [ngClass]="{
+            'svg-danger': isControlHasErrors('password')
+          }"
+        >
+          <i
+            class="fi fi-eye primaryIcon"
+            [ngClass]="{
+              errorIcon: isControlHasErrors('password')
+            }"
+          ></i>
+        </span>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="mobileNo" class="col-3 col-form-label">{{
+        "CONTACT.MOBILE_NUMBER" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="text"
+          id="mobileNo"
+          name="mobileNo"
+          placeholder="{{ 'CONTACT.SEL_MOBILE_NO' | translate }}"
+          formControlName="mobileNo"
+          (keypress)="numberOnly($event)"
+          minlength="10"
+          maxlength="13"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('mobileNo') }"
+          required
+        />
+      </div>
+      <div *ngIf="isControlHasError('mobileNo', 'required')" class="invalid">
+        <strong>Mobile Number is required</strong>
+      </div>
+      <div *ngIf="isControlHasError('mobileNo', 'minlength')" class="invalid">
+        <strong>Minimum 10 digit Mobile Number</strong>
+      </div>
+      <div *ngIf="isControlHasError('mobileNo', 'maxlength')" class="invalid">
+        <strong>Maximum 13 digit Mobile Number</strong>
+      </div>
+    </div>
+    <!-- <div class="row mb-2">
+      <label for="contactNo" class="col-3 col-form-label">{{
+        "SECTIONS.SEC_OFFICER_CONTACT" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="text"
+          id="contactNo"
+          name="contactNo"
+          placeholder="{{ 'SECTIONS.ENTER_SEC_OFFICER_CONTACT' | translate }}"
+          formControlName="contactNo"
+          (keypress)="numberOnly($event)"
+          maxlength="12"
+          minlength="10"
+          autocomplete="off"
+          class="form-control"
+          [ngClass]="{ invalidInput: isControlHasErrors('contactNo') }"
+        />
+      </div>
+    </div> -->
+    <div class="row mb-2">
+      <label for="userImage" class="col-3 col-form-label">{{
+        "USER.USER_IMAGE" | translate
+      }}</label>
+      <div class="col-8">
+        <input
+          type="file"
+          id="userImage"
+          name="userImage"
+          (change)="handleFileChange($event.target.files)"
+          formControlName="userImage"
+          autocomplete="off"
+          class="form-control"
+          accept="image/jpg,image/gif,image/jpeg"
+          [ngClass]="{ invalidInput: isControlHasErrors('userImage') }"
+        />
+      </div>
+    </div>
+
+    <div
+      class="form-group d-flex flex-wrap justify-content-center align-items-center"
+    >
+      <button
+        id="user_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="ADD_USER && ADD_URL && !USER_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button
+        id="user_submit"
+        (click)="submit()"
+        class="btn btn-primary px-9 py-9"
+        [disabled]="loading"
+        *ngIf="EDIT_USER && EDIT_URL && USER_PARAMS.ID"
+      >
+        Save
+        <div
+          class="spinner-border spinner-border-sm text-light align-middle"
+          *ngIf="loading"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 main-footer info-color" style="text-align: center">
+      <div style="width: 80%; font-size: 18px">
+        <div class="row">
+          <div class="col-6" style="padding: 0 10px; text-align: start">
+            <div>
+              Total Mobile Application Installed :
+              <span
+                class="footer-info"
+                *ngFor="let char of districtDetails?.appInstalled?.split('')"
+                >{{ char }}</span
+              >
+            </div>
+          </div>
+          <div class="col-6" style="padding: 0 10px; text-align: end">
+            <div>
+              Total No. of Visitors :
+              <span
+                class="footer-info"
+                *ngFor="let char of districtDetails?.visitorsNumber?.split('')"
+                >{{ char }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="border-color: #fff; margin: 0" />
+    <div class="col-12 main-footer info-color">
+      <div class="f-copyright">
+        Copyright&#169;2019 Design & Developed by &nbsp;
+        <a href="https://mocsoft.in/index.html">
+          Mocsoft Technologies Pvt Ltd. &nbsp;
+        </a>
+        All rights reserved.
+      </div>
+      <div class="social-icon">
+        <a
+          href="https://www.facebook.com/mocsoft/"
+          target="blank"
+        >
+          <i class="material-icons md-light f-icon">facebook</i>
+        </a>
+        <!-- <a
+          href="{{ districtDetails.twitterLink }}"
+          target="blank"
+        >
+          <i class="fi fi-twitter f-icon"></i>
+        </a>
+        <a
+          href="{{ districtDetails.youtubeLink }}"
+          target="blank"
+          *ngIf="districtDetails.youtubeLink"
+        >
+          <i class="fi fi-youtube-play f-icon"></i>
+        </a> -->
+      </div>
+    </div>
+  </div>
+</div>
